@@ -1,0 +1,11 @@
+build = "mvn"
+
+jdk11 = true
+
+ignoreFiles = """
+src/test/
+"""
+
+
+
+
