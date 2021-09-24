@@ -20,3 +20,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Other
 
+
+## [1.0.0] - 2021-09-24
+
+### Added
+* This initial release has only the Copyable interface. More will be added in the
+  near future.
