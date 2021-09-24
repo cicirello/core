@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"org.cicirello.util","c":"Copyable","l":"copy()"}]
