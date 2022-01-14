@@ -1,6 +1,6 @@
 # Module org.cicirello.core
 
-Copyright (C) 2019-2021 [Vincent A. Cicirello](https://www.cicirello.org/).
+Copyright (C) 2019-2022 [Vincent A. Cicirello](https://www.cicirello.org/).
 
 Website: https://core.cicirello.org/
 
