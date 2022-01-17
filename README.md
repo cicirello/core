@@ -8,7 +8,8 @@ API documentation: https://core.cicirello.org/api
 
 | __Artifacts and Releases__ | [![Maven Central](https://img.shields.io/maven-central/v/org.cicirello/core.svg?label=Maven%20Central&logo=apachemaven)](https://search.maven.org/artifact/org.cicirello/core) [![GitHub release (latest by date)](https://img.shields.io/github/v/release/cicirello/core?logo=GitHub)](https://github.com/cicirello/core/releases) |
 | :--- | :--- |
-| __Build Status__ | [![build](https://github.com/cicirello/core/workflows/build/badge.svg)](https://github.com/cicirello/core/actions/workflows/build.yml) [![docs](https://github.com/cicirello/core/workflows/docs/badge.svg)](https://core.cicirello.org/api/) [![CodeQL](https://github.com/cicirello/core/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/cicirello/core/actions/workflows/codeql-analysis.yml) | 
+| __Build Status__ | [![build](https://github.com/cicirello/core/workflows/build/badge.svg)](https://github.com/cicirello/core/actions/workflows/build.yml) [![docs](https://github.com/cicirello/core/workflows/docs/badge.svg)](https://core.cicirello.org/api/) [![CodeQL](https://github.com/cicirello/core/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/cicirello/core/actions/workflows/codeql-analysis.yml) |
+| __Security__ | [![Snyk security score](https://snyk-widget.herokuapp.com/badge/mvn/org.cicirello/core/badge.svg)](https://snyk.io/vuln/maven%3Aorg.cicirello%3Acore) [![Snyk Known Vulnerabilities](https://snyk.io/test/github/cicirello/core/badge.svg)](https://snyk.io/test/github/cicirello/core) |
 | __License__ | [![GitHub](https://img.shields.io/github/license/cicirello/core)](https://github.com/cicirello/core/blob/main/LICENSE) | 
 
 ## Overview
