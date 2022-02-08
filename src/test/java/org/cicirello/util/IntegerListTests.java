@@ -330,4 +330,61 @@ public class IntegerListTests {
 		assertNotEquals(list1, "hello");
 		assertNotEquals(list1, null);
 	}
+	
+	@Test
+	public void testEnsureCapacity() {
+		int[] testCase = new int[18];
+		for (int i = 0; i < testCase.length; i++) {
+			testCase[i] = 100 + i;
+		}
+		IntegerList list = new IntegerList(testCase.clone());
+		list.ensureCapacity(17);
+		assertEquals(testCase.length, list.size());
+		for (int i = 0; i < testCase.length; i++) {
+			assertEquals(testCase[i], list.get(i));
+		}
+		list.ensureCapacity(18);
+		assertEquals(testCase.length, list.size());
+		for (int i = 0; i < testCase.length; i++) {
+			assertEquals(testCase[i], list.get(i));
+		}
+		list.ensureCapacity(19);
+		assertEquals(testCase.length, list.size());
+		for (int i = 0; i < testCase.length; i++) {
+			assertEquals(testCase[i], list.get(i));
+		}
+		list.ensureCapacity(32);
+		assertEquals(testCase.length, list.size());
+		for (int i = 0; i < testCase.length; i++) {
+			assertEquals(testCase[i], list.get(i));
+		}
+	}
+	
+	@Test
+	public void testTrimToSize() {
+		int[][] testCases = {
+			{},
+			{100},
+			{100, 101},
+			{100, 101, 102}
+		};
+		for (int[] array : testCases) {
+			IntegerList list = new IntegerList();
+			for (int e : array) {
+				list.add(e);
+			}
+			assertEquals(array.length, list.size());
+			list.trimToSize();
+			assertEquals(array.length, list.size());
+			for (int i = 0; i < array.length; i++) {
+				assertEquals(array[i], list.get(i));
+			}
+			list.add(500);
+			assertEquals(1+array.length, list.size());
+			for (int i = 0; i < array.length; i++) {
+				assertEquals(array[i], list.get(i));
+			}
+			assertEquals(500, list.get(array.length));
+		}
+	}
 }

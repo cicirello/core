@@ -147,6 +147,19 @@ public final class IntegerList implements Copyable<IntegerList> {
 	}
 	
 	/**
+	 * Increases capacity if necessary to achieve a specified minimum capacity.
+	 * If increased, the new capacity may or may not exactly equal to requested
+	 * minimum. The only guarantee is that it is at least as large as requested.
+	 *
+	 * @param minCapacity The minimum capacity for the list.
+	 */
+	public void ensureCapacity(int minCapacity) {
+		if (list.length < minCapacity) {
+			reallocate(minCapacity);
+		}
+	}
+	
+	/**
 	 * Gets the element at a specified index.
 	 *
 	 * @param index The index of the desired element.
@@ -261,6 +274,16 @@ public final class IntegerList implements Copyable<IntegerList> {
 	}
 	
 	/**
+	 * Reduces the capacity of the list to the current value of size(). However, if size() is
+	 * 0, this method will trim the list capacity to 1. If you don't anticipate adding additional
+	 * elements to the list, and if your application is memory constrained, then this method
+	 * can save memory.
+	 */
+	public void trimToSize() {
+		reallocate(size > 0 ? size : 1);
+	}
+	
+	/**
 	 * Checks if this list is equal to another list, such that
 	 * they are the same size, and contain all of the same elements
 	 * in the same order.
@@ -321,7 +344,11 @@ public final class IntegerList implements Copyable<IntegerList> {
 	}
 	
 	private void reallocate() {
-		int[] temp = new int[list.length << 1];
+		reallocate(list.length << 1);
+	}
+	
+	private void reallocate(int capacity) {
+		int[] temp = new int[capacity];
 		System.arraycopy(list, 0, temp, 0, size);
 		list = temp;
 	}
