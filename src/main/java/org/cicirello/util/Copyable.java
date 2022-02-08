@@ -1,6 +1,8 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2021 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2022 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ *
+ * This file is part of module org.cicirello.core.
  *
  * Module org.cicirello.core is free software: you can 
  * redistribute it and/or modify it under the terms of the GNU 
@@ -15,8 +17,7 @@
  * details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Module org.cicirello.core.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * along with module org.cicirello.core.  If not, see <http://www.gnu.org/licenses/>.
  */
  
 package org.cicirello.util;
