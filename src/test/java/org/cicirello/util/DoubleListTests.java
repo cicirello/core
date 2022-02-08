@@ -26,13 +26,13 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 /**
- * JUnit tests for the IntegerList class.
+ * JUnit tests for the DoubleList class.
  */
-public class IntegerListTests {
+public class DoubleListTests {
 	
 	@Test
 	public void testEmptyList() {
-		IntegerList list = new IntegerList();
+		DoubleList list = new DoubleList();
 		assertTrue(list.isEmpty());
 		assertEquals(0, list.size());
 		assertEquals(0, list.toArray().length);
@@ -44,7 +44,7 @@ public class IntegerListTests {
 		assertEquals(-1, list.lastIndexOf(0));
 		assertEquals(-1, list.lastIndexOf(1));
 		
-		IntegerList list2 = new IntegerList(1);
+		DoubleList list2 = new DoubleList(1);
 		assertTrue(list2.isEmpty());
 		assertEquals(0, list2.size());
 		assertEquals(0, list2.toArray().length);
@@ -60,7 +60,7 @@ public class IntegerListTests {
 		assertEquals(list.hashCode(), list2.hashCode());
 		assertEquals(0, list.hashCode());
 		
-		IntegerList list3 = list.copy();
+		DoubleList list3 = list.copy();
 		assertTrue(list != list3);
 		assertEquals(list, list3);
 		assertEquals(0, list3.hashCode());
@@ -77,52 +77,52 @@ public class IntegerListTests {
 		
 		IllegalArgumentException thrown = assertThrows( 
 			IllegalArgumentException.class,
-			() -> new IntegerList(0)
+			() -> new DoubleList(0)
 		);
 	}
 	
 	@Test
 	public void testFromArray() {
-		int[][] cases = {
+		double[][] cases = {
 			{ 100 },
 			{ 100, 101},
 			{ 100, 101, 102}
 		};
-		String[] s = { "[100]", "[100, 101]", "[100, 101, 102]" };
+		String[] s = { "[100.0]", "[100.0, 101.0]", "[100.0, 101.0, 102.0]" };
 		int sIndex = 0;
-		for (int[] array : cases) {
-			IntegerList list = new IntegerList(array.clone());
+		for (double[] array : cases) {
+			DoubleList list = new DoubleList(array.clone());
 			assertFalse(list.isEmpty());
 			assertEquals(array.length, list.size());
-			for (int e : array) {
+			for (double e : array) {
 				assertTrue(list.contains(e));
 			}
 			assertFalse(list.contains(99));
 			for (int i = 0; i < array.length; i++) {
-				assertEquals(array[i], list.get(i));
+				assertEquals(array[i], list.get(i), 0.0);
 			}
-			int[] fromList = list.toArray();
+			double[] fromList = list.toArray();
 			assertEquals(array.length, fromList.length);
-			assertArrayEquals(array, fromList);
+			assertArrayEquals(array, fromList, 0.0);
 			assertEquals(s[sIndex], list.toString());
 			assertTrue(s.hashCode() != 0);
 			
-			IntegerList list2 = list.copy();
+			DoubleList list2 = list.copy();
 			assertTrue(list != list2);
 			assertEquals(list, list2);
 			assertEquals(list.hashCode(), list2.hashCode());
 			assertFalse(list2.isEmpty());
 			assertEquals(array.length, list2.size());
-			for (int e : array) {
+			for (double e : array) {
 				assertTrue(list2.contains(e));
 			}
 			assertFalse(list2.contains(99));
 			for (int i = 0; i < array.length; i++) {
-				assertEquals(array[i], list2.get(i));
+				assertEquals(array[i], list2.get(i), 0.0);
 			}
 			fromList = list2.toArray();
 			assertEquals(array.length, fromList.length);
-			assertArrayEquals(array, fromList);
+			assertArrayEquals(array, fromList, 0.0);
 			assertEquals(s[sIndex], list.toString());
 			
 			sIndex++;
@@ -130,38 +130,38 @@ public class IntegerListTests {
 		
 		IllegalArgumentException thrown = assertThrows( 
 			IllegalArgumentException.class,
-			() -> new IntegerList(new int[0])
+			() -> new DoubleList(new double[0])
 		);
 	}
 	
 	@Test
 	public void testAddToEnd() {
-		IntegerList list = new IntegerList(1);
-		final int START = 100;
+		DoubleList list = new DoubleList(1);
+		final double START = 100;
 		assertEquals(0, list.size());
 		for (int i = 1; i <= 32; i++) {
 			list.add(START + i);
 			assertEquals(i, list.size());
 			for (int j = 0; j < i; j++) {
-				assertEquals(START + j + 1, list.get(j));
+				assertEquals(START + j + 1, list.get(j), 0.0);
 			}
 		}
 		list.clear();
 		assertEquals(0, list.size());
-		assertEquals(new IntegerList(), list);
+		assertEquals(new DoubleList(), list);
 		assertEquals(0, list.hashCode());
 	}
 	
 	@Test
 	public void testAddToIndexSize() {
-		final IntegerList list = new IntegerList(1);
-		final int START = 100;
+		final DoubleList list = new DoubleList(1);
+		final double START = 100;
 		assertEquals(0, list.size());
 		for (int i = 1; i <= 32; i++) {
 			list.add(i-1, START + i);
 			assertEquals(i, list.size());
 			for (int j = 0; j < i; j++) {
-				assertEquals(START + j + 1, list.get(j));
+				assertEquals(START + j + 1, list.get(j), 0.0);
 			}
 			IndexOutOfBoundsException thrown = assertThrows( 
 				IndexOutOfBoundsException.class,
@@ -174,47 +174,47 @@ public class IntegerListTests {
 		}
 		list.clear();
 		assertEquals(0, list.size());
-		assertEquals(new IntegerList(), list);
+		assertEquals(new DoubleList(), list);
 		assertEquals(0, list.hashCode());
 	}
 	
 	@Test
 	public void testAddToFront() {
-		IntegerList list = new IntegerList(1);
-		final int START = 100;
+		DoubleList list = new DoubleList(1);
+		final double START = 100;
 		assertEquals(0, list.size());
 		for (int i = 1; i <= 32; i++) {
 			list.add(0, START + i);
 			assertEquals(i, list.size());
 			for (int j = 0; j < i; j++) {
-				assertEquals(START + i - j, list.get(j));
+				assertEquals(START + i - j, list.get(j), 0.0);
 			}
 		}
 		list.clear();
 		assertEquals(0, list.size());
-		assertEquals(new IntegerList(), list);
+		assertEquals(new DoubleList(), list);
 		assertEquals(0, list.hashCode());
 	}
 	
 	@Test
 	public void testAddToMiddle() {
-		IntegerList list = new IntegerList(new int[] {100, 102});
+		DoubleList list = new DoubleList(new double[] {100, 102});
 		list.add(1, 101);
 		assertEquals(3, list.size());
-		assertEquals(100, list.get(0));
-		assertEquals(101, list.get(1));
-		assertEquals(102, list.get(2));
+		assertEquals(100, list.get(0), 0.0);
+		assertEquals(101, list.get(1), 0.0);
+		assertEquals(102, list.get(2), 0.0);
 	}
 	
 	@Test
 	public void testIndexOf() {
-		int[][] testCases = {
+		double[][] testCases = {
 			{ 100 },
 			{ 100, 101, 100 },
 			{ 100, 101, 102, 101, 100 }
 		};
-		for (int[] array : testCases) {
-			IntegerList list = new IntegerList(array.clone());
+		for (double[] array : testCases) {
+			DoubleList list = new DoubleList(array.clone());
 			for (int i = 0; i <= array.length / 2; i++) {
 				assertEquals(i, list.indexOf(array[i]));
 			}
@@ -223,13 +223,13 @@ public class IntegerListTests {
 	
 	@Test
 	public void testLastIndexOf() {
-		int[][] testCases = {
+		double[][] testCases = {
 			{ 100 },
 			{ 100, 101, 100 },
 			{ 100, 101, 102, 101, 100 }
 		};
-		for (int[] array : testCases) {
-			IntegerList list = new IntegerList(array.clone());
+		for (double[] array : testCases) {
+			DoubleList list = new DoubleList(array.clone());
 			for (int i = 0; i <= array.length / 2; i++) {
 				assertEquals(array.length - 1 - i, list.lastIndexOf(array[i]));
 			}
@@ -238,15 +238,15 @@ public class IntegerListTests {
 	
 	@Test
 	public void testRemoveFromEnd() {
-		int[] array = {100, 101, 102, 103, 104, 105, 106, 107};
-		final IntegerList list = new IntegerList(array.clone());
+		double[] array = {100, 101, 102, 103, 104, 105, 106, 107};
+		final DoubleList list = new DoubleList(array.clone());
 		for (int i = array.length - 1; i >= 0; i--) {
-			int value = list.remove(i);
-			assertEquals(array[i], value);
+			double value = list.remove(i);
+			assertEquals(array[i], value, 0.0);
 			assertEquals(i, list.size());
 			if (i > 0) assertFalse(list.isEmpty());
 			for (int j = 0; j < i; j++) {
-				assertEquals(array[j], list.get(j));
+				assertEquals(array[j], list.get(j), 0.0);
 			}
 			IndexOutOfBoundsException thrown = assertThrows( 
 				IndexOutOfBoundsException.class,
@@ -258,15 +258,15 @@ public class IntegerListTests {
 	
 	@Test
 	public void testRemoveFromFront() {
-		int[] array = {100, 101, 102, 103, 104, 105, 106, 107};
-		IntegerList list = new IntegerList(array.clone());
+		double[] array = {100, 101, 102, 103, 104, 105, 106, 107};
+		DoubleList list = new DoubleList(array.clone());
 		for (int i = 0; i < array.length; i++) {
-			int value = list.remove(0);
-			assertEquals(array[i], value);
+			double value = list.remove(0);
+			assertEquals(array[i], value, 0.0);
 			assertEquals(array.length - i - 1, list.size());
 			if (list.size() > 0) assertFalse(list.isEmpty());
 			for (int j = i + 1; j < array.length; j++) {
-				assertEquals(array[j], list.get(j - i - 1));
+				assertEquals(array[j], list.get(j - i - 1), 0.0);
 			}
 		}
 		assertTrue(list.isEmpty());
@@ -274,33 +274,33 @@ public class IntegerListTests {
 	
 	@Test
 	public void testRemoveFromMiddle() {
-		int[] array = {100, 101, 102};
-		IntegerList list = new IntegerList(array.clone());
-		int value = list.remove(1);
-		assertEquals(101, value);
+		double[] array = {100, 101, 102};
+		DoubleList list = new DoubleList(array.clone());
+		double value = list.remove(1);
+		assertEquals(101, value, 0.0);
 		assertEquals(2, list.size());
-		assertEquals(100, list.get(0));
-		assertEquals(102, list.get(1));
+		assertEquals(100, list.get(0), 0.0);
+		assertEquals(102, list.get(1), 0.0);
 		assertFalse(list.isEmpty());
 	}
 	
 	@Test
 	public void testSet() {
-		int[][] testCases = {
+		double[][] testCases = {
 			{ 100 },
 			{ 100, 101, 100 },
 			{ 100, 101, 102, 101, 100 }
 		};
-		final int START = 200;
-		for (int[] array : testCases) {
-			final IntegerList list = new IntegerList(array.clone());
+		final double START = 200;
+		for (double[] array : testCases) {
+			final DoubleList list = new DoubleList(array.clone());
 			for (int i = 0; i < array.length; i++) {
 				list.set(i, START + 1 + i);
 				for (int j = 0; j <= i; j++) {
-					assertEquals(START + 1 + j, list.get(j));
+					assertEquals(START + 1 + j, list.get(j), 0.0);
 				}
 				for (int j = i+1; j < array.length; j++) {
-					assertEquals(array[j], list.get(j));
+					assertEquals(array[j], list.get(j), 0.0);
 				}
 			}
 			IndexOutOfBoundsException thrown = assertThrows( 
@@ -312,44 +312,44 @@ public class IntegerListTests {
 	
 	@Test
 	public void testEqualsAndHashCode() {
-		int[][] testCases = {
+		double[][] testCases = {
 			{100},
 			{100, 101},
 			{100, 101, 102}
 		};
-		for (int[] array : testCases) {
-			IntegerList list1 = new IntegerList(array.clone());
-			IntegerList list2 = new IntegerList(array.clone());
+		for (double[] array : testCases) {
+			DoubleList list1 = new DoubleList(array.clone());
+			DoubleList list2 = new DoubleList(array.clone());
 			assertEquals(list1, list2);
 			assertEquals(list1.hashCode(), list2.hashCode());
 		}
 		for (int i = 0; i < testCases.length; i++) {
-			IntegerList list1 = new IntegerList(testCases[i].clone());
+			DoubleList list1 = new DoubleList(testCases[i].clone());
 			for (int j = i+1; j < testCases.length; j++) {
-				IntegerList list2 = new IntegerList(testCases[j].clone());
+				DoubleList list2 = new DoubleList(testCases[j].clone());
 				assertNotEquals(list1, list2);
 				assertNotEquals(list1.hashCode(), list2.hashCode());
 			}
 		}
-		IntegerList list1 = new IntegerList(testCases[0].clone());
-		IntegerList list2 = new IntegerList(new int[] {101});
+		DoubleList list1 = new DoubleList(testCases[0].clone());
+		DoubleList list2 = new DoubleList(new double[] {101});
 		assertNotEquals(list1, list2);
 		assertNotEquals(list1.hashCode(), list2.hashCode());
-		list1 = new IntegerList(testCases[1].clone());
-		list2 = new IntegerList(new int[] {100, 100});
+		list1 = new DoubleList(testCases[1].clone());
+		list2 = new DoubleList(new double[] {100, 100});
 		assertNotEquals(list1, list2);
 		assertNotEquals(list1.hashCode(), list2.hashCode());
-		list2 = new IntegerList(new int[] {101, 101});
+		list2 = new DoubleList(new double[] {101, 101});
 		assertNotEquals(list1, list2);
 		assertNotEquals(list1.hashCode(), list2.hashCode());
-		list1 = new IntegerList(testCases[2].clone());
-		list2 = new IntegerList(new int[] {103, 101, 102});
+		list1 = new DoubleList(testCases[2].clone());
+		list2 = new DoubleList(new double[] {103, 101, 102});
 		assertNotEquals(list1, list2);
 		assertNotEquals(list1.hashCode(), list2.hashCode());
-		list2 = new IntegerList(new int[] {100, 103, 102});
+		list2 = new DoubleList(new double[] {100, 103, 102});
 		assertNotEquals(list1, list2);
 		assertNotEquals(list1.hashCode(), list2.hashCode());
-		list2 = new IntegerList(new int[] {100, 101, 103});
+		list2 = new DoubleList(new double[] {100, 101, 103});
 		assertNotEquals(list1, list2);
 		assertNotEquals(list1.hashCode(), list2.hashCode());
 		
@@ -359,58 +359,58 @@ public class IntegerListTests {
 	
 	@Test
 	public void testEnsureCapacity() {
-		int[] testCase = new int[18];
+		double[] testCase = new double[18];
 		for (int i = 0; i < testCase.length; i++) {
 			testCase[i] = 100 + i;
 		}
-		IntegerList list = new IntegerList(testCase.clone());
+		DoubleList list = new DoubleList(testCase.clone());
 		list.ensureCapacity(17);
 		assertEquals(testCase.length, list.size());
 		for (int i = 0; i < testCase.length; i++) {
-			assertEquals(testCase[i], list.get(i));
+			assertEquals(testCase[i], list.get(i), 0.0);
 		}
 		list.ensureCapacity(18);
 		assertEquals(testCase.length, list.size());
 		for (int i = 0; i < testCase.length; i++) {
-			assertEquals(testCase[i], list.get(i));
+			assertEquals(testCase[i], list.get(i), 0.0);
 		}
 		list.ensureCapacity(19);
 		assertEquals(testCase.length, list.size());
 		for (int i = 0; i < testCase.length; i++) {
-			assertEquals(testCase[i], list.get(i));
+			assertEquals(testCase[i], list.get(i), 0.0);
 		}
 		list.ensureCapacity(32);
 		assertEquals(testCase.length, list.size());
 		for (int i = 0; i < testCase.length; i++) {
-			assertEquals(testCase[i], list.get(i));
+			assertEquals(testCase[i], list.get(i), 0.0);
 		}
 	}
 	
 	@Test
 	public void testTrimToSize() {
-		int[][] testCases = {
+		double[][] testCases = {
 			{},
 			{100},
 			{100, 101},
 			{100, 101, 102}
 		};
-		for (int[] array : testCases) {
-			IntegerList list = new IntegerList();
-			for (int e : array) {
+		for (double[] array : testCases) {
+			DoubleList list = new DoubleList();
+			for (double e : array) {
 				list.add(e);
 			}
 			assertEquals(array.length, list.size());
 			list.trimToSize();
 			assertEquals(array.length, list.size());
 			for (int i = 0; i < array.length; i++) {
-				assertEquals(array[i], list.get(i));
+				assertEquals(array[i], list.get(i), 0.0);
 			}
 			list.add(500);
 			assertEquals(1+array.length, list.size());
 			for (int i = 0; i < array.length; i++) {
-				assertEquals(array[i], list.get(i));
+				assertEquals(array[i], list.get(i), 0.0);
 			}
-			assertEquals(500, list.get(array.length));
+			assertEquals(500, list.get(array.length), 0.0);
 		}
 	}
 }

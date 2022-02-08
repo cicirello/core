@@ -24,30 +24,30 @@ package org.cicirello.util;
 
 /**
  * This class is an implementation of a partially-filled array of 
- * primitive int values.
+ * primitive double values.
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public final class IntegerList implements Copyable<IntegerList> {
+public final class DoubleList implements Copyable<DoubleList> {
 	
 	/**
 	 * The default initial capacity of the list. The capacity will grow as needed.
 	 */
 	public final static int DEFAULT_INITIAL_CAPACITY = 16;
 	
-	private int[] list;
+	private double[] list;
 	private int size;
 	
 	/**
-	 * Initializes an empty IntegerList.
+	 * Initializes an empty DoubleList.
 	 */
-	public IntegerList() {
-		list = new int[DEFAULT_INITIAL_CAPACITY];
+	public DoubleList() {
+		list = new double[DEFAULT_INITIAL_CAPACITY];
 	}
 	
 	/**
-	 * Initializes an empty IntegerList, with a specified initial capacity. This may be useful
+	 * Initializes an empty DoubleList, with a specified initial capacity. This may be useful
 	 * if you anticipate adding a large number of elements as it can help minimize the number
 	 * of array reallocations.
 	 *
@@ -55,22 +55,22 @@ public final class IntegerList implements Copyable<IntegerList> {
 	 *
 	 * @throws IllegalArgumentException if initialCapacity is less than 1.
 	 */
-	public IntegerList(int initialCapacity) {
+	public DoubleList(int initialCapacity) {
 		if (initialCapacity < 1) {
 			throw new IllegalArgumentException("The initial capacity must be positive.");
 		}
-		list = new int[initialCapacity];
+		list = new double[initialCapacity];
 	}
 	
 	/**
-	 * Initializes an IntegerList from an array,
+	 * Initializes an DoubleList from an array,
 	 *
 	 * @param initialContents The initial contents of the list, which must contain at least one element.
 	 *    This constructor clones this array so it is free of unintended side-effects.
 	 *
 	 * @throws IllegalArgumentException if initialContents.length is less than one.
 	 */
-	public IntegerList(int[] initialContents) {
+	public DoubleList(double[] initialContents) {
 		if (initialContents.length < 1) {
 			throw new IllegalArgumentException("Initialization from array requires at least one element in array.");
 		}
@@ -78,7 +78,7 @@ public final class IntegerList implements Copyable<IntegerList> {
 		size = list.length;
 	}
 	
-	private IntegerList(IntegerList other) {
+	private DoubleList(DoubleList other) {
 		list = other.list.clone();
 		size = other.size;
 	}
@@ -88,7 +88,7 @@ public final class IntegerList implements Copyable<IntegerList> {
 	 *
 	 * @param element The value to add.
 	 */
-	public void add(int element) {
+	public void add(double element) {
 		if (size >= list.length) {
 			reallocate();
 		}
@@ -105,7 +105,7 @@ public final class IntegerList implements Copyable<IntegerList> {
 	 * @throws IndexOutOfBoundsException if the index is out of bounds, such that index is
 	 * negative or index is greater than size().
 	 */
-	public void add(int index, int element) {
+	public void add(int index, double element) {
 		if (index > size) {
 			throw new IndexOutOfBoundsException("index is out of bounds");
 		}
@@ -132,7 +132,7 @@ public final class IntegerList implements Copyable<IntegerList> {
 	 * @param element The element to search for.
 	 * @return true if and only if the list contains at least one copy of element.
 	 */
-	public boolean contains(int element) {
+	public boolean contains(double element) {
 		for (int i = 0; i < size; i++) {
 			if (list[i] == element) {
 				return true;
@@ -142,8 +142,8 @@ public final class IntegerList implements Copyable<IntegerList> {
 	}
 	
 	@Override
-	public IntegerList copy() {
-		return new IntegerList(this);
+	public DoubleList copy() {
+		return new DoubleList(this);
 	}
 	
 	/**
@@ -168,7 +168,7 @@ public final class IntegerList implements Copyable<IntegerList> {
 	 * @throws IndexOutOfBoundsException if the index is out of bounds, such that index is
 	 * negative or index is greater than or equal to size().
 	 */
-	public int get(int index) {
+	public double get(int index) {
 		if (index < size) {
 			return list[index];
 		}
@@ -182,7 +182,7 @@ public final class IntegerList implements Copyable<IntegerList> {
 	 * @return The index of the first occurrence of the element in the list from the
 	 * left, or -1 if the element doesn't exist.
 	 */
-	public int indexOf(int element) {
+	public int indexOf(double element) {
 		for (int i = 0; i < size; i++) {
 			if (list[i] == element) {
 				return i;
@@ -207,7 +207,7 @@ public final class IntegerList implements Copyable<IntegerList> {
 	 * @return The index of the last occurrence of the element in the list,
 	 * or -1 if the element doesn't exist.
 	 */
-	public int lastIndexOf(int element) {
+	public int lastIndexOf(double element) {
 		for (int i = size - 1; i >= 0; i--) {
 			if (list[i] == element) {
 				return i;
@@ -225,9 +225,9 @@ public final class IntegerList implements Copyable<IntegerList> {
 	 * @throws IndexOutOfBoundsException if the index is out of bounds, such that index is
 	 * negative or index is greater than or equal to size().
 	 */
-	public int remove(int index) {
+	public double remove(int index) {
 		if (index < size) {
-			int element = list[index];
+			double element = list[index];
 			System.arraycopy(list, index+1, list, index, size - index - 1);
 			size--;
 			return element;
@@ -244,7 +244,7 @@ public final class IntegerList implements Copyable<IntegerList> {
 	 * @throws IndexOutOfBoundsException if the index is out of bounds, such that index is
 	 * negative or index is greater than or equal to size().
 	 */
-	public void set(int index, int element) {
+	public void set(int index, double element) {
 		if (index < size) {
 			list[index] = element;
 		} else {
@@ -267,8 +267,8 @@ public final class IntegerList implements Copyable<IntegerList> {
 	 *
 	 * @return An array containing all of the elements currently in the list.
 	 */
-	public int[] toArray() {
-		int[] result = new int[size];
+	public double[] toArray() {
+		double[] result = new double[size];
 		System.arraycopy(list, 0, result, 0, size);
 		return result;
 	}
@@ -295,8 +295,8 @@ public final class IntegerList implements Copyable<IntegerList> {
 	@Override
 	public boolean equals(Object other) {
 		if (other == null) return false;
-		if (other instanceof IntegerList) {
-			IntegerList o = (IntegerList)other;
+		if (other instanceof DoubleList) {
+			DoubleList o = (DoubleList)other;
 			if (size != o.size) return false;
 			for (int i = 0; i < size; i++) {
 				if (list[i] != o.list[i]) {
@@ -315,9 +315,9 @@ public final class IntegerList implements Copyable<IntegerList> {
 	@Override
 	public int hashCode() {
 		if (size > 0) {
-			int h = list[0];
+			int h = Double.hashCode(list[0]);
 			for (int i = 1; i < size; i++) {
-				h = (31 * h) + list[i];
+				h = (31 * h) + Double.hashCode(list[i]);
 			}
 			return h;
 		}
@@ -348,7 +348,7 @@ public final class IntegerList implements Copyable<IntegerList> {
 	}
 	
 	private void reallocate(int capacity) {
-		int[] temp = new int[capacity];
+		double[] temp = new double[capacity];
 		System.arraycopy(list, 0, temp, 0, size);
 		list = temp;
 	}

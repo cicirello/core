@@ -7,7 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2022-02-08
 
 ### Added
-* IntegerList class, which is a partially-filled array of primitive int values.
 
 ### Changed
 
@@ -20,6 +19,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### CI/CD
 
 ### Other
+
+
+## [1.1.0] - 2022-02-08
+
+### Added
+* IntegerList class, which is a partially-filled array of primitive int values.
+* DoubleList class, which is a partially-filled array of primitive double values.
 
 
 ## [1.0.0] - 2021-09-24
