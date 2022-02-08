@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"org.cicirello.util","l":"Copyable"}]
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"org.cicirello.util","l":"Copyable"},{"p":"org.cicirello.util","l":"DoubleList"},{"p":"org.cicirello.util","l":"IntegerList"}]
