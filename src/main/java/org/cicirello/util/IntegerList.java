@@ -260,15 +260,6 @@ public final class IntegerList implements Copyable<IntegerList> {
 	}
 	
 	/**
-	 * Decreases the capacity of the internal array to equal size().
-	 */
-	public void trimToSize() {
-		int[] temp = new int[size];
-		System.arraycopy(list, 0, temp, 0, size);
-		list = temp;
-	}
-	
-	/**
 	 * Checks if this list is equal to another list, such that
 	 * they are the same size, and contain all of the same elements
 	 * in the same order.
