@@ -39,19 +39,17 @@ jobs:
         badges-directory: badges
         generate-branches-badge: true
         generate-summary: true
-        on-missing-report: quiet
 
-# UNCOMMENT THESE ONCE THERE IS TESTABLE CODE IN REPO
-#    - name: Log coverage percentage
-#      run: |
-#        echo "coverage = ${{ steps.jacoco.outputs.coverage }}"
-#        echo "branches = ${{ steps.jacoco.outputs.branches }}"
+    - name: Log coverage percentage
+      run: |
+        echo "coverage = ${{ steps.jacoco.outputs.coverage }}"
+        echo "branches = ${{ steps.jacoco.outputs.branches }}"
 
-#    - name: Upload Jacoco coverage report
-#      uses: actions/upload-artifact@v2
-#      with:
-#        name: jacoco-report
-#        path: target/site/jacoco/
+    - name: Upload Jacoco coverage report
+      uses: actions/upload-artifact@v2
+      with:
+        name: jacoco-report
+        path: target/site/jacoco/
 
     - name: Commit and push the coverage badges and summary file
       if: ${{ github.event_name != 'pull_request' }}
