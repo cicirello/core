@@ -74,6 +74,11 @@ public class IntegerListTests {
 		assertEquals(-1, list3.indexOf(1));
 		assertEquals(-1, list3.lastIndexOf(0));
 		assertEquals(-1, list3.lastIndexOf(1));
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerList(0)
+		);
 	}
 	
 	@Test
@@ -122,6 +127,11 @@ public class IntegerListTests {
 			
 			sIndex++;
 		}
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerList(new int[0])
+		);
 	}
 	
 	@Test
@@ -144,7 +154,7 @@ public class IntegerListTests {
 	
 	@Test
 	public void testAddToIndexSize() {
-		IntegerList list = new IntegerList(1);
+		final IntegerList list = new IntegerList(1);
 		final int START = 100;
 		assertEquals(0, list.size());
 		for (int i = 1; i <= 32; i++) {
@@ -153,6 +163,14 @@ public class IntegerListTests {
 			for (int j = 0; j < i; j++) {
 				assertEquals(START + j + 1, list.get(j));
 			}
+			IndexOutOfBoundsException thrown = assertThrows( 
+				IndexOutOfBoundsException.class,
+				() -> list.add(list.size()+1, 1000)
+			);
+			thrown = assertThrows( 
+				IndexOutOfBoundsException.class,
+				() -> list.get(list.size())
+			);
 		}
 		list.clear();
 		assertEquals(0, list.size());
@@ -221,7 +239,7 @@ public class IntegerListTests {
 	@Test
 	public void testRemoveFromEnd() {
 		int[] array = {100, 101, 102, 103, 104, 105, 106, 107};
-		IntegerList list = new IntegerList(array.clone());
+		final IntegerList list = new IntegerList(array.clone());
 		for (int i = array.length - 1; i >= 0; i--) {
 			int value = list.remove(i);
 			assertEquals(array[i], value);
@@ -230,6 +248,10 @@ public class IntegerListTests {
 			for (int j = 0; j < i; j++) {
 				assertEquals(array[j], list.get(j));
 			}
+			IndexOutOfBoundsException thrown = assertThrows( 
+				IndexOutOfBoundsException.class,
+				() -> list.remove(list.size())
+			);
 		}
 		assertTrue(list.isEmpty());
 	}
@@ -271,7 +293,7 @@ public class IntegerListTests {
 		};
 		final int START = 200;
 		for (int[] array : testCases) {
-			IntegerList list = new IntegerList(array.clone());
+			final IntegerList list = new IntegerList(array.clone());
 			for (int i = 0; i < array.length; i++) {
 				list.set(i, START + 1 + i);
 				for (int j = 0; j <= i; j++) {
@@ -281,6 +303,10 @@ public class IntegerListTests {
 					assertEquals(array[j], list.get(j));
 				}
 			}
+			IndexOutOfBoundsException thrown = assertThrows( 
+				IndexOutOfBoundsException.class,
+				() -> list.set(list.size(), 1000)
+			);
 		}
 	}
 	
