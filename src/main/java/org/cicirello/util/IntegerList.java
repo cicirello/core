@@ -296,6 +296,7 @@ public final class IntegerList implements Copyable<IntegerList> {
 			for (int i = 1; i < size; i++) {
 				h = (31 * h) + list[i];
 			}
+			return h;
 		}
 		return 0;
 	}
