@@ -234,8 +234,9 @@ public final class IntegerList implements Copyable<IntegerList> {
 	public void set(int index, int element) {
 		if (index < size) {
 			list[index] = element;
+		} else {
+			throw new IndexOutOfBoundsException("index is out of bounds");
 		}
-		throw new IndexOutOfBoundsException("index is out of bounds");
 	}
 	
 	/**
