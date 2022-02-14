@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 ### Changed
-* Migrated test cases to to JUnit Jupiter 5.8.2.
+* Migrated test cases to JUnit Jupiter 5.8.2.
 
 ### Deprecated
 
