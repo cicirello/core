@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2022-05-10
 
 ### Added
+* DisjointSetForest: representation of disjoint sets of generic objects.
 * DisjointIntegerSetForest: representation of disjoint sets of integers with
   a disjoint set forest.
 
