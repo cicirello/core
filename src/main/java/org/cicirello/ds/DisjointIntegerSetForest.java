@@ -31,6 +31,8 @@ package org.cicirello.ds;
  * Cormen, Leiserson, Rivest, and Stein describe in <i>Introduction to Algorithms</i>,
  * including the use of the union by rank heuristic and path compression.</p>
  *
+ * <p>For disjoint sets of objects, see the {@link DisjointSetForest} class.</p>
+ *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
@@ -71,6 +73,16 @@ public final class DisjointIntegerSetForest {
 			parent[element] = findSet(parent[element]);
 		}
 		return parent[element];
+	}
+	
+	/**
+	 * Gets the size of the DisjointIntegerSetForest in total number of
+	 * elements.
+	 *
+	 * @return the number of elements in the DisjointIntegerSetForest
+	 */
+	public int size() {
+		return rank.length;
 	}
 	
 	/**

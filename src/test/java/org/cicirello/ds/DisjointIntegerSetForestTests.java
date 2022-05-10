@@ -35,6 +35,7 @@ public class DisjointIntegerSetForestTests {
 		final int[] N = {0, 1, 2, 4, 8, 16};
 		for (int n : N) {
 			DisjointIntegerSetForest sets = new DisjointIntegerSetForest(n);
+			assertEquals(n, sets.size());
 			for (int e = 0; e < n; e++) {
 				assertEquals(e, sets.findSet(e));
 				assertEquals(e, sets.findSet(e));
