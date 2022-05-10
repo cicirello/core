@@ -62,4 +62,5 @@
  */
 module org.cicirello.core {
 	exports org.cicirello.util;
+	exports org.cicirello.ds;
 }
