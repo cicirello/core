@@ -4,9 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2022-02-14
+## [Unreleased] - 2022-05-10
 
 ### Added
+* DisjointIntegerSetForest: representation of disjoint sets of integers with
+  a disjoint set forest.
 
 ### Changed
 * Migrated test cases to JUnit Jupiter 5.8.2.
