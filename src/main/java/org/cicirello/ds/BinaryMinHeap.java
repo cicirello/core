@@ -225,6 +225,12 @@ public final class BinaryMinHeap<E> implements PriorityQueue.Integer<E> {
 	}
 	
 	@Override
+	public int peekPriority(E element) {
+		java.lang.Integer i = index.get(element);
+		return i != null ? buffer[i].value : java.lang.Integer.MAX_VALUE;
+	}
+	
+	@Override
 	public E poll() {
 		PriorityQueueNode.Integer<E> min = pollPair();
 		return min != null ? min.element : null;

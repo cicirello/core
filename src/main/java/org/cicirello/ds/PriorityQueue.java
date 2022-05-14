@@ -149,6 +149,17 @@ public interface PriorityQueue<E> {
 		int peekPriority();
 		
 		/**
+		 * Gets the priority of a specified element if it is present in the PriorityQueue.
+		 * This interface does not define the behavior when the element is not present.
+		 * Implementations may define the behavior when the element is not present.
+		 *
+		 * @param element The element whose priority is returned.
+		 *
+		 * @return the priority of a specified element.
+		 */
+		int peekPriority(E element);
+		
+		/**
 		 * Removes and returns the next (element, priority) pair in priority order from this PriorityQueue.
 		 *
 		 * @return the next (element, priority) pair in priority order, or null if empty.
@@ -218,6 +229,17 @@ public interface PriorityQueue<E> {
 		 * @return the priority of the next element in priority order.
 		 */
 		double peekPriority();
+		
+		/**
+		 * Gets the priority of a specified element if it is present in the PriorityQueue.
+		 * This interface does not define the behavior when the element is not present.
+		 * Implementations may define the behavior when the element is not present.
+		 *
+		 * @param element The element whose priority is returned.
+		 *
+		 * @return the priority of a specified element.
+		 */
+		double peekPriority(E element);
 		
 		/**
 		 * Removes and returns the next (element, priority) pair in priority order from this PriorityQueue.
