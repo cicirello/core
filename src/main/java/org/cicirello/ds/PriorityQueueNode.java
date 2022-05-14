@@ -145,7 +145,7 @@ public abstract class PriorityQueueNode<E> {
 		 * package-private: It would be dangerous to allow
 		 * priority changes external to the priority queue classes
 		 */
-		final void setValue(int value) {
+		final void setPriority(int value) {
 			this.value = value;
 		}
 	}
@@ -213,7 +213,7 @@ public abstract class PriorityQueueNode<E> {
 		 * package-private: It would be dangerous to allow
 		 * priority changes external to the priority queue classes
 		 */
-		final void setValue(double value) {
+		final void setPriority(double value) {
 			this.value = value;
 		}
 	}
