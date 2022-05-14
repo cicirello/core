@@ -28,6 +28,7 @@ import java.util.HashMap;
 /**
  * <p>An implementation of a Binary Min Heap. An instance of a BinaryMinHeap
  * contains (element, priority) pairs, such that the elements are distinct.
+ * The priority values are of type int.
  * The {@link Object#hashCode} and {@link Object#equals} methods are used
  * to enforce distinctness, so be sure that the class of the elements
  * properly implements these methods, or else behavior is not guaranteed.</p>
@@ -39,7 +40,7 @@ import java.util.HashMap;
  */
 public class BinaryMinHeap<E> {
 	
-	private ObjectIntegerPair<E>[] buffer;
+	private PriorityQueueNode.Integer<E>[] buffer;
 	private int size;
 	private final HashMap<E, Integer> index;
 	
@@ -79,9 +80,9 @@ public class BinaryMinHeap<E> {
 	 * @throws IllegalArgumentException if initialElements is empty, or if more than
 	 * one pair in initialElements contains the same object.
 	 */
-	public BinaryMinHeap(Collection<ObjectIntegerPair<E>> initialElements) {
+	public BinaryMinHeap(Collection<PriorityQueueNode.Integer<E>> initialElements) {
 		this(initialElements.size());
-		for (ObjectIntegerPair<E> element : initialElements) {
+		for (PriorityQueueNode.Integer<E> element : initialElements) {
 			if (index.containsKey(element.element)) {
 				throw new IllegalArgumentException("initialElements contains duplicates");
 			}
@@ -90,7 +91,28 @@ public class BinaryMinHeap<E> {
 			size++;
 		}
 		buildMinHeap();
-	}		
+	}
+	
+	/**
+	 * Changes the priority of an element if the element is
+	 * present in the BinaryMinHeap, and otherwise adds the
+	 * (element, priority) to the BinaryMinHeap.
+	 *
+	 * @param element The element whose priority is to change.
+	 * @param priority Its new priority.
+	 */
+	public void change(E element, int priority) {
+		if (!offer(element, priority)) {
+			int i = index.get(element);
+			if (priority < buffer[i].value) {
+				buffer[i].value = priority;
+				percolateUp(i);
+			} else if (priority > buffer[i].value) {
+				buffer[i].value = priority;
+				percolateDown(i);
+			}
+		}
+	}
 	
 	/**
 	 * Clears the BinaryMinHeap, removing all elements.
@@ -141,6 +163,7 @@ public class BinaryMinHeap<E> {
 	@Override
 	public boolean equals(Object other) {
 		if (other == null) return false;
+		// After upgrade to Java 17, change following to: other instanceof BinaryMinHeap<E>
 		if (other instanceof BinaryMinHeap) {
 			@SuppressWarnings("unchecked")
 			BinaryMinHeap<E> casted = (BinaryMinHeap<E>)other;
@@ -193,7 +216,7 @@ public class BinaryMinHeap<E> {
 		if (contains(element)) {
 			return false;
 		} else {
-			return offer(new ObjectIntegerPair<E>(element, priority));
+			return offer(new PriorityQueueNode.Integer<E>(element, priority));
 		}
 	}
 	
@@ -206,7 +229,7 @@ public class BinaryMinHeap<E> {
 	 * @return true if the (element, priority) pair was added, and false if the
 	 * BinaryMinHeap already contained the element.
 	 */
-	public boolean offer(ObjectIntegerPair<E> pair) {
+	public boolean offer(PriorityQueueNode.Integer<E> pair) {
 		if (contains(pair.element)) {
 			return false;
 		}
@@ -231,6 +254,16 @@ public class BinaryMinHeap<E> {
 	}
 	
 	/**
+	 * Gets the (element, priority) pair with minimum priority value from this BinaryMinHeap,
+	 * without removing it.
+	 *
+	 * @return the (element, priority) pair with the minimum priority value, or null if empty.
+	 */
+	public PriorityQueueNode.Integer<E> peekPair() {
+		return size > 0 ? buffer[0] : null;
+	}
+	
+	/**
 	 * Gets the minimum priority of the elements in the BinaryMinHeap.
 	 *
 	 * @return the minimum priority of all elements in the BinaryMinHeap, or
@@ -246,7 +279,7 @@ public class BinaryMinHeap<E> {
 	 * @return the element with the minimum priority value, or null if empty.
 	 */
 	public E poll() {
-		ObjectIntegerPair<E> min = pollPair();
+		PriorityQueueNode.Integer<E> min = pollPair();
 		return min != null ? min.element : null;
 	}
 	
@@ -256,9 +289,9 @@ public class BinaryMinHeap<E> {
 	 *
 	 * @return the (element, priority) pair with the minimum priority value, or null if empty.
 	 */
-	public ObjectIntegerPair<E> pollPair() {
+	public PriorityQueueNode.Integer<E> pollPair() {
 		if (size > 0) {
-			ObjectIntegerPair<E> min = buffer[0];
+			PriorityQueueNode.Integer<E> min = buffer[0];
 			index.remove(min.element);
 			size--;
 			buffer[0] = buffer[size];
@@ -272,7 +305,7 @@ public class BinaryMinHeap<E> {
 	
 	/**
 	 * Gets the current size of the BinaryMinHeap, which is the
-	 * number of (object, value) pairs that it contains.
+	 * number of (element, value) pairs that it contains.
 	 *
 	 * @return the current size of the BinaryMinHeap.
 	 */
@@ -291,9 +324,9 @@ public class BinaryMinHeap<E> {
 	}
 	
 	
-	private ObjectIntegerPair<E>[] allocate(int capacity) {
+	private PriorityQueueNode.Integer<E>[] allocate(int capacity) {
 		@SuppressWarnings("unchecked")
-		ObjectIntegerPair<E>[] temp = new ObjectIntegerPair[capacity];
+		PriorityQueueNode.Integer<E>[] temp = new PriorityQueueNode.Integer[capacity];
 		return temp;
 	}
 	
@@ -301,7 +334,7 @@ public class BinaryMinHeap<E> {
 	 * Used internally: ALERT that this will fail with exception if capacity < size ALERT.
 	 */
 	private void internalAdjustCapacity(int capacity) {
-		ObjectIntegerPair<E>[] temp = allocate(capacity);
+		PriorityQueueNode.Integer<E>[] temp = allocate(capacity);
 		System.arraycopy(buffer, 0, temp, 0, size);
 		buffer = temp;
 	}
@@ -324,7 +357,7 @@ public class BinaryMinHeap<E> {
 				smallest = right;
 			}
 			if (smallest != i) {
-				ObjectIntegerPair<E> temp = buffer[i];
+				PriorityQueueNode.Integer<E> temp = buffer[i];
 				buffer[i] = buffer[smallest];
 				buffer[smallest] = temp;
 				index.put(buffer[i].element, i);
@@ -339,7 +372,7 @@ public class BinaryMinHeap<E> {
 	private void percolateUp(int i) {
 		int parent;
 		while (i > 0 && buffer[parent = (i-1) >> 1].value > buffer[i].value) {
-			ObjectIntegerPair<E> temp = buffer[i];
+			PriorityQueueNode.Integer<E> temp = buffer[i];
 			buffer[i] = buffer[parent];
 			buffer[parent] = temp;
 			index.put(buffer[i].element, i);
