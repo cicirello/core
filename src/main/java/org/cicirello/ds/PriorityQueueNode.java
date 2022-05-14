@@ -149,4 +149,72 @@ public abstract class PriorityQueueNode<E> {
 			this.value = value;
 		}
 	}
+	
+	/**
+	 * An instance of this class encapsulates an (element, priority) pair
+	 * for a double valued priority. This class is used by the various
+	 * priority queue classes of the library.
+	 *
+	 * @param <E> The type of element contained in the PriorityQueueNode.
+	 *
+	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
+	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
+	 */
+	public static final class Double<E> extends PriorityQueueNode<E> {
+		
+		// package-private on purpose for use by 
+		// priority queue classes in the package.
+		double value;
+		
+		/**
+		 * Initializes the PriorityQueueNode.Double.
+		 *
+		 * @param element The object.
+		 * @param value The value of the object.
+		 */
+		public Double(E element, double value) {
+			super(element);
+			this.value = value;
+		}
+		
+		/**
+		 * Checks if another PriorityQueueNode.Double is equal to this one.
+		 *
+		 * @param other The other PriorityQueueNode.Double.
+		 *
+		 * @return true if and only if they contain an identical object, determined by
+		 * the equals method of the encapsulated object, as well as the same priority.
+		 */
+		@Override
+		public boolean equals(Object other) {
+			return super.equals(other) && ((Double)other).value == value;
+		}
+		
+		/**
+		 * Computes the hashCode of the PriorityQueueNode.Double.
+		 *
+		 * @return a hashCode
+		 */
+		@Override
+		public int hashCode() {
+			return super.hashCode() * 31 + java.lang.Double.hashCode(value);
+		}
+		
+		/**
+		 * Gets the priority value.
+		 *
+		 * @return the priority value.
+		 */
+		public double getPriority() {
+			return value;
+		}
+		
+		/*
+		 * package-private: It would be dangerous to allow
+		 * priority changes external to the priority queue classes
+		 */
+		final void setValue(double value) {
+			this.value = value;
+		}
+	}
 }
