@@ -160,6 +160,115 @@ public class BinaryHeapTests {
 	// MIN HEAP TESTS
 	
 	@Test
+	public void testChangePriorityMinHeap() {
+		int n = 15;
+		String[] elements = createStrings(n);
+		int[] priorities = new int[n];
+		for (int i = 0; i < n; i++) {
+			priorities[i] = 2 + 2*i;
+		}
+		// to front tests
+		for (int i = 0; i < n; i++) {
+			BinaryHeap<String> pq = BinaryHeap.createMinHeap();
+			for (int j = 0; j < n; j++) {
+				pq.offer(elements[j], priorities[j]);
+			}
+			pq.change(elements[i], 1);
+			assertEquals(1, pq.peekPriority(elements[i]));
+			assertEquals(elements[i], pq.poll());
+			for (int j = 0; j < n; j++) {
+				if (i!=j) {
+					assertEquals(elements[j], pq.poll());
+				}
+			}
+			assertTrue(pq.isEmpty());
+		}
+		// to back tests
+		for (int i = 0; i < n; i++) {
+			BinaryHeap<String> pq = BinaryHeap.createMinHeap();
+			for (int j = 0; j < n; j++) {
+				pq.offer(elements[j], priorities[j]);
+			}
+			pq.change(elements[i], 100);
+			assertEquals(100, pq.peekPriority(elements[i]));
+			for (int j = 0; j < n; j++) {
+				if (i!=j) {
+					assertEquals(elements[j], pq.poll());
+				}
+			}
+			assertEquals(elements[i], pq.poll());
+			assertTrue(pq.isEmpty());
+		}
+		// to interior tests
+		int maxP = 2*(n-1) + 2;
+		for (int p = 3; p <= maxP; p += 2) {
+			for (int i = 0; i < n; i++) {
+				BinaryHeap<String> pq = BinaryHeap.createMinHeap();
+				for (int j = 0; j < n; j++) {
+					pq.offer(elements[j], priorities[j]);
+				}
+				pq.change(elements[i], p);
+				assertEquals(p, pq.peekPriority(elements[i]));
+				int j = 0;
+				for (; j < n; j++) {
+					if (i != j) {
+						if (priorities[j] < p) {
+							assertEquals(elements[j], pq.poll(), "p,i,j="+p+","+i+","+j);
+						} else {
+							break;
+						}
+					}
+				}
+				assertEquals(elements[i], pq.poll(), "p,i,j="+p+","+i+","+j);
+				for (; j < n; j++) {
+					if (i!=j && priorities[j] > p) {
+						assertEquals(elements[j], pq.poll());
+					}
+				}
+				assertTrue(pq.isEmpty());
+			}
+		}
+		// equal change test
+		for (int i = 0; i < n; i++) {
+			BinaryHeap<String> pq = BinaryHeap.createMinHeap();
+			for (int j = 0; j < n; j++) {
+				pq.offer(elements[j], priorities[j]);
+			}
+			pq.change(elements[i], priorities[i]);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
+			for (int j = 0; j < n; j++) {
+				assertEquals(elements[j], pq.poll());
+			}
+			assertTrue(pq.isEmpty());
+		}
+		// new element test
+		maxP = 2*(n-1) + 3;
+		for (int p = 1; p <= maxP; p += 2) {
+			BinaryHeap<String> pq = BinaryHeap.createMinHeap();
+			for (int j = 0; j < n; j++) {
+				pq.offer(elements[j], priorities[j]);
+			}
+			pq.change("YYY", p);
+			assertEquals(p, pq.peekPriority("YYY"));
+			int j = 0;
+			for (; j < n; j++) {
+				if (priorities[j] < p) {
+					assertEquals(elements[j], pq.poll());
+				} else {
+					break;
+				}
+			}
+			assertEquals("YYY", pq.poll());
+			for (; j < n; j++) {
+				if (priorities[j] > p) {
+					assertEquals(elements[j], pq.poll());
+				}
+			}
+			assertTrue(pq.isEmpty());
+		}
+	}
+	
+	@Test
 	public void testDefaultMinHeap() {
 		int n = 31;
 		String[] elements = createStrings(n);
@@ -514,6 +623,115 @@ public class BinaryHeapTests {
 	
 	
 	// MAX HEAP TESTS
+	
+	@Test
+	public void testChangePriorityMaxHeap() {
+		int n = 15;
+		String[] elements = createStrings(n);
+		int[] priorities = new int[n];
+		for (int i = 0; i < n; i++) {
+			priorities[i] = -(2 + 2*i);
+		}
+		// to front tests
+		for (int i = 0; i < n; i++) {
+			BinaryHeap<String> pq = BinaryHeap.createMaxHeap();
+			for (int j = 0; j < n; j++) {
+				pq.offer(elements[j], priorities[j]);
+			}
+			pq.change(elements[i], -1);
+			assertEquals(-1, pq.peekPriority(elements[i]));
+			assertEquals(elements[i], pq.poll());
+			for (int j = 0; j < n; j++) {
+				if (i!=j) {
+					assertEquals(elements[j], pq.poll());
+				}
+			}
+			assertTrue(pq.isEmpty());
+		}
+		// to back tests
+		for (int i = 0; i < n; i++) {
+			BinaryHeap<String> pq = BinaryHeap.createMaxHeap();
+			for (int j = 0; j < n; j++) {
+				pq.offer(elements[j], priorities[j]);
+			}
+			pq.change(elements[i], -100);
+			assertEquals(-100, pq.peekPriority(elements[i]));
+			for (int j = 0; j < n; j++) {
+				if (i!=j) {
+					assertEquals(elements[j], pq.poll());
+				}
+			}
+			assertEquals(elements[i], pq.poll());
+			assertTrue(pq.isEmpty());
+		}
+		// to interior tests
+		int maxP = 2*(n-1) + 2;
+		for (int p = 3; p <= maxP; p += 2) {
+			for (int i = 0; i < n; i++) {
+				BinaryHeap<String> pq = BinaryHeap.createMaxHeap();
+				for (int j = 0; j < n; j++) {
+					pq.offer(elements[j], priorities[j]);
+				}
+				pq.change(elements[i], -p);
+				assertEquals(-p, pq.peekPriority(elements[i]));
+				int j = 0;
+				for (; j < n; j++) {
+					if (i != j) {
+						if (priorities[j] > -p) {
+							assertEquals(elements[j], pq.poll(), "p,i,j="+p+","+i+","+j);
+						} else {
+							break;
+						}
+					}
+				}
+				assertEquals(elements[i], pq.poll(), "p,i,j="+p+","+i+","+j);
+				for (; j < n; j++) {
+					if (i!=j && priorities[j] < -p) {
+						assertEquals(elements[j], pq.poll());
+					}
+				}
+				assertTrue(pq.isEmpty());
+			}
+		}
+		// equal change test
+		for (int i = 0; i < n; i++) {
+			BinaryHeap<String> pq = BinaryHeap.createMaxHeap();
+			for (int j = 0; j < n; j++) {
+				pq.offer(elements[j], priorities[j]);
+			}
+			pq.change(elements[i], priorities[i]);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
+			for (int j = 0; j < n; j++) {
+				assertEquals(elements[j], pq.poll());
+			}
+			assertTrue(pq.isEmpty());
+		}
+		// new element test
+		maxP = 2*(n-1) + 3;
+		for (int p = 1; p <= maxP; p += 2) {
+			BinaryHeap<String> pq = BinaryHeap.createMaxHeap();
+			for (int j = 0; j < n; j++) {
+				pq.offer(elements[j], priorities[j]);
+			}
+			pq.change("YYY", -p);
+			assertEquals(-p, pq.peekPriority("YYY"));
+			int j = 0;
+			for (; j < n; j++) {
+				if (priorities[j] > -p) {
+					assertEquals(elements[j], pq.poll());
+				} else {
+					break;
+				}
+			}
+			assertEquals("YYY", pq.poll());
+			for (; j < n; j++) {
+				if (priorities[j] < -p) {
+					assertEquals(elements[j], pq.poll());
+				}
+			}
+			assertTrue(pq.isEmpty());
+		}
+	}
 	
 	@Test
 	public void testDefaultMaxHeap() {
