@@ -29,9 +29,9 @@ import java.util.Collections;
 import java.util.ArrayList;
 
 /**
- * JUnit tests for the BinaryMinHeap class.
+ * JUnit tests for the BinaryHeap class.
  */
-public class BinaryMinHeapTests {
+public class BinaryHeapTests {
 	
 	@Test
 	public void testDefaultConstructor() {
@@ -39,7 +39,7 @@ public class BinaryMinHeapTests {
 		String[] elements = createStrings(n);
 		int[] priorities = createPriorities(elements);
 		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
-		BinaryMinHeap<String> pq = new BinaryMinHeap<String>();
+		BinaryHeap<String> pq = BinaryHeap.createMinHeap();
 		assertEquals(0, pq.size());
 		assertTrue(pq.isEmpty());
 		assertNull(pq.peek());
@@ -67,6 +67,7 @@ public class BinaryMinHeapTests {
 		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
 		for (int i = 0; i < n; i++) {
 			assertEquals(pairs[i], pq.pollPair());
+			assertFalse(pq.contains(pairs[i].element));
 			assertEquals(n-1-i, pq.size());
 		}
 		assertNull(pq.pollPair());
@@ -78,7 +79,7 @@ public class BinaryMinHeapTests {
 		String[] elements = createStringsRev(n);
 		int[] priorities = createPriorities(elements);
 		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
-		BinaryMinHeap<String> pq = new BinaryMinHeap<String>();
+		BinaryHeap<String> pq = BinaryHeap.createMinHeap();
 		assertEquals(0, pq.size());
 		assertTrue(pq.isEmpty());
 		assertNull(pq.peek());
@@ -106,6 +107,7 @@ public class BinaryMinHeapTests {
 		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
 		for (int i = 0; i < n; i++) {
 			assertEquals(pairs[n-1-i], pq.pollPair());
+			assertFalse(pq.contains(elements[n-1-i]));
 			assertEquals(n-1-i, pq.size());
 		}
 		assertNull(pq.pollPair());
@@ -117,7 +119,7 @@ public class BinaryMinHeapTests {
 		String[] elements = createStringsArbitrary(n);
 		int[] priorities = createPriorities(elements);
 		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
-		BinaryMinHeap<String> pq = new BinaryMinHeap<String>();
+		BinaryHeap<String> pq = BinaryHeap.createMinHeap();
 		assertEquals(0, pq.size());
 		assertTrue(pq.isEmpty());
 		assertNull(pq.peek());
@@ -141,7 +143,9 @@ public class BinaryMinHeapTests {
 		}
 		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
 		for (int i = 0; i < n; i++) {
-			assertEquals(new PriorityQueueNode.Integer<String>(""+((char)('A'+i)),(int)('A'+i)), pq.pollPair());
+			String expected = ""+((char)('A'+i));
+			assertEquals(new PriorityQueueNode.Integer<String>(expected, (int)('A'+i)), pq.pollPair());
+			assertFalse(pq.contains(expected));
 			assertEquals(n-1-i, pq.size());
 		}
 		assertNull(pq.pollPair());
