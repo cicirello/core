@@ -9,8 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 * DisjointSetForest: representation of disjoint sets of generic objects.
 * DisjointIntegerSetForest: representation of disjoint sets of integers with a disjoint set forest.
-* PriorityQueue: common interface to different implementations of priority queues, with two
-  sub-interfaces, PriorityQueue.Integer and PriorityQueue.Double for integer and double priorities.
+* PriorityQueue: common interface to different implementations of priority queues, with sub-interfaces:
+  * PriorityQueue.Integer for int-valued priorities.
+  * PriorityQueue.Double for double-valued priorities.
 * BinaryHeap: implements PriorityQueue.Integer with binary heap for both min-heap and max-heap cases.
 
 ### Changed
