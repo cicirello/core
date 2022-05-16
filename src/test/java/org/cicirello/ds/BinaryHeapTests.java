@@ -33,6 +33,130 @@ import java.util.ArrayList;
  */
 public class BinaryHeapTests {
 	
+	// TESTS THAT ARE NEITHER STRICTLY MIN HEAP TESTS NOW MAX HEAP TESTS
+	
+	@Test
+	public void testCapacity() {
+		BinaryHeap<String> pq = BinaryHeap.createMinHeap();
+		assertEquals(BinaryHeap.DEFAULT_INITIAL_CAPACITY, pq.capacity());
+		assertEquals(0, pq.size());
+		for (int i = 1; i <= 5; i++) {
+			pq = BinaryHeap.createMinHeap(i);
+			assertEquals(i, pq.capacity());
+			assertEquals(0, pq.size());
+		}
+		pq.ensureCapacity(100);
+		assertEquals(100, pq.capacity());
+		assertEquals(0, pq.size());
+		pq.ensureCapacity(50);
+		assertEquals(100, pq.capacity());
+		assertEquals(0, pq.size());
+		pq.trimToSize();
+		assertEquals(1, pq.capacity());
+		assertEquals(0, pq.size());
+		int n = 11;
+		String[] elements = createStrings(n);
+		int[] priorities = createPriorities(elements);
+		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
+		ArrayList<PriorityQueueNode.Integer<String>> list = new ArrayList<PriorityQueueNode.Integer<String>>();
+		for (PriorityQueueNode.Integer<String> next : pairs) {
+			list.add(next);
+		}
+		pq = BinaryHeap.createMinHeap(list);
+		assertEquals(n, pq.capacity());
+		assertEquals(n, pq.size());
+		pq.trimToSize();
+		assertEquals(n, pq.capacity());
+		assertEquals(n, pq.size());
+		pq.ensureCapacity(55);
+		assertEquals(55, pq.capacity());
+		assertEquals(n, pq.size());
+		pq.trimToSize();
+		assertEquals(n, pq.capacity());
+		assertEquals(n, pq.size());
+		for (int i = 0; i < n; i++) {
+			assertEquals(pairs[i], pq.pollPair());
+			assertFalse(pq.contains(pairs[i].element));
+			assertEquals(n-1-i, pq.size());
+		}
+		assertNull(pq.pollPair());
+		assertEquals(n, pq.capacity());
+		assertEquals(0, pq.size());
+	}
+	
+	@Test
+	public void testClear() {
+		int n = 11;
+		String[] elements = createStrings(n);
+		int[] priorities = createPriorities(elements);
+		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
+		ArrayList<PriorityQueueNode.Integer<String>> list = new ArrayList<PriorityQueueNode.Integer<String>>();
+		for (PriorityQueueNode.Integer<String> next : pairs) {
+			list.add(next);
+		}
+		BinaryHeap<String> pq = BinaryHeap.createMinHeap(list);
+		assertEquals(n, pq.size());
+		pq.clear();
+		assertEquals(0, pq.size());
+		for (int i = 0; i < n; i++) {
+			assertFalse(pq.contains(pairs[i].element));
+		}
+	}
+	
+	@Test
+	public void testEqualsAndHashCode() {
+		int n = 11;
+		String[] elements = createStrings(n);
+		int[] priorities = createPriorities(elements);
+		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
+		ArrayList<PriorityQueueNode.Integer<String>> list1 = new ArrayList<PriorityQueueNode.Integer<String>>();
+		ArrayList<PriorityQueueNode.Integer<String>> list2 = new ArrayList<PriorityQueueNode.Integer<String>>();
+		ArrayList<PriorityQueueNode.Integer<String>> list3 = new ArrayList<PriorityQueueNode.Integer<String>>();
+		ArrayList<PriorityQueueNode.Integer<String>> list4 = new ArrayList<PriorityQueueNode.Integer<String>>();
+		for (PriorityQueueNode.Integer<String> next : pairs) {
+			list1.add(next);
+			list2.add(next);
+			list3.add(next);
+			list4.add(next);
+		}
+		BinaryHeap<String> pq1 = BinaryHeap.createMinHeap(list1);
+		BinaryHeap<String> pq2 = BinaryHeap.createMinHeap(list2);
+		BinaryHeap<String> pq3 = BinaryHeap.createMaxHeap(list3);
+		BinaryHeap<String> pq4 = BinaryHeap.createMaxHeap(list4);
+		assertEquals(pq1, pq2);
+		assertEquals(pq1.hashCode(), pq2.hashCode());
+		assertEquals(pq3, pq4);
+		assertEquals(pq3.hashCode(), pq4.hashCode());
+		assertNotEquals(pq1, pq3);
+		assertNotEquals(pq1.hashCode(), pq3.hashCode());
+		pq2.offer(""+((char)0), 0);
+		assertNotEquals(pq1, pq2);
+		assertNotEquals(pq1.hashCode(), pq2.hashCode());
+		pq1.offer(""+((char)0), 1);
+		assertNotEquals(pq1, pq2);
+		assertNotEquals(pq1.hashCode(), pq2.hashCode());
+		pq1.clear();
+		pq2.clear();
+		pq3.clear();
+		pq4.clear();
+		for (int i = 0; i < n; i++) {
+			pq1.offer(""+((char)('A'+i)), 42);
+			pq3.offer(""+((char)('A'+i)), 42);
+			pq2.offer(""+((char)('A'+(n-1)-i)), 42);
+			pq4.offer(""+((char)('A'+(n-1)-i)), 42);
+		}
+		assertNotEquals(pq1, pq3);
+		assertNotEquals(pq3, pq1);
+		assertNotEquals(pq3, pq4);
+		assertNotEquals(pq1, pq2);
+		assertNotEquals(pq1.hashCode(), pq2.hashCode());
+		assertNotEquals(pq3.hashCode(), pq4.hashCode());
+		assertNotEquals(pq1, null);
+		assertNotEquals(pq3, null);
+		assertNotEquals(pq1, "hello");
+		assertNotEquals(pq3, "hello");
+	}
+	
 	// MIN HEAP TESTS
 	
 	@Test

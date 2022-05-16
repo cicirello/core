@@ -60,6 +60,7 @@ public class BinaryHeap<E> implements PriorityQueue.Integer<E> {
 	private PriorityQueueNode.Integer<E>[] buffer;
 	private int size;
 	private final HashMap<E, java.lang.Integer> index;
+	private boolean isMax;
 	
 	/**
 	 * The default initial capacity.
@@ -247,6 +248,7 @@ public class BinaryHeap<E> implements PriorityQueue.Integer<E> {
 			@SuppressWarnings("unchecked")
 			BinaryHeap<E> casted = (BinaryHeap<E>)other;
 			if (size != casted.size) return false;
+			if (isMax != casted.isMax) return false;
 			for (int i = 0; i < size; i++) {
 				if (!casted.buffer[i].element.equals(buffer[i].element)) return false;
 				if (casted.buffer[i].value != buffer[i].value) return false;
@@ -354,6 +356,14 @@ public class BinaryHeap<E> implements PriorityQueue.Integer<E> {
 		if (size < buffer.length) {
 			internalAdjustCapacity(size > 0 ? size : 1);
 		}
+	}
+	
+	/*
+	 * package-private to support testing.
+	 * no reason to provide public access to current capacity
+	 */
+	int capacity() {
+		return buffer.length;
 	}
 	
 	/*
@@ -473,6 +483,7 @@ public class BinaryHeap<E> implements PriorityQueue.Integer<E> {
 		private Max(int initialCapacity) {
 			super(initialCapacity);
 			self = this;
+			self.isMax = true;
 		}
 		
 		/* PRIVATE: Use factory methods for creation.
@@ -486,12 +497,13 @@ public class BinaryHeap<E> implements PriorityQueue.Integer<E> {
 		private Max(Collection<PriorityQueueNode.Integer<E>> initialElements) {
 			super(initialElements);
 			self = this;
+			self.isMax = true;
 		}
 		
 		@Override
 		public boolean equals(Object other) {
 			// After upgrade to Java 17, change following to: other instanceof Max<E>
-			return super.equals(other) && (other instanceof Max);
+			return other != null && (other instanceof Max) && super.equals(other);
 		}
 		
 		/*
