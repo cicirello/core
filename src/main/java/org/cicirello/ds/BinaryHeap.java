@@ -25,6 +25,8 @@ package org.cicirello.ds;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * <p>An implementation of a Binary Heap. An instance of a BinaryHeap
@@ -55,7 +57,7 @@ import java.util.Arrays;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class BinaryHeap<E> implements PriorityQueue.Integer<E> {
+public class BinaryHeap<E> implements PriorityQueue.Integer<E>, Iterable<PriorityQueueNode.Integer<E>> {
 	
 	private PriorityQueueNode.Integer<E>[] buffer;
 	private int size;
@@ -279,6 +281,18 @@ public class BinaryHeap<E> implements PriorityQueue.Integer<E> {
 		return size == 0;
 	}
 	
+	/**
+	 * Returns an iterator over the (element, priority) pairs in a
+	 * mostly arbitrary order (i.e., you must not assume any particular
+	 * order).
+	 *
+	 * @return an iterator over the (element, priority) pairs
+	 */
+	@Override
+	public final Iterator<PriorityQueueNode.Integer<E>> iterator() {
+		return new BinaryHeapIterator();
+	}
+	
 	@Override
 	public final boolean offer(E element, int priority) {
 		if (contains(element)) {
@@ -464,6 +478,29 @@ public class BinaryHeap<E> implements PriorityQueue.Integer<E> {
 	private void buildHeap() {
 		for (int i = (size >> 1) - 1; i >= 0; i--) {
 			percolateDown(i);
+		}
+	}
+	
+	private class BinaryHeapIterator implements Iterator<PriorityQueueNode.Integer<E>> {
+		
+		private int index;
+		
+		public BinaryHeapIterator() {
+			index = 0;
+		}
+		
+		@Override
+		public boolean hasNext() {
+			return index < size;
+		}
+		
+		@Override
+		public PriorityQueueNode.Integer<E> next() {
+			if (index >= size) {
+				throw new NoSuchElementException("No more elements remain.");
+			}
+			index++;
+			return buffer[index-1];
 		}
 	}
 	

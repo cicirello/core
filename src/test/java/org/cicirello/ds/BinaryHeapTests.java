@@ -27,6 +27,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Collections;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * JUnit tests for the BinaryHeap class.
@@ -34,6 +36,35 @@ import java.util.ArrayList;
 public class BinaryHeapTests {
 	
 	// TESTS THAT ARE NEITHER STRICTLY MIN HEAP TESTS NOW MAX HEAP TESTS
+	
+	@Test
+	public void testIterator() {
+		int n = 4;
+		String[] elements = createStrings(n);
+		int[] priorities = createPriorities(elements);
+		for (int m = 0; m < n; m++) {
+			BinaryHeap<String> pq = BinaryHeap.createMinHeap();
+			for (int j = 0; j < m; j++) {
+				pq.offer(elements[j], priorities[j]);
+			}
+			int count = 0;
+			for (PriorityQueueNode.Integer<String> e : pq) {
+				count++;
+			}
+			assertEquals(m, count);
+			count = 0;
+			final Iterator<PriorityQueueNode.Integer<String>> iter = pq.iterator();
+			while (iter.hasNext()) {
+				PriorityQueueNode.Integer<String> e = iter.next();
+				count++;
+			}
+			assertEquals(m, count);
+			NoSuchElementException thrown = assertThrows( 
+				NoSuchElementException.class,
+				() -> iter.next()
+			);
+		}
+	}
 	
 	@Test
 	public void testCapacity() {
