@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * PriorityQueue.Integer for int-valued priorities.
   * PriorityQueue.Double for double-valued priorities.
 * BinaryHeap: implements PriorityQueue.Integer with binary heap for both min-heap and max-heap cases.
+* BinaryHeapDouble: implements PriorityQueue.Double with binary heap for both min-heap and max-heap cases.
 
 ### Changed
 * Migrated test cases to JUnit Jupiter 5.8.2.
