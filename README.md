@@ -21,17 +21,15 @@ to [Chips-n-Salsa](https://github.com/cicirello/Chips-n-Salsa)
 and [JavaPermutationTools](https://github.com/cicirello/JavaPermutationTools), 
 as well as various applications that use those libraries.
 
-## Java 11+
+## Java 17+
 
-We currently support Java 11+. Our development process utilizes OpenJDK 11, and all
-jar files released via Maven Central, GitHub Packages, and GitHub Releases are built
-with a Java 11 target. 
+We currently support Java 17+. See the following table for mapping between library
+version and minimum supported Java version.
 
-The initial release consists entirely of source code that can be compiled for a 
-Java 8 target (e.g., if you modify the "pom.xml" and remove the 
-"module-info.java"). However, we do not guarantee that this will remain true, as we have 
-decided upon Java 11 as our minimum supported Java version to enable utilizing newer
-language features in our ongoing development efforts.
+| version | Java requirements |
+| --- | --- |
+| 2.x.y | Java 17+ |
+| 1.x.y | Java 11+ |
 
 ## Versioning Scheme
 
