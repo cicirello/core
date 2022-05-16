@@ -258,14 +258,13 @@ public class BinaryHeapDouble<E> implements PriorityQueue.Double<E>, Iterable<Pr
 	@Override
 	public boolean equals(Object other) {
 		if (other == null) return false;
-		// After upgrade to Java 17, change following to: other instanceof BinaryHeapDouble<E>
 		if (other instanceof BinaryHeapDouble) {
 			@SuppressWarnings("unchecked")
 			BinaryHeapDouble<E> casted = (BinaryHeapDouble<E>)other;
 			if (size != casted.size) return false;
 			if (isMax != casted.isMax) return false;
 			for (int i = 0; i < size; i++) {
-				if (!casted.buffer[i].element.equals(buffer[i].element)) return false;
+				if (!buffer[i].element.equals(casted.buffer[i].element)) return false;
 				if (casted.buffer[i].value != buffer[i].value) return false;
 			}
 			return true;
@@ -552,7 +551,6 @@ public class BinaryHeapDouble<E> implements PriorityQueue.Double<E>, Iterable<Pr
 		
 		@Override
 		public boolean equals(Object other) {
-			// After upgrade to Java 17, change following to: other instanceof Max<E>
 			return other != null && (other instanceof Max) && super.equals(other);
 		}
 		

@@ -54,7 +54,6 @@ public abstract class PriorityQueueNode<E> {
 	@Override
 	public boolean equals(Object other) {
 		if (other == null) return false;
-		// After upgrade to Java 17, change following to: other instanceof PriorityQueueNode<E>
 		if (other instanceof PriorityQueueNode) {
 			@SuppressWarnings("unchecked")
 			PriorityQueueNode<E> casted = (PriorityQueueNode<E>)other;

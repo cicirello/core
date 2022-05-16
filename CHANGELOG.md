@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - 2022-05-16
 
+**BREAKING CHANGES:** See changes section for details. Breaking changes include increasing
+minimum supported Java version to Java 17.
+
 ### Added
 * DisjointSetForest: representation of disjoint sets of generic objects.
 * DisjointIntegerSetForest: representation of disjoint sets of integers with a disjoint set forest.
@@ -16,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * BinaryHeapDouble: implements PriorityQueue.Double with binary heap for both min-heap and max-heap cases.
 
 ### Changed
+* Minimum supported Java version is now Java 17.
 * Migrated test cases to JUnit Jupiter 5.8.2.
 
 ### Deprecated
