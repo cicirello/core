@@ -52,6 +52,19 @@ import java.util.NoSuchElementException;
  * BinaryHeap&lt;String&gt; pq = BinaryHeap.createMinHeap();
  * </code></pre>
  *
+ * <p><b>Method runtimes:</b> The asymptotic runtime of the methods of
+ * this class are as follows:</p>
+ * <ul>
+ * <li><b>O(1):</b> {@link #contains}, {@link #createMaxHeap()}, {@link #createMaxHeap(int)},
+ *     {@link #createMinHeap()}, {@link #createMinHeap(int)}, {@link #isEmpty}, {@link #iterator},
+ *     {@link #peek}, {@link #peekPair}, {@link #peekPriority()}, {@link #peekPriority(Object)},
+ *     {@link #size()}</li>
+ * <li><b>O(lg n):</b> {@link #change}, {@link #offer(Object, int)}, {@link #offer(PriorityQueueNode.Integer)},
+ *     {@link #poll}, {@link #pollPair}</li>
+ * <li><b>O(n):</b> {@link #clear}, {@link #createMaxHeap(Collection)}, {@link #createMinHeap(Collection)},
+ *     {@link #ensureCapacity}, {@link #equals}, {@link #hashCode}, {@link #trimToSize}</li>
+ * </ul>
+ *
  * @param <E> The type of object contained in the BinaryHeap.
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
