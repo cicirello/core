@@ -521,6 +521,8 @@ public class BinaryHeap<E> implements PriorityQueue.Integer<E> {
 		 */
 		@Override
 		final void percolateDown(int i) {
+			// Trick to enable access to private fields of outer-superclass
+			final BinaryHeap<E> self = this;
 			int left; 
 			while ((left = (i << 1) + 1) < self.size) { 
 				int largest = i;
