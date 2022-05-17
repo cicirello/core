@@ -25,6 +25,7 @@ package org.cicirello.ds;
 import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -392,6 +393,27 @@ public class BinaryHeap<E> implements PriorityQueue<E> {
 			buffer[i] = null;
 		}
 		return true;
+	}
+	
+	@Override
+	public final boolean retainAll(Collection<?> c) {
+		HashSet<E> deleteThese = new HashSet<E>();
+		for (int i = 0; i < size; i++) {
+			deleteThese.add(buffer[i].element);
+		}
+		for (Object o : c) {
+			if (o instanceof PriorityQueueNode.Integer) {
+				PriorityQueueNode.Integer pair = (PriorityQueueNode.Integer)o;
+				deleteThese.remove(pair.element);
+			} else {
+				deleteThese.remove(o);
+			}
+		}
+		boolean changed = false;
+		for (E e : deleteThese) {
+			changed = remove(e) | changed;
+		}
+		return changed;
 	}
 	
 	@Override

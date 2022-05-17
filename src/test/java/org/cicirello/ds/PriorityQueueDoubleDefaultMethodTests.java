@@ -199,13 +199,4 @@ public class PriorityQueueDoubleDefaultMethodTests {
 		assertTrue(pq.removeAll(list2));
 		assertEquals(1, pq.size());
 	}
-	
-	@Test
-	public void testRetainAll() {
-		BinaryHeapDouble<String> pq = BinaryHeapDouble.createMinHeap();
-		UnsupportedOperationException thrown = assertThrows( 
-			UnsupportedOperationException.class,
-			() -> pq.retainAll(new ArrayList<String>())
-		);
-	}
 }

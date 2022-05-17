@@ -335,18 +335,16 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
 	}
 	
 	/**
-	 * This PriorityQueue does not support the optional {@link Collection#retainAll} method.
-	 * 
-	 * @param c a Collection
+	 * Removes from this PriorityQueue all (element, priority) pairs
+	 * except for the elements or (element, priority) pairs contained in a 
+	 * given Collection c.
 	 *
-	 * @return this method is not supported
+	 * @param c A Collection of elements or (element, priority) pairs to keep.
 	 *
-	 * @throws UnsupportedOperationException on all calls
+	 * @return true if and only if this PriorityQueue changed as a result of this method.
 	 */
 	@Override
-	default boolean retainAll(Collection<?> c) {
-		throw new UnsupportedOperationException("retainAll is not supported by this PriorityQueue");
-	}
+	boolean retainAll(Collection<?> c);
 	
 	/**
 	 * Gets the current size of the PriorityQueue, which is the

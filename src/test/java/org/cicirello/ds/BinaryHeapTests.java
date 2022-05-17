@@ -38,6 +38,29 @@ public class BinaryHeapTests {
 	// TESTS THAT ARE NEITHER STRICTLY MIN HEAP TESTS NOW MAX HEAP TESTS
 	
 	@Test
+	public void testRetainAll() {
+		String[] elements = {"A", "B", "C", "D"};
+		int[] priorities = { 8, 6, 4, 2 };
+		final BinaryHeap<String> pq = BinaryHeap.createMinHeap();
+		for (int i = 0; i < elements.length; i++) {
+			assertTrue(pq.offer(elements[i], priorities[i]));
+		}
+		assertEquals(elements.length, pq.size());
+		String[] retain = {"A", "E", "C", "F"};
+		ArrayList<Object> keepThese = new ArrayList<Object>();
+		keepThese.add(retain[0]);
+		keepThese.add(retain[1]);
+		keepThese.add(new PriorityQueueNode.Integer<String>(retain[2], 5));
+		keepThese.add(new PriorityQueueNode.Integer<String>(retain[3], 15));
+		assertTrue(pq.retainAll(keepThese));
+		assertEquals(elements.length-2, pq.size());
+		assertTrue(pq.contains(elements[0]));
+		assertTrue(pq.contains(elements[2]));
+		assertFalse(pq.contains(elements[1]));
+		assertFalse(pq.contains(elements[3]));
+	}
+	
+	@Test
 	public void testIterator() {
 		int n = 4;
 		String[] elements = createStrings(n);
