@@ -22,6 +22,7 @@
  
 package org.cicirello.ds;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -58,6 +59,23 @@ public interface PriorityQueue<E> {
 	 * @return true if and only if this PriorityQueue contains the element.
 	 */
 	boolean contains(Object o);
+	
+	/**
+	 * Checks if this PriorityQueue contains all elements
+	 * or (element, priority) pairs from a given Collection.
+	 *
+	 * @param c A Collection of elements or (element, priority) pairs to check
+	 *    for containment.
+	 *
+	 * @return true if and only if this PriorityQueue contains all of the elements
+	 * or (element, priority) pairs in c.
+	 */
+	default boolean containsAll(Collection<?> c) {
+		for (Object o : c) {
+			if (!contains(o)) return false;
+		}
+		return true;
+	}
 	
 	/**
 	 * Checks if the PriorityQueue is empty.
