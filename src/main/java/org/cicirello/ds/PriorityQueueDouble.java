@@ -312,7 +312,7 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
 	default boolean removeAll(Collection<?> c) {
 		boolean changed = false;
 		for (Object o : c) {
-			changed = remove(o) | changed;
+changed = remove(o) || changed;
 		}
 		return changed;
 	}
