@@ -60,7 +60,7 @@ import java.util.NoSuchElementException;
  *     {@link #peek}, {@link #peekElement}, {@link #peekPriority()}, {@link #peekPriority(Object)},
  *     {@link #size()}</li>
  * <li><b>O(lg n):</b> {@link #change}, {@link #offer(Object, int)}, {@link #offer(PriorityQueueNode.Integer)},
- *     {@link #poll}, {@link #pollElement}</li>
+ *     {@link #poll}, {@link #pollElement}, {@link #remove(Object)}</li>
  * <li><b>O(n):</b> {@link #clear}, {@link #createMaxHeap(Collection)}, {@link #createMinHeap(Collection)},
  *     {@link #ensureCapacity}, {@link #equals}, {@link #hashCode}, {@link #trimToSize}</li>
  * </ul>
