@@ -14,8 +14,8 @@ minimum supported Java version to Java 17.
 * DisjointIntegerSetForest: representation of disjoint sets of integers with a disjoint set forest.
 * PriorityQueue: interface to different implementations of priority queues with int-valued priorities.
 * PriorityQueueDouble: interface to different implementations of priority queues with double-valued priorities.
-* BinaryHeap: implements PriorityQueue.Integer with binary heap for both min-heap and max-heap cases.
-* BinaryHeapDouble: implements PriorityQueue.Double with binary heap for both min-heap and max-heap cases.
+* BinaryHeap: implements PriorityQueue with binary heap for both min-heap and max-heap cases.
+* BinaryHeapDouble: implements PriorityQueueDouble with binary heap for both min-heap and max-heap cases.
 
 ### Changed
 * Minimum supported Java version is now Java 17.
