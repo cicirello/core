@@ -113,6 +113,23 @@ public interface PriorityQueue<E> {
 	boolean remove(Object o);
 	
 	/**
+	 * Removes from this PriorityQueue all (element, priority) pairs
+	 * such that a given Collection c either contains the element or
+	 * contains an (element, priority) pair with the same element.
+	 *
+	 * @param c A Collection of elements or (element, priority) pairs for removal.
+	 *
+	 * @return true if and only if this PriorityQueue changed as a result of this method.
+	 */
+	default boolean removeAll(Collection<?> c) {
+		boolean changed = false;
+		for (Object o : c) {
+			changed = changed || remove(o);
+		}
+		return changed;
+	}
+	
+	/**
 	 * Removes and returns the next element in priority order from this PriorityQueue.
 	 * This method differs from {@link #pollElement()} in that if the PriorityQueue is
 	 * empty, this method throws an exception, while {@link #pollElement()} returns null.
