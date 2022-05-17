@@ -101,7 +101,7 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
 	default boolean addAll(Collection<? extends PriorityQueueNode.Double<E>> c) {
 		boolean changed = false;
 		for (PriorityQueueNode.Double<E> e : c) {
-			changed = add(e) | changed;
+changed = add(e) || changed;
 		}
 		return changed;
 	}
