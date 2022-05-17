@@ -101,7 +101,7 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	default boolean addAll(Collection<? extends PriorityQueueNode.Integer<E>> c) {
 		boolean changed = false;
 		for (PriorityQueueNode.Integer<E> e : c) {
-			changed = add(e) | changed;
+changed = add(e) || changed;
 		}
 		return changed;
 	}
