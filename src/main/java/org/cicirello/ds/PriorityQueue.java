@@ -100,6 +100,19 @@ public interface PriorityQueue<E> {
 	E pollElement();
 	
 	/**
+	 * Removes from this PriorityQueue the (element, priority) pair, if present, 
+	 * for a specified element or element from a specified (element, priority) pair.
+	 *
+	 * @param o An element or (element, priority) pair, such that element designates
+	 * the desired pair to remove (note that if you pass an (element, priority) pair,
+	 * only the element must match to cause removal.
+	 *
+	 * @return true if and only if an (element, priority) pair was removed as a result
+	 * of this method call.
+	 */
+	boolean remove(Object o);
+	
+	/**
 	 * Removes and returns the next element in priority order from this PriorityQueue.
 	 * This method differs from {@link #pollElement()} in that if the PriorityQueue is
 	 * empty, this method throws an exception, while {@link #pollElement()} returns null.

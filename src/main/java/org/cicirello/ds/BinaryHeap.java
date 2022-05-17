@@ -366,6 +366,33 @@ public class BinaryHeap<E> implements PriorityQueue.Integer<E> {
 	}
 	
 	@Override
+	public final boolean remove(Object o) {
+		java.lang.Integer i = null;
+		if (o instanceof PriorityQueueNode.Integer) {
+			PriorityQueueNode.Integer pair = (PriorityQueueNode.Integer)o;
+			i = index.get(pair.element);
+		} else {
+			i = index.get(o);
+		}
+		if (i == null) {
+			return false;
+		}
+		index.remove(buffer[i].element);
+		size--;
+		if (size > 0 && i != size) {
+			int removedElementPriority = buffer[i].value;
+			buffer[i] = buffer[size];
+			buffer[size] = null;
+			index.put(buffer[i].element, i);
+			// percolate in relevant direction
+			percolateAfterRemoval(i, removedElementPriority);
+		} else {
+			buffer[i] = null;
+		}
+		return true;
+	}
+	
+	@Override
 	public final int size() {
 		return size;
 	}
@@ -407,6 +434,18 @@ public class BinaryHeap<E> implements PriorityQueue.Integer<E> {
 			percolateUp(i);
 		} else if (priority > buffer[i].value) {
 			buffer[i].value = priority;
+			percolateDown(i);
+		}
+	}
+	
+	/*
+	 * package-private to enable overriding in 
+	 * nested subclass to support max heaps.
+	 */
+	void percolateAfterRemoval(int i, int removedElementPriority) {
+		if (buffer[i].value < removedElementPriority) {
+			percolateUp(i);
+		} else if (buffer[i].value > removedElementPriority) {
 			percolateDown(i);
 		}
 	}
@@ -569,6 +608,18 @@ public class BinaryHeap<E> implements PriorityQueue.Integer<E> {
 				percolateUp(i);
 			} else if (priority < self.buffer[i].value) {
 				self.buffer[i].value = priority;
+				percolateDown(i);
+			}
+		}
+		
+		/*
+		 * override for max first order
+		 */
+		@Override
+		final void percolateAfterRemoval(int i, int removedElementPriority) {
+			if (self.buffer[i].value > removedElementPriority) {
+				percolateUp(i);
+			} else if (self.buffer[i].value < removedElementPriority) {
 				percolateDown(i);
 			}
 		}

@@ -191,6 +191,146 @@ public class BinaryHeapTests {
 	// MIN HEAP TESTS
 	
 	@Test
+	public void testRemoveMinHeap() {
+		int n = 15;
+		String[] elements = createStrings(n);
+		int[] priorities = new int[n];
+		for (int i = 0; i < n; i++) {
+			priorities[i] = 2 + 2*i;
+		}
+		// Via element
+		for (int i = 0; i < n; i++) {
+			BinaryHeap<String> pq = BinaryHeap.createMinHeap();
+			for (int j = 0; j < n; j++) {
+				pq.offer(elements[j], priorities[j]);
+			}
+			assertTrue(pq.remove(elements[i]));
+			assertFalse(pq.contains(elements[i]));
+			assertEquals(n-1, pq.size());
+			assertFalse(pq.remove(elements[i]));
+			assertEquals(n-1, pq.size());
+			for (int j = 0; j < n; j++) {
+				if (i!=j) {
+					assertEquals(elements[j], pq.pollElement());
+				}
+			}
+			assertTrue(pq.isEmpty());
+			assertEquals(0, pq.size());
+		}
+		// one element left
+		{
+			BinaryHeap<String> pq = BinaryHeap.createMinHeap();
+			pq.offer(elements[0], priorities[0]);
+			assertTrue(pq.remove(elements[0]));
+			assertFalse(pq.contains(elements[0]));
+			assertEquals(0, pq.size());
+			assertFalse(pq.remove(elements[0]));
+			assertEquals(0, pq.size());
+		}
+		// Same priorities: no percolation needed
+		for (int i = 0; i < n; i++) {
+			BinaryHeap<String> pq = BinaryHeap.createMinHeap();
+			for (int j = 0; j < n; j++) {
+				pq.offer(elements[j], 42);
+			}
+			assertTrue(pq.remove(elements[i]));
+			assertFalse(pq.contains(elements[i]));
+			assertEquals(n-1, pq.size());
+			assertFalse(pq.remove(elements[i]));
+			assertEquals(n-1, pq.size());
+			for (int j = 0; j < n; j++) {
+				if (i!=j) {
+					assertNotEquals(elements[i], pq.pollElement());
+				}
+			}
+			assertTrue(pq.isEmpty());
+			assertEquals(0, pq.size());
+		}
+		// Percolate Up
+		{
+			BinaryHeap<String> pq = BinaryHeap.createMinHeap();
+			int[] p = {0, 3, 1, 7, 4, 5, 2};
+			for (int i = 0; i < p.length; i++) {
+				pq.offer(elements[i], p[i]);
+			}
+			assertTrue(pq.remove(elements[3]));
+			int[] expectedIndexOrder = {0, 2, 6, 1, 4, 5};
+			for (int i = 0; i < expectedIndexOrder.length; i++) {
+				assertEquals(elements[expectedIndexOrder[i]], pq.pollElement());
+			}
+			assertTrue(pq.isEmpty());
+			assertEquals(0, pq.size());
+		}
+		// VIA PAIR
+		for (int i = 0; i < n; i++) {
+			BinaryHeap<String> pq = BinaryHeap.createMinHeap();
+			for (int j = 0; j < n; j++) {
+				pq.offer(elements[j], priorities[j]);
+			}
+			PriorityQueueNode.Integer<String> pair = new PriorityQueueNode.Integer<String>(elements[i], priorities[i]);
+			assertTrue(pq.remove(pair));
+			assertFalse(pq.contains(pair));
+			assertEquals(n-1, pq.size());
+			assertFalse(pq.remove(pair));
+			assertEquals(n-1, pq.size());
+			for (int j = 0; j < n; j++) {
+				if (i!=j) {
+					assertEquals(elements[j], pq.pollElement());
+				}
+			}
+			assertTrue(pq.isEmpty());
+			assertEquals(0, pq.size());
+		}
+		// one element left via pair
+		{
+			BinaryHeap<String> pq = BinaryHeap.createMinHeap();
+			pq.offer(elements[0], priorities[0]);
+			PriorityQueueNode.Integer<String> pair = new PriorityQueueNode.Integer<String>(elements[0], priorities[0]);
+			assertTrue(pq.remove(pair));
+			assertFalse(pq.contains(pair));
+			assertEquals(0, pq.size());
+			assertFalse(pq.remove(pair));
+			assertEquals(0, pq.size());
+		}
+		// Via pair: Same priorities: no percolation needed
+		for (int i = 0; i < n; i++) {
+			BinaryHeap<String> pq = BinaryHeap.createMinHeap();
+			for (int j = 0; j < n; j++) {
+				pq.offer(elements[j], 42);
+			}
+			PriorityQueueNode.Integer<String> pair = new PriorityQueueNode.Integer<String>(elements[i], 42);
+			assertTrue(pq.remove(pair));
+			assertFalse(pq.contains(pair));
+			assertEquals(n-1, pq.size());
+			assertFalse(pq.remove(pair));
+			assertEquals(n-1, pq.size());
+			for (int j = 0; j < n; j++) {
+				if (i!=j) {
+					assertNotEquals(elements[i], pq.pollElement());
+				}
+			}
+			assertTrue(pq.isEmpty());
+			assertEquals(0, pq.size());
+		}
+		// Percolate Up Via Pair
+		{
+			BinaryHeap<String> pq = BinaryHeap.createMinHeap();
+			int[] p = {0, 3, 1, 7, 4, 5, 2};
+			for (int i = 0; i < p.length; i++) {
+				pq.offer(elements[i], p[i]);
+			}
+			PriorityQueueNode.Integer<String> pair = new PriorityQueueNode.Integer<String>(elements[3], p[3]);
+			assertTrue(pq.remove(pair));
+			int[] expectedIndexOrder = {0, 2, 6, 1, 4, 5};
+			for (int i = 0; i < expectedIndexOrder.length; i++) {
+				assertEquals(elements[expectedIndexOrder[i]], pq.pollElement());
+			}
+			assertTrue(pq.isEmpty());
+			assertEquals(0, pq.size());
+		}
+	}
+	
+	@Test
 	public void testChangePriorityMinHeap() {
 		int n = 15;
 		String[] elements = createStrings(n);
@@ -663,6 +803,146 @@ public class BinaryHeapTests {
 	
 	
 	// MAX HEAP TESTS
+	
+	@Test
+	public void testRemoveMaxHeap() {
+		int n = 15;
+		String[] elements = createStrings(n);
+		int[] priorities = new int[n];
+		for (int i = 0; i < n; i++) {
+			priorities[i] = -(2 + 2*i);
+		}
+		// Via element
+		for (int i = 0; i < n; i++) {
+			BinaryHeap<String> pq = BinaryHeap.createMaxHeap();
+			for (int j = 0; j < n; j++) {
+				pq.offer(elements[j], priorities[j]);
+			}
+			assertTrue(pq.remove(elements[i]));
+			assertFalse(pq.contains(elements[i]));
+			assertEquals(n-1, pq.size());
+			assertFalse(pq.remove(elements[i]));
+			assertEquals(n-1, pq.size());
+			for (int j = 0; j < n; j++) {
+				if (i!=j) {
+					assertEquals(elements[j], pq.pollElement());
+				}
+			}
+			assertTrue(pq.isEmpty());
+			assertEquals(0, pq.size());
+		}
+		// one element left
+		{
+			BinaryHeap<String> pq = BinaryHeap.createMaxHeap();
+			pq.offer(elements[0], priorities[0]);
+			assertTrue(pq.remove(elements[0]));
+			assertFalse(pq.contains(elements[0]));
+			assertEquals(0, pq.size());
+			assertFalse(pq.remove(elements[0]));
+			assertEquals(0, pq.size());
+		}
+		// Same priorities: no percolation needed
+		for (int i = 0; i < n; i++) {
+			BinaryHeap<String> pq = BinaryHeap.createMaxHeap();
+			for (int j = 0; j < n; j++) {
+				pq.offer(elements[j], 42);
+			}
+			assertTrue(pq.remove(elements[i]));
+			assertFalse(pq.contains(elements[i]));
+			assertEquals(n-1, pq.size());
+			assertFalse(pq.remove(elements[i]));
+			assertEquals(n-1, pq.size());
+			for (int j = 0; j < n; j++) {
+				if (i!=j) {
+					assertNotEquals(elements[i], pq.pollElement());
+				}
+			}
+			assertTrue(pq.isEmpty());
+			assertEquals(0, pq.size());
+		}
+		// Percolate Up
+		{
+			BinaryHeap<String> pq = BinaryHeap.createMaxHeap();
+			int[] p = {0, -3, -1, -7, -4, -5, -2};
+			for (int i = 0; i < p.length; i++) {
+				pq.offer(elements[i], p[i]);
+			}
+			assertTrue(pq.remove(elements[3]));
+			int[] expectedIndexOrder = {0, 2, 6, 1, 4, 5};
+			for (int i = 0; i < expectedIndexOrder.length; i++) {
+				assertEquals(elements[expectedIndexOrder[i]], pq.pollElement());
+			}
+			assertTrue(pq.isEmpty());
+			assertEquals(0, pq.size());
+		}
+		// VIA PAIR
+		for (int i = 0; i < n; i++) {
+			BinaryHeap<String> pq = BinaryHeap.createMaxHeap();
+			for (int j = 0; j < n; j++) {
+				pq.offer(elements[j], priorities[j]);
+			}
+			PriorityQueueNode.Integer<String> pair = new PriorityQueueNode.Integer<String>(elements[i], priorities[i]);
+			assertTrue(pq.remove(pair));
+			assertFalse(pq.contains(pair));
+			assertEquals(n-1, pq.size());
+			assertFalse(pq.remove(pair));
+			assertEquals(n-1, pq.size());
+			for (int j = 0; j < n; j++) {
+				if (i!=j) {
+					assertEquals(elements[j], pq.pollElement());
+				}
+			}
+			assertTrue(pq.isEmpty());
+			assertEquals(0, pq.size());
+		}
+		// one element left via pair
+		{
+			BinaryHeap<String> pq = BinaryHeap.createMaxHeap();
+			pq.offer(elements[0], priorities[0]);
+			PriorityQueueNode.Integer<String> pair = new PriorityQueueNode.Integer<String>(elements[0], priorities[0]);
+			assertTrue(pq.remove(pair));
+			assertFalse(pq.contains(pair));
+			assertEquals(0, pq.size());
+			assertFalse(pq.remove(pair));
+			assertEquals(0, pq.size());
+		}
+		// Via pair: Same priorities: no percolation needed
+		for (int i = 0; i < n; i++) {
+			BinaryHeap<String> pq = BinaryHeap.createMaxHeap();
+			for (int j = 0; j < n; j++) {
+				pq.offer(elements[j], 42);
+			}
+			PriorityQueueNode.Integer<String> pair = new PriorityQueueNode.Integer<String>(elements[i], 42);
+			assertTrue(pq.remove(pair));
+			assertFalse(pq.contains(pair));
+			assertEquals(n-1, pq.size());
+			assertFalse(pq.remove(pair));
+			assertEquals(n-1, pq.size());
+			for (int j = 0; j < n; j++) {
+				if (i!=j) {
+					assertNotEquals(elements[i], pq.pollElement());
+				}
+			}
+			assertTrue(pq.isEmpty());
+			assertEquals(0, pq.size());
+		}
+		// Percolate Up Via Pair
+		{
+			BinaryHeap<String> pq = BinaryHeap.createMaxHeap();
+			int[] p = {0, -3, -1, -7, -4, -5, -2};
+			for (int i = 0; i < p.length; i++) {
+				pq.offer(elements[i], p[i]);
+			}
+			PriorityQueueNode.Integer<String> pair = new PriorityQueueNode.Integer<String>(elements[3], p[3]);
+			assertTrue(pq.remove(pair));
+			int[] expectedIndexOrder = {0, 2, 6, 1, 4, 5};
+			for (int i = 0; i < expectedIndexOrder.length; i++) {
+				assertEquals(elements[expectedIndexOrder[i]], pq.pollElement());
+			}
+			assertTrue(pq.isEmpty());
+			assertEquals(0, pq.size());
+		}
+	}
 	
 	@Test
 	public void testChangePriorityMaxHeap() {
