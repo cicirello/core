@@ -46,8 +46,16 @@ public class BinaryHeapDoubleTests {
 			assertTrue(pq.offer(elements[i], priorities[i]));
 		}
 		assertEquals(elements.length, pq.size());
-		String[] retain = {"A", "E", "C", "F"};
+		String[] retain = {"E", "A", "F", "C"};
 		ArrayList<Object> keepThese = new ArrayList<Object>();
+		keepThese.add(elements[0]);
+		keepThese.add(elements[1]);
+		keepThese.add(elements[2]);
+		keepThese.add(elements[3]);
+		assertFalse(pq.retainAll(keepThese));
+		assertEquals(elements.length, pq.size());
+		
+		keepThese.clear();
 		keepThese.add(retain[0]);
 		keepThese.add(retain[1]);
 		keepThese.add(new PriorityQueueNode.Double<String>(retain[2], 5));
@@ -58,6 +66,18 @@ public class BinaryHeapDoubleTests {
 		assertTrue(pq.contains(elements[2]));
 		assertFalse(pq.contains(elements[1]));
 		assertFalse(pq.contains(elements[3]));
+		assertFalse(pq.retainAll(keepThese));
+		
+		keepThese.clear();
+		keepThese.add(retain[1]);
+		keepThese.add(retain[3]);
+		assertFalse(pq.retainAll(keepThese));
+		
+		keepThese.clear();
+		keepThese.add(retain[0]);
+		keepThese.add(retain[2]);
+		assertTrue(pq.retainAll(keepThese));
+		assertEquals(0, pq.size());
 	}
 	
 	@Test
