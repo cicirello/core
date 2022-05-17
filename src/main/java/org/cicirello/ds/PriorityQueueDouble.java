@@ -101,7 +101,7 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
 	default boolean addAll(Collection<? extends PriorityQueueNode.Double<E>> c) {
 		boolean changed = false;
 		for (PriorityQueueNode.Double<E> e : c) {
-			changed = changed | add(e);
+			changed = add(e) | changed;
 		}
 		return changed;
 	}
@@ -312,7 +312,7 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
 	default boolean removeAll(Collection<?> c) {
 		boolean changed = false;
 		for (Object o : c) {
-			changed = changed || remove(o);
+			changed = remove(o) | changed;
 		}
 		return changed;
 	}
