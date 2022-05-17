@@ -147,6 +147,19 @@ public interface PriorityQueue<E> {
 	}
 	
 	/**
+	 * This PriorityQueue does not support the optional {@link Collection#retainAll} method.
+	 * 
+	 * @param c a Collection
+	 *
+	 * @return this method is not supported
+	 *
+	 * @throws UnsupportedOperationException on all calls
+	 */
+	default boolean retainAll(Collection<?> c) {
+		throw new UnsupportedOperationException("retainAll is not supported by this PriorityQueue");
+	}
+	
+	/**
 	 * Gets the current size of the PriorityQueue, which is the
 	 * number of (element, value) pairs that it contains.
 	 *
@@ -154,6 +167,40 @@ public interface PriorityQueue<E> {
 	 */
 	int size();
 	
+	/**
+	 * Returns an array containing all of the (element, priority) pairs contained in the
+	 * PriorityQueue. The order is not guaranteed. The runtime component type is Object.
+	 * The PriorityQueue does not maintain any references to the array that is returned,
+	 * instead creating a new array upon each call to the toArray method. The length of the
+	 * array that is returned is equal to the current {@link #size()} of the PriorityQueue.
+	 *
+	 * @return an array, whose runtime component type is Object, containing all of the 
+	 * (element, priority) pairs currently in the PriorityQueue.
+	 */
+	Object[] toArray();
+	
+	/**
+	 * Returns an array containing all of the (element, priority) pairs contained in the
+	 * PriorityQueue. The order is not guaranteed. The runtime component type is the same
+	 * as the array passed to it as a parameter. If the specified array is large enough,
+	 * then it is used, otherwise a new array is allocated whose length is equal to 
+	 * the current {@link #size()} of the PriorityQueue. If the specified array is larger
+	 * than the current size() of the PriorityQueue, the first extra cell is set to null.
+	 *
+	 * @param array The array in which to place the (element, priority) pairs, if it is
+	 * sufficiently large, otherwise a new array of length {@link #size()} is allocated of
+	 * the same runtime type as array.
+	 *
+	 * @param <T> The component type of the array to contain the (element, priority) pairs
+	 *
+	 * @return The array in which the (element, priority) pairs have been inserted.
+	 *
+	 * @throws ArrayStoreException if the runtime component type of array is not
+	 * compatible with the type of the (element, priority) pairs.
+	 *
+	 * @throws NullPointerException if array is null
+	 */
+	<T> T[] toArray(T[] array);
 	
 	/**
 	 * <p>Interface common to the classes that provide implementations of
@@ -209,6 +256,27 @@ public interface PriorityQueue<E> {
 				throw new IllegalArgumentException("already contains an (element, priority) pair with this element");
 			}
 			return true;
+		}
+		
+		/**
+		 * Adds all (element, priority) pairs from a Collection to the PriorityQueue,
+		 * provided the elements are not already in the PriorityQueue.
+		 * The default implementation calls the {@link #add(PriorityQueueNode.Integer)} 
+		 * for each pair in the Collection. 
+		 *
+		 * @param c the Collection of (element, priority) pairs to add.
+		 *
+		 * @return true if the (element, priority) pairs were added.
+		 *
+		 * @throws IllegalArgumentException if the PriorityQueue already contains any
+		 * of the (element, priority) pairs.
+		 */
+		default boolean addAll(Collection<? extends PriorityQueueNode.Integer<E>> c) {
+			boolean changed = false;
+			for (PriorityQueueNode.Integer<E> e : c) {
+				changed = changed | add(e);
+			}
+			return changed;
 		}
 		
 		/**

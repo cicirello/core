@@ -67,6 +67,65 @@ public class BinaryHeapDoubleTests {
 	}
 	
 	@Test
+	public void testToArray() {
+		int n = 4;
+		String[] elements = createStrings(n);
+		double[] priorities = createPriorities(elements);
+		for (int m = 0; m < n; m++) {
+			BinaryHeapDouble<String> pq = BinaryHeapDouble.createMinHeap();
+			for (int j = 0; j < m; j++) {
+				pq.offer(elements[j], priorities[j]);
+			}
+			Object[] array = pq.toArray();
+			assertEquals(m, array.length);
+			int j = 0;
+			for (PriorityQueueNode.Double<String> e : pq) {
+				assertEquals(e, (PriorityQueueNode.Double)array[j]);
+				j++;
+			}
+		}
+	}
+	
+	@Test
+	public void testToArrayExistingArray() {
+		int n = 4;
+		String[] elements = createStrings(n);
+		double[] priorities = createPriorities(elements);
+		for (int m = 0; m <= n; m++) {
+			BinaryHeapDouble<String> pq = BinaryHeapDouble.createMinHeap();
+			for (int j = 0; j < m; j++) {
+				pq.offer(elements[j], priorities[j]);
+			}
+			PriorityQueueNode.Double[] a1 = new PriorityQueueNode.Double[n];
+			PriorityQueueNode.Double[] a2 = pq.toArray(a1);
+			assertTrue(a1 == a2);
+			int j = 0;
+			for (PriorityQueueNode.Double<String> e : pq) {
+				assertEquals(e, a2[j]);
+				j++;
+			}
+			assertEquals(m, j);
+			if (m<n) {
+				assertNull(a2[j]);
+			}
+		}
+		BinaryHeapDouble<String> pq = BinaryHeapDouble.createMinHeap();
+		for (int j = 0; j < n; j++) {
+			pq.offer(elements[j], priorities[j]);
+		}
+		PriorityQueueNode.Double[] a1 = new PriorityQueueNode.Double[n-1];
+		PriorityQueueNode.Double[] a2 = pq.toArray(a1);
+		assertTrue(a1 != a2);
+		assertEquals(n, a2.length);
+		int j = 0;
+		for (PriorityQueueNode.Double<String> e : pq) {
+			assertEquals(e, a2[j]);
+			j++;
+		}
+		assertEquals(n, j);
+	}
+	
+	@Test
 	public void testCapacity() {
 		BinaryHeapDouble<String> pq = BinaryHeapDouble.createMinHeap();
 		assertEquals(BinaryHeapDouble.DEFAULT_INITIAL_CAPACITY, pq.capacity());

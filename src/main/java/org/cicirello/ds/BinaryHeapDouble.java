@@ -22,6 +22,7 @@
  
 package org.cicirello.ds;
 
+import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Arrays;
@@ -395,6 +396,30 @@ public class BinaryHeapDouble<E> implements PriorityQueue.Double<E> {
 	@Override
 	public final int size() {
 		return size;
+	}
+	
+	@Override
+	public final Object[] toArray() {
+		Object[] array = new Object[size];
+		for (int i = 0; i < size; i++) {
+			array[i] = buffer[i];
+		}
+		return array;
+	}
+	
+	@Override
+	public final <T> T[] toArray(T[] array) {
+		@SuppressWarnings("unchecked")
+		T[] result = array.length >= size ? array : (T[])Array.newInstance(array.getClass().getComponentType(), size);
+		for (int i = 0; i < size; i++) {
+			@SuppressWarnings("unchecked")
+			T nextElement = (T)buffer[i];
+			result[i] = nextElement;
+		}
+		if (result.length > size) {
+			result[size] = null;
+		}
+		return result;
 	}
 	
 	/**
