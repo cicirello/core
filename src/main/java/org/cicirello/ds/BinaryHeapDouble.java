@@ -57,10 +57,10 @@ import java.util.NoSuchElementException;
  * <ul>
  * <li><b>O(1):</b> {@link #contains}, {@link #createMaxHeap()}, {@link #createMaxHeap(int)},
  *     {@link #createMinHeap()}, {@link #createMinHeap(int)}, {@link #isEmpty}, {@link #iterator},
- *     {@link #peek}, {@link #peekPair}, {@link #peekPriority()}, {@link #peekPriority(Object)},
+ *     {@link #peek}, {@link #peekElement}, {@link #peekPriority()}, {@link #peekPriority(Object)},
  *     {@link #size()}</li>
  * <li><b>O(lg n):</b> {@link #change}, {@link #offer(Object, double)}, {@link #offer(PriorityQueueNode.Double)},
- *     {@link #poll}, {@link #pollPair}</li>
+ *     {@link #poll}, {@link #pollElement}</li>
  * <li><b>O(n):</b> {@link #clear}, {@link #createMaxHeap(Collection)}, {@link #createMinHeap(Collection)},
  *     {@link #ensureCapacity}, {@link #equals}, {@link #hashCode}, {@link #trimToSize}</li>
  * </ul>
@@ -70,7 +70,7 @@ import java.util.NoSuchElementException;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class BinaryHeapDouble<E> implements PriorityQueue.Double<E>, Iterable<PriorityQueueNode.Double<E>> {
+public class BinaryHeapDouble<E> implements PriorityQueue.Double<E> {
 	
 	private PriorityQueueNode.Double<E>[] buffer;
 	private int size;
@@ -322,12 +322,12 @@ public class BinaryHeapDouble<E> implements PriorityQueue.Double<E>, Iterable<Pr
 	}
 	
 	@Override
-	public final E peek() {
+	public final E peekElement() {
 		return size > 0 ? buffer[0].element : null;
 	}
 	
 	@Override
-	public final PriorityQueueNode.Double<E> peekPair() {
+	public final PriorityQueueNode.Double<E> peek() {
 		return size > 0 ? buffer[0] : null;
 	}
 	
@@ -343,13 +343,13 @@ public class BinaryHeapDouble<E> implements PriorityQueue.Double<E>, Iterable<Pr
 	}
 	
 	@Override
-	public final E poll() {
-		PriorityQueueNode.Double<E> min = pollPair();
+	public final E pollElement() {
+		PriorityQueueNode.Double<E> min = poll();
 		return min != null ? min.element : null;
 	}
 	
 	@Override
-	public final PriorityQueueNode.Double<E> pollPair() {
+	public final PriorityQueueNode.Double<E> poll() {
 		if (size > 0) {
 			PriorityQueueNode.Double<E> min = buffer[0];
 			index.remove(min.element);

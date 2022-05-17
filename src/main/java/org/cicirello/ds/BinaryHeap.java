@@ -57,10 +57,10 @@ import java.util.NoSuchElementException;
  * <ul>
  * <li><b>O(1):</b> {@link #contains}, {@link #createMaxHeap()}, {@link #createMaxHeap(int)},
  *     {@link #createMinHeap()}, {@link #createMinHeap(int)}, {@link #isEmpty}, {@link #iterator},
- *     {@link #peek}, {@link #peekPair}, {@link #peekPriority()}, {@link #peekPriority(Object)},
+ *     {@link #peek}, {@link #peekElement}, {@link #peekPriority()}, {@link #peekPriority(Object)},
  *     {@link #size()}</li>
  * <li><b>O(lg n):</b> {@link #change}, {@link #offer(Object, int)}, {@link #offer(PriorityQueueNode.Integer)},
- *     {@link #poll}, {@link #pollPair}</li>
+ *     {@link #poll}, {@link #pollElement}</li>
  * <li><b>O(n):</b> {@link #clear}, {@link #createMaxHeap(Collection)}, {@link #createMinHeap(Collection)},
  *     {@link #ensureCapacity}, {@link #equals}, {@link #hashCode}, {@link #trimToSize}</li>
  * </ul>
@@ -70,7 +70,7 @@ import java.util.NoSuchElementException;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class BinaryHeap<E> implements PriorityQueue.Integer<E>, Iterable<PriorityQueueNode.Integer<E>> {
+public class BinaryHeap<E> implements PriorityQueue.Integer<E> {
 	
 	private PriorityQueueNode.Integer<E>[] buffer;
 	private int size;
@@ -322,12 +322,12 @@ public class BinaryHeap<E> implements PriorityQueue.Integer<E>, Iterable<Priorit
 	}
 	
 	@Override
-	public final E peek() {
+	public final E peekElement() {
 		return size > 0 ? buffer[0].element : null;
 	}
 	
 	@Override
-	public final PriorityQueueNode.Integer<E> peekPair() {
+	public final PriorityQueueNode.Integer<E> peek() {
 		return size > 0 ? buffer[0] : null;
 	}
 	
@@ -343,13 +343,13 @@ public class BinaryHeap<E> implements PriorityQueue.Integer<E>, Iterable<Priorit
 	}
 	
 	@Override
-	public final E poll() {
-		PriorityQueueNode.Integer<E> min = pollPair();
+	public final E pollElement() {
+		PriorityQueueNode.Integer<E> min = poll();
 		return min != null ? min.element : null;
 	}
 	
 	@Override
-	public final PriorityQueueNode.Integer<E> pollPair() {
+	public final PriorityQueueNode.Integer<E> poll() {
 		if (size > 0) {
 			PriorityQueueNode.Integer<E> min = buffer[0];
 			index.remove(min.element);

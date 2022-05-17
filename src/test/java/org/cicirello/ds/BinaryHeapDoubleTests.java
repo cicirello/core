@@ -106,11 +106,11 @@ public class BinaryHeapDoubleTests {
 		assertEquals(n, pq.capacity());
 		assertEquals(n, pq.size());
 		for (int i = 0; i < n; i++) {
-			assertEquals(pairs[i], pq.pollPair());
+			assertEquals(pairs[i], pq.poll());
 			assertFalse(pq.contains(pairs[i].element));
 			assertEquals(n-1-i, pq.size());
 		}
-		assertNull(pq.pollPair());
+		assertNull(pq.poll());
 		assertEquals(n, pq.capacity());
 		assertEquals(0, pq.size());
 	}
@@ -206,10 +206,10 @@ public class BinaryHeapDoubleTests {
 			}
 			pq.change(elements[i], 1);
 			assertEquals(1.0, pq.peekPriority(elements[i]), 0.0);
-			assertEquals(elements[i], pq.poll());
+			assertEquals(elements[i], pq.pollElement());
 			for (int j = 0; j < n; j++) {
 				if (i!=j) {
-					assertEquals(elements[j], pq.poll());
+					assertEquals(elements[j], pq.pollElement());
 				}
 			}
 			assertTrue(pq.isEmpty());
@@ -224,10 +224,10 @@ public class BinaryHeapDoubleTests {
 			assertEquals(100.0, pq.peekPriority(elements[i]), 0.0);
 			for (int j = 0; j < n; j++) {
 				if (i!=j) {
-					assertEquals(elements[j], pq.poll());
+					assertEquals(elements[j], pq.pollElement());
 				}
 			}
-			assertEquals(elements[i], pq.poll());
+			assertEquals(elements[i], pq.pollElement());
 			assertTrue(pq.isEmpty());
 		}
 		// to interior tests
@@ -244,16 +244,16 @@ public class BinaryHeapDoubleTests {
 				for (; j < n; j++) {
 					if (i != j) {
 						if (priorities[j] < p) {
-							assertEquals(elements[j], pq.poll(), "p,i,j="+p+","+i+","+j);
+							assertEquals(elements[j], pq.pollElement(), "p,i,j="+p+","+i+","+j);
 						} else {
 							break;
 						}
 					}
 				}
-				assertEquals(elements[i], pq.poll(), "p,i,j="+p+","+i+","+j);
+				assertEquals(elements[i], pq.pollElement(), "p,i,j="+p+","+i+","+j);
 				for (; j < n; j++) {
 					if (i!=j && priorities[j] > p) {
-						assertEquals(elements[j], pq.poll());
+						assertEquals(elements[j], pq.pollElement());
 					}
 				}
 				assertTrue(pq.isEmpty());
@@ -268,7 +268,7 @@ public class BinaryHeapDoubleTests {
 			pq.change(elements[i], priorities[i]);
 			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
 			for (int j = 0; j < n; j++) {
-				assertEquals(elements[j], pq.poll());
+				assertEquals(elements[j], pq.pollElement());
 			}
 			assertTrue(pq.isEmpty());
 		}
@@ -284,15 +284,15 @@ public class BinaryHeapDoubleTests {
 			int j = 0;
 			for (; j < n; j++) {
 				if (priorities[j] < p) {
-					assertEquals(elements[j], pq.poll());
+					assertEquals(elements[j], pq.pollElement());
 				} else {
 					break;
 				}
 			}
-			assertEquals("YYY", pq.poll());
+			assertEquals("YYY", pq.pollElement());
 			for (; j < n; j++) {
 				if (priorities[j] > p) {
-					assertEquals(elements[j], pq.poll());
+					assertEquals(elements[j], pq.pollElement());
 				}
 			}
 			assertTrue(pq.isEmpty());
@@ -308,23 +308,23 @@ public class BinaryHeapDoubleTests {
 		BinaryHeapDouble<String> pq = BinaryHeapDouble.createMinHeap();
 		assertEquals(0, pq.size());
 		assertTrue(pq.isEmpty());
+		assertNull(pq.peekElement());
 		assertNull(pq.peek());
-		assertNull(pq.peekPair());
 		assertEquals(Double.POSITIVE_INFINITY, pq.peekPriority(), 0.0);
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.offer(pairs[i]));
 			assertEquals(i+1, pq.size());
 			assertFalse(pq.isEmpty());
-			assertEquals("A", pq.peek());
-			assertEquals(pairs[0], pq.peekPair());
+			assertEquals("A", pq.peekElement());
+			assertEquals(pairs[0], pq.peek());
 			assertEquals((double)'A', pq.peekPriority(), 0.0);
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
 			assertFalse(pq.offer(pairs[i]));
 			assertEquals(n, pq.size());
-			assertEquals("A", pq.peek());
-			assertEquals(pairs[0], pq.peekPair());
+			assertEquals("A", pq.peekElement());
+			assertEquals(pairs[0], pq.peek());
 			assertEquals((double)'A', pq.peekPriority(), 0.0);
 		}
 		for (int i = 0; i < n; i++) {
@@ -332,11 +332,11 @@ public class BinaryHeapDoubleTests {
 		}
 		assertEquals(Double.POSITIVE_INFINITY, pq.peekPriority("hello"), 0.0);
 		for (int i = 0; i < n; i++) {
-			assertEquals(pairs[i], pq.pollPair());
+			assertEquals(pairs[i], pq.poll());
 			assertFalse(pq.contains(pairs[i].element));
 			assertEquals(n-1-i, pq.size());
 		}
-		assertNull(pq.pollPair());
+		assertNull(pq.poll());
 	}
 	
 	@Test
@@ -348,23 +348,23 @@ public class BinaryHeapDoubleTests {
 		BinaryHeapDouble<String> pq = BinaryHeapDouble.createMinHeap();
 		assertEquals(0, pq.size());
 		assertTrue(pq.isEmpty());
+		assertNull(pq.peekElement());
 		assertNull(pq.peek());
-		assertNull(pq.peekPair());
 		assertEquals(Double.POSITIVE_INFINITY, pq.peekPriority(), 0.0);
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.offer(pairs[i]));
 			assertEquals(i+1, pq.size());
 			assertFalse(pq.isEmpty());
-			assertEquals(elements[i], pq.peek());
-			assertEquals(pairs[i], pq.peekPair());
+			assertEquals(elements[i], pq.peekElement());
+			assertEquals(pairs[i], pq.peek());
 			assertEquals((double)elements[i].charAt(0), pq.peekPriority(), 0.0);
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
 			assertFalse(pq.offer(pairs[i]));
 			assertEquals(n, pq.size());
-			assertEquals("A", pq.peek());
-			assertEquals(pairs[n-1], pq.peekPair());
+			assertEquals("A", pq.peekElement());
+			assertEquals(pairs[n-1], pq.peek());
 			assertEquals((double)'A', pq.peekPriority(), 0.0);
 		}
 		for (int i = 0; i < n; i++) {
@@ -372,11 +372,11 @@ public class BinaryHeapDoubleTests {
 		}
 		assertEquals(Double.POSITIVE_INFINITY, pq.peekPriority("hello"), 0.0);
 		for (int i = 0; i < n; i++) {
-			assertEquals(pairs[n-1-i], pq.pollPair());
+			assertEquals(pairs[n-1-i], pq.poll());
 			assertFalse(pq.contains(elements[n-1-i]));
 			assertEquals(n-1-i, pq.size());
 		}
-		assertNull(pq.pollPair());
+		assertNull(pq.poll());
 	}
 	
 	@Test
@@ -388,8 +388,8 @@ public class BinaryHeapDoubleTests {
 		BinaryHeapDouble<String> pq = BinaryHeapDouble.createMinHeap();
 		assertEquals(0, pq.size());
 		assertTrue(pq.isEmpty());
+		assertNull(pq.peekElement());
 		assertNull(pq.peek());
-		assertNull(pq.peekPair());
 		assertEquals(Double.POSITIVE_INFINITY, pq.peekPriority(), 0.0);
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.offer(pairs[i]));
@@ -400,8 +400,8 @@ public class BinaryHeapDoubleTests {
 			assertTrue(pq.contains(elements[i]));
 			assertFalse(pq.offer(pairs[i]));
 			assertEquals(n, pq.size());
-			assertEquals("A", pq.peek());
-			assertEquals(new PriorityQueueNode.Double<String>("A",(int)'A'), pq.peekPair());
+			assertEquals("A", pq.peekElement());
+			assertEquals(new PriorityQueueNode.Double<String>("A",(int)'A'), pq.peek());
 			assertEquals((double)'A', pq.peekPriority(), 0.0);
 		}
 		for (int i = 0; i < n; i++) {
@@ -410,11 +410,11 @@ public class BinaryHeapDoubleTests {
 		assertEquals(Double.POSITIVE_INFINITY, pq.peekPriority("hello"), 0.0);
 		for (int i = 0; i < n; i++) {
 			String expected = ""+((char)('A'+i));
-			assertEquals(new PriorityQueueNode.Double<String>(expected, (int)('A'+i)), pq.pollPair());
+			assertEquals(new PriorityQueueNode.Double<String>(expected, (int)('A'+i)), pq.poll());
 			assertFalse(pq.contains(expected));
 			assertEquals(n-1-i, pq.size());
 		}
-		assertNull(pq.pollPair());
+		assertNull(pq.poll());
 	}
 	
 	@Test
@@ -434,8 +434,8 @@ public class BinaryHeapDoubleTests {
 			assertTrue(pq.contains(elements[i]));
 			assertFalse(pq.offer(pairs[i]));
 			assertEquals(n, pq.size());
-			assertEquals("A", pq.peek());
-			assertEquals(pairs[0], pq.peekPair());
+			assertEquals("A", pq.peekElement());
+			assertEquals(pairs[0], pq.peek());
 			assertEquals((double)'A', pq.peekPriority(), 0.0);
 		}
 		for (int i = 0; i < n; i++) {
@@ -443,11 +443,11 @@ public class BinaryHeapDoubleTests {
 		}
 		assertEquals(Double.POSITIVE_INFINITY, pq.peekPriority("hello"), 0.0);
 		for (int i = 0; i < n; i++) {
-			assertEquals(pairs[i], pq.pollPair());
+			assertEquals(pairs[i], pq.poll());
 			assertFalse(pq.contains(pairs[i].element));
 			assertEquals(n-1-i, pq.size());
 		}
-		assertNull(pq.pollPair());
+		assertNull(pq.poll());
 		
 		IllegalArgumentException thrown = assertThrows( 
 			IllegalArgumentException.class,
@@ -479,8 +479,8 @@ public class BinaryHeapDoubleTests {
 			assertTrue(pq.contains(elements[i]));
 			assertFalse(pq.offer(pairs[i]));
 			assertEquals(n, pq.size());
-			assertEquals("A", pq.peek());
-			assertEquals(pairs[n-1], pq.peekPair());
+			assertEquals("A", pq.peekElement());
+			assertEquals(pairs[n-1], pq.peek());
 			assertEquals((double)'A', pq.peekPriority(), 0.0);
 		}
 		for (int i = 0; i < n; i++) {
@@ -488,11 +488,11 @@ public class BinaryHeapDoubleTests {
 		}
 		assertEquals(Double.POSITIVE_INFINITY, pq.peekPriority("hello"), 0.0);
 		for (int i = 0; i < n; i++) {
-			assertEquals(pairs[n-1-i], pq.pollPair());
+			assertEquals(pairs[n-1-i], pq.poll());
 			assertFalse(pq.contains(elements[n-1-i]));
 			assertEquals(n-1-i, pq.size());
 		}
-		assertNull(pq.pollPair());
+		assertNull(pq.poll());
 	}
 	
 	@Test
@@ -512,8 +512,8 @@ public class BinaryHeapDoubleTests {
 			assertTrue(pq.contains(elements[i]));
 			assertFalse(pq.offer(pairs[i]));
 			assertEquals(n, pq.size());
-			assertEquals("A", pq.peek());
-			assertEquals(new PriorityQueueNode.Double<String>("A",(int)'A'), pq.peekPair());
+			assertEquals("A", pq.peekElement());
+			assertEquals(new PriorityQueueNode.Double<String>("A",(int)'A'), pq.peek());
 			assertEquals((double)'A', pq.peekPriority(), 0.0);
 		}
 		for (int i = 0; i < n; i++) {
@@ -522,11 +522,11 @@ public class BinaryHeapDoubleTests {
 		assertEquals(Double.POSITIVE_INFINITY, pq.peekPriority("hello"), 0.0);
 		for (int i = 0; i < n; i++) {
 			String expected = ""+((char)('A'+i));
-			assertEquals(new PriorityQueueNode.Double<String>(expected, (int)('A'+i)), pq.pollPair());
+			assertEquals(new PriorityQueueNode.Double<String>(expected, (int)('A'+i)), pq.poll());
 			assertFalse(pq.contains(expected));
 			assertEquals(n-1-i, pq.size());
 		}
-		assertNull(pq.pollPair());
+		assertNull(pq.poll());
 	}
 	
 	@Test
@@ -538,23 +538,23 @@ public class BinaryHeapDoubleTests {
 		BinaryHeapDouble<String> pq = BinaryHeapDouble.createMinHeap(8);
 		assertEquals(0, pq.size());
 		assertTrue(pq.isEmpty());
+		assertNull(pq.peekElement());
 		assertNull(pq.peek());
-		assertNull(pq.peekPair());
 		assertEquals(Double.POSITIVE_INFINITY, pq.peekPriority(), 0.0);
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.offer(elements[i], priorities[i]));
 			assertEquals(i+1, pq.size());
 			assertFalse(pq.isEmpty());
-			assertEquals("A", pq.peek());
-			assertEquals(pairs[0], pq.peekPair());
+			assertEquals("A", pq.peekElement());
+			assertEquals(pairs[0], pq.peek());
 			assertEquals((double)'A', pq.peekPriority(), 0.0);
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
 			assertFalse(pq.offer(elements[i], priorities[i]));
 			assertEquals(n, pq.size());
-			assertEquals("A", pq.peek());
-			assertEquals(pairs[0], pq.peekPair());
+			assertEquals("A", pq.peekElement());
+			assertEquals(pairs[0], pq.peek());
 			assertEquals((double)'A', pq.peekPriority(), 0.0);
 		}
 		for (int i = 0; i < n; i++) {
@@ -562,11 +562,11 @@ public class BinaryHeapDoubleTests {
 		}
 		assertEquals(Double.POSITIVE_INFINITY, pq.peekPriority("hello"), 0.0);
 		for (int i = 0; i < n; i++) {
-			assertEquals(elements[i], pq.poll());
+			assertEquals(elements[i], pq.pollElement());
 			assertFalse(pq.contains(pairs[i].element));
 			assertEquals(n-1-i, pq.size());
 		}
-		assertNull(pq.poll());
+		assertNull(pq.pollElement());
 		
 		IllegalArgumentException thrown = assertThrows( 
 			IllegalArgumentException.class,
@@ -583,23 +583,23 @@ public class BinaryHeapDoubleTests {
 		BinaryHeapDouble<String> pq = BinaryHeapDouble.createMinHeap(8);
 		assertEquals(0, pq.size());
 		assertTrue(pq.isEmpty());
+		assertNull(pq.peekElement());
 		assertNull(pq.peek());
-		assertNull(pq.peekPair());
 		assertEquals(Double.POSITIVE_INFINITY, pq.peekPriority(), 0.0);
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.offer(elements[i], priorities[i]));
 			assertEquals(i+1, pq.size());
 			assertFalse(pq.isEmpty());
-			assertEquals(elements[i], pq.peek());
-			assertEquals(pairs[i], pq.peekPair());
+			assertEquals(elements[i], pq.peekElement());
+			assertEquals(pairs[i], pq.peek());
 			assertEquals((double)elements[i].charAt(0), pq.peekPriority(), 0.0);
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
 			assertFalse(pq.offer(elements[i], priorities[i]));
 			assertEquals(n, pq.size());
-			assertEquals("A", pq.peek());
-			assertEquals(pairs[n-1], pq.peekPair());
+			assertEquals("A", pq.peekElement());
+			assertEquals(pairs[n-1], pq.peek());
 			assertEquals((double)'A', pq.peekPriority(), 0.0);
 		}
 		for (int i = 0; i < n; i++) {
@@ -607,11 +607,11 @@ public class BinaryHeapDoubleTests {
 		}
 		assertEquals(Double.POSITIVE_INFINITY, pq.peekPriority("hello"), 0.0);
 		for (int i = 0; i < n; i++) {
-			assertEquals(elements[n-1-i], pq.poll());
+			assertEquals(elements[n-1-i], pq.pollElement());
 			assertFalse(pq.contains(elements[n-1-i]));
 			assertEquals(n-1-i, pq.size());
 		}
-		assertNull(pq.poll());
+		assertNull(pq.pollElement());
 	}
 	
 	@Test
@@ -623,8 +623,8 @@ public class BinaryHeapDoubleTests {
 		BinaryHeapDouble<String> pq = BinaryHeapDouble.createMinHeap(8);
 		assertEquals(0, pq.size());
 		assertTrue(pq.isEmpty());
+		assertNull(pq.peekElement());
 		assertNull(pq.peek());
-		assertNull(pq.peekPair());
 		assertEquals(Double.POSITIVE_INFINITY, pq.peekPriority(), 0.0);
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.offer(elements[i], priorities[i]));
@@ -635,8 +635,8 @@ public class BinaryHeapDoubleTests {
 			assertTrue(pq.contains(elements[i]));
 			assertFalse(pq.offer(elements[i], priorities[i]));
 			assertEquals(n, pq.size());
-			assertEquals("A", pq.peek());
-			assertEquals(new PriorityQueueNode.Double<String>("A",(int)'A'), pq.peekPair());
+			assertEquals("A", pq.peekElement());
+			assertEquals(new PriorityQueueNode.Double<String>("A",(int)'A'), pq.peek());
 			assertEquals((double)'A', pq.peekPriority(), 0.0);
 		}
 		for (int i = 0; i < n; i++) {
@@ -645,11 +645,11 @@ public class BinaryHeapDoubleTests {
 		assertEquals(Double.POSITIVE_INFINITY, pq.peekPriority("hello"), 0.0);
 		for (int i = 0; i < n; i++) {
 			String expected = ""+((char)('A'+i));
-			assertEquals(expected, pq.poll());
+			assertEquals(expected, pq.pollElement());
 			assertFalse(pq.contains(expected));
 			assertEquals(n-1-i, pq.size());
 		}
-		assertNull(pq.poll());
+		assertNull(pq.pollElement());
 	}
 	
 	
@@ -671,10 +671,10 @@ public class BinaryHeapDoubleTests {
 			}
 			pq.change(elements[i], -1);
 			assertEquals(-1.0, pq.peekPriority(elements[i]), 0.0);
-			assertEquals(elements[i], pq.poll());
+			assertEquals(elements[i], pq.pollElement());
 			for (int j = 0; j < n; j++) {
 				if (i!=j) {
-					assertEquals(elements[j], pq.poll());
+					assertEquals(elements[j], pq.pollElement());
 				}
 			}
 			assertTrue(pq.isEmpty());
@@ -689,10 +689,10 @@ public class BinaryHeapDoubleTests {
 			assertEquals(-100.0, pq.peekPriority(elements[i]), 0.0);
 			for (int j = 0; j < n; j++) {
 				if (i!=j) {
-					assertEquals(elements[j], pq.poll());
+					assertEquals(elements[j], pq.pollElement());
 				}
 			}
-			assertEquals(elements[i], pq.poll());
+			assertEquals(elements[i], pq.pollElement());
 			assertTrue(pq.isEmpty());
 		}
 		// to interior tests
@@ -709,16 +709,16 @@ public class BinaryHeapDoubleTests {
 				for (; j < n; j++) {
 					if (i != j) {
 						if (priorities[j] > -p) {
-							assertEquals(elements[j], pq.poll(), "p,i,j="+p+","+i+","+j);
+							assertEquals(elements[j], pq.pollElement(), "p,i,j="+p+","+i+","+j);
 						} else {
 							break;
 						}
 					}
 				}
-				assertEquals(elements[i], pq.poll(), "p,i,j="+p+","+i+","+j);
+				assertEquals(elements[i], pq.pollElement(), "p,i,j="+p+","+i+","+j);
 				for (; j < n; j++) {
 					if (i!=j && priorities[j] < -p) {
-						assertEquals(elements[j], pq.poll());
+						assertEquals(elements[j], pq.pollElement());
 					}
 				}
 				assertTrue(pq.isEmpty());
@@ -733,7 +733,7 @@ public class BinaryHeapDoubleTests {
 			pq.change(elements[i], priorities[i]);
 			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
 			for (int j = 0; j < n; j++) {
-				assertEquals(elements[j], pq.poll());
+				assertEquals(elements[j], pq.pollElement());
 			}
 			assertTrue(pq.isEmpty());
 		}
@@ -749,15 +749,15 @@ public class BinaryHeapDoubleTests {
 			int j = 0;
 			for (; j < n; j++) {
 				if (priorities[j] > -p) {
-					assertEquals(elements[j], pq.poll());
+					assertEquals(elements[j], pq.pollElement());
 				} else {
 					break;
 				}
 			}
-			assertEquals("YYY", pq.poll());
+			assertEquals("YYY", pq.pollElement());
 			for (; j < n; j++) {
 				if (priorities[j] < -p) {
-					assertEquals(elements[j], pq.poll());
+					assertEquals(elements[j], pq.pollElement());
 				}
 			}
 			assertTrue(pq.isEmpty());
@@ -773,23 +773,23 @@ public class BinaryHeapDoubleTests {
 		BinaryHeapDouble<String> pq = BinaryHeapDouble.createMaxHeap();
 		assertEquals(0, pq.size());
 		assertTrue(pq.isEmpty());
+		assertNull(pq.peekElement());
 		assertNull(pq.peek());
-		assertNull(pq.peekPair());
 		assertEquals(Double.NEGATIVE_INFINITY, pq.peekPriority(), 0.0);
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.offer(pairs[i]));
 			assertEquals(i+1, pq.size());
 			assertFalse(pq.isEmpty());
-			assertEquals("A", pq.peek());
-			assertEquals(pairs[0], pq.peekPair());
+			assertEquals("A", pq.peekElement());
+			assertEquals(pairs[0], pq.peek());
 			assertEquals((double)'A', pq.peekPriority(), 0.0);
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
 			assertFalse(pq.offer(pairs[i]));
 			assertEquals(n, pq.size());
-			assertEquals("A", pq.peek());
-			assertEquals(pairs[0], pq.peekPair());
+			assertEquals("A", pq.peekElement());
+			assertEquals(pairs[0], pq.peek());
 			assertEquals((double)'A', pq.peekPriority(), 0.0);
 		}
 		for (int i = 0; i < n; i++) {
@@ -797,11 +797,11 @@ public class BinaryHeapDoubleTests {
 		}
 		assertEquals(Double.NEGATIVE_INFINITY, pq.peekPriority("hello"), 0.0);
 		for (int i = 0; i < n; i++) {
-			assertEquals(pairs[i], pq.pollPair());
+			assertEquals(pairs[i], pq.poll());
 			assertFalse(pq.contains(pairs[i].element));
 			assertEquals(n-1-i, pq.size());
 		}
-		assertNull(pq.pollPair());
+		assertNull(pq.poll());
 	}
 	
 	@Test
@@ -813,23 +813,23 @@ public class BinaryHeapDoubleTests {
 		BinaryHeapDouble<String> pq = BinaryHeapDouble.createMaxHeap();
 		assertEquals(0, pq.size());
 		assertTrue(pq.isEmpty());
+		assertNull(pq.peekElement());
 		assertNull(pq.peek());
-		assertNull(pq.peekPair());
 		assertEquals(Double.NEGATIVE_INFINITY, pq.peekPriority(), 0.0);
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.offer(pairs[i]));
 			assertEquals(i+1, pq.size());
 			assertFalse(pq.isEmpty());
-			assertEquals(elements[i], pq.peek());
-			assertEquals(pairs[i], pq.peekPair());
+			assertEquals(elements[i], pq.peekElement());
+			assertEquals(pairs[i], pq.peek());
 			assertEquals((double)elements[i].charAt(0), pq.peekPriority(), 0.0);
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
 			assertFalse(pq.offer(pairs[i]));
 			assertEquals(n, pq.size());
-			assertEquals("A", pq.peek());
-			assertEquals(pairs[n-1], pq.peekPair());
+			assertEquals("A", pq.peekElement());
+			assertEquals(pairs[n-1], pq.peek());
 			assertEquals((double)'A', pq.peekPriority(), 0.0);
 		}
 		for (int i = 0; i < n; i++) {
@@ -837,11 +837,11 @@ public class BinaryHeapDoubleTests {
 		}
 		assertEquals(Double.NEGATIVE_INFINITY, pq.peekPriority("hello"), 0.0);
 		for (int i = 0; i < n; i++) {
-			assertEquals(pairs[n-1-i], pq.pollPair());
+			assertEquals(pairs[n-1-i], pq.poll());
 			assertFalse(pq.contains(elements[n-1-i]));
 			assertEquals(n-1-i, pq.size());
 		}
-		assertNull(pq.pollPair());
+		assertNull(pq.poll());
 	}
 	
 	@Test
@@ -853,8 +853,8 @@ public class BinaryHeapDoubleTests {
 		BinaryHeapDouble<String> pq = BinaryHeapDouble.createMaxHeap();
 		assertEquals(0, pq.size());
 		assertTrue(pq.isEmpty());
+		assertNull(pq.peekElement());
 		assertNull(pq.peek());
-		assertNull(pq.peekPair());
 		assertEquals(Double.NEGATIVE_INFINITY, pq.peekPriority(), 0.0);
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.offer(pairs[i]));
@@ -865,8 +865,8 @@ public class BinaryHeapDoubleTests {
 			assertTrue(pq.contains(elements[i]));
 			assertFalse(pq.offer(pairs[i]));
 			assertEquals(n, pq.size());
-			assertEquals("A", pq.peek());
-			assertEquals(new PriorityQueueNode.Double<String>("A",(int)'A'), pq.peekPair());
+			assertEquals("A", pq.peekElement());
+			assertEquals(new PriorityQueueNode.Double<String>("A",(int)'A'), pq.peek());
 			assertEquals((double)'A', pq.peekPriority(), 0.0);
 		}
 		for (int i = 0; i < n; i++) {
@@ -875,11 +875,11 @@ public class BinaryHeapDoubleTests {
 		assertEquals(Double.NEGATIVE_INFINITY, pq.peekPriority("hello"), 0.0);
 		for (int i = 0; i < n; i++) {
 			String expected = ""+((char)('A'-i));
-			assertEquals(new PriorityQueueNode.Double<String>(expected, (int)('A'-i)), pq.pollPair());
+			assertEquals(new PriorityQueueNode.Double<String>(expected, (int)('A'-i)), pq.poll());
 			assertFalse(pq.contains(expected));
 			assertEquals(n-1-i, pq.size());
 		}
-		assertNull(pq.pollPair());
+		assertNull(pq.poll());
 	}
 	
 	@Test
@@ -899,8 +899,8 @@ public class BinaryHeapDoubleTests {
 			assertTrue(pq.contains(elements[i]));
 			assertFalse(pq.offer(pairs[i]));
 			assertEquals(n, pq.size());
-			assertEquals("A", pq.peek());
-			assertEquals(pairs[0], pq.peekPair());
+			assertEquals("A", pq.peekElement());
+			assertEquals(pairs[0], pq.peek());
 			assertEquals((double)'A', pq.peekPriority(), 0.0);
 		}
 		for (int i = 0; i < n; i++) {
@@ -908,11 +908,11 @@ public class BinaryHeapDoubleTests {
 		}
 		assertEquals(Double.NEGATIVE_INFINITY, pq.peekPriority("hello"), 0.0);
 		for (int i = 0; i < n; i++) {
-			assertEquals(pairs[i], pq.pollPair());
+			assertEquals(pairs[i], pq.poll());
 			assertFalse(pq.contains(pairs[i].element));
 			assertEquals(n-1-i, pq.size());
 		}
-		assertNull(pq.pollPair());
+		assertNull(pq.poll());
 		
 		IllegalArgumentException thrown = assertThrows( 
 			IllegalArgumentException.class,
@@ -944,8 +944,8 @@ public class BinaryHeapDoubleTests {
 			assertTrue(pq.contains(elements[i]));
 			assertFalse(pq.offer(pairs[i]));
 			assertEquals(n, pq.size());
-			assertEquals("A", pq.peek());
-			assertEquals(pairs[n-1], pq.peekPair());
+			assertEquals("A", pq.peekElement());
+			assertEquals(pairs[n-1], pq.peek());
 			assertEquals((double)'A', pq.peekPriority(), 0.0);
 		}
 		for (int i = 0; i < n; i++) {
@@ -953,11 +953,11 @@ public class BinaryHeapDoubleTests {
 		}
 		assertEquals(Double.NEGATIVE_INFINITY, pq.peekPriority("hello"), 0.0);
 		for (int i = 0; i < n; i++) {
-			assertEquals(pairs[n-1-i], pq.pollPair());
+			assertEquals(pairs[n-1-i], pq.poll());
 			assertFalse(pq.contains(elements[n-1-i]));
 			assertEquals(n-1-i, pq.size());
 		}
-		assertNull(pq.pollPair());
+		assertNull(pq.poll());
 	}
 	
 	@Test
@@ -977,8 +977,8 @@ public class BinaryHeapDoubleTests {
 			assertTrue(pq.contains(elements[i]));
 			assertFalse(pq.offer(pairs[i]));
 			assertEquals(n, pq.size());
-			assertEquals("A", pq.peek());
-			assertEquals(new PriorityQueueNode.Double<String>("A",(int)'A'), pq.peekPair());
+			assertEquals("A", pq.peekElement());
+			assertEquals(new PriorityQueueNode.Double<String>("A",(int)'A'), pq.peek());
 			assertEquals((double)'A', pq.peekPriority(), 0.0);
 		}
 		for (int i = 0; i < n; i++) {
@@ -987,11 +987,11 @@ public class BinaryHeapDoubleTests {
 		assertEquals(Double.NEGATIVE_INFINITY, pq.peekPriority("hello"), 0.0);
 		for (int i = 0; i < n; i++) {
 			String expected = ""+((char)('A'-i));
-			assertEquals(new PriorityQueueNode.Double<String>(expected, (int)('A'-i)), pq.pollPair());
+			assertEquals(new PriorityQueueNode.Double<String>(expected, (int)('A'-i)), pq.poll());
 			assertFalse(pq.contains(expected));
 			assertEquals(n-1-i, pq.size());
 		}
-		assertNull(pq.pollPair());
+		assertNull(pq.poll());
 	}
 	
 	@Test
@@ -1003,23 +1003,23 @@ public class BinaryHeapDoubleTests {
 		BinaryHeapDouble<String> pq = BinaryHeapDouble.createMaxHeap(8);
 		assertEquals(0, pq.size());
 		assertTrue(pq.isEmpty());
+		assertNull(pq.peekElement());
 		assertNull(pq.peek());
-		assertNull(pq.peekPair());
 		assertEquals(Double.NEGATIVE_INFINITY, pq.peekPriority(), 0.0);
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.offer(elements[i], priorities[i]));
 			assertEquals(i+1, pq.size());
 			assertFalse(pq.isEmpty());
-			assertEquals("A", pq.peek());
-			assertEquals(pairs[0], pq.peekPair());
+			assertEquals("A", pq.peekElement());
+			assertEquals(pairs[0], pq.peek());
 			assertEquals((double)'A', pq.peekPriority(), 0.0);
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
 			assertFalse(pq.offer(elements[i], priorities[i]));
 			assertEquals(n, pq.size());
-			assertEquals("A", pq.peek());
-			assertEquals(pairs[0], pq.peekPair());
+			assertEquals("A", pq.peekElement());
+			assertEquals(pairs[0], pq.peek());
 			assertEquals((double)'A', pq.peekPriority(), 0.0);
 		}
 		for (int i = 0; i < n; i++) {
@@ -1027,11 +1027,11 @@ public class BinaryHeapDoubleTests {
 		}
 		assertEquals(Double.NEGATIVE_INFINITY, pq.peekPriority("hello"), 0.0);
 		for (int i = 0; i < n; i++) {
-			assertEquals(elements[i], pq.poll());
+			assertEquals(elements[i], pq.pollElement());
 			assertFalse(pq.contains(pairs[i].element));
 			assertEquals(n-1-i, pq.size());
 		}
-		assertNull(pq.poll());
+		assertNull(pq.pollElement());
 		
 		IllegalArgumentException thrown = assertThrows( 
 			IllegalArgumentException.class,
@@ -1048,23 +1048,23 @@ public class BinaryHeapDoubleTests {
 		BinaryHeapDouble<String> pq = BinaryHeapDouble.createMaxHeap(8);
 		assertEquals(0, pq.size());
 		assertTrue(pq.isEmpty());
+		assertNull(pq.peekElement());
 		assertNull(pq.peek());
-		assertNull(pq.peekPair());
 		assertEquals(Double.NEGATIVE_INFINITY, pq.peekPriority(), 0.0);
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.offer(elements[i], priorities[i]));
 			assertEquals(i+1, pq.size());
 			assertFalse(pq.isEmpty());
-			assertEquals(elements[i], pq.peek());
-			assertEquals(pairs[i], pq.peekPair());
+			assertEquals(elements[i], pq.peekElement());
+			assertEquals(pairs[i], pq.peek());
 			assertEquals((double)elements[i].charAt(0), pq.peekPriority(), 0.0);
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
 			assertFalse(pq.offer(elements[i], priorities[i]));
 			assertEquals(n, pq.size());
-			assertEquals("A", pq.peek());
-			assertEquals(pairs[n-1], pq.peekPair());
+			assertEquals("A", pq.peekElement());
+			assertEquals(pairs[n-1], pq.peek());
 			assertEquals((double)'A', pq.peekPriority(), 0.0);
 		}
 		for (int i = 0; i < n; i++) {
@@ -1072,11 +1072,11 @@ public class BinaryHeapDoubleTests {
 		}
 		assertEquals(Double.NEGATIVE_INFINITY, pq.peekPriority("hello"), 0.0);
 		for (int i = 0; i < n; i++) {
-			assertEquals(elements[n-1-i], pq.poll());
+			assertEquals(elements[n-1-i], pq.pollElement());
 			assertFalse(pq.contains(elements[n-1-i]));
 			assertEquals(n-1-i, pq.size());
 		}
-		assertNull(pq.poll());
+		assertNull(pq.pollElement());
 	}
 	
 	@Test
@@ -1088,8 +1088,8 @@ public class BinaryHeapDoubleTests {
 		BinaryHeapDouble<String> pq = BinaryHeapDouble.createMaxHeap(8);
 		assertEquals(0, pq.size());
 		assertTrue(pq.isEmpty());
+		assertNull(pq.peekElement());
 		assertNull(pq.peek());
-		assertNull(pq.peekPair());
 		assertEquals(Double.NEGATIVE_INFINITY, pq.peekPriority(), 0.0);
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.offer(elements[i], priorities[i]));
@@ -1100,8 +1100,8 @@ public class BinaryHeapDoubleTests {
 			assertTrue(pq.contains(elements[i]));
 			assertFalse(pq.offer(elements[i], priorities[i]));
 			assertEquals(n, pq.size());
-			assertEquals("A", pq.peek());
-			assertEquals(new PriorityQueueNode.Double<String>("A",(int)'A'), pq.peekPair());
+			assertEquals("A", pq.peekElement());
+			assertEquals(new PriorityQueueNode.Double<String>("A",(int)'A'), pq.peek());
 			assertEquals((double)'A', pq.peekPriority(), 0.0);
 		}
 		for (int i = 0; i < n; i++) {
@@ -1110,11 +1110,11 @@ public class BinaryHeapDoubleTests {
 		assertEquals(Double.NEGATIVE_INFINITY, pq.peekPriority("hello"), 0.0);
 		for (int i = 0; i < n; i++) {
 			String expected = ""+((char)('A'-i));
-			assertEquals(expected, pq.poll());
+			assertEquals(expected, pq.pollElement());
 			assertFalse(pq.contains(expected));
 			assertEquals(n-1-i, pq.size());
 		}
-		assertNull(pq.poll());
+		assertNull(pq.pollElement());
 	}
 	
 	

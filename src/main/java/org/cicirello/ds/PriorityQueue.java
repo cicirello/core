@@ -67,14 +67,14 @@ public interface PriorityQueue<E> {
 	 *
 	 * @return the next element in priority order, or null if empty.
 	 */
-	E peek();
+	E peekElement();
 	
 	/**
 	 * Removes and returns the next element in priority order from this PriorityQueue.
 	 *
 	 * @return the next element in priority order, or null if empty.
 	 */
-	E poll();
+	E pollElement();
 	
 	/**
 	 * Gets the current size of the PriorityQueue, which is the
@@ -98,7 +98,7 @@ public interface PriorityQueue<E> {
 	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
 	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
 	 */
-	public static interface Integer<E> extends PriorityQueue<E> {
+	public static interface Integer<E> extends PriorityQueue<E>, Iterable<PriorityQueueNode.Integer<E>> {
 		
 		/**
 		 * Changes the priority of an element if the element is
@@ -139,7 +139,7 @@ public interface PriorityQueue<E> {
 		 *
 		 * @return the next (element, priority) pair in priority order, or null if empty.
 		 */
-		PriorityQueueNode.Integer<E> peekPair();
+		PriorityQueueNode.Integer<E> peek();
 		
 		/**
 		 * Gets the priority of the next element in priority order in the PriorityQueue.
@@ -164,7 +164,7 @@ public interface PriorityQueue<E> {
 		 *
 		 * @return the next (element, priority) pair in priority order, or null if empty.
 		 */
-		PriorityQueueNode.Integer<E> pollPair();
+		PriorityQueueNode.Integer<E> poll();
 	}
 	
 	/**
@@ -180,7 +180,7 @@ public interface PriorityQueue<E> {
 	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
 	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
 	 */
-	public static interface Double<E> extends PriorityQueue<E> {
+	public static interface Double<E> extends PriorityQueue<E>, Iterable<PriorityQueueNode.Double<E>> {
 		
 		/**
 		 * Changes the priority of an element if the element is
@@ -221,7 +221,7 @@ public interface PriorityQueue<E> {
 		 *
 		 * @return the next (element, priority) pair in priority order, or null if empty.
 		 */
-		PriorityQueueNode.Double<E> peekPair();
+		PriorityQueueNode.Double<E> peek();
 		
 		/**
 		 * Gets the priority of the next element in priority order in the PriorityQueue.
@@ -246,6 +246,6 @@ public interface PriorityQueue<E> {
 		 *
 		 * @return the next (element, priority) pair in priority order, or null if empty.
 		 */
-		PriorityQueueNode.Double<E> pollPair();
+		PriorityQueueNode.Double<E> poll();
 	}
 }
