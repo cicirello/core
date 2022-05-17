@@ -293,13 +293,6 @@ public class BinaryHeapDouble<E> implements PriorityQueue.Double<E> {
 		return size == 0;
 	}
 	
-	/**
-	 * Returns an iterator over the (element, priority) pairs in a
-	 * mostly arbitrary order (i.e., you must not assume any particular
-	 * order).
-	 *
-	 * @return an iterator over the (element, priority) pairs
-	 */
 	@Override
 	public final Iterator<PriorityQueueNode.Double<E>> iterator() {
 		return new BinaryHeapDoubleIterator();

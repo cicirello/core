@@ -22,6 +22,9 @@
  
 package org.cicirello.ds;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 /**
  * <p>Interface common to the classes that provide implementations of
  * a priority queue. All PriorityQueue implementations enforce distinct
@@ -77,6 +80,23 @@ public interface PriorityQueue<E> {
 	E pollElement();
 	
 	/**
+	 * Removes and returns the next element in priority order from this PriorityQueue.
+	 * This method differs from {@link #pollElement()} in that if the PriorityQueue is
+	 * empty, this method throws an exception, while {@link #pollElement()} returns null.
+	 *
+	 * @return the next element in priority order.
+	 *
+	 * @throws NoSuchElementException if the PriorityQueue is empty
+	 */
+	default E removeElement() {
+		E result = pollElement();
+		if (result == null) {
+			throw new NoSuchElementException("PriorityQueue is empty");
+		}
+		return result;
+	}
+	
+	/**
 	 * Gets the current size of the PriorityQueue, which is the
 	 * number of (element, value) pairs that it contains.
 	 *
@@ -101,6 +121,47 @@ public interface PriorityQueue<E> {
 	public static interface Integer<E> extends PriorityQueue<E>, Iterable<PriorityQueueNode.Integer<E>> {
 		
 		/**
+		 * Adds an (element, priority) pair to the PriorityQueue with a specified priority,
+		 * provided the element is not already in the PriorityQueue.
+		 * This method differs from {@link #offer(Object, int)}
+		 * in that it throws an exception if the PriorityQueue contains the element,
+		 * while the offer method instead returns false.
+		 *
+		 * @param element The element.
+		 * @param priority The priority of the element.
+		 *
+		 * @return true if the (element, priority) pair was added.
+		 *
+		 * @throws IllegalArgumentException if the priority queue already contains the element.
+		 */
+		default boolean add(E element, int priority) {
+			if (!offer(element, priority)) {
+				throw new IllegalArgumentException("already contains an (element, priority) pair with this element");
+			}
+			return true;
+		}
+		
+		/**
+		 * Adds an (element, priority) pair to the PriorityQueue,
+		 * provided the element is not already in the PriorityQueue.
+		 * This method differs from {@link #offer(PriorityQueueNode.Integer)}
+		 * in that it throws an exception if the PriorityQueue contains the element,
+		 * while the offer method instead returns false.
+		 *
+		 * @param pair The (element, priority) pair to add.
+		 *
+		 * @return true if the (element, priority) pair was added.
+		 *
+		 * @throws IllegalArgumentException if the priority queue already contains the element.
+		 */
+		default boolean add(PriorityQueueNode.Integer<E> pair) {
+			if (!offer(pair)) {
+				throw new IllegalArgumentException("already contains an (element, priority) pair with this element");
+			}
+			return true;
+		}
+		
+		/**
 		 * Changes the priority of an element if the element is
 		 * present in the PriorityQueue, and otherwise adds the
 		 * (element, priority) pair to the PriorityQueue.
@@ -109,6 +170,38 @@ public interface PriorityQueue<E> {
 		 * @param priority Its new priority.
 		 */
 		void change(E element, int priority);
+		
+		/**
+		 * <p>Gets the next (element, priority) pair in priority order from this PriorityQueue,
+		 * without removing it.</p>
+		 * <p>This method differs from {@link #peek()} in that if the PriorityQueue is
+		 * empty, this method throws an exception, while {@link #peek()} returns null.</p>
+		 * <p>This method serves a different purpose than {@link peekElement()}. The
+		 * {@link peekElement()} methods returns only the element of the (element, priority)
+		 * pair, while this method returns the (element, priority) pair. This element() method
+		 * is included only for full implementation of the superinterface {@link java.util.Queue Queue}.</p>
+		 *
+		 * @return the next (element, priority) pair in priority order.
+		 *
+		 * @throws NoSuchElementException if the PriorityQueue is empty
+		 */
+		default PriorityQueueNode.Integer<E> element() {
+			PriorityQueueNode.Integer<E> result = peek();
+			if (result == null) {
+				throw new NoSuchElementException("PriorityQueue is empty");
+			}
+			return result;
+		}
+		
+		/**
+		 * Returns an iterator over the (element, priority) pairs in a
+		 * mostly arbitrary order (i.e., you must not assume any particular
+		 * order).
+		 *
+		 * @return an iterator over the (element, priority) pairs
+		 */
+		@Override
+		Iterator<PriorityQueueNode.Integer<E>> iterator();
 		
 		/**
 		 * Adds an (element, priority) pair to the PriorityQueue with a specified priority,
@@ -165,6 +258,23 @@ public interface PriorityQueue<E> {
 		 * @return the next (element, priority) pair in priority order, or null if empty.
 		 */
 		PriorityQueueNode.Integer<E> poll();
+		
+		/**
+		 * Removes and returns the next (element, priority) pair in priority order from this PriorityQueue.
+		 * This method differs from {@link #poll()} in that if the PriorityQueue is
+		 * empty, this method throws an exception, while {@link #poll()} returns null.
+		 *
+		 * @return the next (element, priority) pair in priority order.
+		 *
+		 * @throws NoSuchElementException if the PriorityQueue is empty
+		 */
+		default PriorityQueueNode.Integer<E> remove() {
+			PriorityQueueNode.Integer<E> result = poll();
+			if (result == null) {
+				throw new NoSuchElementException("PriorityQueue is empty");
+			}
+			return result;
+		}
 	}
 	
 	/**
@@ -183,6 +293,47 @@ public interface PriorityQueue<E> {
 	public static interface Double<E> extends PriorityQueue<E>, Iterable<PriorityQueueNode.Double<E>> {
 		
 		/**
+		 * Adds an (element, priority) pair to the PriorityQueue with a specified priority,
+		 * provided the element is not already in the PriorityQueue.
+		 * This method differs from {@link #offer(Object, double)}
+		 * in that it throws an exception if the PriorityQueue contains the element,
+		 * while the offer method instead returns false.
+		 *
+		 * @param element The element.
+		 * @param priority The priority of the element.
+		 *
+		 * @return true if the (element, priority) pair was added.
+		 *
+		 * @throws IllegalArgumentException if the priority queue already contains the element.
+		 */
+		default boolean add(E element, double priority) {
+			if (!offer(element, priority)) {
+				throw new IllegalArgumentException("already contains an (element, priority) pair with this element");
+			}
+			return true;
+		}
+		
+		/**
+		 * Adds an (element, priority) pair to the PriorityQueue,
+		 * provided the element is not already in the PriorityQueue.
+		 * This method differs from {@link #offer(PriorityQueueNode.Double)}
+		 * in that it throws an exception if the PriorityQueue contains the element,
+		 * while the offer method instead returns false.
+		 *
+		 * @param pair The (element, priority) pair to add.
+		 *
+		 * @return true if the (element, priority) pair was added.
+		 *
+		 * @throws IllegalArgumentException if the priority queue already contains the element.
+		 */
+		default boolean add(PriorityQueueNode.Double<E> pair) {
+			if (!offer(pair)) {
+				throw new IllegalArgumentException("already contains an (element, priority) pair with this element");
+			}
+			return true;
+		}
+		
+		/**
 		 * Changes the priority of an element if the element is
 		 * present in the PriorityQueue, and otherwise adds the
 		 * (element, priority) pair to the PriorityQueue.
@@ -191,6 +342,38 @@ public interface PriorityQueue<E> {
 		 * @param priority Its new priority.
 		 */
 		void change(E element, double priority);
+		
+		/**
+		 * <p>Gets the next (element, priority) pair in priority order from this PriorityQueue,
+		 * without removing it.</p>
+		 * <p>This method differs from {@link #peek()} in that if the PriorityQueue is
+		 * empty, this method throws an exception, while {@link #peek()} returns null.</p>
+		 * <p>This method serves a different purpose than {@link peekElement()}. The
+		 * {@link peekElement()} methods returns only the element of the (element, priority)
+		 * pair, while this method returns the (element, priority) pair. This element() method
+		 * is included only for full implementation of the superinterface {@link java.util.Queue Queue}.</p>
+		 *
+		 * @return the next (element, priority) pair in priority order.
+		 *
+		 * @throws NoSuchElementException if the PriorityQueue is empty
+		 */
+		default PriorityQueueNode.Double<E> element() {
+			PriorityQueueNode.Double<E> result = peek();
+			if (result == null) {
+				throw new NoSuchElementException("PriorityQueue is empty");
+			}
+			return result;
+		}
+		
+		/**
+		 * Returns an iterator over the (element, priority) pairs in a
+		 * mostly arbitrary order (i.e., you must not assume any particular
+		 * order).
+		 *
+		 * @return an iterator over the (element, priority) pairs
+		 */
+		@Override
+		Iterator<PriorityQueueNode.Double<E>> iterator();
 		
 		/**
 		 * Adds an (element, priority) pair to the PriorityQueue with a specified priority,
@@ -247,5 +430,22 @@ public interface PriorityQueue<E> {
 		 * @return the next (element, priority) pair in priority order, or null if empty.
 		 */
 		PriorityQueueNode.Double<E> poll();
+		
+		/**
+		 * Removes and returns the next (element, priority) pair in priority order from this PriorityQueue.
+		 * This method differs from {@link #poll()} in that if the PriorityQueue is
+		 * empty, this method throws an exception, while {@link #poll()} returns null.
+		 *
+		 * @return the next (element, priority) pair in priority order.
+		 *
+		 * @throws NoSuchElementException if the PriorityQueue is empty
+		 */
+		default PriorityQueueNode.Double<E> remove() {
+			PriorityQueueNode.Double<E> result = poll();
+			if (result == null) {
+				throw new NoSuchElementException("PriorityQueue is empty");
+			}
+			return result;
+		}
 	}
 }

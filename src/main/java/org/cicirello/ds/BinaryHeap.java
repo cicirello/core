@@ -293,13 +293,6 @@ public class BinaryHeap<E> implements PriorityQueue.Integer<E> {
 		return size == 0;
 	}
 	
-	/**
-	 * Returns an iterator over the (element, priority) pairs in a
-	 * mostly arbitrary order (i.e., you must not assume any particular
-	 * order).
-	 *
-	 * @return an iterator over the (element, priority) pairs
-	 */
 	@Override
 	public final Iterator<PriorityQueueNode.Integer<E>> iterator() {
 		return new BinaryHeapIterator();
