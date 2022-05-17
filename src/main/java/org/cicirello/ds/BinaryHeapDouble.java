@@ -227,8 +227,12 @@ public class BinaryHeapDouble<E> implements PriorityQueue.Double<E> {
 	}
 	
 	@Override
-	public final boolean contains(E element) {
-		return index.containsKey(element);
+	public final boolean contains(Object o) {
+		if (o instanceof PriorityQueueNode.Double) {
+			PriorityQueueNode.Double pair = (PriorityQueueNode.Double)o;
+			return index.containsKey(pair.element);
+		}
+		return index.containsKey(o);
 	}
 	
 	/**

@@ -321,6 +321,7 @@ public class BinaryHeapDoubleTests {
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
+			assertTrue(pq.contains(pairs[i]));
 			assertFalse(pq.offer(pairs[i]));
 			assertEquals(n, pq.size());
 			assertEquals("A", pq.peekElement());
@@ -361,6 +362,7 @@ public class BinaryHeapDoubleTests {
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
+			assertTrue(pq.contains(pairs[i]));
 			assertFalse(pq.offer(pairs[i]));
 			assertEquals(n, pq.size());
 			assertEquals("A", pq.peekElement());
@@ -398,6 +400,7 @@ public class BinaryHeapDoubleTests {
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
+			assertTrue(pq.contains(pairs[i]));
 			assertFalse(pq.offer(pairs[i]));
 			assertEquals(n, pq.size());
 			assertEquals("A", pq.peekElement());
@@ -432,6 +435,7 @@ public class BinaryHeapDoubleTests {
 		assertFalse(pq.isEmpty());
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
+			assertTrue(pq.contains(pairs[i]));
 			assertFalse(pq.offer(pairs[i]));
 			assertEquals(n, pq.size());
 			assertEquals("A", pq.peekElement());
@@ -477,6 +481,7 @@ public class BinaryHeapDoubleTests {
 		assertFalse(pq.isEmpty());
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
+			assertTrue(pq.contains(pairs[i]));
 			assertFalse(pq.offer(pairs[i]));
 			assertEquals(n, pq.size());
 			assertEquals("A", pq.peekElement());
@@ -510,6 +515,7 @@ public class BinaryHeapDoubleTests {
 		assertFalse(pq.isEmpty());
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
+			assertTrue(pq.contains(pairs[i]));
 			assertFalse(pq.offer(pairs[i]));
 			assertEquals(n, pq.size());
 			assertEquals("A", pq.peekElement());
@@ -551,6 +557,7 @@ public class BinaryHeapDoubleTests {
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
+			assertTrue(pq.contains(pairs[i]));
 			assertFalse(pq.offer(elements[i], priorities[i]));
 			assertEquals(n, pq.size());
 			assertEquals("A", pq.peekElement());
@@ -596,6 +603,7 @@ public class BinaryHeapDoubleTests {
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
+			assertTrue(pq.contains(pairs[i]));
 			assertFalse(pq.offer(elements[i], priorities[i]));
 			assertEquals(n, pq.size());
 			assertEquals("A", pq.peekElement());
@@ -633,6 +641,7 @@ public class BinaryHeapDoubleTests {
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
+			assertTrue(pq.contains(pairs[i]));
 			assertFalse(pq.offer(elements[i], priorities[i]));
 			assertEquals(n, pq.size());
 			assertEquals("A", pq.peekElement());
@@ -786,6 +795,7 @@ public class BinaryHeapDoubleTests {
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
+			assertTrue(pq.contains(pairs[i]));
 			assertFalse(pq.offer(pairs[i]));
 			assertEquals(n, pq.size());
 			assertEquals("A", pq.peekElement());
@@ -826,6 +836,7 @@ public class BinaryHeapDoubleTests {
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
+			assertTrue(pq.contains(pairs[i]));
 			assertFalse(pq.offer(pairs[i]));
 			assertEquals(n, pq.size());
 			assertEquals("A", pq.peekElement());
@@ -863,6 +874,7 @@ public class BinaryHeapDoubleTests {
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
+			assertTrue(pq.contains(pairs[i]));
 			assertFalse(pq.offer(pairs[i]));
 			assertEquals(n, pq.size());
 			assertEquals("A", pq.peekElement());
@@ -897,6 +909,7 @@ public class BinaryHeapDoubleTests {
 		assertFalse(pq.isEmpty());
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
+			assertTrue(pq.contains(pairs[i]));
 			assertFalse(pq.offer(pairs[i]));
 			assertEquals(n, pq.size());
 			assertEquals("A", pq.peekElement());
@@ -942,6 +955,7 @@ public class BinaryHeapDoubleTests {
 		assertFalse(pq.isEmpty());
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
+			assertTrue(pq.contains(pairs[i]));
 			assertFalse(pq.offer(pairs[i]));
 			assertEquals(n, pq.size());
 			assertEquals("A", pq.peekElement());
@@ -975,6 +989,7 @@ public class BinaryHeapDoubleTests {
 		assertFalse(pq.isEmpty());
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
+			assertTrue(pq.contains(pairs[i]));
 			assertFalse(pq.offer(pairs[i]));
 			assertEquals(n, pq.size());
 			assertEquals("A", pq.peekElement());
@@ -1016,6 +1031,7 @@ public class BinaryHeapDoubleTests {
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
+			assertTrue(pq.contains(pairs[i]));
 			assertFalse(pq.offer(elements[i], priorities[i]));
 			assertEquals(n, pq.size());
 			assertEquals("A", pq.peekElement());
@@ -1061,6 +1077,7 @@ public class BinaryHeapDoubleTests {
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
+			assertTrue(pq.contains(pairs[i]));
 			assertFalse(pq.offer(elements[i], priorities[i]));
 			assertEquals(n, pq.size());
 			assertEquals("A", pq.peekElement());
@@ -1098,6 +1115,7 @@ public class BinaryHeapDoubleTests {
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
+			assertTrue(pq.contains(pairs[i]));
 			assertFalse(pq.offer(elements[i], priorities[i]));
 			assertEquals(n, pq.size());
 			assertEquals("A", pq.peekElement());

@@ -227,8 +227,12 @@ public class BinaryHeap<E> implements PriorityQueue.Integer<E> {
 	}
 	
 	@Override
-	public final boolean contains(E element) {
-		return index.containsKey(element);
+	public final boolean contains(Object o) {
+		if (o instanceof PriorityQueueNode.Integer) {
+			PriorityQueueNode.Integer pair = (PriorityQueueNode.Integer)o;
+			return index.containsKey(pair.element);
+		}
+		return index.containsKey(o);
 	}
 	
 	/**

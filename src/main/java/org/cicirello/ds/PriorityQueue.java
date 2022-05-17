@@ -49,13 +49,15 @@ public interface PriorityQueue<E> {
 	void clear();
 	
 	/**
-	 * Checks if this PriorityQueue contains a given element.
+	 * Checks if this PriorityQueue contains a given element
+	 * or an (element, priority) pair with a given element.
 	 *
-	 * @param element The element to check.
+	 * @param o An element or (element, priority) pair to check
+	 *    for containment of the element.
 	 *
 	 * @return true if and only if this PriorityQueue contains the element.
 	 */
-	boolean contains(E element);
+	boolean contains(Object o);
 	
 	/**
 	 * Checks if the PriorityQueue is empty.
