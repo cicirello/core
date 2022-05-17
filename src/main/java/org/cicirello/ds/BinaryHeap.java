@@ -22,8 +22,10 @@
  
 package org.cicirello.ds;
 
+import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -57,12 +59,13 @@ import java.util.NoSuchElementException;
  * <ul>
  * <li><b>O(1):</b> {@link #contains}, {@link #createMaxHeap()}, {@link #createMaxHeap(int)},
  *     {@link #createMinHeap()}, {@link #createMinHeap(int)}, {@link #isEmpty}, {@link #iterator},
- *     {@link #peek}, {@link #peekPair}, {@link #peekPriority()}, {@link #peekPriority(Object)},
+ *     {@link #peek}, {@link #peekElement}, {@link #peekPriority()}, {@link #peekPriority(Object)},
  *     {@link #size()}</li>
  * <li><b>O(lg n):</b> {@link #change}, {@link #offer(Object, int)}, {@link #offer(PriorityQueueNode.Integer)},
- *     {@link #poll}, {@link #pollPair}</li>
+ *     {@link #poll}, {@link #pollElement}, {@link #remove(Object)}</li>
  * <li><b>O(n):</b> {@link #clear}, {@link #createMaxHeap(Collection)}, {@link #createMinHeap(Collection)},
- *     {@link #ensureCapacity}, {@link #equals}, {@link #hashCode}, {@link #trimToSize}</li>
+ *     {@link #ensureCapacity}, {@link #equals}, {@link #hashCode}, {@link #toArray()}, {@link #toArray(Object[])}, 
+ *     {@link #trimToSize}</li>
  * </ul>
  *
  * @param <E> The type of object contained in the BinaryHeap.
@@ -70,7 +73,7 @@ import java.util.NoSuchElementException;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class BinaryHeap<E> implements PriorityQueue.Integer<E>, Iterable<PriorityQueueNode.Integer<E>> {
+public class BinaryHeap<E> implements PriorityQueue<E> {
 	
 	private PriorityQueueNode.Integer<E>[] buffer;
 	private int size;
@@ -227,8 +230,12 @@ public class BinaryHeap<E> implements PriorityQueue.Integer<E>, Iterable<Priorit
 	}
 	
 	@Override
-	public final boolean contains(E element) {
-		return index.containsKey(element);
+	public final boolean contains(Object o) {
+		if (o instanceof PriorityQueueNode.Integer) {
+			PriorityQueueNode.Integer pair = (PriorityQueueNode.Integer)o;
+			return index.containsKey(pair.element);
+		}
+		return index.containsKey(o);
 	}
 	
 	/**
@@ -293,13 +300,6 @@ public class BinaryHeap<E> implements PriorityQueue.Integer<E>, Iterable<Priorit
 		return size == 0;
 	}
 	
-	/**
-	 * Returns an iterator over the (element, priority) pairs in a
-	 * mostly arbitrary order (i.e., you must not assume any particular
-	 * order).
-	 *
-	 * @return an iterator over the (element, priority) pairs
-	 */
 	@Override
 	public final Iterator<PriorityQueueNode.Integer<E>> iterator() {
 		return new BinaryHeapIterator();
@@ -322,12 +322,12 @@ public class BinaryHeap<E> implements PriorityQueue.Integer<E>, Iterable<Priorit
 	}
 	
 	@Override
-	public final E peek() {
+	public final E peekElement() {
 		return size > 0 ? buffer[0].element : null;
 	}
 	
 	@Override
-	public final PriorityQueueNode.Integer<E> peekPair() {
+	public final PriorityQueueNode.Integer<E> peek() {
 		return size > 0 ? buffer[0] : null;
 	}
 	
@@ -343,13 +343,13 @@ public class BinaryHeap<E> implements PriorityQueue.Integer<E>, Iterable<Priorit
 	}
 	
 	@Override
-	public final E poll() {
-		PriorityQueueNode.Integer<E> min = pollPair();
+	public final E pollElement() {
+		PriorityQueueNode.Integer<E> min = poll();
 		return min != null ? min.element : null;
 	}
 	
 	@Override
-	public final PriorityQueueNode.Integer<E> pollPair() {
+	public final PriorityQueueNode.Integer<E> poll() {
 		if (size > 0) {
 			PriorityQueueNode.Integer<E> min = buffer[0];
 			index.remove(min.element);
@@ -369,8 +369,80 @@ public class BinaryHeap<E> implements PriorityQueue.Integer<E>, Iterable<Priorit
 	}
 	
 	@Override
+	public final boolean remove(Object o) {
+		java.lang.Integer i = null;
+		if (o instanceof PriorityQueueNode.Integer) {
+			PriorityQueueNode.Integer pair = (PriorityQueueNode.Integer)o;
+			i = index.get(pair.element);
+		} else {
+			i = index.get(o);
+		}
+		if (i == null) {
+			return false;
+		}
+		index.remove(buffer[i].element);
+		size--;
+		if (size > 0 && i != size) {
+			int removedElementPriority = buffer[i].value;
+			buffer[i] = buffer[size];
+			buffer[size] = null;
+			index.put(buffer[i].element, i);
+			// percolate in relevant direction
+			percolateAfterRemoval(i, removedElementPriority);
+		} else {
+			buffer[i] = null;
+		}
+		return true;
+	}
+	
+	@Override
+	public final boolean retainAll(Collection<?> c) {
+		HashSet<E> deleteThese = new HashSet<E>();
+		for (int i = 0; i < size; i++) {
+			deleteThese.add(buffer[i].element);
+		}
+		for (Object o : c) {
+			if (o instanceof PriorityQueueNode.Integer) {
+				PriorityQueueNode.Integer pair = (PriorityQueueNode.Integer)o;
+				deleteThese.remove(pair.element);
+			} else {
+				deleteThese.remove(o);
+			}
+		}
+		boolean changed = false;
+		for (E e : deleteThese) {
+			changed = remove(e) | changed;
+		}
+		return changed;
+	}
+	
+	@Override
 	public final int size() {
 		return size;
+	}
+	
+	@Override
+	public final Object[] toArray() {
+		Object[] array = new Object[size];
+		for (int i = 0; i < size; i++) {
+			array[i] = buffer[i];
+		}
+		return array;
+	}
+	
+	@Override
+	public final <T> T[] toArray(T[] array) {
+		@SuppressWarnings("unchecked")
+		T[] result = array.length >= size ? array : (T[])Array.newInstance(array.getClass().getComponentType(), size);
+		for (int i = 0; i < size; i++) {
+			@SuppressWarnings("unchecked")
+			T nextElement = (T)buffer[i];
+			result[i] = nextElement;
+		}
+		if (result.length > size) {
+			result[size] = null;
+		}
+		return result;
 	}
 	
 	/**
@@ -410,6 +482,18 @@ public class BinaryHeap<E> implements PriorityQueue.Integer<E>, Iterable<Priorit
 			percolateUp(i);
 		} else if (priority > buffer[i].value) {
 			buffer[i].value = priority;
+			percolateDown(i);
+		}
+	}
+	
+	/*
+	 * package-private to enable overriding in 
+	 * nested subclass to support max heaps.
+	 */
+	void percolateAfterRemoval(int i, int removedElementPriority) {
+		if (buffer[i].value < removedElementPriority) {
+			percolateUp(i);
+		} else if (buffer[i].value > removedElementPriority) {
 			percolateDown(i);
 		}
 	}
@@ -572,6 +656,18 @@ public class BinaryHeap<E> implements PriorityQueue.Integer<E>, Iterable<Priorit
 				percolateUp(i);
 			} else if (priority < self.buffer[i].value) {
 				self.buffer[i].value = priority;
+				percolateDown(i);
+			}
+		}
+		
+		/*
+		 * override for max first order
+		 */
+		@Override
+		final void percolateAfterRemoval(int i, int removedElementPriority) {
+			if (self.buffer[i].value > removedElementPriority) {
+				percolateUp(i);
+			} else if (self.buffer[i].value < removedElementPriority) {
 				percolateDown(i);
 			}
 		}

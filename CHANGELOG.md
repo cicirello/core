@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2022-05-16
+## [Unreleased] - 2022-05-17
 
 **BREAKING CHANGES:** See changes section for details. Breaking changes include increasing
 minimum supported Java version to Java 17.
@@ -12,11 +12,10 @@ minimum supported Java version to Java 17.
 ### Added
 * DisjointSetForest: representation of disjoint sets of generic objects.
 * DisjointIntegerSetForest: representation of disjoint sets of integers with a disjoint set forest.
-* PriorityQueue: common interface to different implementations of priority queues, with sub-interfaces:
-  * PriorityQueue.Integer for int-valued priorities.
-  * PriorityQueue.Double for double-valued priorities.
-* BinaryHeap: implements PriorityQueue.Integer with binary heap for both min-heap and max-heap cases.
-* BinaryHeapDouble: implements PriorityQueue.Double with binary heap for both min-heap and max-heap cases.
+* PriorityQueue: interface to different implementations of priority queues with int-valued priorities.
+* PriorityQueueDouble: interface to different implementations of priority queues with double-valued priorities.
+* BinaryHeap: implements PriorityQueue with binary heap for both min-heap and max-heap cases.
+* BinaryHeapDouble: implements PriorityQueueDouble with binary heap for both min-heap and max-heap cases.
 
 ### Changed
 * Minimum supported Java version is now Java 17.
