@@ -63,7 +63,8 @@ import java.util.NoSuchElementException;
  * <li><b>O(lg n):</b> {@link #change}, {@link #offer(Object, double)}, {@link #offer(PriorityQueueNode.Double)},
  *     {@link #poll}, {@link #pollElement}, {@link #remove(Object)}</li>
  * <li><b>O(n):</b> {@link #clear}, {@link #createMaxHeap(Collection)}, {@link #createMinHeap(Collection)},
- *     {@link #ensureCapacity}, {@link #equals}, {@link #hashCode}, {@link #trimToSize}</li>
+ *     {@link #ensureCapacity}, {@link #equals}, {@link #hashCode}, {@link #toArray()}, {@link #toArray(Object[])}, 
+ *     {@link #trimToSize}</li>
  * </ul>
  *
  * @param <E> The type of object contained in the BinaryHeap.
@@ -71,7 +72,7 @@ import java.util.NoSuchElementException;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class BinaryHeapDouble<E> implements PriorityQueue.Double<E> {
+public class BinaryHeapDouble<E> implements PriorityQueueDouble<E> {
 	
 	private PriorityQueueNode.Double<E>[] buffer;
 	private int size;

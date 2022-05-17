@@ -29,7 +29,7 @@ import java.util.Queue;
 
 /**
  * <p>Interface common to the classes that provide implementations of
- * a priority queue with int valued priorities. All PriorityQueue 
+ * a priority queue with double valued priorities. All PriorityQueue 
  * implementations enforce distinct elements, and use the
  * {@link Object#hashCode} and {@link Object#equals} methods to
  * to enforce distinctness, so be sure that the class of the elements
@@ -40,12 +40,12 @@ import java.util.Queue;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
+public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E>> {
 	
 	/**
 	 * Adds an (element, priority) pair to the PriorityQueue with a specified priority,
 	 * provided the element is not already in the PriorityQueue.
-	 * This method differs from {@link #offer(Object, int)}
+	 * This method differs from {@link #offer(Object, double)}
 	 * in that it throws an exception if the PriorityQueue contains the element,
 	 * while the offer method instead returns false.
 	 *
@@ -56,7 +56,7 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	 *
 	 * @throws IllegalArgumentException if the priority queue already contains the element.
 	 */
-	default boolean add(E element, int priority) {
+	default boolean add(E element, double priority) {
 		if (!offer(element, priority)) {
 			throw new IllegalArgumentException("already contains an (element, priority) pair with this element");
 		}
@@ -66,7 +66,7 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	/**
 	 * Adds an (element, priority) pair to the PriorityQueue,
 	 * provided the element is not already in the PriorityQueue.
-	 * This method differs from {@link #offer(PriorityQueueNode.Integer)}
+	 * This method differs from {@link #offer(PriorityQueueNode.Double)}
 	 * in that it throws an exception if the PriorityQueue contains the element,
 	 * while the offer method instead returns false.
 	 *
@@ -77,7 +77,7 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	 * @throws IllegalArgumentException if the priority queue already contains the element.
 	 */
 	@Override
-	default boolean add(PriorityQueueNode.Integer<E> pair) {
+	default boolean add(PriorityQueueNode.Double<E> pair) {
 		if (!offer(pair)) {
 			throw new IllegalArgumentException("already contains an (element, priority) pair with this element");
 		}
@@ -87,7 +87,7 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	/**
 	 * Adds all (element, priority) pairs from a Collection to the PriorityQueue,
 	 * provided the elements are not already in the PriorityQueue.
-	 * The default implementation calls the {@link #add(PriorityQueueNode.Integer)} 
+	 * The default implementation calls the {@link #add(PriorityQueueNode.Double)} 
 	 * for each pair in the Collection. 
 	 *
 	 * @param c the Collection of (element, priority) pairs to add.
@@ -98,9 +98,9 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	 * of the (element, priority) pairs.
 	 */
 	@Override
-	default boolean addAll(Collection<? extends PriorityQueueNode.Integer<E>> c) {
+	default boolean addAll(Collection<? extends PriorityQueueNode.Double<E>> c) {
 		boolean changed = false;
-		for (PriorityQueueNode.Integer<E> e : c) {
+		for (PriorityQueueNode.Double<E> e : c) {
 			changed = changed | add(e);
 		}
 		return changed;
@@ -114,7 +114,7 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	 * @param element The element whose priority is to change.
 	 * @param priority Its new priority.
 	 */
-	void change(E element, int priority);
+	void change(E element, double priority);
 	
 	/**
 	 * Clears the PriorityQueue, removing all elements.
@@ -167,8 +167,8 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	 * @throws NoSuchElementException if the PriorityQueue is empty
 	 */
 	@Override
-	default PriorityQueueNode.Integer<E> element() {
-		PriorityQueueNode.Integer<E> result = peek();
+	default PriorityQueueNode.Double<E> element() {
+		PriorityQueueNode.Double<E> result = peek();
 		if (result == null) {
 			throw new NoSuchElementException("PriorityQueue is empty");
 		}
@@ -191,7 +191,7 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	 * @return an iterator over the (element, priority) pairs
 	 */
 	@Override
-	Iterator<PriorityQueueNode.Integer<E>> iterator();
+	Iterator<PriorityQueueNode.Double<E>> iterator();
 	
 	/**
 	 * Adds an (element, priority) pair to the PriorityQueue with a specified priority,
@@ -203,7 +203,7 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	 * @return true if the (element, priority) pair was added, and false if the
 	 * PriorityQueue already contained the element.
 	 */
-	boolean offer(E element, int priority);
+	boolean offer(E element, double priority);
 	
 	/**
 	 * Adds an (element, priority) pair to the PriorityQueue,
@@ -215,7 +215,7 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	 * PriorityQueue already contained the element.
 	 */
 	@Override
-	boolean offer(PriorityQueueNode.Integer<E> pair);
+	boolean offer(PriorityQueueNode.Double<E> pair);
 	
 	/**
 	 * Gets the next (element, priority) pair in priority order from this PriorityQueue,
@@ -224,14 +224,14 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	 * @return the next (element, priority) pair in priority order, or null if empty.
 	 */
 	@Override
-	PriorityQueueNode.Integer<E> peek();
+	PriorityQueueNode.Double<E> peek();
 	
 	/**
 	 * Gets the priority of the next element in priority order in the PriorityQueue.
 	 *
 	 * @return the priority of the next element in priority order.
 	 */
-	int peekPriority();
+	double peekPriority();
 	
 	/**
 	 * Gets the priority of a specified element if it is present in the PriorityQueue.
@@ -242,7 +242,7 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	 *
 	 * @return the priority of a specified element.
 	 */
-	int peekPriority(E element);
+	double peekPriority(E element);
 	
 	/**
 	 * Gets the next element in priority order from this PriorityQueue,
@@ -258,7 +258,7 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	 * @return the next (element, priority) pair in priority order, or null if empty.
 	 */
 	@Override
-	PriorityQueueNode.Integer<E> poll();
+	PriorityQueueNode.Double<E> poll();
 	
 	/**
 	 * Removes and returns the next element in priority order from this PriorityQueue.
@@ -277,8 +277,8 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	 * @throws NoSuchElementException if the PriorityQueue is empty
 	 */
 	@Override
-	default PriorityQueueNode.Integer<E> remove() {
-		PriorityQueueNode.Integer<E> result = poll();
+	default PriorityQueueNode.Double<E> remove() {
+		PriorityQueueNode.Double<E> result = poll();
 		if (result == null) {
 			throw new NoSuchElementException("PriorityQueue is empty");
 		}
