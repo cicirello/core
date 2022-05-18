@@ -101,7 +101,8 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	default boolean addAll(Collection<? extends PriorityQueueNode.Integer<E>> c) {
 		boolean changed = false;
 		for (PriorityQueueNode.Integer<E> e : c) {
-			changed = add(e) | changed;
+			add(e);
+			changed = true;
 		}
 		return changed;
 	}
@@ -312,7 +313,9 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	default boolean removeAll(Collection<?> c) {
 		boolean changed = false;
 		for (Object o : c) {
-			changed = remove(o) | changed;
+			if (remove(o)) {
+				changed = true;
+			}
 		}
 		return changed;
 	}

@@ -411,7 +411,8 @@ public class BinaryHeap<E> implements PriorityQueue<E> {
 		}
 		boolean changed = false;
 		for (E e : deleteThese) {
-			changed = remove(e) | changed;
+			remove(e); 
+			changed = true;
 		}
 		return changed;
 	}
