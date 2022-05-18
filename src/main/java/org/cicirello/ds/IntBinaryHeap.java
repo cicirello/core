@@ -63,10 +63,11 @@ import java.util.Arrays;
  * <p><b>Method runtimes:</b> The asymptotic runtime of the methods of
  * this class are as follows (where n is the current size of the heap):</p>
  * <ul>
- * <li><b>O(1):</b> {@link #contains(int)}, {@link #domain()}, {@link #isEmpty()},
+ * <li><b>O(1):</b> {@link #contains(int)}, {@link #createMaxHeap(int)}, 
+ *     {@link #createMinHeap(int)}, {@link #domain()}, {@link #isEmpty()},
  *     {@link #peek()}, {@link #peekPriority()}, {@link #peekPriority(int)}, {@link #size()}</li>
  * <li><b>O(lg n):</b> {@link #change(int,int)}, {@link #offer(int, int)}, {@link #poll()}</li>
- * <li><b>O(n):</b> {@link #clear()}, {@link #createMaxHeap(int)}, {@link #createMinHeap(int)}</li>
+ * <li><b>O(n):</b> {@link #clear()}</li>
  * </ul>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
@@ -77,6 +78,7 @@ public class IntBinaryHeap implements IntPriorityQueue {
 	private final int[] heap;
 	private final int[] index;
 	private final int[] value;
+	private final boolean[] in;
 	private int size;
 	
 	/**
@@ -89,7 +91,7 @@ public class IntBinaryHeap implements IntPriorityQueue {
 		heap = new int[n];
 		index = new int[n];
 		value = new int[n];
-		Arrays.fill(index, -1);
+		in = new boolean[n];
 	}
 	
 	/**
@@ -108,7 +110,7 @@ public class IntBinaryHeap implements IntPriorityQueue {
 	@Override
 	public final void clear() {
 		if (size > 0) {
-			Arrays.fill(index, 0, size, -1);
+			Arrays.fill(in, 0, size, false);
 			size = 0;
 		}
 	}
@@ -121,7 +123,7 @@ public class IntBinaryHeap implements IntPriorityQueue {
 	 */
 	@Override
 	public final boolean contains(int element) {
-		return index[element] >= 0;
+		return in[element];
 	}
 	
 	/**
@@ -172,11 +174,12 @@ public class IntBinaryHeap implements IntPriorityQueue {
 	 */
 	@Override
 	public final boolean offer(int element, int priority) {
-		if (index[element] >= 0) {
+		if (in[element]) {
 			return false;
 		}
 		index[heap[size] = element] = size;
 		value[element] = priority;
+		in[element] = true;
 		percolateUp(size);
 		size++;
 		return true;
@@ -206,7 +209,7 @@ public class IntBinaryHeap implements IntPriorityQueue {
 	@Override
 	public final int poll() {
 		int min = heap[0];
-		index[min] = -1;
+		in[min] = false;
 		size--;
 		if (size > 0) {
 			index[heap[0] = heap[size]] = 0;
