@@ -55,17 +55,24 @@ import java.util.NoSuchElementException;
  * </code></pre>
  *
  * <p><b>Method runtimes:</b> The asymptotic runtime of the methods of
- * this class are as follows:</p>
+ * this class are as follows (where n is the current size of the heap and m is the size of
+ * a Collection parameter where relevant):</p>
  * <ul>
  * <li><b>O(1):</b> {@link #contains}, {@link #createMaxHeap()}, {@link #createMaxHeap(int)},
- *     {@link #createMinHeap()}, {@link #createMinHeap(int)}, {@link #isEmpty}, {@link #iterator},
+ *     {@link #createMinHeap()}, {@link #createMinHeap(int)}, {@link #element}, {@link #isEmpty}, {@link #iterator},
  *     {@link #peek}, {@link #peekElement}, {@link #peekPriority()}, {@link #peekPriority(Object)},
  *     {@link #size()}</li>
- * <li><b>O(lg n):</b> {@link #change}, {@link #offer(Object, double)}, {@link #offer(PriorityQueueNode.Double)},
- *     {@link #poll}, {@link #pollElement}, {@link #remove(Object)}</li>
- * <li><b>O(n):</b> {@link #clear}, {@link #createMaxHeap(Collection)}, {@link #createMinHeap(Collection)},
- *     {@link #ensureCapacity}, {@link #equals}, {@link #hashCode}, {@link #toArray()}, {@link #toArray(Object[])}, 
+ * <li><b>O(lg n):</b> {@link #add(Object, double)}, {@link #add(PriorityQueueNode.Double)},
+ *     {@link #change}, {@link #offer(Object, double)}, {@link #offer(PriorityQueueNode.Double)},
+ *     {@link #poll}, {@link #pollElement}, {@link #remove()}, {@link #remove(Object)}, {@link #removeElement()}</li>
+ * <li><b>O(n):</b> {@link #clear}, {@link #ensureCapacity}, {@link #equals}, {@link #hashCode}, 
+ *     {@link #toArray()}, {@link #toArray(Object[])}, 
  *     {@link #trimToSize}</li>
+ * <li><b>O(m):</b> {@link #containsAll(Collection)}, {@link #createMaxHeap(Collection)}, 
+ *     {@link #createMinHeap(Collection)}</li>
+ * <li><b>O(m lg n):</b> {@link #removeAll(Collection)}</li>
+ * <li><b>O(m lg (n+m)):</b> {@link #addAll(Collection)}</li>
+ * <li><b>O(n lg n):</b> {@link #retainAll(Collection)}</li>
  * </ul>
  *
  * @param <E> The type of object contained in the BinaryHeap.
