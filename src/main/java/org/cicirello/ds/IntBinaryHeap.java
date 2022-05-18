@@ -25,7 +25,49 @@ package org.cicirello.ds;
 import java.util.Arrays;
 
 /**
+ * <p>An implementation of a Binary Heap of
+ * (element, priority) pairs, such that the elements are distinct integers
+ * in the interval [0, n), and with priority values also of type int.</p> 
  *
+ * <p><b>Priority order:</b>
+ * IntBinaryHeap instances are created via factory methods with names beginning
+ * with <code>create</code>. The priority order depends upon the factory method
+ * used to create the IntBinaryHeap. Methods named <code>createMinHeap</code> produce
+ * a min heap with priority order minimum-priority-first-out. Methods named 
+ * <code>createMaxHeap</code> produce a max heap with priority order 
+ * maximum-priority-first-out.</p>
+ *
+ * <p><b>Creating instances:</b> To create an instance, use one of the factory
+ * methods. In this example an IntBinaryHeap with an element domain of [0,100)
+ * is created:</p>
+ * <pre><code>
+ * IntBinaryHeap&lt;String&gt; pq = IntBinaryHeap.createMinHeap(100);
+ * </code></pre>
+ * <p>In the above example, the element domain is [0,100) and the IntBinaryHeap
+ * is initially empty.</p>
+ *
+ * <p><b>Purpose:</b> The purpose of such an IntBinaryHeap is to support
+ * implementations of algorithms that require such a specialized case.
+ * For example, some graph algorithms such as Dijkstra's algorithm for 
+ * single-source shortest paths, and Prim's algorithm for minimum spanning
+ * tree, rely on a priority queue of the vertex ids, which are usually
+ * ints in some finite range. Although such applications could use the
+ * classes that instead implement the {@link PriorityQueue} interface,
+ * using Java's wrapper type {@link Integer}, the classes that implement
+ * {@link IntPriorityQueue} that specialize the element type to int
+ * are optimized for this special case.</p>
+ *
+ * <p>For a more general purpose binary heap, see the {@link BinaryHeap}
+ * class.</p>
+ *
+ * <p><b>Method runtimes:</b> The asymptotic runtime of the methods of
+ * this class are as follows (where n is the current size of the heap):</p>
+ * <ul>
+ * <li><b>O(1):</b> {@link #contains(int)}, {@link #domain()}, {@link #isEmpty()},
+ *     {@link #peek()}, {@link #peekPriority()}, {@link #peekPriority(int)}, {@link #size()}</li>
+ * <li><b>O(lg n):</b> {@link #change(int,int)}, {@link #offer(int, int)}, {@link #poll()}</li>
+ * <li><b>O(n):</b> {@link #clear()}, {@link #createMaxHeap(int)}, {@link #createMinHeap(int)}</li>
+ * </ul>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
