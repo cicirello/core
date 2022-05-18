@@ -198,5 +198,7 @@ public class PriorityQueueDefaultMethodTests {
 		list2.remove(list.size()-1);
 		assertTrue(pq.removeAll(list2));
 		assertEquals(1, pq.size());
+		assertFalse(pq.removeAll(list2));
+		assertEquals(1, pq.size());
 	}
 }
