@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2022-05-17
+## [Unreleased] - 2022-05-18
 
 **BREAKING CHANGES:** See changes section for details. Breaking changes include increasing
 minimum supported Java version to Java 17.
@@ -16,6 +16,8 @@ minimum supported Java version to Java 17.
 * PriorityQueueDouble: interface to different implementations of priority queues with double-valued priorities.
 * BinaryHeap: implements PriorityQueue with binary heap for both min-heap and max-heap cases.
 * BinaryHeapDouble: implements PriorityQueueDouble with binary heap for both min-heap and max-heap cases.
+* IntPriorityQueue: interface to implementations of priority queues of int elements with int-valued priorities.
+* IntBinaryHeap: implements IntPriorityQueue with binary heap for both min-heap and max-heap cases.
 
 ### Changed
 * Minimum supported Java version is now Java 17.
