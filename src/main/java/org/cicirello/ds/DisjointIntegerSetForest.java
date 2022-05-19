@@ -22,6 +22,9 @@
  
 package org.cicirello.ds;
 
+import org.cicirello.util.Copyable;
+import java.util.Arrays;
+
 /**
  * <p>Disjoint sets of integers from [0, n) implemented with a disjoint set forest.
  * An instance of this class represents a set of disjoint sets of the n integers:
@@ -36,7 +39,7 @@ package org.cicirello.ds;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public final class DisjointIntegerSetForest {
+public final class DisjointIntegerSetForest implements Copyable<DisjointIntegerSetForest> {
 	
 	private final int[] rank;
 	private final int[] parent;
@@ -53,6 +56,50 @@ public final class DisjointIntegerSetForest {
 		for (int i = 0; i < n; i++) {
 			parent[i] = i;
 		}
+	}
+	
+	/*
+	 * private constructor to support copy() method
+	 */
+	private DisjointIntegerSetForest(DisjointIntegerSetForest other) {
+		rank = other.rank.clone();
+		parent = other.parent.clone();
+	}
+	
+	@Override
+	public DisjointIntegerSetForest copy() {
+		return new DisjointIntegerSetForest(this);
+	}
+	
+	/**
+	 * Checks if this DisjointIntegerSetForest is equal to another. This
+	 * test of equality is true if and only if the two DisjointIntegerSetForest
+	 * are structurally the same (i.e., not just same set of disjoint sets, but
+	 * also exact same internal structure).
+	 *
+	 * @param other The other DisjointIntegerSetForest.
+	 *
+	 * @return true if and only if two DisjointIntegerSetForest instances are
+	 * structurally identical.
+	 */
+	@Override
+	public boolean equals(Object other) {
+		if (other == null) return false;
+		if (other instanceof DisjointIntegerSetForest) {
+			DisjointIntegerSetForest casted = (DisjointIntegerSetForest)other;
+			return Arrays.equals(rank, casted.rank) && Arrays.equals(parent, casted.parent);
+		}
+		return false;
+	}
+	
+	/**
+	 * Computes a hashCode for the DisjointIntegerSetForest.
+	 *
+	 * @return a hashCode
+	 */
+	@Override
+	public int hashCode() {
+		return Arrays.hashCode(rank) * 31 + Arrays.hashCode(parent);
 	}
 	
 	/**
