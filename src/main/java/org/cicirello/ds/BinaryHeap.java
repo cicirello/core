@@ -510,10 +510,6 @@ public final class BinaryHeap<E> implements PriorityQueue<E> {
 		return buffer.length;
 	}
 	
-	/*
-	 * package-private to enable overriding in 
-	 * nested subclass to support max heaps.
-	 */
 	private void percolateDown(int i) {
 		int left; 
 		while ((left = (i << 1) + 1) < size) { 
@@ -538,10 +534,6 @@ public final class BinaryHeap<E> implements PriorityQueue<E> {
 		}
 	}
 	
-	/*
-	 * package-private to enable overriding in 
-	 * nested subclass to support max heaps.
-	 */
 	private void percolateUp(int i) {
 		int parent;
 		while (i > 0 && compare.belongsAbove(buffer[i].value, buffer[parent = (i-1) >> 1].value)) {
