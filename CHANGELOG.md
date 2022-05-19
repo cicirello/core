@@ -19,6 +19,7 @@ minimum supported Java version to Java 17.
 * IntPriorityQueue: interface for priority queues of int elements with int-valued priorities.
 * IntPriorityQueueDouble: interface for priority queues of int elements with double-valued priorities.
 * IntBinaryHeap: implements IntPriorityQueue with binary heap for both min-heap and max-heap cases.
+* IntBinaryHeapDouble: implements IntPriorityQueueDouble with binary heap for both min-heap and max-heap cases.
 
 ### Changed
 * Minimum supported Java version is now Java 17.
