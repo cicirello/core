@@ -32,6 +32,71 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class IntBinaryHeapTests {
 	
+	// Tests not specific to min heap vs max heap
+	
+	@Test
+	public void testCopy() {
+		IntBinaryHeap min1 = IntBinaryHeap.createMinHeap(10);
+		for (int i = 0; i < 5; i++) {
+			min1.offer(i, 42*i);
+		}
+		IntBinaryHeap min2 = IntBinaryHeap.createMinHeap(10);
+		for (int i = 0; i < 5; i++) {
+			min2.offer(i, 43*i);
+		}
+		IntBinaryHeap max1 = IntBinaryHeap.createMaxHeap(10);
+		for (int i = 0; i < 5; i++) {
+			max1.offer(i, 42*i);
+		}
+		IntBinaryHeap max2 = IntBinaryHeap.createMaxHeap(10);
+		for (int i = 0; i < 5; i++) {
+			max2.offer(i, 43*i);
+		}
+		IntBinaryHeap minCopy1 = min1.copy();
+		IntBinaryHeap minCopy2 = min2.copy();
+		IntBinaryHeap maxCopy1 = max1.copy();
+		IntBinaryHeap maxCopy2 = max2.copy();
+		assertTrue(min1 != minCopy1);
+		assertTrue(min2 != minCopy2);
+		assertTrue(max1 != maxCopy1);
+		assertTrue(max2 != maxCopy2);
+		assertEquals(min1.getClass(), minCopy1.getClass());
+		assertEquals(min2.getClass(), minCopy2.getClass());
+		assertEquals(max1.getClass(), maxCopy1.getClass());
+		assertEquals(max2.getClass(), maxCopy2.getClass());
+		assertEquals(min1.size(), minCopy1.size());
+		assertEquals(min2.size(), minCopy2.size());
+		assertEquals(max1.size(), maxCopy1.size());
+		assertEquals(max2.size(), maxCopy2.size());
+		assertNotEquals(min1.getClass(), maxCopy1.getClass());
+		assertNotEquals(min2.getClass(), maxCopy2.getClass());
+		assertNotEquals(max1.getClass(), minCopy1.getClass());
+		assertNotEquals(max2.getClass(), minCopy2.getClass());
+		int n = min1.size();
+		for (int i = 0; i < n; i++) {
+			assertEquals(min1.peek(), minCopy1.peek());
+			assertEquals(min2.peek(), minCopy2.peek());
+			assertEquals(max1.peek(), maxCopy1.peek());
+			assertEquals(max2.peek(), maxCopy2.peek());
+			assertEquals(min1.peekPriority(), minCopy1.peekPriority());
+			assertEquals(min2.peekPriority(), minCopy2.peekPriority());
+			assertEquals(max1.peekPriority(), maxCopy1.peekPriority());
+			assertEquals(max2.peekPriority(), maxCopy2.peekPriority());
+			assertEquals(min1.poll(), minCopy1.poll());
+			assertEquals(min2.poll(), minCopy2.poll());
+			assertEquals(max1.poll(), maxCopy1.poll());
+			assertEquals(max2.poll(), maxCopy2.poll());
+		}
+		assertTrue(min1.isEmpty());
+		assertTrue(min2.isEmpty());
+		assertTrue(max1.isEmpty());
+		assertTrue(max2.isEmpty());
+		assertTrue(minCopy1.isEmpty());
+		assertTrue(minCopy2.isEmpty());
+		assertTrue(maxCopy1.isEmpty());
+		assertTrue(maxCopy2.isEmpty());
+	}
+	
 	// MIN HEAP TESTS
 	
 	@Test
