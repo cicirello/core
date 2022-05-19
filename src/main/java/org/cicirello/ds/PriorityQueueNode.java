@@ -22,6 +22,8 @@
 
 package org.cicirello.ds;
 
+import org.cicirello.util.Copyable;
+
 /**
  * An instances of the nested subclasses of this class encapsulate an (element, priority) pair
  * for use by the various priority queue classes of the library.
@@ -91,7 +93,7 @@ public abstract class PriorityQueueNode<E> {
 	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
 	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
 	 */
-	public static final class Integer<E> extends PriorityQueueNode<E> {
+	public static final class Integer<E> extends PriorityQueueNode<E> implements Copyable<Integer<E>> {
 		
 		// package-private on purpose for use by 
 		// priority queue classes in the package.
@@ -106,6 +108,26 @@ public abstract class PriorityQueueNode<E> {
 		public Integer(E element, int value) {
 			super(element);
 			this.value = value;
+		}
+		
+		/**
+		 * {@inheritDoc}
+		 *
+		 * <p>During the copy, if the element is of a type that also
+		 * implements {@link Copyable}, then the element is copied.
+		 * Otherwise, the copy will contain a reference to the same
+		 * element as the PriorityQueueNode that was copied.</p>
+		 */
+		@Override
+		public Integer<E> copy() {
+			if (element instanceof Copyable) {
+				Copyable copyable = (Copyable)element;
+				@SuppressWarnings("unchecked")
+				E casted = (E)copyable.copy();
+				return new Integer<E>(casted, value);
+			} else {
+				return new Integer<E>(element, value);
+			}
 		}
 		
 		/**
@@ -159,7 +181,7 @@ public abstract class PriorityQueueNode<E> {
 	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
 	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
 	 */
-	public static final class Double<E> extends PriorityQueueNode<E> {
+	public static final class Double<E> extends PriorityQueueNode<E> implements Copyable<Double<E>> {
 		
 		// package-private on purpose for use by 
 		// priority queue classes in the package.
@@ -174,6 +196,26 @@ public abstract class PriorityQueueNode<E> {
 		public Double(E element, double value) {
 			super(element);
 			this.value = value;
+		}
+		
+		/**
+		 * {@inheritDoc}
+		 *
+		 * <p>During the copy, if the element is of a type that also
+		 * implements {@link Copyable}, then the element is copied.
+		 * Otherwise, the copy will contain a reference to the same
+		 * element as the PriorityQueueNode that was copied.</p>
+		 */
+		@Override
+		public Double<E> copy() {
+			if (element instanceof Copyable) {
+				Copyable copyable = (Copyable)element;
+				@SuppressWarnings("unchecked")
+				E casted = (E)copyable.copy();
+				return new Double<E>(casted, value);
+			} else {
+				return new Double<E>(element, value);
+			}
 		}
 		
 		/**

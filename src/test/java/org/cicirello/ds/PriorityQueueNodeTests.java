@@ -25,6 +25,8 @@ package org.cicirello.ds;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.cicirello.util.Copyable;
+
 /**
  * JUnit tests for the PriorityQueueNode class.
  */
@@ -84,5 +86,84 @@ public class PriorityQueueNodeTests {
 		assertEquals("hello", node1.getElement());
 		assertEquals(55.0, node1.getPriority(), 0.0);
 		assertNotEquals(node1, node2);
+	}
+	
+	@Test
+	public void testIntegerNodeCopy() {
+		PriorityQueueNode.Integer<String> node1 = new PriorityQueueNode.Integer<String>("hello", 42);
+		PriorityQueueNode.Integer<String> node2 = new PriorityQueueNode.Integer<String>("world", 43);
+		PriorityQueueNode.Integer<String> copy1 = node1.copy();
+		PriorityQueueNode.Integer<String> copy2 = node2.copy();
+		assertEquals(node1, copy1);
+		assertEquals(node2, copy2);
+		assertNotEquals(node1, copy2);
+		assertNotEquals(node2, copy1);
+		assertTrue(node1 != copy1);
+		assertTrue(node2 != copy2);
+		
+		PriorityQueueNode.Integer<TestType> node3 = new PriorityQueueNode.Integer<TestType>(new TestType("hello"), 42);
+		PriorityQueueNode.Integer<TestType> node4 = new PriorityQueueNode.Integer<TestType>(new TestType("world"), 43);
+		PriorityQueueNode.Integer<TestType> copy3 = node3.copy();
+		PriorityQueueNode.Integer<TestType> copy4 = node4.copy();
+		assertEquals(node3, copy3);
+		assertEquals(node4, copy4);
+		assertNotEquals(node3, copy4);
+		assertNotEquals(node4, copy3);
+		assertTrue(node3 != copy3);
+		assertTrue(node4 != copy4);
+	}
+	
+	@Test
+	public void testDoubleNodeCopy() {
+		PriorityQueueNode.Double<String> node1 = new PriorityQueueNode.Double<String>("hello", 42);
+		PriorityQueueNode.Double<String> node2 = new PriorityQueueNode.Double<String>("world", 43);
+		PriorityQueueNode.Double<String> copy1 = node1.copy();
+		PriorityQueueNode.Double<String> copy2 = node2.copy();
+		assertEquals(node1, copy1);
+		assertEquals(node2, copy2);
+		assertNotEquals(node1, copy2);
+		assertNotEquals(node2, copy1);
+		assertTrue(node1 != copy1);
+		assertTrue(node2 != copy2);
+		
+		PriorityQueueNode.Double<TestType> node3 = new PriorityQueueNode.Double<TestType>(new TestType("hello"), 42);
+		PriorityQueueNode.Double<TestType> node4 = new PriorityQueueNode.Double<TestType>(new TestType("world"), 43);
+		PriorityQueueNode.Double<TestType> copy3 = node3.copy();
+		PriorityQueueNode.Double<TestType> copy4 = node4.copy();
+		assertEquals(node3, copy3);
+		assertEquals(node4, copy4);
+		assertNotEquals(node3, copy4);
+		assertNotEquals(node4, copy3);
+		assertTrue(node3 != copy3);
+		assertTrue(node4 != copy4);
+	}
+	
+	private static class TestType implements Copyable<TestType> {
+		
+		private String x;
+		
+		public TestType(String x) {
+			this.x = x;
+		}
+		
+		@Override
+		public TestType copy() {
+			return new TestType(x);
+		}
+		
+		@Override
+		public boolean equals(Object o) {
+			if (o == null) return false;
+			if (o instanceof TestType) {
+				TestType casted = (TestType)o;
+				return x.equals(casted.x);
+			}
+			return false;
+		}
+		
+		@Override
+		public int hashCode() {
+			return x.hashCode();
+		}
 	}
 }

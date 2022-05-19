@@ -24,6 +24,8 @@ package org.cicirello.ds;
 
 import java.util.Arrays;
 
+import org.cicirello.util.Copyable;
+
 /**
  * <p>An implementation of a Binary Heap of
  * (element, priority) pairs, such that the elements are distinct integers
@@ -67,13 +69,13 @@ import java.util.Arrays;
  *     {@link #createMinHeap(int)}, {@link #domain()}, {@link #isEmpty()},
  *     {@link #peek()}, {@link #peekPriority()}, {@link #peekPriority(int)}, {@link #size()}</li>
  * <li><b>O(lg n):</b> {@link #change(int,int)}, {@link #offer(int, int)}, {@link #poll()}</li>
- * <li><b>O(n):</b> {@link #clear()}</li>
+ * <li><b>O(n):</b> {@link #clear()}, {@link #copy()}</li>
  * </ul>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class IntBinaryHeap implements IntPriorityQueue {
+public class IntBinaryHeap implements IntPriorityQueue, Copyable<IntBinaryHeap> {
 	
 	private final int[] heap;
 	private final int[] index;
@@ -92,6 +94,22 @@ public class IntBinaryHeap implements IntPriorityQueue {
 		index = new int[n];
 		value = new int[n];
 		in = new boolean[n];
+	}
+	
+	/*
+	 * private copy constructor to support copy() nethod
+	 */
+	private IntBinaryHeap(IntBinaryHeap other) {
+		heap = other.heap.clone();
+		index = other.index.clone();
+		value = other.value.clone();
+		in = other.in.clone();
+		size = other.size;
+	}
+	
+	@Override
+	public IntBinaryHeap copy() {
+		return new IntBinaryHeap(this);
 	}
 	
 	/**
@@ -284,6 +302,19 @@ public class IntBinaryHeap implements IntPriorityQueue {
 		private Max(int n) {
 			super(n);
 			self = this;
+		}
+		
+		/*
+		 * private copy constructor to support copy() nethod
+		 */
+		private Max(Max other) {
+			super(other);
+			self = this;
+		}
+		
+		@Override
+		public Max copy() {
+			return new Max(this);
 		}
 		
 		/*
