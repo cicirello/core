@@ -72,6 +72,34 @@ public class DisjointIntegerSetForestTests {
 	}
 	
 	@Test
+	public void testSameSetOneLevel() {
+		for (int n = 2; n <= 16; n *= 2) {
+			DisjointIntegerSetForest sets = new DisjointIntegerSetForest(n);
+			for (int i = 0; i < n; i += 2) {
+				sets.union(i, i+1);
+				assertTrue(sets.sameSet(i, i+1));
+				for (int j = 0; j < n; j++) {
+					if (j!=i && j!=i+1) {
+						assertFalse(sets.sameSet(i, j));
+					}
+				}
+			}
+		}
+		for (int n = 2; n <= 16; n *= 2) {
+			DisjointIntegerSetForest sets = new DisjointIntegerSetForest(n);
+			for (int i = 0; i < n; i += 2) {
+				sets.union(i+1, i);
+				assertTrue(sets.sameSet(i, i+1));
+				for (int j = 0; j < n; j++) {
+					if (j!=i && j!=i+1) {
+						assertFalse(sets.sameSet(j, i));
+					}
+				}
+			}
+		}
+	}
+	
+	@Test
 	public void testUnionMultilevelSame() {
 		int n = 8;
 		DisjointIntegerSetForest sets = new DisjointIntegerSetForest(n);
@@ -88,6 +116,26 @@ public class DisjointIntegerSetForestTests {
 		for (int i = 0; i < 4; i++) {
 			assertEquals(sets.findSet(4), sets.findSet(4+i));
 			assertNotEquals(sets.findSet(4), sets.findSet(i));
+		}
+	}
+	
+	@Test
+	public void testSameSetMultiLevel() {
+		int n = 8;
+		DisjointIntegerSetForest sets = new DisjointIntegerSetForest(n);
+		for (int i = 0; i < n; i += 2) {
+			sets.union(i, i+1);
+		}
+		for (int i = 0; i < n; i += 4) {
+			sets.union(i, i+2);
+		}
+		for (int i = 0; i < 4; i++) {
+			assertTrue(sets.sameSet(0, i));
+			assertFalse(sets.sameSet(0, 4+i));
+		}
+		for (int i = 0; i < 4; i++) {
+			assertTrue(sets.sameSet(4, 4+i));
+			assertFalse(sets.sameSet(4, i));
 		}
 	}
 	

@@ -85,10 +85,12 @@ public class DisjointSetForestTests {
 				String y = "" + ((char)('A'+i+1));
 				sets.union(x, y);
 				assertEquals(sets.findSet(x), sets.findSet(y));
+				assertTrue(sets.sameSet(x, y));
 				for (int j = 0; j < n; j++) {
 					if (j!=i && j!=i+1) {
 						String z = "" + ((char)('A'+j));
 						assertNotEquals(sets.findSet(x), sets.findSet(z));
+						assertFalse(sets.sameSet(x, z));
 					}
 				}
 			}
@@ -97,6 +99,9 @@ public class DisjointSetForestTests {
 				IllegalArgumentException.class,
 				() -> sets.union("A", "hello")
 			);
+			assertFalse(sets.sameSet(null, "A"));
+			assertFalse(sets.sameSet("A", null));
+			assertFalse(sets.sameSet(null, null));
 		}
 		for (int n = 2; n <= 16; n *= 2) {
 			DisjointSetForest<String> sets = createSets(n);
@@ -105,10 +110,12 @@ public class DisjointSetForestTests {
 				String y = "" + ((char)('A'+i+1));
 				sets.union(y, x);
 				assertEquals(sets.findSet(x), sets.findSet(y));
+				assertTrue(sets.sameSet(x, y));
 				for (int j = 0; j < n; j++) {
 					if (j!=i && j!=i+1) {
 						String z = "" + ((char)('A'+j));
 						assertNotEquals(sets.findSet(x), sets.findSet(z));
+						assertFalse(sets.sameSet(x, z));
 					}
 				}
 			}
@@ -145,6 +152,8 @@ public class DisjointSetForestTests {
 			String z = "" + ((char)('A'+i));
 			assertEquals(sets.findSet(x), sets.findSet(y));
 			assertNotEquals(sets.findSet(x), sets.findSet(z));
+			assertFalse(sets.sameSet(x, z));
+			assertTrue(sets.sameSet(x, y));
 		}
 	}
 	
@@ -170,6 +179,7 @@ public class DisjointSetForestTests {
 			for (int j = 12; j < n; j++) {
 				String y = "" + ((char)('A'+j));
 				assertNotEquals(sets.findSet(x), sets.findSet(y));
+				assertFalse(sets.sameSet(x, y));
 			}
 		}
 	}
@@ -196,6 +206,7 @@ public class DisjointSetForestTests {
 			for (int j = 12; j < n; j++) {
 				String y = "" + ((char)('A'+j));
 				assertNotEquals(sets.findSet(x), sets.findSet(y));
+				assertFalse(sets.sameSet(x, y));
 			}
 		}
 	}

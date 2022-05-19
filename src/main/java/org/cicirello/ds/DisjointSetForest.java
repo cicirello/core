@@ -103,6 +103,27 @@ public final class DisjointSetForest<T> {
 	}
 	
 	/**
+	 * Checks whether or not two elements are in the same set.
+	 *
+	 * @param element1 The first element.
+	 * @param element2 The second element.
+	 *
+	 * @return true if and only if element1 and element2 are elements in the same set
+	 * of the disjoint set forest.
+	 */
+	public boolean sameSet(T element1, T element2) {
+		Node node1 = nodes.get(element1);
+		if (node1 == null) {
+			return false;
+		}
+		Node node2 = nodes.get(element2);
+		if (node2 == null) {
+			return false;
+		}
+		return findSet(node1) == findSet(node2);
+	}
+	
+	/**
 	 * Gets the size of the DisjointSetForest.
 	 *
 	 * @return the number of elements in the DisjointSetForest.
