@@ -44,6 +44,35 @@ public class DisjointIntegerSetForestTests {
 	}
 	
 	@Test
+	public void testCopyEqualsHashCode() {
+		for (int n = 2; n <= 16; n *= 2) {
+			DisjointIntegerSetForest sets = new DisjointIntegerSetForest(n);
+			for (int i = 0; i < n; i += 2) {
+				DisjointIntegerSetForest copy = sets.copy();
+				assertEquals(sets, copy);
+				assertEquals(sets.hashCode(), copy.hashCode());
+				assertTrue(sets != copy);
+				sets.union(i, i+1);
+				assertNotEquals(sets, copy);
+				assertNotEquals(sets.hashCode(), copy.hashCode());
+			}
+		}
+		DisjointIntegerSetForest sets = new DisjointIntegerSetForest(6);
+		assertNotEquals(sets, null);
+		assertNotEquals(sets, "hello");
+		DisjointIntegerSetForest copy1 = sets.copy();
+		DisjointIntegerSetForest copy2 = sets.copy();
+		copy1.union(1, 0);
+		copy2.union(2, 0);
+		assertNotEquals(copy1, copy2);
+		copy1 = sets.copy();
+		copy2 = sets.copy();
+		copy1.union(0, 1);
+		copy2.union(0, 2);
+		assertNotEquals(copy1, copy2);
+	}
+	
+	@Test
 	public void testUnionOneLevel() {
 		for (int n = 2; n <= 16; n *= 2) {
 			DisjointIntegerSetForest sets = new DisjointIntegerSetForest(n);
