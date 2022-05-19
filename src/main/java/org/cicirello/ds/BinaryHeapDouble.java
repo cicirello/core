@@ -30,15 +30,17 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import org.cicirello.util.Copyable;
+
 /**
- * <p>An implementation of a Binary Heap. An instance of a BinaryHeap
+ * <p>An implementation of a Binary Heap. An instance of a BinaryHeapDouble
  * contains (element, priority) pairs, such that the elements are distinct.
  * The priority values are of type double.</p> 
  *
  * <p><b>Priority order:</b>
- * BinaryHeap instances are created via factory methods with names beginning
+ * BinaryHeapDouble instances are created via factory methods with names beginning
  * with <code>create</code>. The priority order depends upon the factory method
- * used to create the BinaryHeap. Methods named <code>createMinHeap</code> produce
+ * used to create the BinaryHeapDouble. Methods named <code>createMinHeap</code> produce
  * a min heap with priority order minimum-priority-first-out. Methods named 
  * <code>createMaxHeap</code> produce a max heap with priority order 
  * maximum-priority-first-out.</p>
@@ -51,7 +53,7 @@ import java.util.NoSuchElementException;
  * <p><b>Creating instances:</b> To create an instance, use one of the factory
  * methods, such as with:</p>
  * <pre><code>
- * BinaryHeap&lt;String&gt; pq = BinaryHeap.createMinHeap();
+ * BinaryHeapDouble&lt;String&gt; pq = BinaryHeapDouble.createMinHeap();
  * </code></pre>
  *
  * <p><b>Method runtimes:</b> The asymptotic runtime of the methods of
@@ -65,7 +67,7 @@ import java.util.NoSuchElementException;
  * <li><b>O(lg n):</b> {@link #add(Object, double)}, {@link #add(PriorityQueueNode.Double)},
  *     {@link #change}, {@link #offer(Object, double)}, {@link #offer(PriorityQueueNode.Double)},
  *     {@link #poll}, {@link #pollElement}, {@link #remove()}, {@link #remove(Object)}, {@link #removeElement()}</li>
- * <li><b>O(n):</b> {@link #clear}, {@link #ensureCapacity}, {@link #equals}, {@link #hashCode}, 
+ * <li><b>O(n):</b> {@link #clear}, {@link #copy()}, {@link #ensureCapacity}, {@link #equals}, {@link #hashCode}, 
  *     {@link #toArray()}, {@link #toArray(Object[])}, 
  *     {@link #trimToSize}</li>
  * <li><b>O(m):</b> {@link #containsAll(Collection)}, {@link #createMaxHeap(Collection)}, 
@@ -75,12 +77,12 @@ import java.util.NoSuchElementException;
  * <li><b>O(n lg n):</b> {@link #retainAll(Collection)}</li>
  * </ul>
  *
- * @param <E> The type of object contained in the BinaryHeap.
+ * @param <E> The type of object contained in the BinaryHeapDouble.
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public final class BinaryHeapDouble<E> implements PriorityQueueDouble<E> {
+public final class BinaryHeapDouble<E> implements PriorityQueueDouble<E>, Copyable<BinaryHeapDouble<E>> {
 	
 	private PriorityQueueNode.Double<E>[] buffer;
 	private int size;
@@ -151,6 +153,23 @@ public final class BinaryHeapDouble<E> implements PriorityQueueDouble<E> {
 			size++;
 		}
 		buildHeap();
+	}
+	
+	/*
+	 * private copy constructor to support the copy() method.
+	 */
+	private BinaryHeapDouble(BinaryHeapDouble<E> other) {
+		this(other.capacity(), other.compare);
+		size = other.size;
+		for (int i = 0; i < size; i++) {
+			buffer[i] = other.buffer[i].copy();
+			index.put(buffer[i].element, i);
+		}
+	}
+	
+	@Override
+	public BinaryHeapDouble<E> copy() {
+		return new BinaryHeapDouble<E>(this);
 	}
 	
 	/**

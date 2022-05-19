@@ -237,6 +237,54 @@ public class BinaryHeapDoubleTests {
 	}
 	
 	@Test
+	public void testCopy() {
+		int n = 11;
+		String[] elements = createStrings(n);
+		double[] priorities = createPriorities(elements);
+		PriorityQueueNode.Double<String>[] pairs = createPairs(elements, priorities);
+		ArrayList<PriorityQueueNode.Double<String>> list1 = new ArrayList<PriorityQueueNode.Double<String>>();
+		ArrayList<PriorityQueueNode.Double<String>> list2 = new ArrayList<PriorityQueueNode.Double<String>>();
+		ArrayList<PriorityQueueNode.Double<String>> list3 = new ArrayList<PriorityQueueNode.Double<String>>();
+		ArrayList<PriorityQueueNode.Double<String>> list4 = new ArrayList<PriorityQueueNode.Double<String>>();
+		for (PriorityQueueNode.Double<String> next : pairs) {
+			list1.add(next);
+			list2.add(next);
+		}
+		for (int i = 0; i < n; i++) {
+			list3.add(new PriorityQueueNode.Double<String>(elements[i], 42));
+			list4.add(new PriorityQueueNode.Double<String>(elements[i], 42));
+		}
+		BinaryHeapDouble<String> pq1 = BinaryHeapDouble.createMinHeap(list1);
+		BinaryHeapDouble<String> pq2 = BinaryHeapDouble.createMaxHeap(list2);
+		BinaryHeapDouble<String> pq3 = BinaryHeapDouble.createMinHeap(list3);
+		BinaryHeapDouble<String> pq4 = BinaryHeapDouble.createMaxHeap(list4);
+		BinaryHeapDouble<String> copy1 = pq1.copy();
+		BinaryHeapDouble<String> copy2 = pq2.copy();
+		BinaryHeapDouble<String> copy3 = pq3.copy();
+		BinaryHeapDouble<String> copy4 = pq4.copy();
+		assertEquals(pq1, copy1);
+		assertEquals(pq2, copy2);
+		assertEquals(pq3, copy3);
+		assertEquals(pq4, copy4);
+		assertTrue(pq1 != copy1);
+		assertTrue(pq2 != copy2);
+		assertTrue(pq3 != copy3);
+		assertTrue(pq4 != copy4);
+		assertNotEquals(pq2, copy1);
+		assertNotEquals(pq3, copy1);
+		assertNotEquals(pq4, copy1);
+		assertNotEquals(pq1, copy2);
+		assertNotEquals(pq3, copy2);
+		assertNotEquals(pq4, copy2);
+		assertNotEquals(pq1, copy3);
+		assertNotEquals(pq2, copy3);
+		assertNotEquals(pq4, copy3);
+		assertNotEquals(pq1, copy4);
+		assertNotEquals(pq2, copy4);
+		assertNotEquals(pq3, copy4);
+	}
+	
+	@Test
 	public void testEqualsAndHashCode() {
 		int n = 11;
 		String[] elements = createStrings(n);
