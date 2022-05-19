@@ -80,12 +80,13 @@ import java.util.NoSuchElementException;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class BinaryHeap<E> implements PriorityQueue<E> {
+public final class BinaryHeap<E> implements PriorityQueue<E> {
 	
 	private PriorityQueueNode.Integer<E>[] buffer;
 	private int size;
 	private final HashMap<E, java.lang.Integer> index;
-	private boolean isMax;
+	private final PriorityComparator compare;
+	private final int extreme;
 	
 	/**
 	 * The default initial capacity.
@@ -99,8 +100,20 @@ public class BinaryHeap<E> implements PriorityQueue<E> {
 	 * @param initialCapacity The initial capacity, which must be positive.
 	 */
 	private BinaryHeap(int initialCapacity) {
+		this(initialCapacity, (p1, p2) -> p1 < p2);
+	}
+	
+	/* PRIVATE: Use factory methods for creation.
+	 *
+	 * Initializes an empty BinaryHeap.
+	 *
+	 * @param initialCapacity The initial capacity, which must be positive.
+	 */
+	private BinaryHeap(int initialCapacity, PriorityComparator compare) {
+		this.compare = compare;
 		buffer = allocate(initialCapacity);
 		index = new HashMap<E, java.lang.Integer>();
+		extreme = compare.belongsAbove(0, 1) ? java.lang.Integer.MAX_VALUE : java.lang.Integer.MIN_VALUE;
 	}
 	
 	/* PRIVATE: Use factory methods for creation.
@@ -114,7 +127,21 @@ public class BinaryHeap<E> implements PriorityQueue<E> {
 	 * one pair in initialElements contains the same element.
 	 */
 	private BinaryHeap(Collection<PriorityQueueNode.Integer<E>> initialElements) {
-		this(initialElements.size());
+		this(initialElements, (p1, p2) -> p1 < p2);
+	}
+	
+	/* PRIVATE: Use factory methods for creation.
+	 *
+	 * Initializes a BinaryHeap from a collection of (element, priority) pairs.
+	 *
+	 * @param initialElements The initial collection of (element, priority) pairs, which must be 
+	 * non-empty.
+	 *
+	 * @throws IllegalArgumentException if initialElements is empty, or if more than
+	 * one pair in initialElements contains the same element.
+	 */
+	private BinaryHeap(Collection<PriorityQueueNode.Integer<E>> initialElements, PriorityComparator compare) {
+		this(initialElements.size(), compare);
 		for (PriorityQueueNode.Integer<E> element : initialElements) {
 			if (index.containsKey(element.element)) {
 				throw new IllegalArgumentException("initialElements contains duplicates");
@@ -183,7 +210,7 @@ public class BinaryHeap<E> implements PriorityQueue<E> {
 	 * @return an empty BinaryHeap with a maximum-priority-first-out priority order
 	 */
 	public static <E> BinaryHeap<E> createMaxHeap() {
-		return new BinaryHeap.Max<E>(DEFAULT_INITIAL_CAPACITY);
+		return new BinaryHeap<E>(DEFAULT_INITIAL_CAPACITY, (p1, p2) -> p1 > p2);
 	}
 	
 	/**
@@ -199,7 +226,7 @@ public class BinaryHeap<E> implements PriorityQueue<E> {
 	 */
 	public static <E> BinaryHeap<E> createMaxHeap(int initialCapacity) {
 		if (initialCapacity <= 0) throw new IllegalArgumentException("Initial capacity must be positive.");
-		return new BinaryHeap.Max<E>(initialCapacity);
+		return new BinaryHeap<E>(initialCapacity, (p1, p2) -> p1 > p2);
 	}
 	
 	/**
@@ -219,13 +246,20 @@ public class BinaryHeap<E> implements PriorityQueue<E> {
 		if (initialElements.size() < 1) {
 			throw new IllegalArgumentException("initialElements is empty");
 		}
-		return new BinaryHeap.Max<E>(initialElements);
+		return new BinaryHeap<E>(initialElements, (p1, p2) -> p1 > p2);
 	}
 	
 	@Override
 	public final void change(E element, int priority) {
 		if (!offer(element, priority)) {
-			internalChange(index.get(element), priority);
+			int i = index.get(element);
+			if (compare.belongsAbove(priority, buffer[i].value)) {
+				buffer[i].value = priority;
+				percolateUp(i);
+			} else if (compare.belongsAbove(buffer[i].value, priority)) {
+				buffer[i].value = priority;
+				percolateDown(i);
+			}
 		}
 	}
 	
@@ -276,7 +310,7 @@ public class BinaryHeap<E> implements PriorityQueue<E> {
 			@SuppressWarnings("unchecked")
 			BinaryHeap<E> casted = (BinaryHeap<E>)other;
 			if (size != casted.size) return false;
-			if (isMax != casted.isMax) return false;
+			if (compare.belongsAbove(0, 1) != casted.compare.belongsAbove(0, 1)) return false;
 			for (int i = 0; i < size; i++) {
 				if (!buffer[i].element.equals(casted.buffer[i].element)) return false;
 				if (casted.buffer[i].value != buffer[i].value) return false;
@@ -340,13 +374,13 @@ public class BinaryHeap<E> implements PriorityQueue<E> {
 	
 	@Override
 	public final int peekPriority() {
-		return size > 0 ? buffer[0].value: extreme();
+		return size > 0 ? buffer[0].value: extreme;
 	}
 	
 	@Override
 	public final int peekPriority(E element) {
 		java.lang.Integer i = index.get(element);
-		return i != null ? buffer[i].value : extreme();
+		return i != null ? buffer[i].value : extreme;
 	}
 	
 	@Override
@@ -395,7 +429,11 @@ public class BinaryHeap<E> implements PriorityQueue<E> {
 			buffer[size] = null;
 			index.put(buffer[i].element, i);
 			// percolate in relevant direction
-			percolateAfterRemoval(i, removedElementPriority);
+			if (compare.belongsAbove(buffer[i].value, removedElementPriority)) {
+				percolateUp(i);
+			} else if (compare.belongsAbove(removedElementPriority, buffer[i].value)) {
+				percolateDown(i);
+			}
 		} else {
 			buffer[i] = null;
 		}
@@ -473,52 +511,18 @@ public class BinaryHeap<E> implements PriorityQueue<E> {
 	}
 	
 	/*
-	 * package private to enable overriding.
-	 * Value returned by peekPriority if peeked element doesn't exist.
-	 */
-	int extreme() {
-		return java.lang.Integer.MAX_VALUE;
-	}
-	
-	/*
 	 * package-private to enable overriding in 
 	 * nested subclass to support max heaps.
 	 */
-	void internalChange(int i, int priority) {
-		if (priority < buffer[i].value) {
-			buffer[i].value = priority;
-			percolateUp(i);
-		} else if (priority > buffer[i].value) {
-			buffer[i].value = priority;
-			percolateDown(i);
-		}
-	}
-	
-	/*
-	 * package-private to enable overriding in 
-	 * nested subclass to support max heaps.
-	 */
-	void percolateAfterRemoval(int i, int removedElementPriority) {
-		if (buffer[i].value < removedElementPriority) {
-			percolateUp(i);
-		} else if (buffer[i].value > removedElementPriority) {
-			percolateDown(i);
-		}
-	}
-	
-	/*
-	 * package-private to enable overriding in 
-	 * nested subclass to support max heaps.
-	 */
-	void percolateDown(int i) {
+	private void percolateDown(int i) {
 		int left; 
 		while ((left = (i << 1) + 1) < size) { 
 			int smallest = i;
-			if (buffer[left].value < buffer[i].value) {
+			if (compare.belongsAbove(buffer[left].value, buffer[i].value)) {
 				smallest = left;
 			}
 			int right = left + 1;
-			if (right < size && buffer[right].value < buffer[smallest].value) {
+			if (right < size && compare.belongsAbove(buffer[right].value, buffer[smallest].value)) {
 				smallest = right;
 			}
 			if (smallest != i) {
@@ -538,9 +542,9 @@ public class BinaryHeap<E> implements PriorityQueue<E> {
 	 * package-private to enable overriding in 
 	 * nested subclass to support max heaps.
 	 */
-	void percolateUp(int i) {
+	private void percolateUp(int i) {
 		int parent;
-		while (i > 0 && buffer[parent = (i-1) >> 1].value > buffer[i].value) {
+		while (i > 0 && compare.belongsAbove(buffer[i].value, buffer[parent = (i-1) >> 1].value)) {
 			PriorityQueueNode.Integer<E> temp = buffer[i];
 			buffer[i] = buffer[parent];
 			buffer[parent] = temp;
@@ -585,6 +589,12 @@ public class BinaryHeap<E> implements PriorityQueue<E> {
 		}
 	}
 	
+	@FunctionalInterface
+	private static interface PriorityComparator {
+		
+		boolean belongsAbove(int p1, int p2);
+	}
+	
 	private class BinaryHeapIterator implements Iterator<PriorityQueueNode.Integer<E>> {
 		
 		private int index;
@@ -605,125 +615,6 @@ public class BinaryHeap<E> implements PriorityQueue<E> {
 			}
 			index++;
 			return buffer[index-1];
-		}
-	}
-	
-	private static class Max<E> extends BinaryHeap<E> {
-		
-		/*
-		 * Trick to enable access to private fields of outer-superclass
-		 */
-		private final BinaryHeap<E> self;
-		
-		/* PRIVATE: Use factory methods for creation.
-		 *
-		 * Initializes an empty max heap.
-		 *
-		 * @param initialCapacity The initial capacity, which must be positive.
-		 */
-		private Max(int initialCapacity) {
-			super(initialCapacity);
-			self = this;
-			self.isMax = true;
-		}
-		
-		/* PRIVATE: Use factory methods for creation.
-		 *
-		 * Initializes a max heap from a collection of (element, priority) pairs.
-		 *
-		 * @param initialElements The initial collection of (element, priority) pairs, which must be 
-		 * non-empty.
-		 *
-		 */
-		private Max(Collection<PriorityQueueNode.Integer<E>> initialElements) {
-			super(initialElements);
-			self = this;
-			self.isMax = true;
-		}
-		
-		@Override
-		public boolean equals(Object other) {
-			return other != null && (other instanceof Max) && super.equals(other);
-		}
-		
-		/*
-		 * override for max first order
-		 */
-		@Override
-		int extreme() {
-			return java.lang.Integer.MIN_VALUE;
-		}
-		
-		/*
-		 * override for max first order
-		 */
-		@Override
-		void internalChange(int i, int priority) {
-			if (priority > self.buffer[i].value) {
-				self.buffer[i].value = priority;
-				percolateUp(i);
-			} else if (priority < self.buffer[i].value) {
-				self.buffer[i].value = priority;
-				percolateDown(i);
-			}
-		}
-		
-		/*
-		 * override for max first order
-		 */
-		@Override
-		final void percolateAfterRemoval(int i, int removedElementPriority) {
-			if (self.buffer[i].value > removedElementPriority) {
-				percolateUp(i);
-			} else if (self.buffer[i].value < removedElementPriority) {
-				percolateDown(i);
-			}
-		}
-		
-		/*
-		 * override for max first order
-		 */
-		@Override
-		final void percolateDown(int i) {
-			// Trick to enable access to private fields of outer-superclass
-			final BinaryHeap<E> self = this;
-			int left; 
-			while ((left = (i << 1) + 1) < self.size) { 
-				int largest = i;
-				if (self.buffer[left].value > self.buffer[i].value) {
-					largest = left;
-				}
-				int right = left + 1;
-				if (right < self.size && self.buffer[right].value > self.buffer[largest].value) {
-					largest = right;
-				}
-				if (largest != i) {
-					PriorityQueueNode.Integer<E> temp = self.buffer[i];
-					self.buffer[i] = self.buffer[largest];
-					self.buffer[largest] = temp;
-					self.index.put(self.buffer[i].element, i);
-					self.index.put(self.buffer[largest].element, largest);
-					i = largest; 
-				} else {
-					break;
-				}
-			}
-		}
-		
-		/*
-		 * override for max first order
-		 */
-		@Override
-		final void percolateUp(int i) {
-			int parent;
-			while (i > 0 && self.buffer[parent = (i-1) >> 1].value < self.buffer[i].value) {
-				PriorityQueueNode.Integer<E> temp = self.buffer[i];
-				self.buffer[i] = self.buffer[parent];
-				self.buffer[parent] = temp;
-				self.index.put(self.buffer[i].element, i);
-				self.index.put(self.buffer[parent].element, parent);
-				i = parent;
-			}
 		}
 	}
 }
