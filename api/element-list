@@ -1,2 +1,3 @@
 module:org.cicirello.core
+org.cicirello.ds
 org.cicirello.util

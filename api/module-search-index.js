@@ -1,1 +1,1 @@
-moduleSearchIndex = [{"l":"org.cicirello.core"}]
+moduleSearchIndex = [{"l":"org.cicirello.core"}];updateSearchResults();
