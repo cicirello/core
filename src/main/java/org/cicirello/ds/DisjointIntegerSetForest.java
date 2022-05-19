@@ -76,6 +76,22 @@ public final class DisjointIntegerSetForest {
 	}
 	
 	/**
+	 * Checks whether or not two elements are in the same set.
+	 *
+	 * @param element1 The first element, which must be in [0,n).
+	 * @param element2 The second element, which must be in [0,n).
+	 *
+	 * @return true if and only if element1 and element2 are elements in the same set
+	 * of the disjoint set forest.
+	 *
+	 * @throws ArrayIndexOutOfBoundsException if element1 or element2 is less than 0 or if
+	 * element1 or element2 is greater than or equal to n.
+	 */
+	public boolean sameSet(int element1, int element2) {
+		return findSet(element1) == findSet(element2);
+	}
+	
+	/**
 	 * Gets the size of the DisjointIntegerSetForest in total number of
 	 * elements.
 	 *
