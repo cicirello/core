@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 * FibonacciHeap: implements PriorityQueue with a Fibonacci heap for both min-heap and max-heap cases.
 * FibonacciHeapDouble: implements PriorityQueueDouble with a Fibonacci heap for both min-heap and max-heap cases.
+* Added promote and demote methods to the PriorityQueue, PriorityQueueDouble, IntPriorityQueue, IntPriorityQueueDouble
+  interfaces for changing priorities strictly in one direction, and implemented in the various heap classes.
 
 ### Changed
 * The change method of the PriorityQueue, PriorityQueueDouble, IntPriorityQueue, IntPriorityQueueDouble
