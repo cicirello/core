@@ -120,10 +120,7 @@ public class IntBinaryHeapDouble implements IntPriorityQueueDouble, Copyable<Int
 	 */
 	@Override
 	public final boolean change(int element, double priority) {
-		if (!offer(element, priority)) {
-			return internalChange(element, priority);
-		}
-		return true;
+		return offer(element, priority) || internalPromote(element, priority) || internalDemote(element, priority);
 	}
 	
 	@Override
@@ -173,6 +170,17 @@ public class IntBinaryHeapDouble implements IntPriorityQueueDouble, Copyable<Int
 			throw new IllegalArgumentException("domain must be positive");
 		}
 		return new IntBinaryHeapDouble(n);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @throws IndexOutOfBoundsException if element is negative, or if element is greater than
+	 *     or equal to the domain n.
+	 */
+	@Override
+	public final boolean demote(int element, double priority) {
+		return in[element] && internalDemote(element, priority);
 	}
 	
 	@Override
@@ -237,6 +245,17 @@ public class IntBinaryHeapDouble implements IntPriorityQueueDouble, Copyable<Int
 		return min;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @throws IndexOutOfBoundsException if element is negative, or if element is greater than
+	 *     or equal to the domain n.
+	 */
+	@Override
+	public final boolean promote(int element, double priority) {
+		return in[element] && internalPromote(element, priority);
+	}
+	
 	@Override
 	public final int size() {
 		return size;
@@ -246,12 +265,21 @@ public class IntBinaryHeapDouble implements IntPriorityQueueDouble, Copyable<Int
 	 * package-private to enable overriding in 
 	 * nested subclass to support max heaps.
 	 */
-	boolean internalChange(int element, double priority) {
+	boolean internalPromote(int element, double priority) {
 		if (priority < value[element]) {
 			value[element] = priority;
 			percolateUp(index[element]);
 			return true;
-		} else if (priority > value[element]) {
+		}
+		return false;
+	}
+	
+	/*
+	 * package-private to enable overriding in 
+	 * nested subclass to support max heaps.
+	 */
+	boolean internalDemote(int element, double priority) {
+		if (priority > value[element]) {
 			value[element] = priority;
 			percolateDown(index[element]);
 			return true;
@@ -325,12 +353,21 @@ public class IntBinaryHeapDouble implements IntPriorityQueueDouble, Copyable<Int
 		 * max heap order
 		 */
 		@Override
-		boolean internalChange(int element, double priority) {
+		boolean internalPromote(int element, double priority) {
 			if (priority > self.value[element]) {
 				self.value[element] = priority;
 				percolateUp(self.index[element]);
 				return true;
-			} else if (priority < self.value[element]) {
+			}
+			return false;
+		}
+		
+		/*
+		 * max heap order
+		 */
+		@Override
+		boolean internalDemote(int element, double priority) {
+			if (priority < self.value[element]) {
 				self.value[element] = priority;
 				percolateDown(self.index[element]);
 				return true;

@@ -82,6 +82,24 @@ public interface IntPriorityQueue {
 	boolean contains(int element);
 	
 	/**
+	 * Demotes an element relative to priority order if the element is
+	 * present in the IntPriorityQueue. For a min-heap, demotion means
+	 * increasing the element's priority, while for a max-heap, demotion
+	 * means decreasing its priority. If the element is not in the IntPriorityQueue,
+	 * or if its new priority is not a demotion, then this method does nothing.
+	 *
+	 * @param element The element whose priority is to change.
+	 * @param priority Its new priority.
+	 *
+	 * @throws IndexOutOfBoundsException if element is negative, or if element is greater than
+	 *     or equal to the domain n.
+	 *
+	 * @return true if and only if the IntPriorityQueue changed
+	 * as a consequence of this method call.
+	 */
+	boolean demote(int element, int priority);
+	
+	/**
 	 * Returns the domain of this IntPriorityQueue. Note that the domain
 	 * is not the same thing as the size. The domain defines the elements
 	 * that are allowed in the IntPriorityQueue, whether or not they actually appear within it.
@@ -148,6 +166,24 @@ public interface IntPriorityQueue {
 	 * @return the next element in priority order.
 	 */
 	int poll();
+	
+	/**
+	 * Promotes an element relative to priority order if the element is
+	 * present in the IntPriorityQueue. For a min-heap, promotion means
+	 * decreasing the element's priority, while for a max-heap, promotion
+	 * means increasing its priority. If the element is not in the IntPriorityQueue,
+	 * or if its new priority is not a promotion, then this method does nothing.
+	 *
+	 * @param element The element whose priority is to change.
+	 * @param priority Its new priority.
+	 *
+	 * @throws IndexOutOfBoundsException if element is negative, or if element is greater than
+	 *     or equal to the domain n.
+	 *
+	 * @return true if and only if the IntPriorityQueue changed
+	 * as a consequence of this method call.
+	 */
+	boolean promote(int element, int priority);
 	
 	/**
 	 * Gets the current size of the IntPriorityQueue, which is the
