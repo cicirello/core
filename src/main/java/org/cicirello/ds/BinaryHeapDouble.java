@@ -148,8 +148,8 @@ public final class BinaryHeapDouble<E> implements PriorityQueueDouble<E>, Copyab
 			if (index.containsKey(element.element)) {
 				throw new IllegalArgumentException("initialElements contains duplicates");
 			}
-			buffer[size] = element;
-			index.put(element.element, size);
+			buffer[size] = element.copy();
+			index.put(buffer[size].element, size);
 			size++;
 		}
 		buildHeap();
@@ -378,7 +378,7 @@ public final class BinaryHeapDouble<E> implements PriorityQueueDouble<E>, Copyab
 		if (contains(pair.element)) {
 			return false;
 		}
-		return internalOffer(pair);
+		return internalOffer(pair.copy());
 	}
 	
 	@Override
