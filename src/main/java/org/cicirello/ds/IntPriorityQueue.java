@@ -57,8 +57,11 @@ public interface IntPriorityQueue {
 	 *
 	 * @throws IndexOutOfBoundsException if element is negative, or if element is greater than
 	 *     or equal to the domain n.
+	 *
+	 * @return true if and only if the IntPriorityQueue changed
+	 * as a consequence of this method call.
 	 */
-	void change(int element, int priority);
+	boolean change(int element, int priority);
 	
 	/**
 	 * Clears the IntPriorityQueue, removing all elements.

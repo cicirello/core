@@ -114,8 +114,11 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	 *
 	 * @param element The element whose priority is to change.
 	 * @param priority Its new priority.
+	 *
+	 * @return true if and only if the PriorityQueue changed
+	 * as a consequence of this method call.
 	 */
-	void change(E element, int priority);
+	boolean change(E element, int priority);
 	
 	/**
 	 * Clears the PriorityQueue, removing all elements.

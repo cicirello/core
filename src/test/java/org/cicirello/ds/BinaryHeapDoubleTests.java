@@ -494,7 +494,7 @@ public class BinaryHeapDoubleTests {
 			for (int j = 0; j < n; j++) {
 				pq.offer(elements[j], priorities[j]);
 			}
-			pq.change(elements[i], 1);
+			assertTrue(pq.change(elements[i], 1));
 			assertEquals(1.0, pq.peekPriority(elements[i]), 0.0);
 			assertEquals(elements[i], pq.pollElement());
 			for (int j = 0; j < n; j++) {
@@ -510,7 +510,7 @@ public class BinaryHeapDoubleTests {
 			for (int j = 0; j < n; j++) {
 				pq.offer(elements[j], priorities[j]);
 			}
-			pq.change(elements[i], 100);
+			assertTrue(pq.change(elements[i], 100));
 			assertEquals(100.0, pq.peekPriority(elements[i]), 0.0);
 			for (int j = 0; j < n; j++) {
 				if (i!=j) {
@@ -528,7 +528,7 @@ public class BinaryHeapDoubleTests {
 				for (int j = 0; j < n; j++) {
 					pq.offer(elements[j], priorities[j]);
 				}
-				pq.change(elements[i], p);
+				assertTrue(pq.change(elements[i], p));
 				assertEquals(p, pq.peekPriority(elements[i]), 0.0);
 				int j = 0;
 				for (; j < n; j++) {
@@ -555,7 +555,7 @@ public class BinaryHeapDoubleTests {
 			for (int j = 0; j < n; j++) {
 				pq.offer(elements[j], priorities[j]);
 			}
-			pq.change(elements[i], priorities[i]);
+			assertFalse(pq.change(elements[i], priorities[i]));
 			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
 			for (int j = 0; j < n; j++) {
 				assertEquals(elements[j], pq.pollElement());
@@ -569,7 +569,7 @@ public class BinaryHeapDoubleTests {
 			for (int j = 0; j < n; j++) {
 				pq.offer(elements[j], priorities[j]);
 			}
-			pq.change("YYY", p);
+			assertTrue(pq.change("YYY", p));
 			assertEquals(p, pq.peekPriority("YYY"), 0.0);
 			int j = 0;
 			for (; j < n; j++) {
@@ -1108,7 +1108,7 @@ public class BinaryHeapDoubleTests {
 			for (int j = 0; j < n; j++) {
 				pq.offer(elements[j], priorities[j]);
 			}
-			pq.change(elements[i], -1);
+			assertTrue(pq.change(elements[i], -1));
 			assertEquals(-1.0, pq.peekPriority(elements[i]), 0.0);
 			assertEquals(elements[i], pq.pollElement());
 			for (int j = 0; j < n; j++) {
@@ -1124,7 +1124,7 @@ public class BinaryHeapDoubleTests {
 			for (int j = 0; j < n; j++) {
 				pq.offer(elements[j], priorities[j]);
 			}
-			pq.change(elements[i], -100);
+			assertTrue(pq.change(elements[i], -100));
 			assertEquals(-100.0, pq.peekPriority(elements[i]), 0.0);
 			for (int j = 0; j < n; j++) {
 				if (i!=j) {
@@ -1142,7 +1142,7 @@ public class BinaryHeapDoubleTests {
 				for (int j = 0; j < n; j++) {
 					pq.offer(elements[j], priorities[j]);
 				}
-				pq.change(elements[i], -p);
+				assertTrue(pq.change(elements[i], -p));
 				assertEquals(-p, pq.peekPriority(elements[i]), 0.0);
 				int j = 0;
 				for (; j < n; j++) {
@@ -1169,7 +1169,7 @@ public class BinaryHeapDoubleTests {
 			for (int j = 0; j < n; j++) {
 				pq.offer(elements[j], priorities[j]);
 			}
-			pq.change(elements[i], priorities[i]);
+			assertFalse(pq.change(elements[i], priorities[i]));
 			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
 			for (int j = 0; j < n; j++) {
 				assertEquals(elements[j], pq.pollElement());
@@ -1183,7 +1183,7 @@ public class BinaryHeapDoubleTests {
 			for (int j = 0; j < n; j++) {
 				pq.offer(elements[j], priorities[j]);
 			}
-			pq.change("YYY", -p);
+			assertTrue(pq.change("YYY", -p));
 			assertEquals(-p, pq.peekPriority("YYY"), 0.0);
 			int j = 0;
 			for (; j < n; j++) {
