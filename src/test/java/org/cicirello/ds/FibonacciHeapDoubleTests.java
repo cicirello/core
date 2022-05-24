@@ -758,6 +758,112 @@ public class FibonacciHeapDoubleTests {
 	}
 	
 	@Test
+	public void testPromoteDemoteMinHeap() {
+		int n = 15;
+		String[] elements = createStrings(n);
+		double[] priorities = new double[n];
+		for (int i = 0; i < n; i++) {
+			priorities[i] = 2 + 2*i;
+		}
+		// to front tests
+		for (int i = 0; i < n; i++) {
+			FibonacciHeapDouble<String> pq = FibonacciHeapDouble.createMinHeap();
+			for (int j = 0; j < n; j++) {
+				pq.offer(elements[j], priorities[j]);
+			}
+			assertTrue(pq.promote(elements[i], 1));
+			assertEquals(1, pq.peekPriority(elements[i]), 0.0);
+			assertEquals(elements[i], pq.pollElement());
+			for (int j = 0; j < n; j++) {
+				if (i!=j) {
+					assertEquals(elements[j], pq.pollElement());
+				}
+			}
+			assertTrue(pq.isEmpty());
+		}
+		// to back tests
+		for (int i = 0; i < n; i++) {
+			FibonacciHeapDouble<String> pq = FibonacciHeapDouble.createMinHeap();
+			for (int j = 0; j < n; j++) {
+				pq.offer(elements[j], priorities[j]);
+			}
+			assertTrue(pq.demote(elements[i], 100));
+			assertEquals(100, pq.peekPriority(elements[i]), 0.0);
+			for (int j = 0; j < n; j++) {
+				if (i!=j) {
+					assertEquals(elements[j], pq.pollElement());
+				}
+			}
+			assertEquals(elements[i], pq.pollElement());
+			assertTrue(pq.isEmpty());
+		}
+		// to interior tests
+		double maxP = 2*(n-1) + 2;
+		for (int p = 3; p <= maxP; p += 2) {
+			for (int i = 0; i < n; i++) {
+				FibonacciHeapDouble<String> pq = FibonacciHeapDouble.createMinHeap();
+				for (int j = 0; j < n; j++) {
+					pq.offer(elements[j], priorities[j]);
+				}
+				if (p < priorities[i]) {
+					assertTrue(pq.promote(elements[i], p));
+				} else {
+					assertTrue(pq.demote(elements[i], p));
+				}
+				assertEquals(p, pq.peekPriority(elements[i]), 0.0);
+				int j = 0;
+				for (; j < n; j++) {
+					if (i != j) {
+						if (priorities[j] < p) {
+							assertEquals(elements[j], pq.pollElement(), "p,i,j="+p+","+i+","+j);
+						} else {
+							break;
+						}
+					}
+				}
+				assertEquals(elements[i], pq.pollElement(), "p,i,j="+p+","+i+","+j);
+				for (; j < n; j++) {
+					if (i!=j && priorities[j] > p) {
+						assertEquals(elements[j], pq.pollElement());
+					}
+				}
+				assertTrue(pq.isEmpty());
+			}
+		}
+		// equal change test
+		for (int i = 0; i < n; i++) {
+			FibonacciHeapDouble<String> pq = FibonacciHeapDouble.createMinHeap();
+			for (int j = 0; j < n; j++) {
+				pq.offer(elements[j], priorities[j]);
+			}
+			assertFalse(pq.promote(elements[i], priorities[i]));
+			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertFalse(pq.demote(elements[i], priorities[i]));
+			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			for (int j = 0; j < n; j++) {
+				assertEquals(elements[j], pq.pollElement());
+			}
+			assertTrue(pq.isEmpty());
+		}
+		// new element test
+		maxP = 2*(n-1) + 3;
+		for (int p = 1; p <= maxP; p += 2) {
+			FibonacciHeapDouble<String> pq = FibonacciHeapDouble.createMinHeap();
+			for (int j = 0; j < n; j++) {
+				pq.offer(elements[j], priorities[j]);
+			}
+			assertFalse(pq.promote("YYY", p));
+			assertFalse(pq.contains("YYY"));
+			assertFalse(pq.demote("YYY", p));
+			assertFalse(pq.contains("YYY"));
+			for (int j = 0; j < n; j++) {
+				assertEquals(elements[j], pq.pollElement());
+			}
+			assertTrue(pq.isEmpty());
+		}
+	}
+	
+	@Test
 	public void testDefaultMinHeap() {
 		int n = 31;
 		String[] elements = createStrings(n);
@@ -1406,6 +1512,112 @@ public class FibonacciHeapDoubleTests {
 				if (!maxElement.equals(elements[j])) {
 					assertEquals(elements[j], pq.pollElement());
 				}
+			}
+			assertTrue(pq.isEmpty());
+		}
+	}
+	
+	@Test
+	public void testPromoteDemoteMaxHeap() {
+		int n = 15;
+		String[] elements = createStrings(n);
+		double[] priorities = new double[n];
+		for (int i = 0; i < n; i++) {
+			priorities[i] = -(2 + 2*i);
+		}
+		// to front tests
+		for (int i = 0; i < n; i++) {
+			FibonacciHeapDouble<String> pq = FibonacciHeapDouble.createMaxHeap();
+			for (int j = 0; j < n; j++) {
+				pq.offer(elements[j], priorities[j]);
+			}
+			assertTrue(pq.promote(elements[i], -1));
+			assertEquals(-1, pq.peekPriority(elements[i]), 0.0);
+			assertEquals(elements[i], pq.pollElement());
+			for (int j = 0; j < n; j++) {
+				if (i!=j) {
+					assertEquals(elements[j], pq.pollElement());
+				}
+			}
+			assertTrue(pq.isEmpty());
+		}
+		// to back tests
+		for (int i = 0; i < n; i++) {
+			FibonacciHeapDouble<String> pq = FibonacciHeapDouble.createMaxHeap();
+			for (int j = 0; j < n; j++) {
+				pq.offer(elements[j], priorities[j]);
+			}
+			assertTrue(pq.demote(elements[i], -100));
+			assertEquals(-100, pq.peekPriority(elements[i]), 0.0);
+			for (int j = 0; j < n; j++) {
+				if (i!=j) {
+					assertEquals(elements[j], pq.pollElement());
+				}
+			}
+			assertEquals(elements[i], pq.pollElement());
+			assertTrue(pq.isEmpty());
+		}
+		// to interior tests
+		double maxP = 2*(n-1) + 2;
+		for (int p = 3; p <= maxP; p += 2) {
+			for (int i = 0; i < n; i++) {
+				FibonacciHeapDouble<String> pq = FibonacciHeapDouble.createMaxHeap();
+				for (int j = 0; j < n; j++) {
+					pq.offer(elements[j], priorities[j]);
+				}
+				if (-p > priorities[i]) {
+					assertTrue(pq.promote(elements[i], -p));
+				} else {
+					assertTrue(pq.demote(elements[i], -p));
+				}
+				assertEquals(-p, pq.peekPriority(elements[i]), 0.0);
+				int j = 0;
+				for (; j < n; j++) {
+					if (i != j) {
+						if (priorities[j] > -p) {
+							assertEquals(elements[j], pq.pollElement(), "p,i,j="+p+","+i+","+j);
+						} else {
+							break;
+						}
+					}
+				}
+				assertEquals(elements[i], pq.pollElement(), "p,i,j="+p+","+i+","+j);
+				for (; j < n; j++) {
+					if (i!=j && priorities[j] < -p) {
+						assertEquals(elements[j], pq.pollElement());
+					}
+				}
+				assertTrue(pq.isEmpty());
+			}
+		}
+		// equal change test
+		for (int i = 0; i < n; i++) {
+			FibonacciHeapDouble<String> pq = FibonacciHeapDouble.createMaxHeap();
+			for (int j = 0; j < n; j++) {
+				pq.offer(elements[j], priorities[j]);
+			}
+			assertFalse(pq.promote(elements[i], priorities[i]));
+			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertFalse(pq.demote(elements[i], priorities[i]));
+			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			for (int j = 0; j < n; j++) {
+				assertEquals(elements[j], pq.pollElement());
+			}
+			assertTrue(pq.isEmpty());
+		}
+		// new element test
+		maxP = 2*(n-1) + 3;
+		for (int p = 1; p <= maxP; p += 2) {
+			FibonacciHeapDouble<String> pq = FibonacciHeapDouble.createMaxHeap();
+			for (int j = 0; j < n; j++) {
+				pq.offer(elements[j], priorities[j]);
+			}
+			assertFalse(pq.promote("YYY", -p));
+			assertFalse(pq.contains("YYY"));
+			assertFalse(pq.demote("YYY", -p));
+			assertFalse(pq.contains("YYY"));
+			for (int j = 0; j < n; j++) {
+				assertEquals(elements[j], pq.pollElement());
 			}
 			assertTrue(pq.isEmpty());
 		}

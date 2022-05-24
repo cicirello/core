@@ -339,6 +339,112 @@ public class IntBinaryHeapTests {
 		}
 	}
 	
+	@Test
+	public void testPromoteDemoteMinHeap() {
+		int n = 15;
+		int[] e = createElements(n);
+		int[] p = orderedArray(n);
+		for (int i = 0; i < n; i++) {
+			p[i] = 2*p[i] + 2;
+		}
+		// to front tests
+		for (int i = 0; i < n; i++) {
+			IntBinaryHeap pq = IntBinaryHeap.createMinHeap(n);
+			for (int j = 0; j < n; j++) {
+				pq.offer(e[j], p[j]);
+			}
+			assertTrue(pq.promote(e[i], 1));
+			assertEquals(1, pq.peekPriority(e[i]));
+			assertEquals(e[i], pq.poll());
+			for (int j = 0; j < n; j++) {
+				if (i!=j) {
+					assertEquals(e[j], pq.poll());
+				}
+			}
+			assertTrue(pq.isEmpty());
+		}
+		// to back tests
+		for (int i = 0; i < n; i++) {
+			IntBinaryHeap pq = IntBinaryHeap.createMinHeap(n);
+			for (int j = 0; j < n; j++) {
+				pq.offer(e[j], p[j]);
+			}
+			assertTrue(pq.demote(e[i], 100));
+			assertEquals(100, pq.peekPriority(e[i]));
+			for (int j = 0; j < n; j++) {
+				if (i!=j) {
+					assertEquals(e[j], pq.poll());
+				}
+			}
+			assertEquals(e[i], pq.poll());
+			assertTrue(pq.isEmpty());
+		}
+		// to interior tests
+		int maxP = 2*(n-1) + 2;
+		for (int pNew = 3; pNew <= maxP; pNew += 2) {
+			for (int i = 0; i < n; i++) {
+				IntBinaryHeap pq = IntBinaryHeap.createMinHeap(n);
+				for (int j = 0; j < n; j++) {
+					pq.offer(e[j], p[j]);
+				}
+				if (pNew < p[i]) {
+					assertTrue(pq.promote(e[i], pNew));
+				} else {
+					assertTrue(pq.demote(e[i], pNew));
+				}
+				assertEquals(pNew, pq.peekPriority(e[i]));
+				int j = 0;
+				for (; j < n; j++) {
+					if (i != j) {
+						if (p[j] < pNew) {
+							assertEquals(e[j], pq.poll(), "p,i,j="+pNew+","+i+","+j);
+						} else {
+							break;
+						}
+					}
+				}
+				assertEquals(e[i], pq.poll(), "p,i,j="+pNew+","+i+","+j);
+				for (; j < n; j++) {
+					if (i!=j && p[j] > pNew) {
+						assertEquals(e[j], pq.poll());
+					}
+				}
+				assertTrue(pq.isEmpty());
+			}
+		}
+		// equal change test
+		for (int i = 0; i < n; i++) {
+			IntBinaryHeap pq = IntBinaryHeap.createMinHeap(n);
+			for (int j = 0; j < n; j++) {
+				pq.offer(e[j], p[j]);
+			}
+			assertFalse(pq.promote(e[i], p[i]));
+			assertEquals(p[i], pq.peekPriority(e[i]));
+			assertFalse(pq.demote(e[i], p[i]));
+			assertEquals(p[i], pq.peekPriority(e[i]));
+			for (int j = 0; j < n; j++) {
+				assertEquals(e[j], pq.poll());
+			}
+			assertTrue(pq.isEmpty());
+		}
+		// new element test
+		maxP = 2*(n-1) + 3;
+		for (int pNew = 1; pNew <= maxP; pNew += 2) {
+			IntBinaryHeap pq = IntBinaryHeap.createMinHeap(n);
+			for (int j = 0; j < n-1; j++) {
+				pq.offer(e[j], p[j]);
+			}
+			assertFalse(pq.promote(e[n-1], pNew));
+			assertFalse(pq.contains(e[n-1]));
+			assertFalse(pq.demote(e[n-1], pNew));
+			assertFalse(pq.contains(e[n-1]));
+			for (int j = 0; j < n-1; j++) {
+				assertEquals(e[j], pq.poll());
+			}
+			assertTrue(pq.isEmpty());
+		}
+	}
+	
 	// MAX HEAP TESTS
 	
 	@Test
@@ -576,6 +682,112 @@ public class IntBinaryHeapTests {
 				if (p[j] < -pNew) {
 					assertEquals(e[j], pq.poll());
 				}
+			}
+			assertTrue(pq.isEmpty());
+		}
+	}
+	
+	@Test
+	public void testPromoteDemoteMaxHeap() {
+		int n = 15;
+		int[] e = createElements(n);
+		int[] p = orderedArray(n);
+		for (int i = 0; i < n; i++) {
+			p[i] = -(2*p[i] + 2);
+		}
+		// to front tests
+		for (int i = 0; i < n; i++) {
+			IntBinaryHeap pq = IntBinaryHeap.createMaxHeap(n);
+			for (int j = 0; j < n; j++) {
+				pq.offer(e[j], p[j]);
+			}
+			assertTrue(pq.promote(e[i], -1));
+			assertEquals(-1, pq.peekPriority(e[i]));
+			assertEquals(e[i], pq.poll());
+			for (int j = 0; j < n; j++) {
+				if (i!=j) {
+					assertEquals(e[j], pq.poll());
+				}
+			}
+			assertTrue(pq.isEmpty());
+		}
+		// to back tests
+		for (int i = 0; i < n; i++) {
+			IntBinaryHeap pq = IntBinaryHeap.createMaxHeap(n);
+			for (int j = 0; j < n; j++) {
+				pq.offer(e[j], p[j]);
+			}
+			assertTrue(pq.demote(e[i], -100));
+			assertEquals(-100, pq.peekPriority(e[i]));
+			for (int j = 0; j < n; j++) {
+				if (i!=j) {
+					assertEquals(e[j], pq.poll());
+				}
+			}
+			assertEquals(e[i], pq.poll());
+			assertTrue(pq.isEmpty());
+		}
+		// to interior tests
+		int maxP = (2*(n-1) + 2);
+		for (int pNew = 3; pNew <= maxP; pNew += 2) {
+			for (int i = 0; i < n; i++) {
+				IntBinaryHeap pq = IntBinaryHeap.createMaxHeap(n);
+				for (int j = 0; j < n; j++) {
+					pq.offer(e[j], p[j]);
+				}
+				if (-pNew > p[i]) {
+					assertTrue(pq.promote(e[i], -pNew));
+				} else {
+					assertTrue(pq.demote(e[i], -pNew));
+				}
+				assertEquals(-pNew, pq.peekPriority(e[i]));
+				int j = 0;
+				for (; j < n; j++) {
+					if (i != j) {
+						if (p[j] > -pNew) {
+							assertEquals(e[j], pq.poll(), "p,i,j="+pNew+","+i+","+j);
+						} else {
+							break;
+						}
+					}
+				}
+				assertEquals(e[i], pq.poll(), "p,i,j="+pNew+","+i+","+j);
+				for (; j < n; j++) {
+					if (i!=j && p[j] < -pNew) {
+						assertEquals(e[j], pq.poll());
+					}
+				}
+				assertTrue(pq.isEmpty());
+			}
+		}
+		// equal change test
+		for (int i = 0; i < n; i++) {
+			IntBinaryHeap pq = IntBinaryHeap.createMaxHeap(n);
+			for (int j = 0; j < n; j++) {
+				pq.offer(e[j], p[j]);
+			}
+			assertFalse(pq.promote(e[i], p[i]));
+			assertEquals(p[i], pq.peekPriority(e[i]));
+			assertFalse(pq.demote(e[i], p[i]));
+			assertEquals(p[i], pq.peekPriority(e[i]));
+			for (int j = 0; j < n; j++) {
+				assertEquals(e[j], pq.poll());
+			}
+			assertTrue(pq.isEmpty());
+		}
+		// new element test
+		maxP = 2*(n-1) + 3;
+		for (int pNew = 1; pNew <= maxP; pNew += 2) {
+			IntBinaryHeap pq = IntBinaryHeap.createMaxHeap(n);
+			for (int j = 0; j < n-1; j++) {
+				pq.offer(e[j], p[j]);
+			}
+			assertFalse(pq.promote(e[n-1], -pNew));
+			assertFalse(pq.contains(e[n-1]));
+			assertFalse(pq.demote(e[n-1], -pNew));
+			assertFalse(pq.contains(e[n-1]));
+			for (int j = 0; j < n-1; j++) {
+				assertEquals(e[j], pq.poll());
 			}
 			assertTrue(pq.isEmpty());
 		}
