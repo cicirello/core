@@ -208,7 +208,7 @@ public final class BinaryHeapDouble<E> implements PriorityQueueDouble<E>, Copyab
 	 * non-empty.
 	 * @param <E> The type of elements contained in the BinaryHeapDouble.
 	 *
-	 * @return an empty BinaryHeapDouble with a minimum-priority-first-out priority order
+	 * @return a BinaryHeapDouble with a minimum-priority-first-out priority order
 	 *
 	 * @throws IllegalArgumentException if initialElements is empty, or if more than
 	 * one pair in initialElements contains the same element.
@@ -256,7 +256,7 @@ public final class BinaryHeapDouble<E> implements PriorityQueueDouble<E>, Copyab
 	 * non-empty.
 	 * @param <E> The type of elements contained in the BinaryHeapDouble.
 	 *
-	 * @return an empty BinaryHeapDouble with a maximum-priority-first-out priority order
+	 * @return a BinaryHeapDouble with a maximum-priority-first-out priority order
 	 *
 	 * @throws IllegalArgumentException if initialElements is empty, or if more than
 	 * one pair in initialElements contains the same element.
