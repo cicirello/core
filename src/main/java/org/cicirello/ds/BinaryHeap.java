@@ -208,7 +208,7 @@ public final class BinaryHeap<E> implements PriorityQueue<E>, Copyable<BinaryHea
 	 * non-empty.
 	 * @param <E> The type of elements contained in the BinaryHeap.
 	 *
-	 * @return an empty BinaryHeap with a minimum-priority-first-out priority order
+	 * @return a BinaryHeap with a minimum-priority-first-out priority order
 	 *
 	 * @throws IllegalArgumentException if initialElements is empty, or if more than
 	 * one pair in initialElements contains the same element.
@@ -256,7 +256,7 @@ public final class BinaryHeap<E> implements PriorityQueue<E>, Copyable<BinaryHea
 	 * non-empty.
 	 * @param <E> The type of elements contained in the BinaryHeap.
 	 *
-	 * @return an empty BinaryHeap with a maximum-priority-first-out priority order
+	 * @return a BinaryHeap with a maximum-priority-first-out priority order
 	 *
 	 * @throws IllegalArgumentException if initialElements is empty, or if more than
 	 * one pair in initialElements contains the same element.
