@@ -523,12 +523,12 @@ public class FibonacciHeapTests {
 					assertEquals("T", e3);
 					assertEquals(n-3, pq.size());
 					if (!e1.equals(elements[i]) && !e2.equals(elements[i]) && !e3.equals(elements[i])) {
-						pq.change(elements[i], -1);
+						assertTrue(pq.change(elements[i], -1));
 						assertEquals(-1, pq.peekPriority(elements[i]));
 						assertEquals(n-3, pq.size());
 					}
 					if (!e1.equals(elements[k]) && !e2.equals(elements[k]) && !e3.equals(elements[k])) {
-						pq.change(elements[k], -2);
+						assertTrue(pq.change(elements[k], -2));
 						assertEquals(-2, pq.peekPriority(elements[k]));
 						assertEquals(n-3, pq.size());
 					}
@@ -598,12 +598,12 @@ public class FibonacciHeapTests {
 					assertEquals("T", e3);
 					assertEquals(n-3, pq.size());
 					if (!e1.equals(elements[i]) && !e2.equals(elements[i]) && !e3.equals(elements[i])) {
-						pq.change(elements[i], 95);
+						assertTrue(pq.change(elements[i], 95));
 						assertEquals(95, pq.peekPriority(elements[i]));
 						assertEquals(n-3, pq.size());
 					}
 					if (!e1.equals(elements[k]) && !e2.equals(elements[k]) && !e3.equals(elements[k])) {
-						pq.change(elements[k], 102);
+						assertTrue(pq.change(elements[k], 102));
 						assertEquals(102, pq.peekPriority(elements[k]));
 						assertEquals(n-3, pq.size());
 					}
@@ -645,7 +645,7 @@ public class FibonacciHeapTests {
 			for (int j = 0; j < n; j++) {
 				pq.offer(elements[j], priorities[j]);
 			}
-			pq.change(elements[i], 1);
+			assertTrue(pq.change(elements[i], 1));
 			assertEquals(1, pq.peekPriority(elements[i]));
 			assertEquals(elements[i], pq.pollElement());
 			for (int j = 0; j < n; j++) {
@@ -661,7 +661,7 @@ public class FibonacciHeapTests {
 			for (int j = 0; j < n; j++) {
 				pq.offer(elements[j], priorities[j]);
 			}
-			pq.change(elements[i], 100);
+			assertTrue(pq.change(elements[i], 100));
 			assertEquals(100, pq.peekPriority(elements[i]));
 			for (int j = 0; j < n; j++) {
 				if (i!=j) {
@@ -679,7 +679,7 @@ public class FibonacciHeapTests {
 				for (int j = 0; j < n; j++) {
 					pq.offer(elements[j], priorities[j]);
 				}
-				pq.change(elements[i], p);
+				assertTrue(pq.change(elements[i], p));
 				assertEquals(p, pq.peekPriority(elements[i]));
 				int j = 0;
 				for (; j < n; j++) {
@@ -706,7 +706,7 @@ public class FibonacciHeapTests {
 			for (int j = 0; j < n; j++) {
 				pq.offer(elements[j], priorities[j]);
 			}
-			pq.change(elements[i], priorities[i]);
+			assertFalse(pq.change(elements[i], priorities[i]));
 			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 			for (int j = 0; j < n; j++) {
 				assertEquals(elements[j], pq.pollElement());
@@ -720,7 +720,7 @@ public class FibonacciHeapTests {
 			for (int j = 0; j < n; j++) {
 				pq.offer(elements[j], priorities[j]);
 			}
-			pq.change("YYY", p);
+			assertTrue(pq.change("YYY", p));
 			assertEquals(p, pq.peekPriority("YYY"));
 			int j = 0;
 			for (; j < n; j++) {
@@ -746,7 +746,7 @@ public class FibonacciHeapTests {
 			}
 			String minElement = pq.pollElement();
 			if (!minElement.equals(elements[i])) {
-				pq.change(elements[i], priorities[i]-1);
+				assertTrue(pq.change(elements[i], priorities[i]-1));
 				assertEquals(priorities[i]-1, pq.peekPriority(elements[i]));
 			}
 			for (int j = 0; j < n; j++) {
@@ -1177,12 +1177,12 @@ public class FibonacciHeapTests {
 					assertEquals("T", e3);
 					assertEquals(n-3, pq.size());
 					if (!e1.equals(elements[i]) && !e2.equals(elements[i]) && !e3.equals(elements[i])) {
-						pq.change(elements[i], 2);
+						assertTrue(pq.change(elements[i], 2));
 						assertEquals(2, pq.peekPriority(elements[i]));
 						assertEquals(n-3, pq.size());
 					}
 					if (!e1.equals(elements[k]) && !e2.equals(elements[k]) && !e3.equals(elements[k])) {
-						pq.change(elements[k], 1);
+						assertTrue(pq.change(elements[k], 1));
 						assertEquals(1, pq.peekPriority(elements[k]));
 						assertEquals(n-3, pq.size());
 					}
@@ -1252,12 +1252,12 @@ public class FibonacciHeapTests {
 					assertEquals("T", e3);
 					assertEquals(n-3, pq.size());
 					if (!e1.equals(elements[i]) && !e2.equals(elements[i]) && !e3.equals(elements[i])) {
-						pq.change(elements[i], -102);
+						assertTrue(pq.change(elements[i], -102));
 						assertEquals(-102, pq.peekPriority(elements[i]));
 						assertEquals(n-3, pq.size());
 					}
 					if (!e1.equals(elements[k]) && !e2.equals(elements[k]) && !e3.equals(elements[k])) {
-						pq.change(elements[k], -95);
+						assertTrue(pq.change(elements[k], -95));
 						assertEquals(-95, pq.peekPriority(elements[k]));
 						assertEquals(n-3, pq.size());
 					}
@@ -1299,7 +1299,7 @@ public class FibonacciHeapTests {
 			for (int j = 0; j < n; j++) {
 				pq.offer(elements[j], priorities[j]);
 			}
-			pq.change(elements[i], -1);
+			assertTrue(pq.change(elements[i], -1));
 			assertEquals(-1, pq.peekPriority(elements[i]));
 			assertEquals(elements[i], pq.pollElement());
 			for (int j = 0; j < n; j++) {
@@ -1315,7 +1315,7 @@ public class FibonacciHeapTests {
 			for (int j = 0; j < n; j++) {
 				pq.offer(elements[j], priorities[j]);
 			}
-			pq.change(elements[i], -100);
+			assertTrue(pq.change(elements[i], -100));
 			assertEquals(-100, pq.peekPriority(elements[i]));
 			for (int j = 0; j < n; j++) {
 				if (i!=j) {
@@ -1333,7 +1333,7 @@ public class FibonacciHeapTests {
 				for (int j = 0; j < n; j++) {
 					pq.offer(elements[j], priorities[j]);
 				}
-				pq.change(elements[i], -p);
+				assertTrue(pq.change(elements[i], -p));
 				assertEquals(-p, pq.peekPriority(elements[i]));
 				int j = 0;
 				for (; j < n; j++) {
@@ -1360,7 +1360,7 @@ public class FibonacciHeapTests {
 			for (int j = 0; j < n; j++) {
 				pq.offer(elements[j], priorities[j]);
 			}
-			pq.change(elements[i], priorities[i]);
+			assertFalse(pq.change(elements[i], priorities[i]));
 			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 			for (int j = 0; j < n; j++) {
 				assertEquals(elements[j], pq.pollElement());
@@ -1374,7 +1374,7 @@ public class FibonacciHeapTests {
 			for (int j = 0; j < n; j++) {
 				pq.offer(elements[j], priorities[j]);
 			}
-			pq.change("YYY", -p);
+			assertTrue(pq.change("YYY", -p));
 			assertEquals(-p, pq.peekPriority("YYY"));
 			int j = 0;
 			for (; j < n; j++) {
@@ -1400,7 +1400,7 @@ public class FibonacciHeapTests {
 			}
 			String maxElement = pq.pollElement();
 			if (!maxElement.equals(elements[i])) {
-				pq.change(elements[i], priorities[i]+1);
+				assertTrue(pq.change(elements[i], priorities[i]+1));
 				assertEquals(priorities[i]+1, pq.peekPriority(elements[i]));
 			}
 			for (int j = 0; j < n; j++) {

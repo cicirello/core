@@ -232,17 +232,21 @@ public final class FibonacciHeapDouble<E> implements PriorityQueueDouble<E>, Cop
 	}
 	
 	@Override
-	public final void change(E element, double priority) {
+	public final boolean change(E element, double priority) {
 		if (!offer(element, priority)) {
 			// No need to null check this because condition above guarantees
 			// that this should be non-null.
 			Node<E> node = index.get(element);
 			if (compare.comesBefore(priority, node.e.value)) {
 				internalPromote(node, priority);
+				return true;
 			} else if (compare.comesBefore(node.e.value, priority)) {
 				internalDemote(node, priority);
+				return true;
 			}
+			return false;
 		}
+		return true;
 	}
 	
 	@Override

@@ -119,10 +119,11 @@ public class IntBinaryHeapDouble implements IntPriorityQueueDouble, Copyable<Int
 	 *     or equal to the domain n.
 	 */
 	@Override
-	public final void change(int element, double priority) {
+	public final boolean change(int element, double priority) {
 		if (!offer(element, priority)) {
-			internalChange(element, priority);
+			return internalChange(element, priority);
 		}
+		return true;
 	}
 	
 	@Override
@@ -245,14 +246,17 @@ public class IntBinaryHeapDouble implements IntPriorityQueueDouble, Copyable<Int
 	 * package-private to enable overriding in 
 	 * nested subclass to support max heaps.
 	 */
-	void internalChange(int element, double priority) {
+	boolean internalChange(int element, double priority) {
 		if (priority < value[element]) {
 			value[element] = priority;
 			percolateUp(index[element]);
+			return true;
 		} else if (priority > value[element]) {
 			value[element] = priority;
 			percolateDown(index[element]);
+			return true;
 		}
+		return false;
 	}
 	
 	/*
@@ -320,19 +324,24 @@ public class IntBinaryHeapDouble implements IntPriorityQueueDouble, Copyable<Int
 		/*
 		 * max heap order
 		 */
-		void internalChange(int element, double priority) {
+		@Override
+		boolean internalChange(int element, double priority) {
 			if (priority > self.value[element]) {
 				self.value[element] = priority;
 				percolateUp(self.index[element]);
+				return true;
 			} else if (priority < self.value[element]) {
 				self.value[element] = priority;
 				percolateDown(self.index[element]);
+				return true;
 			}
+			return false;
 		}
 		
 		/*
 		 * max heap order
 		 */
+		@Override
 		void percolateDown(int i) {
 			int left; 
 			while ((left = (i << 1) + 1) < self.size) { 
@@ -358,6 +367,7 @@ public class IntBinaryHeapDouble implements IntPriorityQueueDouble, Copyable<Int
 		/*
 		 * max heap order
 		 */
+		@Override
 		void percolateUp(int i) {
 			int parent;
 			while (i > 0 && self.value[self.heap[parent = (i-1) >> 1]] < self.value[self.heap[i]]) {

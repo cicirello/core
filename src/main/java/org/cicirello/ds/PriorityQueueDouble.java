@@ -29,13 +29,13 @@ import java.util.Queue;
 
 /**
  * <p>Interface common to the classes that provide implementations of
- * a priority queue with double valued priorities. All PriorityQueue 
+ * a priority queue with double valued priorities. All PriorityQueueDouble 
  * implementations enforce distinct elements, and use the
  * {@link Object#hashCode} and {@link Object#equals} methods to
  * to enforce distinctness, so be sure that the class of the elements
  * properly implements these methods, or else behavior is not guaranteed.</p>
  *
- * @param <E> The type of object contained in the PriorityQueue.
+ * @param <E> The type of object contained in the PriorityQueueDouble.
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
@@ -43,10 +43,10 @@ import java.util.Queue;
 public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E>> {
 	
 	/**
-	 * Adds an (element, priority) pair to the PriorityQueue with a specified priority,
-	 * provided the element is not already in the PriorityQueue.
+	 * Adds an (element, priority) pair to the PriorityQueueDouble with a specified priority,
+	 * provided the element is not already in the PriorityQueueDouble.
 	 * This method differs from {@link #offer(Object, double)}
-	 * in that it throws an exception if the PriorityQueue contains the element,
+	 * in that it throws an exception if the PriorityQueueDouble contains the element,
 	 * while the offer method instead returns false.
 	 *
 	 * @param element The element.
@@ -64,10 +64,10 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
 	}
 	
 	/**
-	 * Adds an (element, priority) pair to the PriorityQueue,
-	 * provided the element is not already in the PriorityQueue.
+	 * Adds an (element, priority) pair to the PriorityQueueDouble,
+	 * provided the element is not already in the PriorityQueueDouble.
 	 * This method differs from {@link #offer(PriorityQueueNode.Double)}
-	 * in that it throws an exception if the PriorityQueue contains the element,
+	 * in that it throws an exception if the PriorityQueueDouble contains the element,
 	 * while the offer method instead returns false.
 	 *
 	 * @param pair The (element, priority) pair to add.
@@ -85,8 +85,8 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
 	}
 	
 	/**
-	 * Adds all (element, priority) pairs from a Collection to the PriorityQueue,
-	 * provided the elements are not already in the PriorityQueue.
+	 * Adds all (element, priority) pairs from a Collection to the PriorityQueueDouble,
+	 * provided the elements are not already in the PriorityQueueDouble.
 	 * The default implementation calls the {@link #add(PriorityQueueNode.Double)} 
 	 * for each pair in the Collection. 
 	 *
@@ -94,7 +94,7 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
 	 *
 	 * @return true if the (element, priority) pairs were added.
 	 *
-	 * @throws IllegalArgumentException if the PriorityQueue already contains any
+	 * @throws IllegalArgumentException if the PriorityQueueDouble already contains any
 	 * of the (element, priority) pairs.
 	 */
 	@Override
@@ -109,40 +109,43 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
 	
 	/**
 	 * Changes the priority of an element if the element is
-	 * present in the PriorityQueue, and otherwise adds the
-	 * (element, priority) pair to the PriorityQueue.
+	 * present in the PriorityQueueDouble, and otherwise adds the
+	 * (element, priority) pair to the PriorityQueueDouble.
 	 *
 	 * @param element The element whose priority is to change.
 	 * @param priority Its new priority.
+	 *
+	 * @return true if and only if the PriorityQueueDouble changed
+	 * as a consequence of this method call.
 	 */
-	void change(E element, double priority);
+	boolean change(E element, double priority);
 	
 	/**
-	 * Clears the PriorityQueue, removing all elements.
+	 * Clears the PriorityQueueDouble, removing all elements.
 	 */
 	@Override
 	void clear();
 	
 	/**
-	 * Checks if this PriorityQueue contains a given element
+	 * Checks if this PriorityQueueDouble contains a given element
 	 * or an (element, priority) pair with a given element.
 	 *
 	 * @param o An element or (element, priority) pair to check
 	 *    for containment of the element.
 	 *
-	 * @return true if and only if this PriorityQueue contains the element.
+	 * @return true if and only if this PriorityQueueDouble contains the element.
 	 */
 	@Override
 	boolean contains(Object o);
 	
 	/**
-	 * Checks if this PriorityQueue contains all elements
+	 * Checks if this PriorityQueueDouble contains all elements
 	 * or (element, priority) pairs from a given Collection.
 	 *
 	 * @param c A Collection of elements or (element, priority) pairs to check
 	 *    for containment.
 	 *
-	 * @return true if and only if this PriorityQueue contains all of the elements
+	 * @return true if and only if this PriorityQueueDouble contains all of the elements
 	 * or (element, priority) pairs in c.
 	 */
 	@Override
@@ -154,9 +157,9 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
 	}
 	
 	/**
-	 * <p>Gets the next (element, priority) pair in priority order from this PriorityQueue,
+	 * <p>Gets the next (element, priority) pair in priority order from this PriorityQueueDouble,
 	 * without removing it.</p>
-	 * <p>This method differs from {@link #peek()} in that if the PriorityQueue is
+	 * <p>This method differs from {@link #peek()} in that if the PriorityQueueDouble is
 	 * empty, this method throws an exception, while {@link #peek()} returns null.</p>
 	 * <p>This method serves a different purpose than {@link peekElement()}. The
 	 * {@link peekElement()} methods returns only the element of the (element, priority)
@@ -165,19 +168,19 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
 	 *
 	 * @return the next (element, priority) pair in priority order.
 	 *
-	 * @throws NoSuchElementException if the PriorityQueue is empty
+	 * @throws NoSuchElementException if the PriorityQueueDouble is empty
 	 */
 	@Override
 	default PriorityQueueNode.Double<E> element() {
 		PriorityQueueNode.Double<E> result = peek();
 		if (result == null) {
-			throw new NoSuchElementException("PriorityQueue is empty");
+			throw new NoSuchElementException("PriorityQueueDouble is empty");
 		}
 		return result;
 	}
 	
 	/**
-	 * Checks if the PriorityQueue is empty.
+	 * Checks if the PriorityQueueDouble is empty.
 	 *
 	 * @return true if and only if it is empty
 	 */
@@ -195,31 +198,31 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
 	Iterator<PriorityQueueNode.Double<E>> iterator();
 	
 	/**
-	 * Adds an (element, priority) pair to the PriorityQueue with a specified priority,
-	 * provided the element is not already in the PriorityQueue.
+	 * Adds an (element, priority) pair to the PriorityQueueDouble with a specified priority,
+	 * provided the element is not already in the PriorityQueueDouble.
 	 *
 	 * @param element The element.
 	 * @param priority The priority of the element.
 	 *
 	 * @return true if the (element, priority) pair was added, and false if the
-	 * PriorityQueue already contained the element.
+	 * PriorityQueueDouble already contained the element.
 	 */
 	boolean offer(E element, double priority);
 	
 	/**
-	 * Adds an (element, priority) pair to the PriorityQueue,
-	 * provided the element is not already in the PriorityQueue.
+	 * Adds an (element, priority) pair to the PriorityQueueDouble,
+	 * provided the element is not already in the PriorityQueueDouble.
 	 *
 	 * @param pair The (element, priority) pair to add.
 	 *
 	 * @return true if the (element, priority) pair was added, and false if the
-	 * PriorityQueue already contained the element.
+	 * PriorityQueueDouble already contained the element.
 	 */
 	@Override
 	boolean offer(PriorityQueueNode.Double<E> pair);
 	
 	/**
-	 * Gets the next (element, priority) pair in priority order from this PriorityQueue,
+	 * Gets the next (element, priority) pair in priority order from this PriorityQueueDouble,
 	 * without removing it.
 	 *
 	 * @return the next (element, priority) pair in priority order, or null if empty.
@@ -228,14 +231,14 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
 	PriorityQueueNode.Double<E> peek();
 	
 	/**
-	 * Gets the priority of the next element in priority order in the PriorityQueue.
+	 * Gets the priority of the next element in priority order in the PriorityQueueDouble.
 	 *
 	 * @return the priority of the next element in priority order.
 	 */
 	double peekPriority();
 	
 	/**
-	 * Gets the priority of a specified element if it is present in the PriorityQueue.
+	 * Gets the priority of a specified element if it is present in the PriorityQueueDouble.
 	 * This interface does not define the behavior when the element is not present.
 	 * Implementations may define the behavior when the element is not present.
 	 *
@@ -246,7 +249,7 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
 	double peekPriority(E element);
 	
 	/**
-	 * Gets the next element in priority order from this PriorityQueue,
+	 * Gets the next element in priority order from this PriorityQueueDouble,
 	 * without removing it.
 	 *
 	 * @return the next element in priority order, or null if empty.
@@ -254,7 +257,7 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
 	E peekElement();
 	
 	/**
-	 * Removes and returns the next (element, priority) pair in priority order from this PriorityQueue.
+	 * Removes and returns the next (element, priority) pair in priority order from this PriorityQueueDouble.
 	 *
 	 * @return the next (element, priority) pair in priority order, or null if empty.
 	 */
@@ -262,32 +265,32 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
 	PriorityQueueNode.Double<E> poll();
 	
 	/**
-	 * Removes and returns the next element in priority order from this PriorityQueue.
+	 * Removes and returns the next element in priority order from this PriorityQueueDouble.
 	 *
 	 * @return the next element in priority order, or null if empty.
 	 */
 	E pollElement();
 	
 	/**
-	 * Removes and returns the next (element, priority) pair in priority order from this PriorityQueue.
-	 * This method differs from {@link #poll()} in that if the PriorityQueue is
+	 * Removes and returns the next (element, priority) pair in priority order from this PriorityQueueDouble.
+	 * This method differs from {@link #poll()} in that if the PriorityQueueDouble is
 	 * empty, this method throws an exception, while {@link #poll()} returns null.
 	 *
 	 * @return the next (element, priority) pair in priority order.
 	 *
-	 * @throws NoSuchElementException if the PriorityQueue is empty
+	 * @throws NoSuchElementException if the PriorityQueueDouble is empty
 	 */
 	@Override
 	default PriorityQueueNode.Double<E> remove() {
 		PriorityQueueNode.Double<E> result = poll();
 		if (result == null) {
-			throw new NoSuchElementException("PriorityQueue is empty");
+			throw new NoSuchElementException("PriorityQueueDouble is empty");
 		}
 		return result;
 	}
 	
 	/**
-	 * Removes from this PriorityQueue the (element, priority) pair, if present, 
+	 * Removes from this PriorityQueueDouble the (element, priority) pair, if present, 
 	 * for a specified element or element from a specified (element, priority) pair.
 	 *
 	 * @param o An element or (element, priority) pair, such that element designates
@@ -301,13 +304,13 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
 	boolean remove(Object o);
 	
 	/**
-	 * Removes from this PriorityQueue all (element, priority) pairs
+	 * Removes from this PriorityQueueDouble all (element, priority) pairs
 	 * such that a given Collection c either contains the element or
 	 * contains an (element, priority) pair with the same element.
 	 *
 	 * @param c A Collection of elements or (element, priority) pairs for removal.
 	 *
-	 * @return true if and only if this PriorityQueue changed as a result of this method.
+	 * @return true if and only if this PriorityQueueDouble changed as a result of this method.
 	 */
 	@Override
 	default boolean removeAll(Collection<?> c) {
@@ -321,63 +324,63 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
 	}
 	
 	/**
-	 * Removes and returns the next element in priority order from this PriorityQueue.
-	 * This method differs from {@link #pollElement()} in that if the PriorityQueue is
+	 * Removes and returns the next element in priority order from this PriorityQueueDouble.
+	 * This method differs from {@link #pollElement()} in that if the PriorityQueueDouble is
 	 * empty, this method throws an exception, while {@link #pollElement()} returns null.
 	 *
 	 * @return the next element in priority order.
 	 *
-	 * @throws NoSuchElementException if the PriorityQueue is empty
+	 * @throws NoSuchElementException if the PriorityQueueDouble is empty
 	 */
 	default E removeElement() {
 		E result = pollElement();
 		if (result == null) {
-			throw new NoSuchElementException("PriorityQueue is empty");
+			throw new NoSuchElementException("PriorityQueueDouble is empty");
 		}
 		return result;
 	}
 	
 	/**
-	 * Removes from this PriorityQueue all (element, priority) pairs
+	 * Removes from this PriorityQueueDouble all (element, priority) pairs
 	 * except for the elements or (element, priority) pairs contained in a 
 	 * given Collection c.
 	 *
 	 * @param c A Collection of elements or (element, priority) pairs to keep.
 	 *
-	 * @return true if and only if this PriorityQueue changed as a result of this method.
+	 * @return true if and only if this PriorityQueueDouble changed as a result of this method.
 	 */
 	@Override
 	boolean retainAll(Collection<?> c);
 	
 	/**
-	 * Gets the current size of the PriorityQueue, which is the
+	 * Gets the current size of the PriorityQueueDouble, which is the
 	 * number of (element, value) pairs that it contains.
 	 *
-	 * @return the current size of the PriorityQueue.
+	 * @return the current size of the PriorityQueueDouble.
 	 */
 	@Override
 	int size();
 	
 	/**
 	 * Returns an array containing all of the (element, priority) pairs contained in the
-	 * PriorityQueue. The order is not guaranteed. The runtime component type is Object.
-	 * The PriorityQueue does not maintain any references to the array that is returned,
+	 * PriorityQueueDouble. The order is not guaranteed. The runtime component type is Object.
+	 * The PriorityQueueDouble does not maintain any references to the array that is returned,
 	 * instead creating a new array upon each call to the toArray method. The length of the
-	 * array that is returned is equal to the current {@link #size()} of the PriorityQueue.
+	 * array that is returned is equal to the current {@link #size()} of the PriorityQueueDouble.
 	 *
 	 * @return an array, whose runtime component type is Object, containing all of the 
-	 * (element, priority) pairs currently in the PriorityQueue.
+	 * (element, priority) pairs currently in the PriorityQueueDouble.
 	 */
 	@Override
 	Object[] toArray();
 	
 	/**
 	 * Returns an array containing all of the (element, priority) pairs contained in the
-	 * PriorityQueue. The order is not guaranteed. The runtime component type is the same
+	 * PriorityQueueDouble. The order is not guaranteed. The runtime component type is the same
 	 * as the array passed to it as a parameter. If the specified array is large enough,
 	 * then it is used, otherwise a new array is allocated whose length is equal to 
-	 * the current {@link #size()} of the PriorityQueue. If the specified array is larger
-	 * than the current size() of the PriorityQueue, the first extra cell is set to null.
+	 * the current {@link #size()} of the PriorityQueueDouble. If the specified array is larger
+	 * than the current size() of the PriorityQueueDouble, the first extra cell is set to null.
 	 *
 	 * @param array The array in which to place the (element, priority) pairs, if it is
 	 * sufficiently large, otherwise a new array of length {@link #size()} is allocated of

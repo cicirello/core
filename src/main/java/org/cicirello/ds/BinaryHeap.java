@@ -269,17 +269,21 @@ public final class BinaryHeap<E> implements PriorityQueue<E>, Copyable<BinaryHea
 	}
 	
 	@Override
-	public final void change(E element, int priority) {
+	public final boolean change(E element, int priority) {
 		if (!offer(element, priority)) {
 			int i = index.get(element);
 			if (compare.belongsAbove(priority, buffer[i].value)) {
 				buffer[i].value = priority;
 				percolateUp(i);
+				return true;
 			} else if (compare.belongsAbove(buffer[i].value, priority)) {
 				buffer[i].value = priority;
 				percolateDown(i);
+				return true;
 			}
+			return false;
 		}
+		return true;
 	}
 	
 	@Override

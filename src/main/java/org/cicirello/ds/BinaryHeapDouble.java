@@ -269,17 +269,21 @@ public final class BinaryHeapDouble<E> implements PriorityQueueDouble<E>, Copyab
 	}
 	
 	@Override
-	public final void change(E element, double priority) {
+	public final boolean change(E element, double priority) {
 		if (!offer(element, priority)) {
 			int i = index.get(element);
 			if (compare.belongsAbove(priority, buffer[i].value)) {
 				buffer[i].value = priority;
 				percolateUp(i);
+				return true;
 			} else if (compare.belongsAbove(buffer[i].value, priority)) {
 				buffer[i].value = priority;
 				percolateDown(i);
+				return true;
 			}
+			return false;
 		}
+		return true;
 	}
 	
 	@Override
