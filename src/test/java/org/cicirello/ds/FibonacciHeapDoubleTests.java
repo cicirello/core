@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Collections;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -102,6 +103,36 @@ public class FibonacciHeapDoubleTests {
 				count++;
 			}
 			assertEquals(m, count);
+			NoSuchElementException thrown = assertThrows( 
+				NoSuchElementException.class,
+				() -> iter.next()
+			);
+		}
+	}
+	
+	@Test
+	public void testIteratorWithChildren() {
+		int n = 8;
+		String[] elements = createStrings(n);
+		double[] priorities = createPriorities(elements);
+		for (int m = 0; m < n; m++) {
+			FibonacciHeapDouble<String> pq = FibonacciHeapDouble.createMinHeap();
+			for (int j = 0; j < m; j++) {
+				pq.offer(elements[j], priorities[j]);
+			}
+			String minElement = pq.pollElement();
+			int count = 0;
+			for (PriorityQueueNode.Double<String> e : pq) {
+				count++;
+			}
+			assertEquals(m > 0 ? m-1 : 0, count);
+			count = 0;
+			final Iterator<PriorityQueueNode.Double<String>> iter = pq.iterator();
+			while (iter.hasNext()) {
+				PriorityQueueNode.Double<String> e = iter.next();
+				count++;
+			}
+			assertEquals(m > 0 ? m-1 : 0, count);
 			NoSuchElementException thrown = assertThrows( 
 				NoSuchElementException.class,
 				() -> iter.next()
@@ -189,17 +220,27 @@ public class FibonacciHeapDoubleTests {
 	
 	@Test
 	public void testCopy() {
-		int n = 11;
-		String[] elements = createStrings(n);
+		int n = 24;
+		String[] elements = createStringsArbitrary(n);
 		double[] priorities = createPriorities(elements);
 		PriorityQueueNode.Double<String>[] pairs = createPairs(elements, priorities);
 		ArrayList<PriorityQueueNode.Double<String>> list1 = new ArrayList<PriorityQueueNode.Double<String>>();
 		ArrayList<PriorityQueueNode.Double<String>> list2 = new ArrayList<PriorityQueueNode.Double<String>>();
 		ArrayList<PriorityQueueNode.Double<String>> list3 = new ArrayList<PriorityQueueNode.Double<String>>();
 		ArrayList<PriorityQueueNode.Double<String>> list4 = new ArrayList<PriorityQueueNode.Double<String>>();
+		FibonacciHeapDouble<String> pq5 = FibonacciHeapDouble.createMinHeap();
+		FibonacciHeapDouble<String> pq6 = FibonacciHeapDouble.createMaxHeap();
+		int iter = 0;
 		for (PriorityQueueNode.Double<String> next : pairs) {
 			list1.add(next);
 			list2.add(next);
+			iter++;
+			pq5.offer(next);
+			pq6.offer(next);
+			if (iter % 8 == 0) {
+				pq5.poll();
+				pq6.poll();
+			}
 		}
 		for (int i = 0; i < n; i++) {
 			list3.add(new PriorityQueueNode.Double<String>(elements[i], 42));
@@ -213,14 +254,20 @@ public class FibonacciHeapDoubleTests {
 		FibonacciHeapDouble<String> copy2 = pq2.copy();
 		FibonacciHeapDouble<String> copy3 = pq3.copy();
 		FibonacciHeapDouble<String> copy4 = pq4.copy();
+		FibonacciHeapDouble<String> copy5 = pq5.copy();
+		FibonacciHeapDouble<String> copy6 = pq6.copy();
 		assertEquals(pq1, copy1);
 		assertEquals(pq2, copy2);
 		assertEquals(pq3, copy3);
 		assertEquals(pq4, copy4);
+		assertEquals(pq5, copy5);
+		assertEquals(pq6, copy6);
 		assertTrue(pq1 != copy1);
 		assertTrue(pq2 != copy2);
 		assertTrue(pq3 != copy3);
 		assertTrue(pq4 != copy4);
+		assertTrue(pq5 != copy5);
+		assertTrue(pq6 != copy6);
 		assertNotEquals(pq2, copy1);
 		assertNotEquals(pq3, copy1);
 		assertNotEquals(pq4, copy1);
@@ -233,6 +280,8 @@ public class FibonacciHeapDoubleTests {
 		assertNotEquals(pq1, copy4);
 		assertNotEquals(pq2, copy4);
 		assertNotEquals(pq3, copy4);
+		assertNotEquals(pq6, copy5);
+		assertNotEquals(pq5, copy6);
 	}
 	
 	@Test
@@ -432,6 +481,156 @@ public class FibonacciHeapDoubleTests {
 	}
 	
 	@Test
+	public void testChangePriorityMinHeapCascadingCut() {
+		double[] priorities = { 1, 5, 2, 11, 4, 13, 17, 15, 8, 31, 40, 37, 14, 100, 50, 70, 30, 45, 60, 0, 33, 99, 16, 97};
+		int[] orderedIndexes = {};
+		int n = priorities.length;
+		String[] elements = createStrings(n);
+		for (int i = 0; i < n; i++) {
+			for (int k = 0; k < n; k++) {
+				if (i!= k) {
+					FibonacciHeapDouble<String> pq = FibonacciHeapDouble.createMinHeap();
+					for (int j = 0; j < n/3; j++) {
+						pq.offer(elements[j], priorities[j]);
+					}
+					String e1 = pq.pollElement();
+					int index = Arrays.binarySearch(elements, e1);
+					if (index == i || index == k) {
+						continue;
+					}
+					assertEquals("A", e1);
+					assertEquals(n/3-1, pq.size());
+					for (int j = n/3; j < 2*n/3; j++) {
+						pq.offer(elements[j], priorities[j]);
+					}
+					String e2 = pq.pollElement();
+					index = Arrays.binarySearch(elements, e2);
+					if (index == i || index == k) {
+						continue;
+					}
+					assertEquals("C", e2);
+					assertEquals(2*n/3-2, pq.size());
+					for (int j = 2*n/3; j < n; j++) {
+						pq.offer(elements[j], priorities[j]);
+					}
+					String e3 = pq.pollElement();
+					index = Arrays.binarySearch(elements, e3);
+					if (index == i || index == k) {
+						continue;
+					}
+					double p3 = priorities[Arrays.binarySearch(elements, e3)];
+					assertEquals("T", e3);
+					assertEquals(n-3, pq.size());
+					if (!e1.equals(elements[i]) && !e2.equals(elements[i]) && !e3.equals(elements[i])) {
+						pq.change(elements[i], -1);
+						assertEquals(-1.0, pq.peekPriority(elements[i]), 0.0);
+						assertEquals(n-3, pq.size());
+					}
+					if (!e1.equals(elements[k]) && !e2.equals(elements[k]) && !e3.equals(elements[k])) {
+						pq.change(elements[k], -2);
+						assertEquals(-2.0, pq.peekPriority(elements[k]), 0.0);
+						assertEquals(n-3, pq.size());
+					}
+					double lastP = -1000;
+					int count = 0;
+					while (!pq.isEmpty()) {
+						PriorityQueueNode.Double<String> e = pq.poll();
+						String msg = "count,e,p,i,k="+count+","+e.element+","+e.value+","+i+","+k;
+						assertTrue(e.value >= lastP, msg);
+						lastP = e.value;
+						int j = Arrays.binarySearch(elements, e.element);
+						if (j != i && j != k) {
+							assertEquals(priorities[j], e.value, 0.0);
+						} else if (j == i) {
+							assertEquals(-1, e.value, 0.0);
+						} else if (j == k) {
+							assertEquals(-2, e.value, 0.0);
+						}
+						count++;
+						assertEquals(n-3-count, pq.size());
+					}
+					assertEquals(n-3, count);
+				}
+			}
+		}
+	}
+	
+	@Test
+	public void testChangePriorityMinHeapMultiLevelIncrease() {
+		double[] priorities = { 1, 5, 2, 11, 4, 13, 17, 15, 8, 31, 40, 37, 14, 100, 50, 70, 30, 45, 60, 0, 33, 99, 16, 97};
+		int[] orderedIndexes = {};
+		int n = priorities.length;
+		String[] elements = createStrings(n);
+		for (int i = 0; i < n; i++) {
+			for (int k = 0; k < n; k++) {
+				if (i!= k) {
+					FibonacciHeapDouble<String> pq = FibonacciHeapDouble.createMinHeap();
+					for (int j = 0; j < n/3; j++) {
+						pq.offer(elements[j], priorities[j]);
+					}
+					String e1 = pq.pollElement();
+					int index = Arrays.binarySearch(elements, e1);
+					if (index == i || index == k) {
+						continue;
+					}
+					assertEquals("A", e1);
+					assertEquals(n/3-1, pq.size());
+					for (int j = n/3; j < 2*n/3; j++) {
+						pq.offer(elements[j], priorities[j]);
+					}
+					String e2 = pq.pollElement();
+					index = Arrays.binarySearch(elements, e2);
+					if (index == i || index == k) {
+						continue;
+					}
+					assertEquals("C", e2);
+					assertEquals(2*n/3-2, pq.size());
+					for (int j = 2*n/3; j < n; j++) {
+						pq.offer(elements[j], priorities[j]);
+					}
+					String e3 = pq.pollElement();
+					index = Arrays.binarySearch(elements, e3);
+					if (index == i || index == k) {
+						continue;
+					}
+					double p3 = priorities[Arrays.binarySearch(elements, e3)];
+					assertEquals("T", e3);
+					assertEquals(n-3, pq.size());
+					if (!e1.equals(elements[i]) && !e2.equals(elements[i]) && !e3.equals(elements[i])) {
+						pq.change(elements[i], 95);
+						assertEquals(95.0, pq.peekPriority(elements[i]), 0.0);
+						assertEquals(n-3, pq.size());
+					}
+					if (!e1.equals(elements[k]) && !e2.equals(elements[k]) && !e3.equals(elements[k])) {
+						pq.change(elements[k], 102);
+						assertEquals(102.0, pq.peekPriority(elements[k]), 0.0);
+						assertEquals(n-3, pq.size());
+					}
+					double lastP = -1000;
+					int count = 0;
+					while (!pq.isEmpty()) {
+						PriorityQueueNode.Double<String> e = pq.poll();
+						String msg = "count,e,p,i,k="+count+","+e.element+","+e.value+","+i+","+k;
+						assertTrue(e.value >= lastP, msg);
+						lastP = e.value;
+						int j = Arrays.binarySearch(elements, e.element);
+						if (j != i && j != k) {
+							assertEquals(priorities[j], e.value, 0.0);
+						} else if (j == i) {
+							assertEquals(95, e.value, 0.0);
+						} else if (j == k) {
+							assertEquals(102, e.value, 0.0);
+						}
+						count++;
+						assertEquals(n-3-count, pq.size());
+					}
+					assertEquals(n-3, count);
+				}
+			}
+		}
+	}
+	
+	@Test
 	public void testChangePriorityMinHeap() {
 		int n = 15;
 		String[] elements = createStrings(n);
@@ -533,6 +732,24 @@ public class FibonacciHeapDoubleTests {
 			assertEquals("YYY", pq.pollElement());
 			for (; j < n; j++) {
 				if (priorities[j] > p) {
+					assertEquals(elements[j], pq.pollElement());
+				}
+			}
+			assertTrue(pq.isEmpty());
+		}
+		// change not lower than parent
+		for (int i = 0; i < n; i++) {
+			FibonacciHeapDouble<String> pq = FibonacciHeapDouble.createMinHeap();
+			for (int j = 0; j < n; j++) {
+				pq.offer(elements[j], priorities[j]);
+			}
+			String minElement = pq.pollElement();
+			if (!minElement.equals(elements[i])) {
+				pq.change(elements[i], priorities[i]-0.5);
+				assertEquals(priorities[i]-0.5, pq.peekPriority(elements[i]), 0.0);
+			}
+			for (int j = 0; j < n; j++) {
+				if (!minElement.equals(elements[j])) {
 					assertEquals(elements[j], pq.pollElement());
 				}
 			}
@@ -919,6 +1136,155 @@ public class FibonacciHeapDoubleTests {
 	}
 	
 	@Test
+	public void testChangePriorityMaxHeapCascadingCut() {
+		double[] priorities = { -1, -5, -2, -11, -4, -13, -17, -15, -8, -31, -40, -37, -14, -100, -50, -70, -30, -45, -60, 0, -33, -99, -16, -97};
+		int n = priorities.length;
+		String[] elements = createStrings(n);
+		for (int i = 0; i < n; i++) {
+			for (int k = 0; k < n; k++) {
+				if (i!= k) {
+					FibonacciHeapDouble<String> pq = FibonacciHeapDouble.createMaxHeap();
+					for (int j = 0; j < n/3; j++) {
+						pq.offer(elements[j], priorities[j]);
+					}
+					String e1 = pq.pollElement();
+					int index = Arrays.binarySearch(elements, e1);
+					if (index == i || index == k) {
+						continue;
+					}
+					assertEquals("A", e1);
+					assertEquals(n/3-1, pq.size());
+					for (int j = n/3; j < 2*n/3; j++) {
+						pq.offer(elements[j], priorities[j]);
+					}
+					String e2 = pq.pollElement();
+					index = Arrays.binarySearch(elements, e2);
+					if (index == i || index == k) {
+						continue;
+					}
+					assertEquals("C", e2);
+					assertEquals(2*n/3-2, pq.size());
+					for (int j = 2*n/3; j < n; j++) {
+						pq.offer(elements[j], priorities[j]);
+					}
+					String e3 = pq.pollElement();
+					index = Arrays.binarySearch(elements, e3);
+					if (index == i || index == k) {
+						continue;
+					}
+					double p3 = priorities[Arrays.binarySearch(elements, e3)];
+					assertEquals("T", e3);
+					assertEquals(n-3, pq.size());
+					if (!e1.equals(elements[i]) && !e2.equals(elements[i]) && !e3.equals(elements[i])) {
+						pq.change(elements[i], 2);
+						assertEquals(2.0, pq.peekPriority(elements[i]), 0.0);
+						assertEquals(n-3, pq.size());
+					}
+					if (!e1.equals(elements[k]) && !e2.equals(elements[k]) && !e3.equals(elements[k])) {
+						pq.change(elements[k], 1);
+						assertEquals(1.0, pq.peekPriority(elements[k]), 0.0);
+						assertEquals(n-3, pq.size());
+					}
+					double lastP = 1000;
+					int count = 0;
+					while (!pq.isEmpty()) {
+						PriorityQueueNode.Double<String> e = pq.poll();
+						String msg = "count,e,p,i,k="+count+","+e.element+","+e.value+","+i+","+k;
+						assertTrue(e.value <= lastP, msg);
+						lastP = e.value;
+						int j = Arrays.binarySearch(elements, e.element);
+						if (j != i && j != k) {
+							assertEquals(priorities[j], e.value, 0.0);
+						} else if (j == i) {
+							assertEquals(2, e.value, 0.0);
+						} else if (j == k) {
+							assertEquals(1, e.value, 0.0);
+						}
+						count++;
+						assertEquals(n-3-count, pq.size());
+					}
+					assertEquals(n-3, count);
+				}
+			}
+		}
+	}
+	
+	@Test
+	public void testChangePriorityMaxHeapMultiLevelIncrease() {
+		double[] priorities = { -1, -5, -2, -11, -4, -13, -17, -15, -8, -31, -40, -37, -14, -100, -50, -70, -30, -45, -60, 0, -33, -99, -16, -97};
+		int[] orderedIndexes = {};
+		int n = priorities.length;
+		String[] elements = createStrings(n);
+		for (int i = 0; i < n; i++) {
+			for (int k = 0; k < n; k++) {
+				if (i!= k) {
+					FibonacciHeapDouble<String> pq = FibonacciHeapDouble.createMaxHeap();
+					for (int j = 0; j < n/3; j++) {
+						pq.offer(elements[j], priorities[j]);
+					}
+					String e1 = pq.pollElement();
+					int index = Arrays.binarySearch(elements, e1);
+					if (index == i || index == k) {
+						continue;
+					}
+					assertEquals("A", e1);
+					assertEquals(n/3-1, pq.size());
+					for (int j = n/3; j < 2*n/3; j++) {
+						pq.offer(elements[j], priorities[j]);
+					}
+					String e2 = pq.pollElement();
+					index = Arrays.binarySearch(elements, e2);
+					if (index == i || index == k) {
+						continue;
+					}
+					assertEquals("C", e2);
+					assertEquals(2*n/3-2, pq.size());
+					for (int j = 2*n/3; j < n; j++) {
+						pq.offer(elements[j], priorities[j]);
+					}
+					String e3 = pq.pollElement();
+					index = Arrays.binarySearch(elements, e3);
+					if (index == i || index == k) {
+						continue;
+					}
+					double p3 = priorities[Arrays.binarySearch(elements, e3)];
+					assertEquals("T", e3);
+					assertEquals(n-3, pq.size());
+					if (!e1.equals(elements[i]) && !e2.equals(elements[i]) && !e3.equals(elements[i])) {
+						pq.change(elements[i], -102);
+						assertEquals(-102.0, pq.peekPriority(elements[i]), 0.0);
+						assertEquals(n-3, pq.size());
+					}
+					if (!e1.equals(elements[k]) && !e2.equals(elements[k]) && !e3.equals(elements[k])) {
+						pq.change(elements[k], -95);
+						assertEquals(-95.0, pq.peekPriority(elements[k]), 0.0);
+						assertEquals(n-3, pq.size());
+					}
+					double lastP = 1000;
+					int count = 0;
+					while (!pq.isEmpty()) {
+						PriorityQueueNode.Double<String> e = pq.poll();
+						String msg = "count,e,p,i,k="+count+","+e.element+","+e.value+","+i+","+k;
+						assertTrue(e.value <= lastP, msg);
+						lastP = e.value;
+						int j = Arrays.binarySearch(elements, e.element);
+						if (j != i && j != k) {
+							assertEquals(priorities[j], e.value, 0.0);
+						} else if (j == i) {
+							assertEquals(-102, e.value, 0.0);
+						} else if (j == k) {
+							assertEquals(-95, e.value, 0.0);
+						}
+						count++;
+						assertEquals(n-3-count, pq.size());
+					}
+					assertEquals(n-3, count);
+				}
+			}
+		}
+	}
+	
+	@Test
 	public void testChangePriorityMaxHeap() {
 		int n = 15;
 		String[] elements = createStrings(n);
@@ -1020,6 +1386,24 @@ public class FibonacciHeapDoubleTests {
 			assertEquals("YYY", pq.pollElement());
 			for (; j < n; j++) {
 				if (priorities[j] < -p) {
+					assertEquals(elements[j], pq.pollElement());
+				}
+			}
+			assertTrue(pq.isEmpty());
+		}
+		// change not higher than parent
+		for (int i = 0; i < n; i++) {
+			FibonacciHeapDouble<String> pq = FibonacciHeapDouble.createMaxHeap();
+			for (int j = 0; j < n; j++) {
+				pq.offer(elements[j], priorities[j]);
+			}
+			String maxElement = pq.pollElement();
+			if (!maxElement.equals(elements[i])) {
+				pq.change(elements[i], priorities[i]+0.5);
+				assertEquals(priorities[i]+0.5, pq.peekPriority(elements[i]), 0.0);
+			}
+			for (int j = 0; j < n; j++) {
+				if (!maxElement.equals(elements[j])) {
 					assertEquals(elements[j], pq.pollElement());
 				}
 			}

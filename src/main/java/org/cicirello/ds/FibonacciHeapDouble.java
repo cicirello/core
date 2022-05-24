@@ -26,9 +26,7 @@ import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Arrays;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 import java.util.Deque;
 import java.util.ArrayDeque;
 
@@ -38,6 +36,10 @@ import org.cicirello.util.Copyable;
  * <p>An implementation of a Fibonacci Heap. An instance of a FibonacciHeapDouble
  * contains (element, priority) pairs, such that the elements are distinct.
  * The priority values are of type double.</p> 
+ *
+ * <p><b>Origin:</b> Fibonacci heaps were first introduced in the following article:
+ * M. L. Fredman and R. E. Tarjan (1987). Fibonacci Heaps and Their Uses in Improved Network
+ * Optimization Algorithms. <i>Journal of the ACM</i>, 34(3): 596-615, July 1987.</p>
  *
  * <p><b>Priority order:</b>
  * FibonacciHeapDouble instances are created via factory methods with names beginning
@@ -58,26 +60,31 @@ import org.cicirello.util.Copyable;
  * FibonacciHeapDouble&lt;String&gt; pq = FibonacciHeapDouble.createMinHeap();
  * </code></pre>
  *
- * <p><b>Method runtimes:</b> NEED TO UPDATE THIS FOR FIBONACCI HEAP AFTER IMPLEMENTING.
- * The asymptotic runtime of the methods of
+ * <p><b>Method runtimes:</b> The asymptotic runtime of the methods of
  * this class are as follows (where n is the current size of the heap and m is the size of
- * a Collection parameter where relevant):</p>
+ * a Collection parameter where relevant). Note that in many cases in this list, the
+ * runtimes are amortized time and not actual time (see a reference on Fibonacci heaps for
+ * details).</p>
  * <ul>
- * <li><b>O(1):</b> {@link #contains}, {@link #createMaxHeap()}, 
+ * <li><b>O(1):</b> {@link #add(Object, double)}, {@link #add(PriorityQueueNode.Double)}, 
+ *     {@link #contains}, {@link #createMaxHeap()}, 
  *     {@link #createMinHeap()}, {@link #element}, {@link #isEmpty}, {@link #iterator},
- *     {@link #peek}, {@link #peekElement}, {@link #peekPriority()}, {@link #peekPriority(Object)},
+ *     {@link #offer(E, double)}, {@link #offer(PriorityQueueNode.Double)},
+ *     {@link #peek}, {@link #peekElement}, {@link #peekPriority()}, {@link #peekPriority(E)},
  *     {@link #size()}</li>
- * <li><b>O(lg n):</b> {@link #add(Object, double)}, {@link #add(PriorityQueueNode.Double)},
- *     {@link #change}, {@link #offer(Object, double)}, {@link #offer(PriorityQueueNode.Double)},
- *     {@link #poll}, {@link #pollElement}, {@link #remove()}, {@link #remove(Object)}, {@link #removeElement()}</li>
+ * <li><b>O(lg n):</b> {@link #poll}, {@link #pollElement}, {@link #remove()},
+ *      {@link #remove(Object)}, {@link #removeElement()}</li> 
  * <li><b>O(n):</b> {@link #clear}, {@link #copy()}, {@link #equals}, {@link #hashCode}, 
  *     {@link #toArray()}, {@link #toArray(Object[])}</li>
- * <li><b>O(m):</b> {@link #containsAll(Collection)}, {@link #createMaxHeap(Collection)}, 
- *     {@link #createMinHeap(Collection)}</li>
+ * <li><b>O(m):</b> {@link #addAll(Collection)}, {@link #containsAll(Collection)}, 
+ *     {@link #createMaxHeap(Collection)}, {@link #createMinHeap(Collection)}</li>
  * <li><b>O(m lg n):</b> {@link #removeAll(Collection)}</li>
- * <li><b>O(m lg (n+m)):</b> {@link #addAll(Collection)}</li>
  * <li><b>O(n lg n):</b> {@link #retainAll(Collection)}</li>
  * </ul>
+ * <p>The amortized runtime of {@link #change} depends on the direction of change. If the
+ * priority is decreased for a min-heap or increased for a max-heap, the amortized runtime
+ * of {@link #change} is O(1); but if the priority is increased for a min-heap or decreased
+ * for a max-heap, then the amortized time of {@link #change} is O(lg n).</p>
  *
  * @param <E> The type of object contained in the FibonacciHeapDouble.
  *
@@ -480,7 +487,7 @@ public final class FibonacciHeapDouble<E> implements PriorityQueueDouble<E>, Cop
 		Node<E> y = x.parent;
 		if (y != null && compare.comesBefore(priority, y.e.value)) {
 			cut(x, y);
-			cascadingCut(y);
+			cascadingCut(y);			
 		}
 		if (compare.comesBefore(priority, min.e.value)) {
 			min = x;
@@ -515,6 +522,9 @@ public final class FibonacciHeapDouble<E> implements PriorityQueueDouble<E>, Cop
 	private void cut(Node<E> x, Node<E> y) {
 		// 1. remove x from child list of y, decrementing degree of y
 		if (y.degree > 1) {
+			// ensure y's child reference isn't x
+			y.child = x.right;
+			// link x's left and right neighbors to remove x
 			x.left.right = x.right;
 			x.right.left = x.left;
 			y.degree--;
@@ -576,14 +586,10 @@ public final class FibonacciHeapDouble<E> implements PriorityQueueDouble<E>, Cop
 	}
 	
 	private void fibHeapLink(Node<E> y, Node<E> x) {
-		// TO DO: Confirm I don't need this because
-		//        I'm instead dismantling root list in consolidate
-		//        before rebuilding it.
-		// 1. Remove y from root list
-		//if (y.right != y) {
-		//	y.left.right = y.right;
-		//	y.left.right.left = y.left;
-		//}
+		// 1. Remove y from root list step.
+		//    This is not needed because I'm instead
+		//    dismantling root list in consolidate
+		//    before rebuilding it.
 		// 2. Make y a child of x
 		if (x.degree > 0) {
 			y.insertInto(x.child);
@@ -715,6 +721,10 @@ public final class FibonacciHeapDouble<E> implements PriorityQueueDouble<E>, Cop
 		
 		@Override
 		public PriorityQueueNode.Double<E> next() {
+			// normally, the next method of an Iterator is
+			// required to throw NoSuchElementException is caled when empty.
+			// The pop() method of the ArrayDeque does this though. So no need
+			// for explicit check.
 			Node<E> current = stack.pop();
 			if (current.degree > 0) {
 				stack.push(current.child);
