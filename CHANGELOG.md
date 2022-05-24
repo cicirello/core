@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2022-05-24
 
 ### Added
+* FibonacciHeap: implements PriorityQueue with a Fibonacci heap for both min-heap and max-heap cases.
 * FibonacciHeapDouble: implements PriorityQueueDouble with a Fibonacci heap for both min-heap and max-heap cases.
 
 ### Changed
