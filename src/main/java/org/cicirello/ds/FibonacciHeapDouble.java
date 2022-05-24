@@ -269,6 +269,16 @@ public final class FibonacciHeapDouble<E> implements PriorityQueueDouble<E>, Cop
 		return index.containsKey(o);
 	}
 	
+	@Override
+	public final boolean demote(E element, double priority) {
+		Node<E> node = index.get(element);
+		if (node != null && compare.comesBefore(node.e.value, priority)) {
+			internalDemote(node, priority);
+			return true;
+		}
+		return false;
+	}
+	
 	/**
 	 * Checks if this FibonacciHeapDouble contains the same (element, priority)
 	 * pairs as another FibonacciHeapDouble, including the specific structure
@@ -391,6 +401,16 @@ public final class FibonacciHeapDouble<E> implements PriorityQueueDouble<E>, Cop
 			return z.e;
 		}
 		return null;
+	}
+	
+	@Override
+	public final boolean promote(E element, double priority) {
+		Node<E> node = index.get(element);
+		if (node != null && compare.comesBefore(priority, node.e.value)) {
+			internalPromote(node, priority);
+			return true;
+		}
+		return false;
 	}
 	
 	@Override

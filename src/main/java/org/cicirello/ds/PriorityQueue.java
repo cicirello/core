@@ -157,6 +157,21 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	}
 	
 	/**
+	 * Demotes an element relative to priority order if the element is
+	 * present in the PriorityQueue. For a min-heap, demotion means
+	 * increasing the element's priority, while for a max-heap, demotion
+	 * means decreasing its priority. If the element is not in the PriorityQueue,
+	 * or if its new priority is not a demotion, then this method does nothing.
+	 *
+	 * @param element The element whose priority is to change.
+	 * @param priority Its new priority.
+	 *
+	 * @return true if and only if the PriorityQueue changed
+	 * as a consequence of this method call.
+	 */
+	boolean demote(E element, int priority);
+	
+	/**
 	 * <p>Gets the next (element, priority) pair in priority order from this PriorityQueue,
 	 * without removing it.</p>
 	 * <p>This method differs from {@link #peek()} in that if the PriorityQueue is
@@ -270,6 +285,21 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	 * @return the next element in priority order, or null if empty.
 	 */
 	E pollElement();
+	
+	/**
+	 * Promotes an element relative to priority order if the element is
+	 * present in the PriorityQueue. For a min-heap, promotion means
+	 * decreasing the element's priority, while for a max-heap, promotion
+	 * means increasing its priority. If the element is not in the PriorityQueue,
+	 * or if its new priority is not a promotion, then this method does nothing.
+	 *
+	 * @param element The element whose priority is to change.
+	 * @param priority Its new priority.
+	 *
+	 * @return true if and only if the PriorityQueue changed
+	 * as a consequence of this method call.
+	 */
+	boolean promote(E element, int priority);
 	
 	/**
 	 * Removes and returns the next (element, priority) pair in priority order from this PriorityQueue.

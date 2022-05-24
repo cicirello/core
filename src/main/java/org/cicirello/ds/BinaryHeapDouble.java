@@ -302,6 +302,20 @@ public final class BinaryHeapDouble<E> implements PriorityQueueDouble<E>, Copyab
 		return index.containsKey(o);
 	}
 	
+	@Override
+	public final boolean demote(E element, double priority) {
+		Integer where = index.get(element);
+		if (where != null) { 
+			int i = where;
+			if (compare.belongsAbove(buffer[i].value, priority)) {
+				buffer[i].value = priority;
+				percolateDown(i);
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	/**
 	 * Increases the capacity if the capacity is not
 	 * already at least the specified minimum. If the capacity
@@ -430,6 +444,20 @@ public final class BinaryHeapDouble<E> implements PriorityQueueDouble<E>, Copyab
 		} else {
 			return null;
 		}
+	}
+	
+	@Override
+	public final boolean promote(E element, double priority) {
+		Integer where = index.get(element);
+		if (where != null) { 
+			int i = where;
+			if (compare.belongsAbove(priority, buffer[i].value)) {
+				buffer[i].value = priority;
+				percolateUp(i);
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	@Override
