@@ -615,19 +615,19 @@ public final class FibonacciHeap<E> implements PriorityQueue<E>, Copyable<Fibona
 		boolean comesBefore(int p1, int p2);
 	}
 	
-	private class Node<E> {
-		private PriorityQueueNode.Integer<E> e;
-		private Node<E> parent;
-		private Node<E> child;
-		private Node<E> left;
-		private Node<E> right;
+	private class Node<E2> {
+		private PriorityQueueNode.Integer<E2> e;
+		private Node<E2> parent;
+		private Node<E2> child;
+		private Node<E2> left;
+		private Node<E2> right;
 		private int degree;
 		private boolean mark;
 		
 		/*
 		 * new root list (i.e., called to create new top-level list when empty
 		 */
-		public Node(PriorityQueueNode.Integer<E> e) {
+		public Node(PriorityQueueNode.Integer<E2> e) {
 			this.e = e;
 			singletonList();
 		}
@@ -635,36 +635,36 @@ public final class FibonacciHeap<E> implements PriorityQueue<E>, Copyable<Fibona
 		/*
 		 * adds newly constructed node to root list
 		 */
-		public Node(PriorityQueueNode.Integer<E> e, Node<E> list) {
+		public Node(PriorityQueueNode.Integer<E2> e, Node<E2> list) {
 			this.e = e;
 			insertInto(list);
 		}
 		
-		private Node(Node<E> other) {
+		private Node(Node<E2> other) {
 			e = other.e.copy();
 			degree = other.degree;
 			mark = other.mark;
 		}
 		
-		private Node(Node<E> other, Node<E> toTheLeft) {
+		private Node(Node<E2> other, Node<E2> toTheLeft) {
 			this(other);
 			left = toTheLeft;
 		}
 		
-		private Node<E> copy(HashMap<E, Node<E>> indexCopy) {
+		private Node<E2> copy(HashMap<E2, Node<E2>> indexCopy) {
 			return copyList(this, null, indexCopy);
 		}
 		
-		private Node<E> copyList(Node<E> x, Node<E> p, HashMap<E, Node<E>> indexCopy) {
-			Node<E> y = new Node<E>(x);
+		private Node<E2> copyList(Node<E2> x, Node<E2> p, HashMap<E2, Node<E2>> indexCopy) {
+			Node<E2> y = new Node<E2>(x);
 			indexCopy.put(y.e.element, y);
 			y.parent = p;
 			if (x.child != null) {
 				y.child = copyList(x.child, y, indexCopy);
 			}
-			Node<E> rightOf = y;
-			for (Node<E> next = x.right; next != x; next = next.right, rightOf = rightOf.right) {
-				rightOf.right = new Node<E>(next, rightOf);
+			Node<E2> rightOf = y;
+			for (Node<E2> next = x.right; next != x; next = next.right, rightOf = rightOf.right) {
+				rightOf.right = new Node<E2>(next, rightOf);
 				indexCopy.put(rightOf.right.e.element, rightOf.right);
 				rightOf.right.parent = p;
 				if (next.child != null) {
@@ -680,13 +680,13 @@ public final class FibonacciHeap<E> implements PriorityQueue<E>, Copyable<Fibona
 			left = right = this;
 		}
 
-		private void insertInto(Node<E> list) {
+		private void insertInto(Node<E2> list) {
 			right = list.right;
 			left = list;
 			list.right = list.right.left = this;
 		}
 		
-		private void insertListInto(Node<E> list) {
+		private void insertListInto(Node<E2> list) {
 			list.right.left = left;
 			left.right = list.right;
 			list.right = this;
@@ -694,7 +694,7 @@ public final class FibonacciHeap<E> implements PriorityQueue<E>, Copyable<Fibona
 		}
 		
 		private void clearParentReferences() {
-			for (Node<E> next = this; next.parent != null; next = next.right) {
+			for (Node<E2> next = this; next.parent != null; next = next.right) {
 				next.parent = null;
 			}
 		}
