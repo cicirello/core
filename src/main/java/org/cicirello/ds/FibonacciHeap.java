@@ -171,7 +171,7 @@ public final class FibonacciHeap<E> implements PriorityQueue<E>, Copyable<Fibona
 	private FibonacciHeap(FibonacciHeap<E> other) {
 		this(other.compare);
 		size = other.size;
-		min = other.min.copy(index);
+		min = other.min != null ? other.min.copy(index) : null;
 	}
 	
 	@Override

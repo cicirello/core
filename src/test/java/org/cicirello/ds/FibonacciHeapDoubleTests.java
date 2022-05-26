@@ -25,11 +25,11 @@ package org.cicirello.ds;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Collections;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.SplittableRandom;
 
 /**
  * JUnit tests for the FibonacciHeapDouble class.
@@ -282,6 +282,28 @@ public class FibonacciHeapDoubleTests {
 		assertNotEquals(pq3, copy4);
 		assertNotEquals(pq6, copy5);
 		assertNotEquals(pq5, copy6);
+	}
+	
+	@Test
+	public void testCopyEmptyHeap() {	
+		FibonacciHeapDouble<String> pqEmptyMin = FibonacciHeapDouble.createMinHeap();
+		FibonacciHeapDouble<String> pqEmptyMax = FibonacciHeapDouble.createMaxHeap();
+		FibonacciHeapDouble<String> pqEmptyMinCopy = pqEmptyMin.copy();
+		FibonacciHeapDouble<String> pqEmptyMaxCopy = pqEmptyMax.copy();
+		assertEquals(pqEmptyMin, pqEmptyMinCopy);
+		assertEquals(pqEmptyMax, pqEmptyMaxCopy);
+		assertNotEquals(pqEmptyMin, pqEmptyMaxCopy);
+		assertNotEquals(pqEmptyMax, pqEmptyMinCopy);
+		assertTrue(pqEmptyMin != pqEmptyMinCopy);
+		assertTrue(pqEmptyMax != pqEmptyMaxCopy);
+		assertEquals(0, pqEmptyMinCopy.size());
+		assertEquals(0, pqEmptyMaxCopy.size());
+		assertEquals(0, pqEmptyMin.size());
+		assertEquals(0, pqEmptyMax.size());
+		assertTrue(pqEmptyMinCopy.isEmpty());
+		assertTrue(pqEmptyMaxCopy.isEmpty());
+		assertTrue(pqEmptyMin.isEmpty());
+		assertTrue(pqEmptyMax.isEmpty());
 	}
 	
 	@Test
@@ -1904,7 +1926,7 @@ public class FibonacciHeapDoubleTests {
 		for (int i = 0; i < n; i++) {
 			list.add(((char)('A'+i)) + "");
 		}
-		Collections.shuffle(list);
+		shuffle(list, new SplittableRandom(42));
 		return list.toArray(new String[n]);
 	}
 	
@@ -1913,8 +1935,19 @@ public class FibonacciHeapDoubleTests {
 		for (int i = 0; i < n; i++) {
 			list.add(((char)('A'-i)) + "");
 		}
-		Collections.shuffle(list);
+		shuffle(list, new SplittableRandom(42));
 		return list.toArray(new String[n]);
+	}
+	
+	private void shuffle(ArrayList<String> list, SplittableRandom r) {
+		for (int i = list.size()-1; i > 0; i--) {
+			int j = r.nextInt(i+1);
+			if (i!=j) {
+				String temp = list.get(i);
+				list.set(i, list.get(j));
+				list.set(j, temp);
+			}
+		}
 	}
 	
 	private PriorityQueueNode.Double<String>[] createPairs(String[] elements, double[] priorities) {

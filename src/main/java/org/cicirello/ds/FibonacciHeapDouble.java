@@ -171,7 +171,7 @@ public final class FibonacciHeapDouble<E> implements PriorityQueueDouble<E>, Cop
 	private FibonacciHeapDouble(FibonacciHeapDouble<E> other) {
 		this(other.compare);
 		size = other.size;
-		min = other.min.copy(index);
+		min = other.min != null ? other.min.copy(index) : null;
 	}
 	
 	@Override
