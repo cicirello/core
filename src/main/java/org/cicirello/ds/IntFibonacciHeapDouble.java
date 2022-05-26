@@ -31,6 +31,10 @@ import org.cicirello.util.Copyable;
  * (element, priority) pairs, such that the elements are distinct integers
  * in the interval [0, n), and with priority values of type double.</p> 
  *
+ * <p><b>Origin:</b> Fibonacci heaps were first introduced in the following article:
+ * M. L. Fredman and R. E. Tarjan (1987). Fibonacci Heaps and Their Uses in Improved Network
+ * Optimization Algorithms. <i>Journal of the ACM</i>, 34(3): 596-615, July 1987.</p>
+ *
  * <p><b>Priority order:</b>
  * IntFibonacciHeapDouble instances are created via factory methods with names beginning
  * with <code>create</code>. The priority order depends upon the factory method
@@ -62,17 +66,23 @@ import org.cicirello.util.Copyable;
  * <p>For a more general purpose binary heap, see the {@link FibonacciHeapDouble}
  * class.</p>
  *
- * <p><b>Method runtimes:</b> TO DO UPDATE THIS LIST FOR FIBONACCI HEAP
+ * <p><b>Method runtimes:</b>
  * The asymptotic runtime of the methods of
- * this class are as follows (where n is the current size of the heap):</p>
+ * this class are as follows (where n is the current size of the heap). Note that 
+ * in many cases in this list, the runtimes are amortized time and not actual 
+ * time (see a reference on Fibonacci heaps for details).</p>
  * <ul>
  * <li><b>O(1):</b> {@link #contains(int)}, {@link #createMaxHeap(int)}, 
- *     {@link #createMinHeap(int)}, {@link #domain()}, {@link #isEmpty()},
- *     {@link #peek()}, {@link #peekPriority()}, {@link #peekPriority(int)}, {@link #size()}</li>
- * <li><b>O(lg n):</b> {@link #change(int,double)}, {@link #demote(int,double)}, {@link #offer(int, double)}, 
- *     {@link #poll()}, {@link #promote(int,double)}</li>
+ *     {@link #createMinHeap(int)}, {@link #domain()}, {@link #isEmpty()}, {@link #offer(int, double)},
+ *     {@link #peek()}, {@link #peekPriority()}, {@link #peekPriority(int)}, {@link #promote(int,double)}, 
+ *     {@link #size()}</li>
+ * <li><b>O(lg n):</b> {@link #demote(int,double)}, {@link #poll()}</li>
  * <li><b>O(n):</b> {@link #clear()}, {@link #copy()}</li>
  * </ul>
+ * <p>The amortized runtime of {@link #change(int,double)} depends on the direction of change. If the
+ * priority is decreased for a min-heap or increased for a max-heap, the amortized runtime
+ * of {@link #change(int,double)} is O(1); but if the priority is increased for a min-heap or decreased
+ * for a max-heap, then the amortized time of {@link #change(int,double)} is O(lg n).</p>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
