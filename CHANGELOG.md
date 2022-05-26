@@ -4,11 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2022-05-24
+## [Unreleased] - 2022-05-26
 
 ### Added
 * FibonacciHeap: implements PriorityQueue with a Fibonacci heap for both min-heap and max-heap cases.
 * FibonacciHeapDouble: implements PriorityQueueDouble with a Fibonacci heap for both min-heap and max-heap cases.
+* IntFibonacciHeap: implements IntPriorityQueue with a Fibonacci heap for both min-heap and max-heap cases.
+* IntFibonacciHeapDouble: implements IntPriorityQueueDouble with a Fibonacci heap for both min-heap and max-heap cases.
 * Added promote and demote methods to the PriorityQueue, PriorityQueueDouble, IntPriorityQueue, IntPriorityQueueDouble
   interfaces for changing priorities strictly in one direction, and implemented in the various heap classes.
 
