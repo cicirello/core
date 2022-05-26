@@ -285,6 +285,28 @@ public class FibonacciHeapDoubleTests {
 	}
 	
 	@Test
+	public void testCopyEmptyHeap() {	
+		FibonacciHeapDouble<String> pqEmptyMin = FibonacciHeapDouble.createMinHeap();
+		FibonacciHeapDouble<String> pqEmptyMax = FibonacciHeapDouble.createMaxHeap();
+		FibonacciHeapDouble<String> pqEmptyMinCopy = pqEmptyMin.copy();
+		FibonacciHeapDouble<String> pqEmptyMaxCopy = pqEmptyMax.copy();
+		assertEquals(pqEmptyMin, pqEmptyMinCopy);
+		assertEquals(pqEmptyMax, pqEmptyMaxCopy);
+		assertNotEquals(pqEmptyMin, pqEmptyMaxCopy);
+		assertNotEquals(pqEmptyMax, pqEmptyMinCopy);
+		assertTrue(pqEmptyMin != pqEmptyMinCopy);
+		assertTrue(pqEmptyMax != pqEmptyMaxCopy);
+		assertEquals(0, pqEmptyMinCopy.size());
+		assertEquals(0, pqEmptyMaxCopy.size());
+		assertEquals(0, pqEmptyMin.size());
+		assertEquals(0, pqEmptyMax.size());
+		assertTrue(pqEmptyMinCopy.isEmpty());
+		assertTrue(pqEmptyMaxCopy.isEmpty());
+		assertTrue(pqEmptyMin.isEmpty());
+		assertTrue(pqEmptyMax.isEmpty());
+	}
+	
+	@Test
 	public void testEqualsAndHashCode() {
 		int n = 11;
 		String[] elements = createStrings(n);
