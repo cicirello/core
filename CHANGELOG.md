@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2022-05-26
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### CI/CD
+
+### Other
+
+
+## [2.1.0] - 2022-05-26
+
+### Added
 * FibonacciHeap: implements PriorityQueue with a Fibonacci heap for both min-heap and max-heap cases.
 * FibonacciHeapDouble: implements PriorityQueueDouble with a Fibonacci heap for both min-heap and max-heap cases.
 * IntFibonacciHeap: implements IntPriorityQueue with a Fibonacci heap for both min-heap and max-heap cases.
@@ -19,16 +36,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   interfaces, and of the classes that implement them to return a boolean rather than void.
 * Refactored IntBinaryHeap and IntBinaryHeapDouble to improve max-heap implementation.
 
-### Deprecated
-
-### Removed
-
 ### Fixed
 * Bug in BinaryHeap and BinaryHeapDouble with potential to break encapsulation.
-
-### CI/CD
-
-### Other
 
 
 ## [2.0.0] - 2022-05-19
