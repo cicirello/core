@@ -377,6 +377,48 @@ public class IntFibonacciHeapDoubleTests {
 			}
 			assertTrue(pq.isEmpty());
 		}
+		// same relative order to next best
+		for (int i = 0; i < n; i++) {
+			IntFibonacciHeapDouble pq = IntFibonacciHeapDouble.createMinHeap(n);
+			int e1 = -1;
+			int e2 = -1;
+			for (int j = 0; j < n; j++) {
+				pq.offer(e[j], p[j]);
+				if (j == n/3) e1 = pq.poll();
+				if (j == 2*n/3) e2 = pq.poll();
+			}
+			if (e[i] != e1 && e[i] != e2) {
+				assertTrue(pq.change(e[i], p[i]-1));
+				assertEquals(p[i]-1, pq.peekPriority(e[i]), 0.0);
+				for (int j = 0; j < n; j++) {
+					if (e[j] != e1 && e[j] != e2) {
+						assertEquals(e[j], pq.poll());
+					}
+				}
+				assertTrue(pq.isEmpty());
+			}
+		}
+		// same relative order to next worst
+		for (int i = 0; i < n; i++) {
+			IntFibonacciHeapDouble pq = IntFibonacciHeapDouble.createMinHeap(n);
+			int e1 = -1;
+			int e2 = -1;
+			for (int j = 0; j < n; j++) {
+				pq.offer(e[j], p[j]);
+				if (j == n/3) e1 = pq.poll();
+				if (j == 2*n/3) e2 = pq.poll();
+			}
+			if (e[i] != e1 && e[i] != e2) {
+				assertTrue(pq.change(e[i], p[i]+1));
+				assertEquals(p[i]+1, pq.peekPriority(e[i]), 0.0);
+				for (int j = 0; j < n; j++) {
+					if (e[j] != e1 && e[j] != e2) {
+						assertEquals(e[j], pq.poll());
+					}
+				}
+				assertTrue(pq.isEmpty());
+			}
+		}
 		// new element test
 		maxP = 2*(n-1) + 3;
 		for (int pNew = 1; pNew <= maxP; pNew += 2) {
@@ -801,6 +843,48 @@ public class IntFibonacciHeapDoubleTests {
 				assertEquals(e[j], pq.poll());
 			}
 			assertTrue(pq.isEmpty());
+		}
+		// same relative order to next worst
+		for (int i = 0; i < n; i++) {
+			IntFibonacciHeapDouble pq = IntFibonacciHeapDouble.createMaxHeap(n);
+			int e1 = -1;
+			int e2 = -1;
+			for (int j = 0; j < n; j++) {
+				pq.offer(e[j], p[j]);
+				if (j == n/3) e1 = pq.poll();
+				if (j == 2*n/3) e2 = pq.poll();
+			}
+			if (e[i] != e1 && e[i] != e2) {
+				assertTrue(pq.change(e[i], p[i]-1));
+				assertEquals(p[i]-1, pq.peekPriority(e[i]), 0.0);
+				for (int j = 0; j < n; j++) {
+					if (e[j] != e1 && e[j] != e2) {
+						assertEquals(e[j], pq.poll());
+					}
+				}
+				assertTrue(pq.isEmpty());
+			}
+		}
+		// same relative order to next best
+		for (int i = 0; i < n; i++) {
+			IntFibonacciHeapDouble pq = IntFibonacciHeapDouble.createMaxHeap(n);
+			int e1 = -1;
+			int e2 = -1;
+			for (int j = 0; j < n; j++) {
+				pq.offer(e[j], p[j]);
+				if (j == n/3) e1 = pq.poll();
+				if (j == 2*n/3) e2 = pq.poll();
+			}
+			if (e[i] != e1 && e[i] != e2) {
+				assertTrue(pq.change(e[i], p[i]+1));
+				assertEquals(p[i]+1, pq.peekPriority(e[i]), 0.0);
+				for (int j = 0; j < n; j++) {
+					if (e[j] != e1 && e[j] != e2) {
+						assertEquals(e[j], pq.poll());
+					}
+				}
+				assertTrue(pq.isEmpty());
+			}
 		}
 		// new element test
 		maxP = 2*(n-1) + 3;
