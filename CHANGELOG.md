@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 * The change method of the PriorityQueue, PriorityQueueDouble, IntPriorityQueue, IntPriorityQueueDouble
   interfaces, and of the classes that implement them now return a boolean.
+* Refactored IntBinaryHeap and IntBinaryHeapDouble to improve max-heap implementation.
 
 ### Deprecated
 
