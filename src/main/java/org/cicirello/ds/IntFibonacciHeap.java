@@ -63,7 +63,7 @@ import org.cicirello.util.Copyable;
  * {@link IntPriorityQueue} that specialize the element type to int
  * are optimized for this special case.</p>
  *
- * <p>For a more general purpose binary heap, see the {@link FibonacciHeapDouble}
+ * <p>For a more general purpose binary heap, see the {@link FibonacciHeap}
  * class.</p>
  *
  * <p><b>Method runtimes:</b>
