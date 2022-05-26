@@ -25,11 +25,11 @@ package org.cicirello.ds;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Collections;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.SplittableRandom;
 
 /**
  * JUnit tests for the FibonacciHeapDouble class.
@@ -1926,7 +1926,7 @@ public class FibonacciHeapDoubleTests {
 		for (int i = 0; i < n; i++) {
 			list.add(((char)('A'+i)) + "");
 		}
-		Collections.shuffle(list);
+		shuffle(list, new SplittableRandom(42));
 		return list.toArray(new String[n]);
 	}
 	
@@ -1935,8 +1935,19 @@ public class FibonacciHeapDoubleTests {
 		for (int i = 0; i < n; i++) {
 			list.add(((char)('A'-i)) + "");
 		}
-		Collections.shuffle(list);
+		shuffle(list, new SplittableRandom(42));
 		return list.toArray(new String[n]);
+	}
+	
+	private void shuffle(ArrayList<String> list, SplittableRandom r) {
+		for (int i = list.size()-1; i > 0; i--) {
+			int j = r.nextInt(i+1);
+			if (i!=j) {
+				String temp = list.get(i);
+				list.set(i, list.get(j));
+				list.set(j, temp);
+			}
+		}
 	}
 	
 	private PriorityQueueNode.Double<String>[] createPairs(String[] elements, double[] priorities) {
