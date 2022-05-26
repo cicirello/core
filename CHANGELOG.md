@@ -15,8 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   interfaces for changing priorities strictly in one direction, and implemented in the various heap classes.
 
 ### Changed
-* The change method of the PriorityQueue, PriorityQueueDouble, IntPriorityQueue, IntPriorityQueueDouble
-  interfaces, and of the classes that implement them now return a boolean.
+* Altered change method of the PriorityQueue, PriorityQueueDouble, IntPriorityQueue, IntPriorityQueueDouble
+  interfaces, and of the classes that implement them to return a boolean rather than void.
 * Refactored IntBinaryHeap and IntBinaryHeapDouble to improve max-heap implementation.
 
 ### Deprecated
