@@ -128,7 +128,8 @@ implements <a href="IntPriorityQueue.html" title="interface in org.cicirello.ds"
  <li><b>O(1):</b> <a href="#contains(int)"><code>contains(int)</code></a>, <a href="#createMaxHeap(int)"><code>createMaxHeap(int)</code></a>, 
      <a href="#createMinHeap(int)"><code>createMinHeap(int)</code></a>, <a href="#domain()"><code>domain()</code></a>, <a href="#isEmpty()"><code>isEmpty()</code></a>,
      <a href="#peek()"><code>peek()</code></a>, <a href="#peekPriority()"><code>peekPriority()</code></a>, <a href="#peekPriority(int)"><code>peekPriority(int)</code></a>, <a href="#size()"><code>size()</code></a></li>
- <li><b>O(lg n):</b> <a href="#change(int,int)"><code>change(int,int)</code></a>, <a href="#offer(int,int)"><code>offer(int, int)</code></a>, <a href="#poll()"><code>poll()</code></a></li>
+ <li><b>O(lg n):</b> <a href="#change(int,int)"><code>change(int,int)</code></a>, <a href="#demote(int,int)"><code>demote(int,int)</code></a>, <a href="#offer(int,int)"><code>offer(int, int)</code></a>, 
+     <a href="#poll()"><code>poll()</code></a>, <a href="#promote(int,int)"><code>promote(int,int)</code></a></li>
  <li><b>O(n):</b> <a href="#clear()"><code>clear()</code></a>, <a href="#copy()"><code>copy()</code></a></li>
  </ul></div>
 </section>
@@ -145,7 +146,7 @@ implements <a href="IntPriorityQueue.html" title="interface in org.cicirello.ds"
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final void</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#change(int,int)" class="member-name-link">change</a><wbr>(int&nbsp;element,
  int&nbsp;priority)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -180,43 +181,57 @@ implements <a href="IntPriorityQueue.html" title="interface in org.cicirello.ds"
 <div class="block">Initializes an empty min-heap of (int, priority) pairs,
  such that the domain of the elements are the integers in [0, n).</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#domain()" class="member-name-link">domain</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the domain of this IntPriorityQueue.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isEmpty()" class="member-name-link">isEmpty</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Checks if the IntPriorityQueue is empty.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#offer(int,int)" class="member-name-link">offer</a><wbr>(int&nbsp;element,
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#demote(int,int)" class="member-name-link">demote</a><wbr>(int&nbsp;element,
  int&nbsp;priority)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Demotes an element relative to priority order if the element is
+ present in the IntPriorityQueue.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#domain()" class="member-name-link">domain</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns the domain of this IntPriorityQueue.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isEmpty()" class="member-name-link">isEmpty</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Checks if the IntPriorityQueue is empty.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#offer(int,int)" class="member-name-link">offer</a><wbr>(int&nbsp;element,
+ int&nbsp;priority)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Adds an (element, priority) pair to the IntPriorityQueue with a specified priority,
  provided the element is not already in the IntPriorityQueue.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#peek()" class="member-name-link">peek</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#peek()" class="member-name-link">peek</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the next element in priority order from this IntPriorityQueue,
  without removing it.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#peekPriority()" class="member-name-link">peekPriority</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#peekPriority()" class="member-name-link">peekPriority</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the priority of the next element in priority order in the IntPriorityQueue.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#peekPriority(int)" class="member-name-link">peekPriority</a><wbr>(int&nbsp;element)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#peekPriority(int)" class="member-name-link">peekPriority</a><wbr>(int&nbsp;element)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the current priority of a specified element in the IntPriorityQueue.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#poll()" class="member-name-link">poll</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#poll()" class="member-name-link">poll</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets and removes the next element in priority order from this IntPriorityQueue.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#promote(int,int)" class="member-name-link">promote</a><wbr>(int&nbsp;element,
+ int&nbsp;priority)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Promotes an element relative to priority order if the element is
+ present in the IntPriorityQueue.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#size()" class="member-name-link">size</a>()</code></div>
@@ -258,7 +273,7 @@ implements <a href="IntPriorityQueue.html" title="interface in org.cicirello.ds"
 <li>
 <section class="detail" id="change(int,int)">
 <h3>change</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">change</span><wbr><span class="parameters">(int&nbsp;element,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">change</span><wbr><span class="parameters">(int&nbsp;element,
  int&nbsp;priority)</span></div>
 <div class="block">Changes the priority of an element if the element is
  present in the IntPriorityQueue, and otherwise adds the
@@ -269,6 +284,9 @@ implements <a href="IntPriorityQueue.html" title="interface in org.cicirello.ds"
 <dt>Parameters:</dt>
 <dd><code>element</code> - The element whose priority is to change.</dd>
 <dd><code>priority</code> - Its new priority.</dd>
+<dt>Returns:</dt>
+<dd>true if and only if the IntPriorityQueue changed
+ as a consequence of this method call.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if element is negative, or if element is greater than
      or equal to the domain n.</dd>
@@ -317,6 +335,8 @@ implements <a href="IntPriorityQueue.html" title="interface in org.cicirello.ds"
 <dd><code>n</code> - The size of the domain of the elements of the max-heap.</dd>
 <dt>Returns:</dt>
 <dd>an empty max-heap</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if n is non-positive</dd>
 </dl>
 </section>
 </li>
@@ -331,6 +351,33 @@ implements <a href="IntPriorityQueue.html" title="interface in org.cicirello.ds"
 <dd><code>n</code> - The size of the domain of the elements of the min-heap.</dd>
 <dt>Returns:</dt>
 <dd>an empty min-heap</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if n is non-positive</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="demote(int,int)">
+<h3>demote</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">demote</span><wbr><span class="parameters">(int&nbsp;element,
+ int&nbsp;priority)</span></div>
+<div class="block">Demotes an element relative to priority order if the element is
+ present in the IntPriorityQueue. For a min-heap, demotion means
+ increasing the element's priority, while for a max-heap, demotion
+ means decreasing its priority. If the element is not in the IntPriorityQueue,
+ or if its new priority is not a demotion, then this method does nothing.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="IntPriorityQueue.html#demote(int,int)">demote</a></code>&nbsp;in interface&nbsp;<code><a href="IntPriorityQueue.html" title="interface in org.cicirello.ds">IntPriorityQueue</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>element</code> - The element whose priority is to change.</dd>
+<dd><code>priority</code> - Its new priority.</dd>
+<dt>Returns:</dt>
+<dd>true if and only if the IntPriorityQueue changed
+ as a consequence of this method call.</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if element is negative, or if element is greater than
+     or equal to the domain n.</dd>
 </dl>
 </section>
 </li>
@@ -367,7 +414,7 @@ implements <a href="IntPriorityQueue.html" title="interface in org.cicirello.ds"
 <li>
 <section class="detail" id="offer(int,int)">
 <h3>offer</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">offer</span><wbr><span class="parameters">(int&nbsp;element,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">offer</span><wbr><span class="parameters">(int&nbsp;element,
  int&nbsp;priority)</span></div>
 <div class="block">Adds an (element, priority) pair to the IntPriorityQueue with a specified priority,
  provided the element is not already in the IntPriorityQueue.</div>
@@ -404,7 +451,7 @@ implements <a href="IntPriorityQueue.html" title="interface in org.cicirello.ds"
 <li>
 <section class="detail" id="peekPriority()">
 <h3>peekPriority</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">peekPriority</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">peekPriority</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="IntPriorityQueue.html#peekPriority()">IntPriorityQueue</a></code></span></div>
 <div class="block">Gets the priority of the next element in priority order in the IntPriorityQueue.
  Behavior is undefined if it is empty.</div>
@@ -419,7 +466,7 @@ implements <a href="IntPriorityQueue.html" title="interface in org.cicirello.ds"
 <li>
 <section class="detail" id="peekPriority(int)">
 <h3>peekPriority</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">peekPriority</span><wbr><span class="parameters">(int&nbsp;element)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">peekPriority</span><wbr><span class="parameters">(int&nbsp;element)</span></div>
 <div class="block">Gets the current priority of a specified element in the IntPriorityQueue.
  Behavior is undefined if the IntPriorityQueue doesn't contain the element.</div>
 <dl class="notes">
@@ -447,6 +494,31 @@ implements <a href="IntPriorityQueue.html" title="interface in org.cicirello.ds"
 <dd><code><a href="IntPriorityQueue.html#poll()">poll</a></code>&nbsp;in interface&nbsp;<code><a href="IntPriorityQueue.html" title="interface in org.cicirello.ds">IntPriorityQueue</a></code></dd>
 <dt>Returns:</dt>
 <dd>the next element in priority order.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="promote(int,int)">
+<h3>promote</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">promote</span><wbr><span class="parameters">(int&nbsp;element,
+ int&nbsp;priority)</span></div>
+<div class="block">Promotes an element relative to priority order if the element is
+ present in the IntPriorityQueue. For a min-heap, promotion means
+ decreasing the element's priority, while for a max-heap, promotion
+ means increasing its priority. If the element is not in the IntPriorityQueue,
+ or if its new priority is not a promotion, then this method does nothing.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="IntPriorityQueue.html#promote(int,int)">promote</a></code>&nbsp;in interface&nbsp;<code><a href="IntPriorityQueue.html" title="interface in org.cicirello.ds">IntPriorityQueue</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>element</code> - The element whose priority is to change.</dd>
+<dd><code>priority</code> - Its new priority.</dd>
+<dt>Returns:</dt>
+<dd>true if and only if the IntPriorityQueue changed
+ as a consequence of this method call.</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if element is negative, or if element is greater than
+     or equal to the domain n.</dd>
 </dl>
 </section>
 </li>

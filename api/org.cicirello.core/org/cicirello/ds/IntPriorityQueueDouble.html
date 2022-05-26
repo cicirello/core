@@ -78,7 +78,7 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>All Known Implementing Classes:</dt>
-<dd><code><a href="IntBinaryHeapDouble.html" title="class in org.cicirello.ds">IntBinaryHeapDouble</a></code></dd>
+<dd><code><a href="IntBinaryHeapDouble.html" title="class in org.cicirello.ds">IntBinaryHeapDouble</a></code>, <code><a href="IntFibonacciHeapDouble.html" title="class in org.cicirello.ds">IntFibonacciHeapDouble</a></code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">IntPriorityQueueDouble</span></div>
@@ -114,7 +114,7 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>void</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#change(int,double)" class="member-name-link">change</a><wbr>(int&nbsp;element,
  double&nbsp;priority)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
@@ -132,43 +132,57 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Checks if an element is in the IntPriorityQueueDouble.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#domain()" class="member-name-link">domain</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Returns the domain of this IntPriorityQueueDouble.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#isEmpty()" class="member-name-link">isEmpty</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Checks if the IntPriorityQueueDouble is empty.</div>
-</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#offer(int,double)" class="member-name-link">offer</a><wbr>(int&nbsp;element,
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#demote(int,double)" class="member-name-link">demote</a><wbr>(int&nbsp;element,
  double&nbsp;priority)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Demotes an element relative to priority order if the element is
+ present in the IntPriorityQueueDouble.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#domain()" class="member-name-link">domain</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Returns the domain of this IntPriorityQueueDouble.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#isEmpty()" class="member-name-link">isEmpty</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Checks if the IntPriorityQueueDouble is empty.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#offer(int,double)" class="member-name-link">offer</a><wbr>(int&nbsp;element,
+ double&nbsp;priority)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Adds an (element, priority) pair to the IntPriorityQueueDouble with a specified priority,
  provided the element is not already in the IntPriorityQueueDouble.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#peek()" class="member-name-link">peek</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#peek()" class="member-name-link">peek</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Gets the next element in priority order from this IntPriorityQueueDouble,
  without removing it.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>double</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#peekPriority()" class="member-name-link">peekPriority</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>double</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#peekPriority()" class="member-name-link">peekPriority</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Gets the priority of the next element in priority order in the IntPriorityQueueDouble.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>double</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#peekPriority(int)" class="member-name-link">peekPriority</a><wbr>(int&nbsp;element)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>double</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#peekPriority(int)" class="member-name-link">peekPriority</a><wbr>(int&nbsp;element)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Gets the current priority of a specified element in the IntPriorityQueueDouble.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#poll()" class="member-name-link">poll</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#poll()" class="member-name-link">poll</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Gets and removes the next element in priority order from this IntPriorityQueueDouble.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#promote(int,double)" class="member-name-link">promote</a><wbr>(int&nbsp;element,
+ double&nbsp;priority)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Promotes an element relative to priority order if the element is
+ present in the IntPriorityQueueDouble.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#size()" class="member-name-link">size</a>()</code></div>
@@ -193,7 +207,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="change(int,double)">
 <h3>change</h3>
-<div class="member-signature"><span class="return-type">void</span>&nbsp;<span class="element-name">change</span><wbr><span class="parameters">(int&nbsp;element,
+<div class="member-signature"><span class="return-type">boolean</span>&nbsp;<span class="element-name">change</span><wbr><span class="parameters">(int&nbsp;element,
  double&nbsp;priority)</span></div>
 <div class="block">Changes the priority of an element if the element is
  present in the IntPriorityQueueDouble, and otherwise adds the
@@ -202,6 +216,9 @@ loadScripts(document, 'script');</script>
 <dt>Parameters:</dt>
 <dd><code>element</code> - The element whose priority is to change.</dd>
 <dd><code>priority</code> - Its new priority.</dd>
+<dt>Returns:</dt>
+<dd>true if and only if the IntPriorityQueueDouble changed
+ as a consequence of this method call.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if element is negative, or if element is greater than
      or equal to the domain n.</dd>
@@ -226,6 +243,29 @@ loadScripts(document, 'script');</script>
 <dt>Returns:</dt>
 <dd>true if and only if there exists an (element, priority) pair
  for the specified element.</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if element is negative, or if element is greater than
+     or equal to the domain n.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="demote(int,double)">
+<h3>demote</h3>
+<div class="member-signature"><span class="return-type">boolean</span>&nbsp;<span class="element-name">demote</span><wbr><span class="parameters">(int&nbsp;element,
+ double&nbsp;priority)</span></div>
+<div class="block">Demotes an element relative to priority order if the element is
+ present in the IntPriorityQueueDouble. For a min-heap, demotion means
+ increasing the element's priority, while for a max-heap, demotion
+ means decreasing its priority. If the element is not in the IntPriorityQueueDouble,
+ or if its new priority is not a demotion, then this method does nothing.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>element</code> - The element whose priority is to change.</dd>
+<dd><code>priority</code> - Its new priority.</dd>
+<dt>Returns:</dt>
+<dd>true if and only if the IntPriorityQueueDouble changed
+ as a consequence of this method call.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if element is negative, or if element is greater than
      or equal to the domain n.</dd>
@@ -326,6 +366,29 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>the next element in priority order.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="promote(int,double)">
+<h3>promote</h3>
+<div class="member-signature"><span class="return-type">boolean</span>&nbsp;<span class="element-name">promote</span><wbr><span class="parameters">(int&nbsp;element,
+ double&nbsp;priority)</span></div>
+<div class="block">Promotes an element relative to priority order if the element is
+ present in the IntPriorityQueueDouble. For a min-heap, promotion means
+ decreasing the element's priority, while for a max-heap, promotion
+ means increasing its priority. If the element is not in the IntPriorityQueueDouble,
+ or if its new priority is not a promotion, then this method does nothing.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>element</code> - The element whose priority is to change.</dd>
+<dd><code>priority</code> - Its new priority.</dd>
+<dt>Returns:</dt>
+<dd>true if and only if the IntPriorityQueueDouble changed
+ as a consequence of this method call.</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if element is negative, or if element is greater than
+     or equal to the domain n.</dd>
 </dl>
 </section>
 </li>
