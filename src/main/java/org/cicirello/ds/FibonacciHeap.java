@@ -71,8 +71,8 @@ import org.cicirello.util.Copyable;
  *     {@link #createMinHeap()}, {@link #element}, {@link #isEmpty}, {@link #iterator},
  *     {@link #offer(E, int)}, {@link #offer(PriorityQueueNode.Integer)},
  *     {@link #peek}, {@link #peekElement}, {@link #peekPriority()}, {@link #peekPriority(E)},
- *     {@link #size()}</li>
- * <li><b>O(lg n):</b> {@link #poll}, {@link #pollElement}, {@link #remove()},
+ *     {@link #promote}, {@link #size()}</li>
+ * <li><b>O(lg n):</b> {@link #demote}, {@link #poll}, {@link #pollElement}, {@link #remove()},
  *      {@link #remove(Object)}, {@link #removeElement()}</li> 
  * <li><b>O(n):</b> {@link #clear}, {@link #copy()}, {@link #equals}, {@link #hashCode}, 
  *     {@link #toArray()}, {@link #toArray(Object[])}</li>

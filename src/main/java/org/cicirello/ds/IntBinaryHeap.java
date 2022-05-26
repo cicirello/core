@@ -68,7 +68,8 @@ import org.cicirello.util.Copyable;
  * <li><b>O(1):</b> {@link #contains(int)}, {@link #createMaxHeap(int)}, 
  *     {@link #createMinHeap(int)}, {@link #domain()}, {@link #isEmpty()},
  *     {@link #peek()}, {@link #peekPriority()}, {@link #peekPriority(int)}, {@link #size()}</li>
- * <li><b>O(lg n):</b> {@link #change(int,int)}, {@link #offer(int, int)}, {@link #poll()}</li>
+ * <li><b>O(lg n):</b> {@link #change(int,int)}, {@link #demote(int,int)}, {@link #offer(int, int)}, 
+ *     {@link #poll()}, {@link #promote(int,int)}</li>
  * <li><b>O(n):</b> {@link #clear()}, {@link #copy()}</li>
  * </ul>
  *
@@ -119,8 +120,16 @@ public class IntBinaryHeap implements IntPriorityQueue, Copyable<IntBinaryHeap> 
 	 *     or equal to the domain n.
 	 */
 	@Override
-	public final boolean change(int element, int priority) {
-		return offer(element, priority) || internalPromote(element, priority) || internalDemote(element, priority);
+	public boolean change(int element, int priority) {
+		// note for anyone who may be editing this... 
+		// DON'T call offer(element, priority) 
+		// doing so will cause problems for the nested private class Max that
+		// overrides both change and offer to negate priority.
+		if (!in[element]) {
+			internalOffer(element, priority);
+			return true;
+		}
+		return internalPromote(element, priority) || internalDemote(element, priority);
 	}
 	
 	@Override
@@ -179,7 +188,7 @@ public class IntBinaryHeap implements IntPriorityQueue, Copyable<IntBinaryHeap> 
 	 *     or equal to the domain n.
 	 */
 	@Override
-	public final boolean demote(int element, int priority) {
+	public boolean demote(int element, int priority) {
 		return in[element] && internalDemote(element, priority);
 	}
 	
@@ -200,15 +209,11 @@ public class IntBinaryHeap implements IntPriorityQueue, Copyable<IntBinaryHeap> 
 	 *     or equal to the domain n.
 	 */
 	@Override
-	public final boolean offer(int element, int priority) {
+	public boolean offer(int element, int priority) {
 		if (in[element]) {
 			return false;
 		}
-		index[heap[size] = element] = size;
-		value[element] = priority;
-		in[element] = true;
-		percolateUp(size);
-		size++;
+		internalOffer(element, priority);
 		return true;
 	}
 	
@@ -218,7 +223,7 @@ public class IntBinaryHeap implements IntPriorityQueue, Copyable<IntBinaryHeap> 
 	}
 	
 	@Override
-	public final int peekPriority() {
+	public int peekPriority() {
 		return value[heap[0]];
 	}
 	
@@ -229,7 +234,7 @@ public class IntBinaryHeap implements IntPriorityQueue, Copyable<IntBinaryHeap> 
 	 *     or equal to the domain n.
 	 */
 	@Override
-	public final int peekPriority(int element) {
+	public int peekPriority(int element) {
 		return value[element];
 	}
 	
@@ -252,7 +257,7 @@ public class IntBinaryHeap implements IntPriorityQueue, Copyable<IntBinaryHeap> 
 	 *     or equal to the domain n.
 	 */
 	@Override
-	public final boolean promote(int element, int priority) {
+	public boolean promote(int element, int priority) {
 		return in[element] && internalPromote(element, priority);
 	}
 	
@@ -261,11 +266,15 @@ public class IntBinaryHeap implements IntPriorityQueue, Copyable<IntBinaryHeap> 
 		return size;
 	}
 	
-	/*
-	 * package-private to enable overriding in 
-	 * nested subclass to support max heaps.
-	 */
-	boolean internalPromote(int element, int priority) {
+	private void internalOffer(int element, int priority) {
+		index[heap[size] = element] = size;
+		value[element] = priority;
+		in[element] = true;
+		percolateUp(size);
+		size++;
+	}
+	
+	private boolean internalPromote(int element, int priority) {
 		if (priority < value[element]) {
 			value[element] = priority;
 			percolateUp(index[element]);
@@ -274,11 +283,7 @@ public class IntBinaryHeap implements IntPriorityQueue, Copyable<IntBinaryHeap> 
 		return false;
 	}
 	
-	/*
-	 * package-private to enable overriding in 
-	 * nested subclass to support max heaps.
-	 */
-	boolean internalDemote(int element, int priority) {
+	private boolean internalDemote(int element, int priority) {
 		if (priority > value[element]) {
 			value[element] = priority;
 			percolateDown(index[element]);
@@ -287,11 +292,7 @@ public class IntBinaryHeap implements IntPriorityQueue, Copyable<IntBinaryHeap> 
 		return false;
 	}
 	
-	/*
-	 * package-private to enable overriding in 
-	 * nested subclass to support max heaps.
-	 */
-	void percolateDown(int i) {
+	private void percolateDown(int i) {
 		int left; 
 		while ((left = (i << 1) + 1) < size) { 
 			int smallest = i;
@@ -313,11 +314,7 @@ public class IntBinaryHeap implements IntPriorityQueue, Copyable<IntBinaryHeap> 
 		}
 	}
 	
-	/*
-	 * package-private to enable overriding in 
-	 * nested subclass to support max heaps.
-	 */
-	void percolateUp(int i) {
+	private void percolateUp(int i) {
 		int parent;
 		while (i > 0 && value[heap[parent = (i-1) >> 1]] > value[heap[i]]) {
 			int temp = heap[i];
@@ -329,19 +326,12 @@ public class IntBinaryHeap implements IntPriorityQueue, Copyable<IntBinaryHeap> 
 	
 	private static final class Max extends IntBinaryHeap {
 		
-		private final IntBinaryHeap self;
-		
 		private Max(int n) {
 			super(n);
-			self = this;
 		}
 		
-		/*
-		 * private copy constructor to support copy() nethod
-		 */
 		private Max(Max other) {
 			super(other);
-			self = this;
 		}
 		
 		@Override
@@ -349,70 +339,34 @@ public class IntBinaryHeap implements IntPriorityQueue, Copyable<IntBinaryHeap> 
 			return new Max(this);
 		}
 		
-		/*
-		 * max heap order
-		 */
 		@Override
-		boolean internalPromote(int element, int priority) {
-			if (priority > self.value[element]) {
-				self.value[element] = priority;
-				percolateUp(self.index[element]);
-				return true;
-			}
-			return false;
+		public boolean change(int element, int priority) {
+			return super.change(element, -priority);
 		}
 		
-		/*
-		 * max heap order
-		 */
 		@Override
-		boolean internalDemote(int element, int priority) {
-			if (priority < self.value[element]) {
-				self.value[element] = priority;
-				percolateDown(self.index[element]);
-				return true;
-			}
-			return false;
+		public boolean demote(int element, int priority) {
+			return super.demote(element, -priority);
 		}
 		
-		/*
-		 * max heap order
-		 */
 		@Override
-		void percolateDown(int i) {
-			int left; 
-			while ((left = (i << 1) + 1) < self.size) { 
-				int smallest = i;
-				if (self.value[self.heap[left]] > self.value[self.heap[i]]) {
-					smallest = left;
-				}
-				int right = left + 1;
-				if (right < self.size && self.value[self.heap[right]] > self.value[self.heap[smallest]]) {
-					smallest = right;
-				}
-				if (smallest != i) {
-					int temp = self.heap[i];
-					self.index[self.heap[i] = self.heap[smallest]] = i;
-					self.index[self.heap[smallest] = temp] = smallest;
-					i = smallest; 
-				} else {
-					break;
-				}
-			}
+		public boolean offer(int element, int priority) {
+			return super.offer(element, -priority);
 		}
 		
-		/*
-		 * max heap order
-		 */
 		@Override
-		void percolateUp(int i) {
-			int parent;
-			while (i > 0 && self.value[self.heap[parent = (i-1) >> 1]] < self.value[self.heap[i]]) {
-				int temp = self.heap[i];
-				self.index[self.heap[i] = self.heap[parent]] = i;
-				self.index[self.heap[parent] = temp] = parent;
-				i = parent;
-			}
+		public int peekPriority() {
+			return -super.peekPriority();
+		}
+		
+		@Override
+		public int peekPriority(int element) {
+			return -super.peekPriority(element);
+		}
+		
+		@Override
+		public boolean promote(int element, int priority) {
+			return super.promote(element, -priority);
 		}
 	}
 }
