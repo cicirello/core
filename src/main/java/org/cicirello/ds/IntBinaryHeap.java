@@ -158,6 +158,8 @@ public class IntBinaryHeap implements IntPriorityQueue, Copyable<IntBinaryHeap> 
 	 * @param n The size of the domain of the elements of the max-heap.
 	 *
 	 * @return an empty max-heap
+	 *
+	 * @throws IllegalArgumentException if n is non-positive
 	 */
 	public static IntBinaryHeap createMaxHeap(int n) {
 		if (n < 1) {
@@ -173,6 +175,8 @@ public class IntBinaryHeap implements IntPriorityQueue, Copyable<IntBinaryHeap> 
 	 * @param n The size of the domain of the elements of the min-heap.
 	 *
 	 * @return an empty min-heap
+	 *
+	 * @throws IllegalArgumentException if n is non-positive
 	 */
 	public static IntBinaryHeap createMinHeap(int n) {
 		if (n < 1) {
