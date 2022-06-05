@@ -73,8 +73,7 @@ import org.cicirello.util.Copyable;
  *     {@link #trimToSize}</li>
  * <li><b>O(m):</b> {@link #containsAll(Collection)}, {@link #createMaxHeap(Collection)}, 
  *     {@link #createMinHeap(Collection)}</li>
- * <li><b>O(n + m):</b> {@link #retainAll(Collection)}</li>
- * <li><b>O(m lg n):</b> {@link #removeAll(Collection)}</li>
+ * <li><b>O(n + m):</b> {@link #removeAll(Collection)}, {@link #retainAll(Collection)}</li>
  * <li><b>O(m lg (n+m)):</b> {@link #addAll(Collection)}</li>
  * </ul>
  *
@@ -490,6 +489,48 @@ public final class BinaryHeapDouble<E> implements PriorityQueueDouble<E>, Copyab
 			buffer[i] = null;
 		}
 		return true;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The runtime of this method is O(n + m) where n is current size
+	 * of the heap and m is the size of the Collection c. In general this
+	 * is more efficient than calling remove repeatedly, unless you are
+	 * removing a relatively small number of elements, in which case you
+	 * should instead call {@link #remove(Object)} for each element you
+	 * want to remove.</p>
+	 */
+	@Override
+	public final boolean removeAll(Collection<?> c) {
+		HashSet<Object> discardThese = new HashSet<Object>();
+		for (Object o : c) {
+			if (o instanceof PriorityQueueNode.Double) {
+				PriorityQueueNode.Double pair = (PriorityQueueNode.Double)o;
+				discardThese.add(pair.element);
+			} else {
+				discardThese.add(o);
+			}
+		}
+		boolean changed = false;
+		for (int i = size-1; i >= 0; i--) {
+			if (discardThese.contains(buffer[i].element)) {
+				changed = true;
+				index.remove(buffer[i].element);
+				size--;
+				if (i == size) {
+					buffer[i] = null;
+				} else {
+					buffer[i] = buffer[size];
+					index.put(buffer[i].element, i);
+					buffer[size] = null;
+				}
+			}
+		}
+		if (changed) {
+			buildHeap();
+		}
+		return changed;
 	}
 	
 	/**
