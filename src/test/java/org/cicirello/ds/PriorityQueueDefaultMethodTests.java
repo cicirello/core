@@ -167,7 +167,7 @@ public class PriorityQueueDefaultMethodTests {
 	public void testRemoveAll() {
 		String[] elements = {"A", "B", "C", "D"};
 		int[] priorities = { 8, 6, 4, 2 };
-		final BinaryHeap<String> pq = BinaryHeap.createMinHeap();
+		final FibonacciHeap<String> pq = FibonacciHeap.createMinHeap();
 		ArrayList<PriorityQueueNode.Integer<String>> list = new ArrayList<PriorityQueueNode.Integer<String>>();
 		for (int i = 0; i < elements.length; i++) {
 			list.add(new PriorityQueueNode.Integer<String>(elements[i], priorities[i]));

@@ -81,6 +81,58 @@ public class BinaryHeapDoubleTests {
 	}
 	
 	@Test
+	public void testRemoveAll() {
+		String[] elements = {"A", "B", "C", "D"};
+		double[] priorities = { 8, 6, 4, 2 };
+		final BinaryHeapDouble<String> pq = BinaryHeapDouble.createMinHeap();
+		ArrayList<PriorityQueueNode.Double<String>> list = new ArrayList<PriorityQueueNode.Double<String>>();
+		for (int i = 0; i < elements.length; i++) {
+			list.add(new PriorityQueueNode.Double<String>(elements[i], priorities[i]));
+		}
+		assertTrue(pq.addAll(list));
+		assertEquals(elements.length, pq.size());
+		assertTrue(pq.removeAll(list));
+		assertEquals(0, pq.size());
+		assertTrue(pq.addAll(list));
+		assertEquals(elements.length, pq.size());
+		list.remove(list.size()-1);
+		assertTrue(pq.removeAll(list));
+		assertEquals(1, pq.size());
+		
+		list.clear();
+		ArrayList<String> list2 = new ArrayList<String>();
+		ArrayList<String> list3 = new ArrayList<String>();
+		for (int i = 0; i < elements.length; i++) {
+			list2.add(elements[i]);
+			list3.add(elements[i]);
+			list.add(new PriorityQueueNode.Double<String>(elements[i], priorities[i]));
+		}
+		pq.clear();
+		assertTrue(pq.addAll(list));
+		assertEquals(elements.length, pq.size());
+		assertTrue(pq.removeAll(list2));
+		assertEquals(0, pq.size());
+		assertTrue(pq.addAll(list));
+		assertEquals(elements.length, pq.size());
+		list2.remove(list.size()-1);
+		assertTrue(pq.removeAll(list2));
+		assertEquals(1, pq.size());
+		assertFalse(pq.removeAll(list2));
+		assertEquals(1, pq.size());
+		assertTrue(pq.contains(elements[elements.length-1]));
+		
+		pq.clear();
+		assertTrue(pq.addAll(list));
+		assertEquals(elements.length, pq.size());
+		list3.remove(0);
+		assertTrue(pq.removeAll(list3));
+		assertEquals(1, pq.size());
+		assertFalse(pq.removeAll(list3));
+		assertEquals(1, pq.size());
+		assertTrue(pq.contains(elements[0]));
+	}
+	
+	@Test
 	public void testIterator() {
 		int n = 4;
 		String[] elements = createStrings(n);
