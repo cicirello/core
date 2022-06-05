@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 * Improved implementation of BinaryHeap.retainAll(Collection) to an O(m + n) runtime.
 * Improved implementation of BinaryHeapDouble.retainAll(Collection) to an O(m + n) runtime.
+* Improved implementation of BinaryHeap.removeAll(Collection) to an O(m + n) runtime.
+* Improved implementation of BinaryHeapDouble.removeAll(Collection) to an O(m + n) runtime.
 
 ### Deprecated
 
