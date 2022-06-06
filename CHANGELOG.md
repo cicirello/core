@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2022-06-05
+## [Unreleased] - 2022-06-06
 
 ### Added
 
@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Improved implementation of BinaryHeapDouble.retainAll(Collection) to an O(m + n) runtime.
 * Improved implementation of BinaryHeap.removeAll(Collection) to an O(m + n) runtime.
 * Improved implementation of BinaryHeapDouble.removeAll(Collection) to an O(m + n) runtime.
+* Improved implementation of FibonacciHeap.retainAll(Collection) to an O(m + n) runtime.
+* Improved implementation of FibonacciHeapDouble.retainAll(Collection) to an O(m + n) runtime.
 
 ### Deprecated
 
