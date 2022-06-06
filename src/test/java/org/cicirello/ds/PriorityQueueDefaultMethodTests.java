@@ -162,43 +162,4 @@ public class PriorityQueueDefaultMethodTests {
 			() -> pq.removeElement()
 		);
 	}
-	
-	@Test
-	public void testRemoveAll() {
-		String[] elements = {"A", "B", "C", "D"};
-		int[] priorities = { 8, 6, 4, 2 };
-		final FibonacciHeap<String> pq = FibonacciHeap.createMinHeap();
-		ArrayList<PriorityQueueNode.Integer<String>> list = new ArrayList<PriorityQueueNode.Integer<String>>();
-		for (int i = 0; i < elements.length; i++) {
-			list.add(new PriorityQueueNode.Integer<String>(elements[i], priorities[i]));
-		}
-		assertTrue(pq.addAll(list));
-		assertEquals(elements.length, pq.size());
-		assertTrue(pq.removeAll(list));
-		assertEquals(0, pq.size());
-		assertTrue(pq.addAll(list));
-		assertEquals(elements.length, pq.size());
-		list.remove(list.size()-1);
-		assertTrue(pq.removeAll(list));
-		assertEquals(1, pq.size());
-		
-		list.clear();
-		ArrayList<String> list2 = new ArrayList<String>();
-		for (int i = 0; i < elements.length; i++) {
-			list2.add(elements[i]);
-			list.add(new PriorityQueueNode.Integer<String>(elements[i], priorities[i]));
-		}
-		pq.clear();
-		assertTrue(pq.addAll(list));
-		assertEquals(elements.length, pq.size());
-		assertTrue(pq.removeAll(list2));
-		assertEquals(0, pq.size());
-		assertTrue(pq.addAll(list));
-		assertEquals(elements.length, pq.size());
-		list2.remove(list.size()-1);
-		assertTrue(pq.removeAll(list2));
-		assertEquals(1, pq.size());
-		assertFalse(pq.removeAll(list2));
-		assertEquals(1, pq.size());
-	}
 }

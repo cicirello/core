@@ -343,15 +343,7 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	 * @return true if and only if this PriorityQueue changed as a result of this method.
 	 */
 	@Override
-	default boolean removeAll(Collection<?> c) {
-		boolean changed = false;
-		for (Object o : c) {
-			if (remove(o)) {
-				changed = true;
-			}
-		}
-		return changed;
-	}
+	boolean removeAll(Collection<?> c);
 	
 	/**
 	 * Removes and returns the next element in priority order from this PriorityQueue.

@@ -15,10 +15,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Improved implementation of BinaryHeapDouble.removeAll(Collection) to an O(m + n) runtime.
 * Improved implementation of FibonacciHeap.retainAll(Collection) to an O(m + n) runtime.
 * Improved implementation of FibonacciHeapDouble.retainAll(Collection) to an O(m + n) runtime.
+* Improved implementation of FibonacciHeap.removeAll(Collection) to an O(m + n) runtime.
+* Improved implementation of FibonacciHeapDouble.removeAll(Collection) to an O(m + n) runtime.
 
 ### Deprecated
 
 ### Removed
+* Default implementation of PriorityQueue.removeAll(Collection): All relevant classes now implement this directly.
+* Default implementation of PriorityQueueDouble.removeAll(Collection): All relevant classes now implement this directly.
 
 ### Fixed
 
