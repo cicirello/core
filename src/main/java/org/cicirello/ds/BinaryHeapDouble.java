@@ -68,11 +68,11 @@ import org.cicirello.util.Copyable;
  *     {@link #change}, {@link #demote}, {@link #offer(Object, double)}, {@link #offer(PriorityQueueNode.Double)},
  *     {@link #poll}, {@link #pollElement}, {@link #promote}, {@link #remove()}, {@link #remove(Object)}, 
  *     {@link #removeElement()}</li>
+ * <li><b>O(m):</b> {@link #containsAll(Collection)}, {@link #createMaxHeap(Collection)}, 
+ *     {@link #createMinHeap(Collection)}</li>
  * <li><b>O(n):</b> {@link #clear}, {@link #copy()}, {@link #ensureCapacity}, {@link #equals}, {@link #hashCode}, 
  *     {@link #toArray()}, {@link #toArray(Object[])}, 
  *     {@link #trimToSize}</li>
- * <li><b>O(m):</b> {@link #containsAll(Collection)}, {@link #createMaxHeap(Collection)}, 
- *     {@link #createMinHeap(Collection)}</li>
  * <li><b>O(n + m):</b> {@link #removeAll(Collection)}, {@link #retainAll(Collection)}</li>
  * <li><b>O(m lg (n+m)):</b> {@link #addAll(Collection)}</li>
  * </ul>

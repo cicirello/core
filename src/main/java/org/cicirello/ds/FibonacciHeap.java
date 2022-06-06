@@ -24,6 +24,7 @@ package org.cicirello.ds;
 
 import java.lang.reflect.Array;
 import java.util.Collection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -74,12 +75,12 @@ import org.cicirello.util.Copyable;
  *     {@link #promote}, {@link #size()}</li>
  * <li><b>O(lg n):</b> {@link #demote}, {@link #poll}, {@link #pollElement}, {@link #remove()},
  *      {@link #remove(Object)}, {@link #removeElement()}</li> 
- * <li><b>O(n):</b> {@link #clear}, {@link #copy()}, {@link #equals}, {@link #hashCode}, 
- *     {@link #toArray()}, {@link #toArray(Object[])}</li>
  * <li><b>O(m):</b> {@link #addAll(Collection)}, {@link #containsAll(Collection)}, 
  *     {@link #createMaxHeap(Collection)}, {@link #createMinHeap(Collection)}</li>
+ * <li><b>O(n):</b> {@link #clear}, {@link #copy()}, {@link #equals}, {@link #hashCode}, 
+ *     {@link #toArray()}, {@link #toArray(Object[])}</li>
+ * <li><b>O(n + m):</b> {@link #retainAll(Collection)}</li>
  * <li><b>O(m lg n):</b> {@link #removeAll(Collection)}</li>
- * <li><b>O(n lg n):</b> {@link #retainAll(Collection)}</li>
  * </ul>
  * <p>The amortized runtime of {@link #change} depends on the direction of change. If the
  * priority is decreased for a min-heap or increased for a max-heap, the amortized runtime
@@ -430,26 +431,41 @@ public final class FibonacciHeap<E> implements PriorityQueue<E>, Copyable<Fibona
 		return true;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The runtime of this method is O(n + m) where n is current size
+	 * of the heap and m is the size of the Collection c. In general this
+	 * is more efficient than calling remove repeatedly, unless you are
+	 * removing a relatively small number of elements, in which case you
+	 * should instead call {@link #remove(Object)} for each element you
+	 * want to remove.</p>
+	 */
 	@Override
 	public final boolean retainAll(Collection<?> c) {
-		HashSet<E> deleteThese = new HashSet<E>();
-		for (PriorityQueueNode.Integer<E> e : this) {
-			deleteThese.add(e.element);
-		}
+		HashSet<Object> keepThese = new HashSet<Object>();
 		for (Object o : c) {
 			if (o instanceof PriorityQueueNode.Integer) {
 				PriorityQueueNode.Integer pair = (PriorityQueueNode.Integer)o;
-				deleteThese.remove(pair.element);
+				keepThese.add(pair.element);
 			} else {
-				deleteThese.remove(o);
+				keepThese.add(o);
 			}
 		}
-		boolean changed = false;
-		for (E e : deleteThese) {
-			remove(e); 
-			changed = true;
+		ArrayList<PriorityQueueNode.Integer<E>> keepList = new ArrayList<PriorityQueueNode.Integer<E>>(keepThese.size());
+		for (PriorityQueueNode.Integer<E> e : this) {
+			if (keepThese.contains(e.element)) {
+				keepList.add(e);
+			}
 		}
-		return changed;
+		if (keepList.size() < size) {
+			clear();
+			for (PriorityQueueNode.Integer<E> e : keepList) {
+				internalOffer(e);
+			}
+			return true;
+		}
+		return false;
 	}
 	
 	@Override
