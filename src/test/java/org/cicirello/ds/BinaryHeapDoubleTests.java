@@ -93,11 +93,19 @@ public class BinaryHeapDoubleTests {
 		assertEquals(elements.length, pq.size());
 		assertTrue(pq.removeAll(list));
 		assertEquals(0, pq.size());
+		for (String e : elements) {
+			assertFalse(pq.contains(e));
+		}
 		assertTrue(pq.addAll(list));
 		assertEquals(elements.length, pq.size());
 		list.remove(list.size()-1);
 		assertTrue(pq.removeAll(list));
 		assertEquals(1, pq.size());
+		for (int i = 0; i < elements.length-1; i++) {
+			String e = elements[i];
+			assertFalse(pq.contains(e));
+		}
+		assertTrue(pq.contains(elements[elements.length-1]));
 		
 		list.clear();
 		ArrayList<String> list2 = new ArrayList<String>();
@@ -120,6 +128,10 @@ public class BinaryHeapDoubleTests {
 		assertFalse(pq.removeAll(list2));
 		assertEquals(1, pq.size());
 		assertTrue(pq.contains(elements[elements.length-1]));
+		for (int i = 0; i < elements.length-1; i++) {
+			String e = elements[i];
+			assertFalse(pq.contains(e));
+		}
 		
 		pq.clear();
 		assertTrue(pq.addAll(list));
@@ -130,6 +142,10 @@ public class BinaryHeapDoubleTests {
 		assertFalse(pq.removeAll(list3));
 		assertEquals(1, pq.size());
 		assertTrue(pq.contains(elements[0]));
+		for (int i = 1; i < elements.length; i++) {
+			String e = elements[i];
+			assertFalse(pq.contains(e));
+		}
 	}
 	
 	@Test
