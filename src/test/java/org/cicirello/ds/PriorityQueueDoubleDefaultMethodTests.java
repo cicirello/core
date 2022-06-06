@@ -71,7 +71,7 @@ public class PriorityQueueDoubleDefaultMethodTests {
 	public void testAddAll() {
 		String[] elements = {"A", "B", "C", "D"};
 		double[] priorities = { 8, 6, 4, 2 };
-		BinaryHeapDouble<String> pq = BinaryHeapDouble.createMinHeap();
+		FibonacciHeapDouble<String> pq = FibonacciHeapDouble.createMinHeap();
 		ArrayList<PriorityQueueNode.Double<String>> list = new ArrayList<PriorityQueueNode.Double<String>>();
 		for (int i = 0; i < elements.length; i++) {
 			list.add(new PriorityQueueNode.Double<String>(elements[i], priorities[i]));
