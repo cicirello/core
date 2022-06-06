@@ -21,6 +21,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Deprecated
 
 ### Removed
+* Default implementation of PriorityQueue.removeAll(Collection): All relevant classes now implement this directly.
+* Default implementation of PriorityQueueDouble.removeAll(Collection): All relevant classes now implement this directly.
 
 ### Fixed
 
