@@ -71,7 +71,7 @@ public class PriorityQueueDefaultMethodTests {
 	public void testAddAll() {
 		String[] elements = {"A", "B", "C", "D"};
 		int[] priorities = { 8, 6, 4, 2 };
-		BinaryHeap<String> pq = BinaryHeap.createMinHeap();
+		FibonacciHeap<String> pq = FibonacciHeap.createMinHeap();
 		ArrayList<PriorityQueueNode.Integer<String>> list = new ArrayList<PriorityQueueNode.Integer<String>>();
 		for (int i = 0; i < elements.length; i++) {
 			list.add(new PriorityQueueNode.Integer<String>(elements[i], priorities[i]));

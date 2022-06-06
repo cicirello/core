@@ -73,8 +73,7 @@ import org.cicirello.util.Copyable;
  * <li><b>O(n):</b> {@link #clear}, {@link #copy()}, {@link #ensureCapacity}, {@link #equals}, {@link #hashCode}, 
  *     {@link #toArray()}, {@link #toArray(Object[])}, 
  *     {@link #trimToSize}</li>
- * <li><b>O(n + m):</b> {@link #removeAll(Collection)}, {@link #retainAll(Collection)}</li>
- * <li><b>O(m lg (n+m)):</b> {@link #addAll(Collection)}</li>
+ * <li><b>O(n + m):</b> {@link #addAll(Collection)}, {@link #removeAll(Collection)}, {@link #retainAll(Collection)}</li>
  * </ul>
  *
  * @param <E> The type of object contained in the BinaryHeapDouble.
@@ -266,6 +265,37 @@ public final class BinaryHeapDouble<E> implements PriorityQueueDouble<E>, Copyab
 			throw new IllegalArgumentException("initialElements is empty");
 		}
 		return new BinaryHeapDouble<E>(initialElements, (p1, p2) -> p1 > p2);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The runtime of this method is O(n + m) where n is current size
+	 * of the heap and m is the size of the Collection c. In general this
+	 * is more efficient than calling add repeatedly, unless you are
+	 * adding a relatively small number of elements, in which case you
+	 * should instead call either {@link #offer(PriorityQueueNode.Double)} 
+	 * or {@link #add(PriorityQueueNode.Double)} for each 
+	 * (element, priority) pair you want to add.</p>
+	 *
+	 * @throws IllegalArgumentException if the heap already contains any
+	 * of the (element, priority) pairs.
+	 */
+	@Override
+	public final boolean addAll(Collection<? extends PriorityQueueNode.Double<E>> c) {
+		if (size + c.size() > buffer.length) {
+			internalAdjustCapacity((size + c.size()) << 1);
+		}
+		for (PriorityQueueNode.Double<E> e : c) {
+			if (index.containsKey(e.element)) {
+				throw new IllegalArgumentException("heap already contains one or more of these elements");
+			}
+			buffer[size] = e;
+			index.put(e.element, size);
+			size++;
+		}
+		buildHeap();
+		return true;
 	}
 	
 	@Override

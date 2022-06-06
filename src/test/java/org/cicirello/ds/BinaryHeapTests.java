@@ -38,6 +38,49 @@ public class BinaryHeapTests {
 	// TESTS THAT ARE NEITHER STRICTLY MIN HEAP TESTS NOW MAX HEAP TESTS
 	
 	@Test
+	public void testAddAll() {
+		String[] elements = {"A", "B", "C", "D"};
+		int[] priorities = { 8, 6, 4, 2 };
+		final int INITIAL_CAPACITY = 6;
+		final BinaryHeap<String> pq = BinaryHeap.createMinHeap(INITIAL_CAPACITY);
+		assertEquals(INITIAL_CAPACITY, pq.capacity());
+		ArrayList<PriorityQueueNode.Integer<String>> list = new ArrayList<PriorityQueueNode.Integer<String>>();
+		for (int i = 0; i < elements.length; i++) {
+			list.add(new PriorityQueueNode.Integer<String>(elements[i], priorities[i]));
+		}
+		assertTrue(pq.addAll(list));
+		assertEquals(elements.length, pq.size());
+		assertEquals(INITIAL_CAPACITY, pq.capacity());
+		for (int i = 0; i < elements.length; i++) {
+			assertTrue(pq.contains(elements[i]));
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
+		}
+		
+		String[] elements2 = {"E", "F", "G", "H", "I"};
+		int[] priorities2 = { 7, 3, 1, 5, 9 };
+		ArrayList<PriorityQueueNode.Integer<String>> list2 = new ArrayList<PriorityQueueNode.Integer<String>>();
+		for (int i = 0; i < elements2.length; i++) {
+			list2.add(new PriorityQueueNode.Integer<String>(elements2[i], priorities2[i]));
+		}
+		assertTrue(pq.addAll(list2));
+		assertEquals(elements.length + elements2.length, pq.size());
+		assertEquals((elements.length + elements2.length)*2, pq.capacity());
+		for (int i = 0; i < elements.length; i++) {
+			assertTrue(pq.contains(elements[i]));
+			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+		}
+		for (int i = 0; i < elements2.length; i++) {
+			assertTrue(pq.contains(elements2[i]));
+			assertEquals(priorities2[i], pq.peekPriority(elements2[i]), 0.0);
+		}
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> pq.addAll(list)
+		);
+	}
+	
+	@Test
 	public void testRetainAll() {
 		String[] elements = {"A", "B", "C", "D"};
 		int[] priorities = { 8, 6, 4, 2 };
