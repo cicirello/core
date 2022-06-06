@@ -343,15 +343,7 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
 	 * @return true if and only if this PriorityQueueDouble changed as a result of this method.
 	 */
 	@Override
-	default boolean removeAll(Collection<?> c) {
-		boolean changed = false;
-		for (Object o : c) {
-			if (remove(o)) {
-				changed = true;
-			}
-		}
-		return changed;
-	}
+	boolean removeAll(Collection<?> c);
 	
 	/**
 	 * Removes and returns the next element in priority order from this PriorityQueueDouble.
