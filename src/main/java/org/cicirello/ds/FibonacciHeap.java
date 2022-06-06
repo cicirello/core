@@ -79,8 +79,7 @@ import org.cicirello.util.Copyable;
  *     {@link #createMaxHeap(Collection)}, {@link #createMinHeap(Collection)}</li>
  * <li><b>O(n):</b> {@link #clear}, {@link #copy()}, {@link #equals}, {@link #hashCode}, 
  *     {@link #toArray()}, {@link #toArray(Object[])}</li>
- * <li><b>O(n + m):</b> {@link #retainAll(Collection)}</li>
- * <li><b>O(m lg n):</b> {@link #removeAll(Collection)}</li>
+ * <li><b>O(n + m):</b> {@link #removeAll(Collection)}, {@link #retainAll(Collection)}</li>
  * </ul>
  * <p>The amortized runtime of {@link #change} depends on the direction of change. If the
  * priority is decreased for a min-heap or increased for a max-heap, the amortized runtime
@@ -429,6 +428,43 @@ public final class FibonacciHeap<E> implements PriorityQueue<E>, Copyable<Fibona
 		internalPromote(node, compare.comesBefore(min.e.value-1, min.e.value) ? min.e.value-1 : min.e.value+1);
 		poll();
 		return true;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The runtime of this method is O(n + m) where n is current size
+	 * of the heap and m is the size of the Collection c. In general this
+	 * is more efficient than calling remove repeatedly, unless you are
+	 * removing a relatively small number of elements, in which case you
+	 * should instead call {@link #remove(Object)} for each element you
+	 * want to remove.</p>
+	 */
+	@Override
+	public final boolean removeAll(Collection<?> c) {
+		HashSet<Object> discardThese = new HashSet<Object>();
+		for (Object o : c) {
+			if (o instanceof PriorityQueueNode.Integer) {
+				PriorityQueueNode.Integer pair = (PriorityQueueNode.Integer)o;
+				discardThese.add(pair.element);
+			} else {
+				discardThese.add(o);
+			}
+		}
+		ArrayList<PriorityQueueNode.Integer<E>> keepList = new ArrayList<PriorityQueueNode.Integer<E>>();
+		for (PriorityQueueNode.Integer<E> e : this) {
+			if (!discardThese.contains(e.element)) {
+				keepList.add(e);
+			}
+		}
+		if (keepList.size() < size) {
+			clear();
+			for (PriorityQueueNode.Integer<E> e : keepList) {
+				internalOffer(e);
+			}
+			return true;
+		}
+		return false;
 	}
 	
 	/**
