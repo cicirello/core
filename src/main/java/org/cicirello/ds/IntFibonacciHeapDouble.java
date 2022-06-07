@@ -167,9 +167,11 @@ public class IntFibonacciHeapDouble implements IntPriorityQueueDouble, Copyable<
 	
 	@Override
 	public final void clear() {
-		size = 0;
-		min = null;
-		Arrays.fill(index, null);
+		if (size > 0) {
+			size = 0;
+			min = null;
+			Arrays.fill(index, null);
+		}
 	}
 	
 	/**

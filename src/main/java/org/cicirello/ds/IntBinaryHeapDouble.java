@@ -135,7 +135,7 @@ public class IntBinaryHeapDouble implements IntPriorityQueueDouble, Copyable<Int
 	@Override
 	public final void clear() {
 		if (size > 0) {
-			Arrays.fill(in, 0, size, false);
+			Arrays.fill(in, false);
 			size = 0;
 		}
 	}
