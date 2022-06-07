@@ -26,7 +26,6 @@ import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -318,7 +317,9 @@ public final class BinaryHeap<E> implements PriorityQueue<E>, Copyable<BinaryHea
 	
 	@Override
 	public final void clear() {
-		Arrays.fill(buffer, null);
+		for (int i = 0; i < size; i++) {
+			buffer[i] = null;
+		}
 		size = 0;
 		index.clear();
 	}
