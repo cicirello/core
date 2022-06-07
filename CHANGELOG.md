@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2022-06-07
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### CI/CD
+
+### Other
+
+
+## [2.2.0] - 2022-06-07
+
+### Added
 * MergeablePriorityQueue interface for priority queues with merge support.
 * MergeablePriorityQueueDouble interface for priority queues with merge support.
 * BinaryHeap.merge(BinaryHeap) for merging binary heaps with int priorities.
@@ -26,17 +43,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Improved implementation of FibonacciHeap.removeAll(Collection) to an O(m + n) runtime.
 * Improved implementation of FibonacciHeapDouble.removeAll(Collection) to an O(m + n) runtime.
 
-### Deprecated
-
 ### Removed
 * Default implementation of PriorityQueue.removeAll(Collection): All relevant classes now implement this directly.
 * Default implementation of PriorityQueueDouble.removeAll(Collection): All relevant classes now implement this directly.
-
-### Fixed
-
-### CI/CD
-
-### Other
 
 
 ## [2.1.0] - 2022-05-26
