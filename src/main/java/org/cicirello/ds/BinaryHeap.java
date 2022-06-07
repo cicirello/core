@@ -290,8 +290,8 @@ public final class BinaryHeap<E> implements PriorityQueue<E>, Copyable<BinaryHea
 			if (index.containsKey(e.element)) {
 				throw new IllegalArgumentException("heap already contains one or more of these elements");
 			}
-			buffer[size] = e;
-			index.put(e.element, size);
+			buffer[size] = e.copy();
+			index.put(buffer[size].element, size);
 			size++;
 		}
 		buildHeap();
