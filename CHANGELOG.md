@@ -4,9 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2022-06-06
+## [Unreleased] - 2022-06-07
 
 ### Added
+* MergeablePriorityQueue interface for priority queues with merge support.
+* MergeablePriorityQueueDouble interface for priority queues with merge support.
+* BinaryHeap.merge(BinaryHeap) for merging binary heaps with int priorities.
+* BinaryHeapDouble.merge(BinaryHeapDouble) for merging binary heaps with double priorities.
 
 ### Changed
 * Improved implementation of BinaryHeap.retainAll(Collection) to an O(m + n) runtime.
