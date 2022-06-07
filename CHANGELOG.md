@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * MergeablePriorityQueueDouble interface for priority queues with merge support.
 * BinaryHeap.merge(BinaryHeap) for merging binary heaps with int priorities.
 * BinaryHeapDouble.merge(BinaryHeapDouble) for merging binary heaps with double priorities.
+* FibonacciHeap.merge(FibonacciHeap) for merging Fibonacci heaps with int priorities.
+* FibonacciHeapDouble.merge(FibonacciHeapDouble) for merging Fibonacci heaps with double priorities.
 
 ### Changed
 * Improved implementation of BinaryHeap.retainAll(Collection) to an O(m + n) runtime.
