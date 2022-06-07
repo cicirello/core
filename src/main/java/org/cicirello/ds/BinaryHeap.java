@@ -72,7 +72,7 @@ import org.cicirello.util.Copyable;
  * <li><b>O(n):</b> {@link #clear}, {@link #copy()}, {@link #ensureCapacity}, {@link #equals}, {@link #hashCode}, 
  *     {@link #toArray()}, {@link #toArray(Object[])}, 
  *     {@link #trimToSize}</li>
- * <li><b>O(n + m):</b> {@link #addAll(Collection)}, {@link #removeAll(Collection)}, {@link #retainAll(Collection)}</li>
+ * <li><b>O(n + m):</b> {@link #addAll(Collection)}, {@link #merge(BinaryHeap)}, {@link #removeAll(Collection)}, {@link #retainAll(Collection)}</li>
  * </ul>
  *
  * @param <E> The type of object contained in the BinaryHeap.
@@ -80,7 +80,7 @@ import org.cicirello.util.Copyable;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public final class BinaryHeap<E> implements PriorityQueue<E>, Copyable<BinaryHeap<E>> {
+public final class BinaryHeap<E> implements MergeablePriorityQueue<E, BinaryHeap<E>>, Copyable<BinaryHeap<E>> {
 	
 	private PriorityQueueNode.Integer<E>[] buffer;
 	private int size;
@@ -285,6 +285,7 @@ public final class BinaryHeap<E> implements PriorityQueue<E>, Copyable<BinaryHea
 		if (size + c.size() > buffer.length) {
 			internalAdjustCapacity((size + c.size()) << 1);
 		}
+		boolean changed = false;
 		for (PriorityQueueNode.Integer<E> e : c) {
 			if (index.containsKey(e.element)) {
 				throw new IllegalArgumentException("heap already contains one or more of these elements");
@@ -292,9 +293,12 @@ public final class BinaryHeap<E> implements PriorityQueue<E>, Copyable<BinaryHea
 			buffer[size] = e.copy();
 			index.put(buffer[size].element, size);
 			size++;
+			changed = true;
 		}
-		buildHeap();
-		return true;
+		if (changed) {
+			buildHeap();
+		}
+		return changed;
 	}
 	
 	@Override
@@ -412,6 +416,34 @@ public final class BinaryHeap<E> implements PriorityQueue<E>, Copyable<BinaryHea
 	@Override
 	public final Iterator<PriorityQueueNode.Integer<E>> iterator() {
 		return new BinaryHeapIterator();
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @throws IllegalArgumentException if this and other have different priority-order (e.g., one is a 
+	 * minheap while the other is a maxheap)
+	 */
+	@Override
+	public boolean merge(BinaryHeap<E> other) {
+		if (compare.belongsAbove(0,1) != other.compare.belongsAbove(0,1)) {
+			throw new IllegalArgumentException("this and other follow different priority-order");
+		}
+		if (size + other.size() > buffer.length) {
+			internalAdjustCapacity((size + other.size()) << 1);
+		}
+		boolean changed = false;
+		for (int i = 0; i < other.size; i++) {
+			buffer[size] = other.buffer[i];
+			index.put(buffer[size].element, size);
+			size++;
+			changed = true;
+		}
+		if (changed) {
+			other.clear();
+			buildHeap();
+		}
+		return changed;
 	}
 	
 	@Override
