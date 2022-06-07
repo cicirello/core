@@ -70,7 +70,7 @@ import org.cicirello.util.Copyable;
  * <li><b>O(1):</b> {@link #add(Object, double)}, {@link #add(PriorityQueueNode.Double)}, 
  *     {@link #contains}, {@link #createMaxHeap()}, 
  *     {@link #createMinHeap()}, {@link #element}, {@link #isEmpty}, {@link #iterator},
- *     {@link #offer(E, double)}, {@link #offer(PriorityQueueNode.Double)},
+ *     {@link #merge(FibonacciHeapDouble)}, {@link #offer(E, double)}, {@link #offer(PriorityQueueNode.Double)},
  *     {@link #peek}, {@link #peekElement}, {@link #peekPriority()}, {@link #peekPriority(E)},
  *     {@link #promote}, {@link #size()}</li>
  * <li><b>O(lg n):</b> {@link #demote}, {@link #poll}, {@link #pollElement}, {@link #remove()},
@@ -91,9 +91,9 @@ import org.cicirello.util.Copyable;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public final class FibonacciHeapDouble<E> implements PriorityQueueDouble<E>, Copyable<FibonacciHeapDouble<E>> {
+public final class FibonacciHeapDouble<E> implements MergeablePriorityQueueDouble<E, FibonacciHeapDouble<E>>, Copyable<FibonacciHeapDouble<E>> {
 	
-	private final HashMap<E, Node<E>> index;
+	private HashMap<E, Node<E>> index;
 	private final PriorityComparator compare;
 	private final double extreme;
 	
@@ -252,8 +252,9 @@ public final class FibonacciHeapDouble<E> implements PriorityQueueDouble<E>, Cop
 	@Override
 	public final void clear() {
 		size = 0;
-		// clear the index
-		index.clear();
+		// clear the index... old way: index.clear();
+		// instead let garbage collector take care of it, just reinitialize:
+		index = new HashMap<E, Node<E>>();
 		// set min to null which should cause garbage collection
 		// of entire fibonacci heap (impossible to have references to Nodes
 		// external from this class.
@@ -333,6 +334,30 @@ public final class FibonacciHeapDouble<E> implements PriorityQueueDouble<E>, Cop
 	@Override
 	public final Iterator<PriorityQueueNode.Double<E>> iterator() {
 		return new FibonacciHeapDoubleIterator();
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @throws IllegalArgumentException if this and other have different priority-order (e.g., one is a 
+	 * minheap while the other is a maxheap)
+	 */
+	@Override
+	public boolean merge(FibonacciHeapDouble<E> other) {
+		if (compare.comesBefore(0,1) != other.compare.comesBefore(0,1)) {
+			throw new IllegalArgumentException("this and other follow different priority-order");
+		}
+		if (other.size > 0) {
+			other.min.insertListInto(min);
+			if (compare.comesBefore(other.min.e.value, min.e.value)) {
+				min = other.min;
+			}
+			size += other.size;
+			index.putAll(other.index);
+			other.clear();
+			return true;
+		}
+		return false;
 	}
 	
 	@Override
