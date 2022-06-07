@@ -85,12 +85,12 @@ loadScripts(document, 'script');</script>
 </dl>
 <dl class="notes">
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;<a href="PriorityQueueNode.Integer.html" title="class in org.cicirello.ds">PriorityQueueNode.Integer</a>&lt;E&gt;&gt;</code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="PriorityQueueNode.Integer.html" title="class in org.cicirello.ds">PriorityQueueNode.Integer</a>&lt;E&gt;&gt;</code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Queue.html" title="class or interface in java.util" class="external-link">Queue</a>&lt;<a href="PriorityQueueNode.Integer.html" title="class in org.cicirello.ds">PriorityQueueNode.Integer</a>&lt;E&gt;&gt;</code>, <code><a href="PriorityQueue.html" title="interface in org.cicirello.ds">PriorityQueue</a>&lt;E&gt;</code>, <code><a href="../util/Copyable.html" title="interface in org.cicirello.util">Copyable</a>&lt;<a href="FibonacciHeap.html" title="class in org.cicirello.ds">FibonacciHeap</a>&lt;E&gt;&gt;</code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;<a href="PriorityQueueNode.Integer.html" title="class in org.cicirello.ds">PriorityQueueNode.Integer</a>&lt;E&gt;&gt;</code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="PriorityQueueNode.Integer.html" title="class in org.cicirello.ds">PriorityQueueNode.Integer</a>&lt;E&gt;&gt;</code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Queue.html" title="class or interface in java.util" class="external-link">Queue</a>&lt;<a href="PriorityQueueNode.Integer.html" title="class in org.cicirello.ds">PriorityQueueNode.Integer</a>&lt;E&gt;&gt;</code>, <code><a href="MergeablePriorityQueue.html" title="interface in org.cicirello.ds">MergeablePriorityQueue</a>&lt;E,<wbr><a href="FibonacciHeap.html" title="class in org.cicirello.ds">FibonacciHeap</a>&lt;E&gt;&gt;</code>, <code><a href="PriorityQueue.html" title="interface in org.cicirello.ds">PriorityQueue</a>&lt;E&gt;</code>, <code><a href="../util/Copyable.html" title="interface in org.cicirello.util">Copyable</a>&lt;<a href="FibonacciHeap.html" title="class in org.cicirello.ds">FibonacciHeap</a>&lt;E&gt;&gt;</code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">FibonacciHeap&lt;E&gt;</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
-implements <a href="PriorityQueue.html" title="interface in org.cicirello.ds">PriorityQueue</a>&lt;E&gt;, <a href="../util/Copyable.html" title="interface in org.cicirello.util">Copyable</a>&lt;<a href="FibonacciHeap.html" title="class in org.cicirello.ds">FibonacciHeap</a>&lt;E&gt;&gt;</span></div>
+implements <a href="MergeablePriorityQueue.html" title="interface in org.cicirello.ds">MergeablePriorityQueue</a>&lt;E,<wbr><a href="FibonacciHeap.html" title="class in org.cicirello.ds">FibonacciHeap</a>&lt;E&gt;&gt;, <a href="../util/Copyable.html" title="interface in org.cicirello.util">Copyable</a>&lt;<a href="FibonacciHeap.html" title="class in org.cicirello.ds">FibonacciHeap</a>&lt;E&gt;&gt;</span></div>
 <div class="block"><p>An implementation of a Fibonacci Heap. An instance of a FibonacciHeap
  contains (element, priority) pairs, such that the elements are distinct.
  The priority values are of type int.</p> 
@@ -127,17 +127,16 @@ implements <a href="PriorityQueue.html" title="interface in org.cicirello.ds">Pr
  <li><b>O(1):</b> <a href="PriorityQueue.html#add(E,int)"><code>PriorityQueue.add(Object, int)</code></a>, <a href="PriorityQueue.html#add(org.cicirello.ds.PriorityQueueNode.Integer)"><code>PriorityQueue.add(PriorityQueueNode.Integer)</code></a>, 
      <a href="#contains(java.lang.Object)"><code>contains(java.lang.Object)</code></a>, <a href="#createMaxHeap()"><code>createMaxHeap()</code></a>, 
      <a href="#createMinHeap()"><code>createMinHeap()</code></a>, <a href="PriorityQueue.html#element()"><code>PriorityQueue.element()</code></a>, <a href="#isEmpty()"><code>isEmpty()</code></a>, <a href="#iterator()"><code>iterator()</code></a>,
-     <a href="#offer(E,int)"><code>offer(E, int)</code></a>, <a href="#offer(org.cicirello.ds.PriorityQueueNode.Integer)"><code>offer(PriorityQueueNode.Integer)</code></a>,
+     <a href="#merge(org.cicirello.ds.FibonacciHeap)"><code>merge(FibonacciHeap)</code></a>, <a href="#offer(E,int)"><code>offer(E, int)</code></a>, <a href="#offer(org.cicirello.ds.PriorityQueueNode.Integer)"><code>offer(PriorityQueueNode.Integer)</code></a>,
      <a href="#peek()"><code>peek()</code></a>, <a href="#peekElement()"><code>peekElement()</code></a>, <a href="#peekPriority()"><code>peekPriority()</code></a>, <a href="#peekPriority(E)"><code>peekPriority(E)</code></a>,
      <a href="#promote(E,int)"><code>promote(E, int)</code></a>, <a href="#size()"><code>size()</code></a></li>
  <li><b>O(lg n):</b> <a href="#demote(E,int)"><code>demote(E, int)</code></a>, <a href="#poll()"><code>poll()</code></a>, <a href="#pollElement()"><code>pollElement()</code></a>, <a href="PriorityQueue.html#remove()"><code>PriorityQueue.remove()</code></a>,
       <a href="#remove(java.lang.Object)"><code>remove(Object)</code></a>, <a href="PriorityQueue.html#removeElement()"><code>PriorityQueue.removeElement()</code></a></li> 
- <li><b>O(n):</b> <a href="#clear()"><code>clear()</code></a>, <a href="#copy()"><code>copy()</code></a>, <a href="#equals(java.lang.Object)"><code>equals(java.lang.Object)</code></a>, <a href="#hashCode()"><code>hashCode()</code></a>, 
-     <a href="#toArray()"><code>toArray()</code></a>, <a href="#toArray(T%5B%5D)"><code>toArray(Object[])</code></a></li>
  <li><b>O(m):</b> <a href="PriorityQueue.html#addAll(java.util.Collection)"><code>PriorityQueue.addAll(Collection)</code></a>, <a href="PriorityQueue.html#containsAll(java.util.Collection)"><code>PriorityQueue.containsAll(Collection)</code></a>, 
      <a href="#createMaxHeap(java.util.Collection)"><code>createMaxHeap(Collection)</code></a>, <a href="#createMinHeap(java.util.Collection)"><code>createMinHeap(Collection)</code></a></li>
- <li><b>O(m lg n):</b> <a href="PriorityQueue.html#removeAll(java.util.Collection)"><code>PriorityQueue.removeAll(Collection)</code></a></li>
- <li><b>O(n lg n):</b> <a href="#retainAll(java.util.Collection)"><code>retainAll(Collection)</code></a></li>
+ <li><b>O(n):</b> <a href="#clear()"><code>clear()</code></a>, <a href="#copy()"><code>copy()</code></a>, <a href="#equals(java.lang.Object)"><code>equals(java.lang.Object)</code></a>, <a href="#hashCode()"><code>hashCode()</code></a>, 
+     <a href="#toArray()"><code>toArray()</code></a>, <a href="#toArray(T%5B%5D)"><code>toArray(Object[])</code></a></li>
+ <li><b>O(n + m):</b> <a href="#removeAll(java.util.Collection)"><code>removeAll(Collection)</code></a>, <a href="#retainAll(java.util.Collection)"><code>retainAll(Collection)</code></a></li>
  </ul>
  <p>The amortized runtime of <a href="#change(E,int)"><code>change(E, int)</code></a> depends on the direction of change. If the
  priority is decreased for a min-heap or increased for a max-heap, the amortized runtime
@@ -234,63 +233,75 @@ implements <a href="PriorityQueue.html" title="interface in org.cicirello.ds">Pr
  mostly arbitrary order (i.e., you must not assume any particular
  order).</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#offer(E,int)" class="member-name-link">offer</a><wbr>(<a href="FibonacciHeap.html" title="type parameter in FibonacciHeap">E</a>&nbsp;element,
- int&nbsp;priority)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#merge(org.cicirello.ds.FibonacciHeap)" class="member-name-link">merge</a><wbr>(<a href="FibonacciHeap.html" title="class in org.cicirello.ds">FibonacciHeap</a>&lt;<a href="FibonacciHeap.html" title="type parameter in FibonacciHeap">E</a>&gt;&nbsp;other)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Merges another priority queue into this one, adding all of its (element, priority) pairs.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#offer(E,int)" class="member-name-link">offer</a><wbr>(<a href="FibonacciHeap.html" title="type parameter in FibonacciHeap">E</a>&nbsp;element,
+ int&nbsp;priority)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Adds an (element, priority) pair to the PriorityQueue with a specified priority,
  provided the element is not already in the PriorityQueue.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#offer(org.cicirello.ds.PriorityQueueNode.Integer)" class="member-name-link">offer</a><wbr>(<a href="PriorityQueueNode.Integer.html" title="class in org.cicirello.ds">PriorityQueueNode.Integer</a>&lt;<a href="FibonacciHeap.html" title="type parameter in FibonacciHeap">E</a>&gt;&nbsp;pair)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#offer(org.cicirello.ds.PriorityQueueNode.Integer)" class="member-name-link">offer</a><wbr>(<a href="PriorityQueueNode.Integer.html" title="class in org.cicirello.ds">PriorityQueueNode.Integer</a>&lt;<a href="FibonacciHeap.html" title="type parameter in FibonacciHeap">E</a>&gt;&nbsp;pair)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Adds an (element, priority) pair to the PriorityQueue,
  provided the element is not already in the PriorityQueue.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="PriorityQueueNode.Integer.html" title="class in org.cicirello.ds">PriorityQueueNode.Integer</a>&lt;<a href="FibonacciHeap.html" title="type parameter in FibonacciHeap">E</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#peek()" class="member-name-link">peek</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="PriorityQueueNode.Integer.html" title="class in org.cicirello.ds">PriorityQueueNode.Integer</a>&lt;<a href="FibonacciHeap.html" title="type parameter in FibonacciHeap">E</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#peek()" class="member-name-link">peek</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the next (element, priority) pair in priority order from this PriorityQueue,
  without removing it.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="FibonacciHeap.html" title="type parameter in FibonacciHeap">E</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#peekElement()" class="member-name-link">peekElement</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="FibonacciHeap.html" title="type parameter in FibonacciHeap">E</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#peekElement()" class="member-name-link">peekElement</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the next element in priority order from this PriorityQueue,
  without removing it.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#peekPriority()" class="member-name-link">peekPriority</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#peekPriority()" class="member-name-link">peekPriority</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the priority of the next element in priority order in the PriorityQueue.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#peekPriority(E)" class="member-name-link">peekPriority</a><wbr>(<a href="FibonacciHeap.html" title="type parameter in FibonacciHeap">E</a>&nbsp;element)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#peekPriority(E)" class="member-name-link">peekPriority</a><wbr>(<a href="FibonacciHeap.html" title="type parameter in FibonacciHeap">E</a>&nbsp;element)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the priority of a specified element if it is present in the PriorityQueue.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="PriorityQueueNode.Integer.html" title="class in org.cicirello.ds">PriorityQueueNode.Integer</a>&lt;<a href="FibonacciHeap.html" title="type parameter in FibonacciHeap">E</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#poll()" class="member-name-link">poll</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="PriorityQueueNode.Integer.html" title="class in org.cicirello.ds">PriorityQueueNode.Integer</a>&lt;<a href="FibonacciHeap.html" title="type parameter in FibonacciHeap">E</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#poll()" class="member-name-link">poll</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Removes and returns the next (element, priority) pair in priority order from this PriorityQueue.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="FibonacciHeap.html" title="type parameter in FibonacciHeap">E</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#pollElement()" class="member-name-link">pollElement</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="FibonacciHeap.html" title="type parameter in FibonacciHeap">E</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#pollElement()" class="member-name-link">pollElement</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Removes and returns the next element in priority order from this PriorityQueue.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#promote(E,int)" class="member-name-link">promote</a><wbr>(<a href="FibonacciHeap.html" title="type parameter in FibonacciHeap">E</a>&nbsp;element,
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#promote(E,int)" class="member-name-link">promote</a><wbr>(<a href="FibonacciHeap.html" title="type parameter in FibonacciHeap">E</a>&nbsp;element,
  int&nbsp;priority)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Promotes an element relative to priority order if the element is
  present in the PriorityQueue.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#remove(java.lang.Object)" class="member-name-link">remove</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;o)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#remove(java.lang.Object)" class="member-name-link">remove</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;o)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Removes from this PriorityQueue the (element, priority) pair, if present, 
  for a specified element or element from a specified (element, priority) pair.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeAll(java.util.Collection)" class="member-name-link">removeAll</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;?&gt;&nbsp;c)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Removes from this PriorityQueue all (element, priority) pairs
+ such that a given Collection c either contains the element or
+ contains an (element, priority) pair with the same element.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#retainAll(java.util.Collection)" class="member-name-link">retainAll</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;?&gt;&nbsp;c)</code></div>
@@ -331,7 +342,7 @@ implements <a href="PriorityQueue.html" title="interface in org.cicirello.ds">Pr
 <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html#forEach(java.util.function.Consumer)" title="class or interface in java.lang" class="external-link">forEach</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-org.cicirello.ds.PriorityQueue">Methods inherited from interface&nbsp;org.cicirello.ds.<a href="PriorityQueue.html" title="interface in org.cicirello.ds">PriorityQueue</a></h3>
-<code><a href="PriorityQueue.html#add(E,int)">add</a>, <a href="PriorityQueue.html#add(org.cicirello.ds.PriorityQueueNode.Integer)">add</a>, <a href="PriorityQueue.html#addAll(java.util.Collection)">addAll</a>, <a href="PriorityQueue.html#containsAll(java.util.Collection)">containsAll</a>, <a href="PriorityQueue.html#element()">element</a>, <a href="PriorityQueue.html#remove()">remove</a>, <a href="PriorityQueue.html#removeAll(java.util.Collection)">removeAll</a>, <a href="PriorityQueue.html#removeElement()">removeElement</a></code></div>
+<code><a href="PriorityQueue.html#add(E,int)">add</a>, <a href="PriorityQueue.html#add(org.cicirello.ds.PriorityQueueNode.Integer)">add</a>, <a href="PriorityQueue.html#addAll(java.util.Collection)">addAll</a>, <a href="PriorityQueue.html#containsAll(java.util.Collection)">containsAll</a>, <a href="PriorityQueue.html#element()">element</a>, <a href="PriorityQueue.html#remove()">remove</a>, <a href="PriorityQueue.html#removeElement()">removeElement</a></code></div>
 </section>
 </li>
 </ul>
@@ -569,6 +580,29 @@ implements <a href="PriorityQueue.html" title="interface in org.cicirello.ds">Pr
 </section>
 </li>
 <li>
+<section class="detail" id="merge(org.cicirello.ds.FibonacciHeap)">
+<h3>merge</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">merge</span><wbr><span class="parameters">(<a href="FibonacciHeap.html" title="class in org.cicirello.ds">FibonacciHeap</a>&lt;<a href="FibonacciHeap.html" title="type parameter in FibonacciHeap">E</a>&gt;&nbsp;other)</span></div>
+<div class="block"><p>Merges another priority queue into this one, adding all of its (element, priority) pairs.
+ This is a destructive operation with no guarantees to the state of the other priority queue
+ upon completion. Additionally, implementations of this method may assume that <code>other</code> and <code>this</code>
+ do not share any elements, and the priority queue may become unstable if they do. The priority order
+ of both priority queues must be the same (e.g., both minheaps or both maxheaps).</p></div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="MergeablePriorityQueue.html#merge(T)">merge</a></code>&nbsp;in interface&nbsp;<code><a href="MergeablePriorityQueue.html" title="interface in org.cicirello.ds">MergeablePriorityQueue</a>&lt;<a href="FibonacciHeap.html" title="type parameter in FibonacciHeap">E</a>,<wbr><a href="FibonacciHeap.html" title="class in org.cicirello.ds">FibonacciHeap</a>&lt;<a href="FibonacciHeap.html" title="type parameter in FibonacciHeap">E</a>&gt;&gt;</code></dd>
+<dt>Parameters:</dt>
+<dd><code>other</code> - The priority queue that you want to merge into <code>this</code>. Implementations
+ need not make any guarantees as to the state of <code>other</code> upon completion.</dd>
+<dt>Returns:</dt>
+<dd>true if and only if this priority queue changed as a result of the merge</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if this and other have different priority-order (e.g., one is a 
+ minheap while the other is a maxheap)</dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="offer(E,int)">
 <h3 id="offer(java.lang.Object,int)">offer</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">offer</span><wbr><span class="parameters">(<a href="FibonacciHeap.html" title="type parameter in FibonacciHeap">E</a>&nbsp;element,
@@ -748,13 +782,45 @@ implements <a href="PriorityQueue.html" title="interface in org.cicirello.ds">Pr
 </section>
 </li>
 <li>
+<section class="detail" id="removeAll(java.util.Collection)">
+<h3>removeAll</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">removeAll</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;?&gt;&nbsp;c)</span></div>
+<div class="block">Removes from this PriorityQueue all (element, priority) pairs
+ such that a given Collection c either contains the element or
+ contains an (element, priority) pair with the same element.
+
+ <p>The runtime of this method is O(n + m) where n is current size
+ of the heap and m is the size of the Collection c. In general this
+ is more efficient than calling remove repeatedly, unless you are
+ removing a relatively small number of elements, in which case you
+ should instead call <a href="#remove(java.lang.Object)"><code>remove(Object)</code></a> for each element you
+ want to remove.</p></div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html#removeAll(java.util.Collection)" title="class or interface in java.util" class="external-link">removeAll</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="FibonacciHeap.html" title="type parameter in FibonacciHeap">E</a>&gt;</code></dd>
+<dt>Specified by:</dt>
+<dd><code><a href="PriorityQueue.html#removeAll(java.util.Collection)">removeAll</a></code>&nbsp;in interface&nbsp;<code><a href="PriorityQueue.html" title="interface in org.cicirello.ds">PriorityQueue</a>&lt;<a href="FibonacciHeap.html" title="type parameter in FibonacciHeap">E</a>&gt;</code></dd>
+<dt>Parameters:</dt>
+<dd><code>c</code> - A Collection of elements or (element, priority) pairs for removal.</dd>
+<dt>Returns:</dt>
+<dd>true if and only if this PriorityQueue changed as a result of this method.</dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="retainAll(java.util.Collection)">
 <h3>retainAll</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">retainAll</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;?&gt;&nbsp;c)</span></div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="PriorityQueue.html#retainAll(java.util.Collection)">PriorityQueue</a></code></span></div>
 <div class="block">Removes from this PriorityQueue all (element, priority) pairs
  except for the elements or (element, priority) pairs contained in a 
- given Collection c.</div>
+ given Collection c.
+
+ <p>The runtime of this method is O(n + m) where n is current size
+ of the heap and m is the size of the Collection c. In general this
+ is more efficient than calling remove repeatedly, unless you are
+ removing a relatively small number of elements, in which case you
+ should instead call <a href="#remove(java.lang.Object)"><code>remove(Object)</code></a> for each element you
+ want to remove.</p></div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html#retainAll(java.util.Collection)" title="class or interface in java.util" class="external-link">retainAll</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="FibonacciHeap.html" title="type parameter in FibonacciHeap">E</a>&gt;</code></dd>
