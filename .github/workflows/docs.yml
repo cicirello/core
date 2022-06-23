@@ -48,6 +48,7 @@ jobs:
         base-url-path: https://core.cicirello.org/
         path-to-root: docs
         user-defined-block: |
+          <meta http-equiv="Referrer-Policy" content="no-referrer, strict-origin-when-cross-origin">
           <meta name="monetization" content="$ilp.uphold.com/RHNKxp4ZeLNE">
 
     - name: Log javadoc-cleanup output
