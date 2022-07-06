@@ -17,7 +17,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 ### CI/CD
-* Added Webhook to trigger builds on JitPack.
 
 ### Other
 
