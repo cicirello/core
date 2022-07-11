@@ -63,15 +63,3 @@ jobs:
         gh release upload ${TAG} target/${{ env.artifact_name }}-${{ steps.get_version.outputs.VERSION }}-javadoc.jar 
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Update version in pom with a Pull Request
-      uses: peter-evans/create-pull-request@v4.0.4
-      with:
-        title: "Automated update: version in pom.xml"
-        commit-message: "Automated update: version in pom.xml"
-        add-paths: pom.xml
-        branch: create-pull-request/version-update
-        delete-branch: true
-        author: Vincent A. Cicirello <cicirello@users.noreply.github.com>
-        committer: Vincent A. Cicirello <cicirello@users.noreply.github.com>
-        body: "Automated update: New version extracted from release tag and injected into pom.xml."
