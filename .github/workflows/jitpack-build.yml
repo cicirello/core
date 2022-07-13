@@ -15,9 +15,6 @@ jobs:
 
     steps:
 
-    #- name: Checkout
-    #  uses: actions/checkout@v3
-
     - name: Request main-SNAPSHOT from JitPack
       run: |
         # timeout in 30 seconds to avoid waiting for build
