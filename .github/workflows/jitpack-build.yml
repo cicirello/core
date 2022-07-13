@@ -20,12 +20,5 @@ jobs:
 
     - name: Request main-SNAPSHOT from JitPack
       run: |
-        # timeout in 10 seconds to avoid waiting for build
-        STATUS=$(curl -s -m 10 https://jitpack.io/org/cicirello/core/main-SNAPSHOT/)
-        count=1
-        while [[ $count -lt 5 ]] && [[ "${STATUS}" -gt 399 ]] ; do
-          # timeout in 10 seconds to avoid waiting for build
-          STATUS=$(curl -s -m 10 https://jitpack.io/org/cicirello/core/main-SNAPSHOT/)
-          let count+=1
-        done
-        exit 0
+        # timeout in 30 seconds to avoid waiting for build
+        curl -s -m 30 https://jitpack.io/org/cicirello/core/main-SNAPSHOT/ || true
