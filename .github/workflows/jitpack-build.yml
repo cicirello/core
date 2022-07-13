@@ -15,8 +15,12 @@ jobs:
 
     steps:
 
+    - name: Checkout
+      uses: actions/checkout@v3
+
     - name: Request main-SNAPSHOT from JitPack
       run: |
+        git_hash=$(git rev-parse --short "$GITHUB_SHA")
         # timeout in 1 second to avoid waiting for build
-        STATUS=$(curl -m 1 https://jitpack.io/org/cicirello/core/main-SNAPSHOT/)
+        STATUS=$(curl -m 1 https://jitpack.io/org/cicirello/core/main-${git_hash}-1/)
         exit 0
