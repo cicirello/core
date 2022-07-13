@@ -114,8 +114,8 @@ the repositories section of your pom.xml, such as:
 
 JitPack works a bit differently than Maven Central. Specifically, JitPack builds
 artifacts on-demand from the GitHub repository the first time a version is requested. We have
-configured our domain on JitPack, so you can still specify the dependency as (just replace `x.y.z` with
-the version that you want):
+configured our domain on JitPack for the groupId, so you can still specify the dependency 
+as (just replace `x.y.z` with the version that you want):
 
 ```XML
 <dependency>
