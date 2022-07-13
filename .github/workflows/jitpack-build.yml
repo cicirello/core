@@ -1,0 +1,22 @@
+# Triggers a snapshot build on JitPack for the custom domain.
+# Already have a webhook setup, but that won't trigger the build
+# for the custom domain.
+
+name: jitpack-build
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  jitpack:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Request main-SNAPSHOT from JitPack
+      run: |
+        # timeout in 1 second to avoid waiting for build
+        STATUS=$(curl -m 1 https://jitpack.io/org/cicirello/core/main-SNAPSHOT/)
+        exit 0
