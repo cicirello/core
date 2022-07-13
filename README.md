@@ -6,12 +6,12 @@ Website: [https://core.cicirello.org/](https://core.cicirello.org/)
 
 API documentation: [https://core.cicirello.org/api](https://core.cicirello.org/api)
 
-| __Packages and Releases__ | [![Maven Central](https://img.shields.io/maven-central/v/org.cicirello/core.svg?label=Maven%20Central&logo=apachemaven)](https://search.maven.org/artifact/org.cicirello/core) [![GitHub release (latest by date)](https://img.shields.io/github/v/release/cicirello/core?logo=GitHub)](https://github.com/cicirello/core/releases) |
+| __Packages and Releases__ | [![Maven Central](https://img.shields.io/maven-central/v/org.cicirello/core.svg?label=Maven%20Central&logo=apachemaven)](https://search.maven.org/artifact/org.cicirello/core) [![GitHub release (latest by date)](https://img.shields.io/github/v/release/cicirello/core?logo=GitHub)](https://github.com/cicirello/core/releases) [![JitPack](https://jitpack.io/v/org.cicirello/core.svg)](https://jitpack.io/#org.cicirello/core) |
 | :--- | :--- |
 | __Build Status__ | [![build](https://github.com/cicirello/core/workflows/build/badge.svg)](https://github.com/cicirello/core/actions/workflows/build.yml) [![docs](https://github.com/cicirello/core/workflows/docs/badge.svg)](https://core.cicirello.org/api/) [![CodeQL](https://github.com/cicirello/core/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/cicirello/core/actions/workflows/codeql-analysis.yml) |
 | __JaCoCo Test Coverage__ | [![coverage](https://raw.githubusercontent.com/cicirello/core/badges/jacoco.svg)](https://github.com/cicirello/core/actions/workflows/build.yml) [![branches coverage](https://raw.githubusercontent.com/cicirello/core/badges/branches.svg)](https://github.com/cicirello/core/actions/workflows/build.yml) |
 | __Security__ | [![Snyk security score](https://snyk-widget.herokuapp.com/badge/mvn/org.cicirello/core/badge.svg)](https://snyk.io/vuln/maven%3Aorg.cicirello%3Acore) [![Snyk Known Vulnerabilities](https://snyk.io/test/github/cicirello/core/badge.svg)](https://snyk.io/test/github/cicirello/core) |
-| __License__ | [![GitHub](https://img.shields.io/github/license/cicirello/core)](https://github.com/cicirello/core/blob/main/LICENSE) | 
+| __License__ | [![GitHub](https://img.shields.io/github/license/cicirello/core)](https://github.com/cicirello/core/blob/main/LICENSE) |
 | __Support__ | [![GitHub Sponsors](https://img.shields.io/badge/sponsor-30363D?logo=GitHub-Sponsors&logoColor=#EA4AAA)](https://github.com/sponsors/cicirello) [![Liberapay](https://img.shields.io/badge/Liberapay-F6C915?logo=liberapay&logoColor=black)](https://liberapay.com/cicirello) [![Ko-Fi](https://img.shields.io/badge/Ko--fi-F16061?logo=ko-fi&logoColor=white)](https://ko-fi.com/cicirello) |
 
 ## Overview
