@@ -22,9 +22,10 @@ to [Chips-n-Salsa](https://github.com/cicirello/Chips-n-Salsa)
 and [JavaPermutationTools](https://github.com/cicirello/JavaPermutationTools), 
 as well as various applications that use those libraries.
 
+
 ## Java 17+
 
-We currently support Java 17+. See the following table for mapping between library
+The org.cicirello.core currently supports Java 17+. See the following table for mapping between library
 version and minimum supported Java version.
 
 | version | Java requirements |
@@ -32,13 +33,117 @@ version and minimum supported Java version.
 | 2.x.y | Java 17+ |
 | 1.x.y | Java 11+ |
 
+
 ## Versioning Scheme
 
-We use [Semantic Versioning](https://semver.org/) with 
+org.cicirello.core uses [Semantic Versioning](https://semver.org/) with 
 version numbers of the form: MAJOR.MINOR.PATCH, where differences 
 in MAJOR correspond to incompatible API changes, differences in MINOR 
 correspond to introduction of backwards compatible new functionality, 
 and PATCH corresponds to backwards compatible bug fixes.
+
+
+## Examples
+
+Some of our other projects use this module. You may
+consult the source code of [JavaPermutationTools](https://github.com/cicirello/JavaPermutationTools)
+and/or [Chips-n-Salsa](https://github.com/cicirello/Chips-n-Salsa) for code
+examples. 
+
+
+## Java Modules
+
+This library provides a Java module, `org.cicirello.core`. If you are using in a project that uses the 
+Java Platform Module System, then add the following to your `module-info.java`:
+
+```Java
+module your.module.name.here {
+	requires org.cicirello.core;
+}
+```
+
+
+## Importing from Package Repositories
+
+Prebuilt artifacts are regularly published to Maven Central, GitHub Packages, and JitPack. In most
+cases, you'll want to use Maven Central. JitPack may be useful if you want to build your project against
+the latest unreleased version, essentially against the default branch of the repository, or a specific commit.
+Releases are published to JitPack and GitHub Packages mainly as a fall-back in the unlikely scenario that
+Maven Central is unavailable.
+
+### Importing from Maven Central
+
+Add this to the dependencies section of your pom.xml, replacing 
+the version number with the version that you want to use.
+
+```XML
+<dependency>
+  <groupId>org.cicirello</groupId>
+  <artifactId>core</artifactId>
+  <version>2.2.1</version>
+</dependency>
+```
+
+### Importing from GitHub Packages
+
+If you'd prefer to import from GitHub Packages, rather than Maven Central, 
+then: (1) add the dependency as indicated in previous section above, and (2) add 
+the following to the repositories section of your pom.xml:
+
+```XML
+<repository>
+  <id>github</id>
+  <name>GitHub cicirello Apache Maven Packages</name>
+  <url>https://maven.pkg.github.com/cicirello/core</url>
+</repository>
+```
+
+Note that GitHub Packages requires authenticating to GitHub.
+
+### Importing from JitPack
+
+You can also import from JitPack. As above, you need to first add JitPack to
+the repositories section of your pom.xml, such as:
+
+```XML
+<repository>
+  <id>jitpack.io</id>
+  <url>https://jitpack.io</url>
+</repository>
+```
+
+JitPack works a bit differently than Maven Central. Specifically, JitPack builds
+artifacts on-demand from the GitHub repository the first time a version is requested. We have
+configured our domain on JitPack, so you can still specify the dependency as (just replace `x.y.z` with
+the version that you want):
+
+```XML
+<dependency>
+  <groupId>org.cicirello</groupId>
+  <artifactId>core</artifactId>
+  <version>x.y.z</version>
+</dependency>
+```
+
+We have primarily configured JitPack as a source of SNAPSHOT builds. If you want to build
+your project against the latest commit, specify the dependency as:
+
+```XML
+<dependency>
+  <groupId>org.cicirello</groupId>
+  <artifactId>core</artifactId>
+  <version>main-SNAPSHOT</version>
+</dependency>
+```
+
+You can also build against a specific commit using the commit hash as the version.
+
+### Downloading Jar Files
+
+If you don't use a dependency manager that supports importing from Maven Central or other
+package repositories, or if you simply prefer to download manually, prebuilt jars are also attached to 
+each [GitHub Release](https://github.com/cicirello/core/releases).
+
 
 ## Building the Library (with Maven)
 
@@ -54,58 +159,6 @@ To include generation of a code coverage report during the build,
 execute `mvn package -Pcoverage` at the root of the repository to 
 enable a Maven profile that executes JaCoCo during the test phase.
 
-## Examples
-
-Some of our other projects use this module. You may
-consult the source code of [JavaPermutationTools](https://github.com/cicirello/JavaPermutationTools)
-and/or [Chips-n-Salsa](https://github.com/cicirello/Chips-n-Salsa) for code
-examples. 
-
-## Java Modules
-
-This library provides a Java module, `org.cicirello.core`. To use in your project,
-add the following to your `module-info.java`:
-
-```Java
-module your.module.name.here {
-	requires org.cicirello.core;
-}
-```
-
-## Importing the Library from Maven Central
-
-Add this to the dependencies section of your pom.xml, replacing 
-the version number with the version that you want to use.
-
-```XML
-<dependency>
-  <groupId>org.cicirello</groupId>
-  <artifactId>core</artifactId>
-  <version>1.0.0</version>
-</dependency>
-```
-
-## Importing the Library from GitHub Packages
-
-If you'd prefer to import from GitHub Packages, rather than Maven Central, 
-then: (1) add the dependency as indicated in previous section above, and (2) add 
-the following to the repositories section of your pom.xml:
-
-```XML
-<repository>
-  <id>github</id>
-  <name>GitHub cicirello Apache Maven Packages</name>
-  <url>https://maven.pkg.github.com/cicirello/core</url>
-  <releases><enabled>true</enabled></releases>
-  <snapshots><enabled>true</enabled></snapshots>
-</repository>
-```
-
-## Downloading Jar Files
-
-If you don't use a dependency manager that supports importing from Maven Central,
-or if you simply prefer to download manually, prebuilt jars are also attached to 
-each [GitHub Release](https://github.com/cicirello/core/releases).
 
 ## License
 
