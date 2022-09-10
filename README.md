@@ -1,5 +1,7 @@
 # Module org.cicirello.core
 
+<img src="https://core.cicirello.org/images/core.png" width="640" alt="org.cicirello.core - A Java library of core data structures and other miscellaneous utilities">
+
 Copyright (C) 2019-2022 [Vincent A. Cicirello](https://www.cicirello.org/).
 
 Website: [https://core.cicirello.org/](https://core.cicirello.org/)
