@@ -50,6 +50,7 @@ jobs:
         user-defined-block: |
           <meta name="referrer" content="strict-origin-when-cross-origin">
           <meta name="monetization" content="$ilp.uphold.com/RHNKxp4ZeLNE">
+          <link rel="icon" href="/images/favicon.svg" sizes="any" type="image/svg+xml">
 
     - name: Log javadoc-cleanup output
       if: ${{ github.event_name == 'release' || github.event_name == 'workflow_dispatch' }}
