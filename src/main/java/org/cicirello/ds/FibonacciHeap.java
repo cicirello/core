@@ -360,6 +360,16 @@ public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, Fibonac
 		return false;
 	}
 	
+	/**
+	 * Adds an (element, priority) pair to the FibonacciHeap with a specified priority,
+	 * provided the element is not already in the FibonacciHeap.
+	 *
+	 * @param element The element.
+	 * @param priority The priority of the element.
+	 *
+	 * @return true if the (element, priority) pair was added, and false if the
+	 * FibonacciHeap already contained the element.
+	 */
 	@Override
 	public final boolean offer(E element, int priority) {
 		if (index.containsKey(element)) {
@@ -368,6 +378,15 @@ public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, Fibonac
 		return internalOffer(new PriorityQueueNode.Integer<E>(element, priority));
 	}
 	
+	/**
+	 * Adds an (element, priority) pair to the FibonacciHeap,
+	 * provided the element is not already in the FibonacciHeap.
+	 *
+	 * @param pair The (element, priority) pair to add.
+	 *
+	 * @return true if the (element, priority) pair was added, and false if the
+	 * FibonacciHeap already contained the element.
+	 */
 	@Override
 	public final boolean offer(PriorityQueueNode.Integer<E> pair) {
 		if (index.containsKey(pair.element)) {

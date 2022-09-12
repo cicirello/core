@@ -446,6 +446,16 @@ public final class BinaryHeap<E> implements MergeablePriorityQueue<E, BinaryHeap
 		return changed;
 	}
 	
+	/**
+	 * Adds an (element, priority) pair to the BinaryHeap with a specified priority,
+	 * provided the element is not already in the BinaryHeap.
+	 *
+	 * @param element The element.
+	 * @param priority The priority of the element.
+	 *
+	 * @return true if the (element, priority) pair was added, and false if the
+	 * BinaryHeap already contained the element.
+	 */
 	@Override
 	public final boolean offer(E element, int priority) {
 		if (contains(element)) {
@@ -454,6 +464,15 @@ public final class BinaryHeap<E> implements MergeablePriorityQueue<E, BinaryHeap
 		return internalOffer(new PriorityQueueNode.Integer<E>(element, priority));
 	}
 	
+	/**
+	 * Adds an (element, priority) pair to the BinaryHeap,
+	 * provided the element is not already in the BinaryHeap.
+	 *
+	 * @param pair The (element, priority) pair to add.
+	 *
+	 * @return true if the (element, priority) pair was added, and false if the
+	 * BinaryHeap already contained the element.
+	 */
 	@Override
 	public final boolean offer(PriorityQueueNode.Integer<E> pair) {
 		if (contains(pair.element)) {
