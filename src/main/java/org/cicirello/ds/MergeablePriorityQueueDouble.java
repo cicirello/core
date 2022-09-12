@@ -24,11 +24,7 @@ package org.cicirello.ds;
 
 /**
  * <p>A MergeablePriorityQueueDouble is a PriorityQueueDouble that includes a merge
- * method. All PriorityQueueDouble 
- * implementations enforce distinct elements, and use the
- * {@link Object#hashCode} and {@link Object#equals} methods to
- * to enforce distinctness, so be sure that the class of the elements
- * properly implements these methods, or else behavior is not guaranteed.</p>
+ * method.</p> 
  *
  * @param <E> The type of object contained in the PriorityQueueDouble.
  * @param <T> The type of MergeablePriorityQueueDouble supported by the merge
@@ -41,7 +37,7 @@ public interface MergeablePriorityQueueDouble<E, T extends MergeablePriorityQueu
 	/**
 	 * <p>Merges another priority queue into this one, adding all of its (element, priority) pairs.
 	 * This is a destructive operation with no guarantees to the state of the other priority queue
-	 * upon completion. Additionally, implementations of this method may assume that <code>other</code> and <code>this</code>
+	 * upon completion. Additionally, <b>some</b> implementations of this method may assume that <code>other</code> and <code>this</code>
 	 * do not share any elements, and the priority queue may become unstable if they do. The priority order
 	 * of both priority queues must be the same (e.g., both minheaps or both maxheaps).</p>
 	 *

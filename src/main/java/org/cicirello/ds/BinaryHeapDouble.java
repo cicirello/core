@@ -447,6 +447,16 @@ public final class BinaryHeapDouble<E> implements MergeablePriorityQueueDouble<E
 		return changed;
 	}
 	
+	/**
+	 * Adds an (element, priority) pair to the BinaryHeapDouble with a specified priority,
+	 * provided the element is not already in the BinaryHeapDouble.
+	 *
+	 * @param element The element.
+	 * @param priority The priority of the element.
+	 *
+	 * @return true if the (element, priority) pair was added, and false if the
+	 * BinaryHeapDouble already contained the element.
+	 */
 	@Override
 	public final boolean offer(E element, double priority) {
 		if (contains(element)) {
@@ -455,6 +465,15 @@ public final class BinaryHeapDouble<E> implements MergeablePriorityQueueDouble<E
 		return internalOffer(new PriorityQueueNode.Double<E>(element, priority));
 	}
 	
+	/**
+	 * Adds an (element, priority) pair to the BinaryHeapDouble,
+	 * provided the element is not already in the BinaryHeapDouble.
+	 *
+	 * @param pair The (element, priority) pair to add.
+	 *
+	 * @return true if the (element, priority) pair was added, and false if the
+	 * BinaryHeapDouble already contained the element.
+	 */
 	@Override
 	public final boolean offer(PriorityQueueNode.Double<E> pair) {
 		if (contains(pair.element)) {

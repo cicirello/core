@@ -29,11 +29,7 @@ import java.util.Queue;
 
 /**
  * <p>Interface common to the classes that provide implementations of
- * a priority queue with double valued priorities. All PriorityQueueDouble 
- * implementations enforce distinct elements, and use the
- * {@link Object#hashCode} and {@link Object#equals} methods to
- * to enforce distinctness, so be sure that the class of the elements
- * properly implements these methods, or else behavior is not guaranteed.</p>
+ * a priority queue with double valued priorities.</p>
  *
  * @param <E> The type of object contained in the PriorityQueueDouble.
  *
@@ -43,18 +39,19 @@ import java.util.Queue;
 public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E>> {
 	
 	/**
-	 * Adds an (element, priority) pair to the PriorityQueueDouble with a specified priority,
-	 * provided the element is not already in the PriorityQueueDouble.
-	 * This method differs from {@link #offer(Object, double)}
-	 * in that it throws an exception if the PriorityQueueDouble contains the element,
-	 * while the offer method instead returns false.
+	 * <p>Adds an (element, priority) pair to the PriorityQueueDouble with a specified priority.</p>
+	 *
+	 * <p>This method differs from {@link #offer(Object, double)}
+	 * in that it throws an exception if the add fails, while the offer method instead returns false,
+	 * which will occur for the class implementations that require distinct elements. For classes
+	 * implementing this interface that do not require distinctness, this method should never fail.</p>
 	 *
 	 * @param element The element.
 	 * @param priority The priority of the element.
 	 *
 	 * @return true if the (element, priority) pair was added.
 	 *
-	 * @throws IllegalArgumentException if the priority queue already contains the element.
+	 * @throws IllegalArgumentException if the add fails for those implementations that require distinctness.
 	 */
 	default boolean add(E element, double priority) {
 		if (!offer(element, priority)) {
@@ -64,17 +61,18 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
 	}
 	
 	/**
-	 * Adds an (element, priority) pair to the PriorityQueueDouble,
-	 * provided the element is not already in the PriorityQueueDouble.
-	 * This method differs from {@link #offer(PriorityQueueNode.Double)}
-	 * in that it throws an exception if the PriorityQueueDouble contains the element,
-	 * while the offer method instead returns false.
+	 * <p>Adds an (element, priority) pair to the PriorityQueueDouble.</p>
+	 *
+	 * <p>This method differs from {@link #offer(PriorityQueueNode.Double)}
+	 * in that it throws an exception if the add fails, while the offer method instead returns false,
+	 * which will occur for the class implementations that require distinct elements. For classes
+	 * implementing this interface that do not require distinctness, this method should never fail.</p>
 	 *
 	 * @param pair The (element, priority) pair to add.
 	 *
 	 * @return true if the (element, priority) pair was added.
 	 *
-	 * @throws IllegalArgumentException if the priority queue already contains the element.
+	 * @throws IllegalArgumentException if the add fails for those implementations that require distinctness.
 	 */
 	@Override
 	default boolean add(PriorityQueueNode.Double<E> pair) {
@@ -85,17 +83,18 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
 	}
 	
 	/**
-	 * Adds all (element, priority) pairs from a Collection to the PriorityQueueDouble,
-	 * provided the elements are not already in the PriorityQueueDouble.
-	 * The default implementation calls the {@link #add(PriorityQueueNode.Double)} 
-	 * for each pair in the Collection. 
+	 * <p>Adds all (element, priority) pairs from a Collection to the PriorityQueueDouble.</p>
+	 *
+	 * <p>The default implementation calls the {@link #add(PriorityQueueNode.Double)} 
+	 * for each pair in the Collection.</p> 
 	 *
 	 * @param c the Collection of (element, priority) pairs to add.
 	 *
 	 * @return true if the (element, priority) pairs were added.
 	 *
-	 * @throws IllegalArgumentException if the PriorityQueueDouble already contains any
-	 * of the (element, priority) pairs.
+	 * @throws IllegalArgumentException if the PriorityQueueDouble fails to add any
+	 * of the (element, priority) pairs, which will occur only for the implementations that require
+	 * distinctness.
 	 */
 	@Override
 	default boolean addAll(Collection<? extends PriorityQueueNode.Double<E>> c) {
@@ -213,25 +212,21 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
 	Iterator<PriorityQueueNode.Double<E>> iterator();
 	
 	/**
-	 * Adds an (element, priority) pair to the PriorityQueueDouble with a specified priority,
-	 * provided the element is not already in the PriorityQueueDouble.
+	 * Adds an (element, priority) pair to the PriorityQueueDouble with a specified priority.
 	 *
 	 * @param element The element.
 	 * @param priority The priority of the element.
 	 *
-	 * @return true if the (element, priority) pair was added, and false if the
-	 * PriorityQueueDouble already contained the element.
+	 * @return true if the (element, priority) pair was added, and false otherwise.
 	 */
 	boolean offer(E element, double priority);
 	
 	/**
-	 * Adds an (element, priority) pair to the PriorityQueueDouble,
-	 * provided the element is not already in the PriorityQueueDouble.
+	 * Adds an (element, priority) pair to the PriorityQueueDouble.
 	 *
 	 * @param pair The (element, priority) pair to add.
 	 *
-	 * @return true if the (element, priority) pair was added, and false if the
-	 * PriorityQueueDouble already contained the element.
+	 * @return true if the (element, priority) pair was added, and false otherwise.
 	 */
 	@Override
 	boolean offer(PriorityQueueNode.Double<E> pair);

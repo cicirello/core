@@ -360,6 +360,16 @@ public final class FibonacciHeapDouble<E> implements MergeablePriorityQueueDoubl
 		return false;
 	}
 	
+	/**
+	 * Adds an (element, priority) pair to the FibonacciHeapDouble with a specified priority,
+	 * provided the element is not already in the FibonacciHeapDouble.
+	 *
+	 * @param element The element.
+	 * @param priority The priority of the element.
+	 *
+	 * @return true if the (element, priority) pair was added, and false if the
+	 * FibonacciHeapDouble already contained the element.
+	 */
 	@Override
 	public final boolean offer(E element, double priority) {
 		if (index.containsKey(element)) {
@@ -368,6 +378,15 @@ public final class FibonacciHeapDouble<E> implements MergeablePriorityQueueDoubl
 		return internalOffer(new PriorityQueueNode.Double<E>(element, priority));
 	}
 	
+	/**
+	 * Adds an (element, priority) pair to the FibonacciHeapDouble,
+	 * provided the element is not already in the FibonacciHeapDouble.
+	 *
+	 * @param pair The (element, priority) pair to add.
+	 *
+	 * @return true if the (element, priority) pair was added, and false if the
+	 * FibonacciHeapDouble already contained the element.
+	 */
 	@Override
 	public final boolean offer(PriorityQueueNode.Double<E> pair) {
 		if (index.containsKey(pair.element)) {
