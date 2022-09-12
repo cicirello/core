@@ -529,6 +529,67 @@ public final class BinaryHeapDouble<E> implements MergeablePriorityQueueDouble<E
 		}
 	}
 	
+	/**
+	 * Removes and returns the next (element, priority) pair in priority order from this PriorityQueueDouble,
+	 * adding a new (element, priority) pair prior to returning.
+	 *
+	 * @param pair The (element, priority) pair to add.
+	 *
+	 * @return the next (element, priority) pair in priority order, or null if empty prior to the call.
+	 *
+	 * @throws IllegalArgumentException if, after the poll part of this operation, the priority queue contains
+	 * the element from the pair to add.
+	 */
+	@Override
+	public final PriorityQueueNode.Double<E> pollThenAdd(PriorityQueueNode.Double<E> pair) {
+		PriorityQueueNode.Double<E> min = size > 0 ? buffer[0] : null;
+		if (min != null) {
+			index.remove(min.element);
+		}
+		if (contains(pair.element)) {
+			throw new IllegalArgumentException("This priority queue doesn't support duplicate elements, and already contains the element.");
+		}
+		buffer[0] = pair.copy();
+		index.put(buffer[0].element, 0);
+		if (size <= 0) {
+			size = 1;
+		} else {
+			percolateDown(0);
+		}
+		return min;
+	}
+	
+	/**
+	 * Removes and returns the next element in priority order from this PriorityQueueDouble,
+	 * adding a new (element, priority) pair to the PriorityQueueDouble with a specified priority.
+	 *
+	 * @param element The new element.
+	 * @param priority The priority of the new element.
+	 *
+	 * @return the next element in priority order, or null if empty.
+	 *
+	 * @throws IllegalArgumentException if, after the poll part of this operation, the priority queue contains
+	 * the element.
+	 */
+	@Override
+	public final E pollThenAdd(E element, double priority) {
+		E min = size > 0 ? buffer[0].element : null;
+		if (min != null) {
+			index.remove(min);
+		}
+		if (contains(element)) {
+			throw new IllegalArgumentException("This priority queue doesn't support duplicate elements, and already contains the element.");
+		}
+		buffer[0] = new PriorityQueueNode.Double<E>(element, priority);
+		index.put(buffer[0].element, 0);
+		if (size <= 0) {
+			size = 1;
+		} else {
+			percolateDown(0);
+		}
+		return min;
+	}
+	
 	@Override
 	public final boolean promote(E element, double priority) {
 		Integer where = index.get(element);
