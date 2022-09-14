@@ -508,6 +508,107 @@ public class BinaryHeapDoubleTests {
 	// MIN HEAP TESTS
 	
 	@Test
+	public void testElementPollThenAddMinHeap() {
+		int n = 7;
+		String[] elements = createStrings(n);
+		double[] priorities = new double[n];
+		for (int i = 0; i < n; i++) {
+			priorities[i] = 2*i+2;
+		}
+		BinaryHeapDouble<String> pq = BinaryHeapDouble.createMinHeap();
+		for (int j = 0; j < n; j++) {
+			pq.offer(elements[j], priorities[j]);
+		}
+		// At front
+		String s = pq.pollThenAdd("ZZZ", 1);
+		assertEquals(n, pq.size());
+		assertTrue(pq.contains("ZZZ"));
+		assertEquals(1, pq.peekPriority("ZZZ"));
+		assertEquals(elements[0], s);
+		assertEquals("ZZZ", pq.pollElement());
+		s = pq.pollThenAdd("YYY", 7);
+		assertEquals(n-1, pq.size());
+		assertTrue(pq.contains("YYY"));
+		assertEquals(7, pq.peekPriority("YYY"));
+		assertEquals(elements[1], s);
+		assertEquals(elements[2], pq.pollElement());
+		assertEquals("YYY", pq.pollElement());
+		for (int i = 3; i < n; i++) {
+			assertEquals(elements[i], pq.pollElement());
+		}
+		assertEquals(0, pq.size());
+		s = pq.pollThenAdd("XXX", 9);
+		assertNull(s);
+		assertEquals(1, pq.size());
+		assertTrue(pq.contains("XXX"));
+		assertEquals(9, pq.peekPriority("XXX"));
+		assertEquals(9, pq.peekPriority());
+		assertEquals("XXX", pq.peekElement());
+		s = pq.pollThenAdd("XXX", 3);
+		assertEquals("XXX", s);
+		assertEquals(1, pq.size());
+		assertTrue(pq.contains("XXX"));
+		assertEquals(3, pq.peekPriority("XXX"));
+		assertEquals(3, pq.peekPriority());
+		assertEquals("XXX", pq.peekElement());
+		pq.offer("QQQ", 1);
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> pq.pollThenAdd("XXX", 3)
+		);
+	}
+	
+	@Test
+	public void testPollThenAddMinHeap() {
+		int n = 7;
+		String[] elements = createStrings(n);
+		double[] priorities = new double[n];
+		for (int i = 0; i < n; i++) {
+			priorities[i] = 2*i+2;
+		}
+		BinaryHeapDouble<String> pq = BinaryHeapDouble.createMinHeap();
+		for (int j = 0; j < n; j++) {
+			pq.offer(elements[j], priorities[j]);
+		}
+		// At front
+		String s = pq.pollThenAdd(new PriorityQueueNode.Double<String>("ZZZ", 1)).getElement();
+		assertEquals(n, pq.size());
+		assertTrue(pq.contains("ZZZ"));
+		assertEquals(1, pq.peekPriority("ZZZ"));
+		assertEquals(elements[0], s);
+		assertEquals("ZZZ", pq.pollElement());
+		s = pq.pollThenAdd(new PriorityQueueNode.Double<String>("YYY", 7)).getElement();
+		assertEquals(n-1, pq.size());
+		assertTrue(pq.contains("YYY"));
+		assertEquals(7, pq.peekPriority("YYY"));
+		assertEquals(elements[1], s);
+		assertEquals(elements[2], pq.pollElement());
+		assertEquals("YYY", pq.pollElement());
+		for (int i = 3; i < n; i++) {
+			assertEquals(elements[i], pq.pollElement());
+		}
+		assertEquals(0, pq.size());
+		assertNull(pq.pollThenAdd(new PriorityQueueNode.Double<String>("XXX", 9)));
+		assertEquals(1, pq.size());
+		assertTrue(pq.contains("XXX"));
+		assertEquals(9, pq.peekPriority("XXX"));
+		assertEquals(9, pq.peekPriority());
+		assertEquals("XXX", pq.peekElement());
+		s = pq.pollThenAdd(new PriorityQueueNode.Double<String>("XXX", 3)).getElement();
+		assertEquals("XXX", s);
+		assertEquals(1, pq.size());
+		assertTrue(pq.contains("XXX"));
+		assertEquals(3, pq.peekPriority("XXX"));
+		assertEquals(3, pq.peekPriority());
+		assertEquals("XXX", pq.peekElement());
+		pq.offer("QQQ", 1);
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> pq.pollThenAdd(new PriorityQueueNode.Double<String>("XXX", 3))
+		);
+	}
+	
+	@Test
 	public void testRemoveMinHeap() {
 		int n = 15;
 		String[] elements = createStrings(n);
