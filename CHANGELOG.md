@@ -7,8 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2022-09-14
 
 ### Added
+* SimpleBinaryHeap class: a basic implementation of a binary heap with integer priorities that allows 
+  duplicate elements (unlike the BinaryHeap class), but lacks constant time lookups and thus lacks the 
+  speed advantage for operations like priority changes that constant time lookups provide.
+* SimpleBinaryHeapDouble class: a basic implementation of a binary heap with double priorities that allows 
+  duplicate elements (unlike the BinaryHeapDouble class), but lacks constant time lookups and thus lacks the 
+  speed advantage for operations like priority changes that constant time lookups provide.
 * PriorityQueue.pollThenAdd and PriorityQueueDouble.pollThenAdd methods, including default implementation in
   the interfaces, and overridden implementation in the binary heap classes that exploit binary heap structure.
+* IntegerList.sort() and DoubleList.sort() methods.
 
 ### Changed
 

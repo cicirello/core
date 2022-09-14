@@ -22,6 +22,8 @@
  
 package org.cicirello.util;
 
+import java.util.Arrays;
+
 /**
  * This class is an implementation of a partially-filled array of 
  * primitive int values.
@@ -258,6 +260,13 @@ public final class IntegerList implements Copyable<IntegerList> {
 	 */
 	public int size() {
 		return size;
+	}
+	
+	/**
+	 * Sorts list into ascending order.
+	 */
+	public void sort() {
+		Arrays.sort(list, 0, size);
 	}
 	
 	/**
