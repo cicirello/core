@@ -97,7 +97,7 @@ public class SimpleBinaryHeapTests {
 		assertEquals(INITIAL_CAPACITY, pq.capacity());
 		for (int i = 0; i < elements.length; i++) {
 			assertTrue(pq.contains(elements[i]));
-			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 		}
 		
 		String[] elements2 = {"E", "F", "G", "H", "I"};
@@ -111,11 +111,11 @@ public class SimpleBinaryHeapTests {
 		assertEquals((elements.length + elements2.length)*2, pq.capacity());
 		for (int i = 0; i < elements.length; i++) {
 			assertTrue(pq.contains(elements[i]));
-			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 		}
 		for (int i = 0; i < elements2.length; i++) {
 			assertTrue(pq.contains(elements2[i]));
-			assertEquals(priorities2[i], pq.peekPriority(elements2[i]), 0.0);
+			assertEquals(priorities2[i], pq.peekPriority(elements2[i]));
 		}
 		
 		assertFalse(pq.addAll(new ArrayList<PriorityQueueNode.Integer<String>>()));
@@ -123,11 +123,11 @@ public class SimpleBinaryHeapTests {
 		assertEquals((elements.length + elements2.length)*2, pq.capacity());
 		for (int i = 0; i < elements.length; i++) {
 			assertTrue(pq.contains(elements[i]));
-			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 		}
 		for (int i = 0; i < elements2.length; i++) {
 			assertTrue(pq.contains(elements2[i]));
-			assertEquals(priorities2[i], pq.peekPriority(elements2[i]), 0.0);
+			assertEquals(priorities2[i], pq.peekPriority(elements2[i]));
 		}
 	}
 	
@@ -750,7 +750,7 @@ public class SimpleBinaryHeapTests {
 				pq.offer(elements[j], priorities[j]);
 			}
 			assertTrue(pq.change(elements[i], 1));
-			assertEquals(1.0, pq.peekPriority(elements[i]), 0.0);
+			assertEquals(1, pq.peekPriority(elements[i]));
 			assertEquals(elements[i], pq.pollElement());
 			for (int j = 0; j < n; j++) {
 				if (i!=j) {
@@ -766,7 +766,7 @@ public class SimpleBinaryHeapTests {
 				pq.offer(elements[j], priorities[j]);
 			}
 			assertTrue(pq.change(elements[i], 100));
-			assertEquals(100.0, pq.peekPriority(elements[i]), 0.0);
+			assertEquals(100, pq.peekPriority(elements[i]));
 			for (int j = 0; j < n; j++) {
 				if (i!=j) {
 					assertEquals(elements[j], pq.pollElement());
@@ -777,14 +777,14 @@ public class SimpleBinaryHeapTests {
 		}
 		// to interior tests
 		int maxP = 2*(n-1) + 2;
-		for (int p = 3; p <= maxP; p += 2.0) {
+		for (int p = 3; p <= maxP; p += 2) {
 			for (int i = 0; i < n; i++) {
 				SimpleBinaryHeap<String> pq = SimpleBinaryHeap.createMinHeap();
 				for (int j = 0; j < n; j++) {
 					pq.offer(elements[j], priorities[j]);
 				}
 				assertTrue(pq.change(elements[i], p));
-				assertEquals(p, pq.peekPriority(elements[i]), 0.0);
+				assertEquals(p, pq.peekPriority(elements[i]));
 				int j = 0;
 				for (; j < n; j++) {
 					if (i != j) {
@@ -811,7 +811,7 @@ public class SimpleBinaryHeapTests {
 				pq.offer(elements[j], priorities[j]);
 			}
 			assertFalse(pq.change(elements[i], priorities[i]));
-			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 			for (int j = 0; j < n; j++) {
 				assertEquals(elements[j], pq.pollElement());
 			}
@@ -819,13 +819,13 @@ public class SimpleBinaryHeapTests {
 		}
 		// new element test
 		maxP = 2*(n-1) + 3;
-		for (int p = 1; p <= maxP; p += 2.0) {
+		for (int p = 1; p <= maxP; p += 2) {
 			SimpleBinaryHeap<String> pq = SimpleBinaryHeap.createMinHeap();
 			for (int j = 0; j < n; j++) {
 				pq.offer(elements[j], priorities[j]);
 			}
 			assertTrue(pq.change("YYY", p));
-			assertEquals(p, pq.peekPriority("YYY"), 0.0);
+			assertEquals(p, pq.peekPriority("YYY"));
 			int j = 0;
 			for (; j < n; j++) {
 				if (priorities[j] < p) {
@@ -859,7 +859,7 @@ public class SimpleBinaryHeapTests {
 				pq.offer(elements[j], priorities[j]);
 			}
 			assertTrue(pq.promote(elements[i], 1));
-			assertEquals(1, pq.peekPriority(elements[i]), 0.0);
+			assertEquals(1, pq.peekPriority(elements[i]));
 			assertEquals(elements[i], pq.pollElement());
 			for (int j = 0; j < n; j++) {
 				if (i!=j) {
@@ -875,7 +875,7 @@ public class SimpleBinaryHeapTests {
 				pq.offer(elements[j], priorities[j]);
 			}
 			assertTrue(pq.demote(elements[i], 100));
-			assertEquals(100, pq.peekPriority(elements[i]), 0.0);
+			assertEquals(100, pq.peekPriority(elements[i]));
 			for (int j = 0; j < n; j++) {
 				if (i!=j) {
 					assertEquals(elements[j], pq.pollElement());
@@ -897,7 +897,7 @@ public class SimpleBinaryHeapTests {
 				} else {
 					assertTrue(pq.demote(elements[i], p));
 				}
-				assertEquals(p, pq.peekPriority(elements[i]), 0.0);
+				assertEquals(p, pq.peekPriority(elements[i]));
 				int j = 0;
 				for (; j < n; j++) {
 					if (i != j) {
@@ -924,9 +924,9 @@ public class SimpleBinaryHeapTests {
 				pq.offer(elements[j], priorities[j]);
 			}
 			assertFalse(pq.promote(elements[i], priorities[i]));
-			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 			assertFalse(pq.demote(elements[i], priorities[i]));
-			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 			for (int j = 0; j < n; j++) {
 				assertEquals(elements[j], pq.pollElement());
 			}
@@ -961,14 +961,14 @@ public class SimpleBinaryHeapTests {
 		assertTrue(pq.isEmpty());
 		assertNull(pq.peekElement());
 		assertNull(pq.peek());
-		assertEquals(Integer.MAX_VALUE, pq.peekPriority(), 0.0);
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority());
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.offer(pairs[i]));
 			assertEquals(i+1, pq.size());
 			assertFalse(pq.isEmpty());
 			assertEquals("A", pq.peekElement());
 			assertEquals(pairs[0], pq.peek());
-			assertEquals((int)'A', pq.peekPriority(), 0.0);
+			assertEquals((int)'A', pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
@@ -977,12 +977,12 @@ public class SimpleBinaryHeapTests {
 			assertEquals(n+i+1, pq.size());
 			assertEquals("A", pq.peekElement());
 			assertEquals(pairs[0], pq.peek());
-			assertEquals((int)'A', pq.peekPriority(), 0.0);
+			assertEquals((int)'A', pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
-			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 		}
-		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"), 0.0);
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
 		for (int i = 0; i < n; i++) {
 			assertEquals(pairs[i], pq.poll());
 			assertTrue(pq.contains(pairs[i].element));
@@ -1005,14 +1005,14 @@ public class SimpleBinaryHeapTests {
 		assertTrue(pq.isEmpty());
 		assertNull(pq.peekElement());
 		assertNull(pq.peek());
-		assertEquals(Integer.MAX_VALUE, pq.peekPriority(), 0.0);
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority());
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.add(pairs[i]));
 			assertEquals(i+1, pq.size());
 			assertFalse(pq.isEmpty());
 			assertEquals("A", pq.peekElement());
 			assertEquals(pairs[0], pq.peek());
-			assertEquals((int)'A', pq.peekPriority(), 0.0);
+			assertEquals((int)'A', pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
@@ -1021,12 +1021,12 @@ public class SimpleBinaryHeapTests {
 			assertEquals(n+i+1, pq.size());
 			assertEquals("A", pq.peekElement());
 			assertEquals(pairs[0], pq.peek());
-			assertEquals((int)'A', pq.peekPriority(), 0.0);
+			assertEquals((int)'A', pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
-			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 		}
-		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"), 0.0);
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
 		for (int i = 0; i < n; i++) {
 			assertEquals(pairs[i], pq.poll());
 			assertTrue(pq.contains(pairs[i].element));
@@ -1049,14 +1049,14 @@ public class SimpleBinaryHeapTests {
 		assertTrue(pq.isEmpty());
 		assertNull(pq.peekElement());
 		assertNull(pq.peek());
-		assertEquals(Integer.MAX_VALUE, pq.peekPriority(), 0.0);
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority());
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.offer(pairs[i]));
 			assertEquals(i+1, pq.size());
 			assertFalse(pq.isEmpty());
 			assertEquals(elements[i], pq.peekElement());
 			assertEquals(pairs[i], pq.peek());
-			assertEquals((int)elements[i].charAt(0), pq.peekPriority(), 0.0);
+			assertEquals((int)elements[i].charAt(0), pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
@@ -1065,12 +1065,12 @@ public class SimpleBinaryHeapTests {
 			assertEquals(n+i+1, pq.size());
 			assertEquals("A", pq.peekElement());
 			assertEquals(pairs[n-1], pq.peek());
-			assertEquals((int)'A', pq.peekPriority(), 0.0);
+			assertEquals((int)'A', pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
-			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 		}
-		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"), 0.0);
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
 		for (int i = 0; i < n; i++) {
 			assertEquals(pairs[n-1-i], pq.poll());
 			assertTrue(pq.contains(elements[n-1-i]));
@@ -1093,7 +1093,7 @@ public class SimpleBinaryHeapTests {
 		assertTrue(pq.isEmpty());
 		assertNull(pq.peekElement());
 		assertNull(pq.peek());
-		assertEquals(Integer.MAX_VALUE, pq.peekPriority(), 0.0);
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority());
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.offer(pairs[i]));
 			assertEquals(i+1, pq.size());
@@ -1106,12 +1106,12 @@ public class SimpleBinaryHeapTests {
 			assertEquals(n+i+1, pq.size());
 			assertEquals("A", pq.peekElement());
 			assertEquals(new PriorityQueueNode.Integer<String>("A",(int)'A'), pq.peek());
-			assertEquals((int)'A', pq.peekPriority(), 0.0);
+			assertEquals((int)'A', pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
-			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 		}
-		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"), 0.0);
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
 		for (int i = 0; i < n; i++) {
 			String expected = ""+((char)('A'+i));
 			assertEquals(new PriorityQueueNode.Integer<String>(expected, (int)('A'+i)), pq.poll());
@@ -1144,12 +1144,12 @@ public class SimpleBinaryHeapTests {
 			assertEquals(n+i+1, pq.size());
 			assertEquals("A", pq.peekElement());
 			assertEquals(pairs[0], pq.peek());
-			assertEquals((int)'A', pq.peekPriority(), 0.0);
+			assertEquals((int)'A', pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
-			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 		}
-		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"), 0.0);
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
 		for (int i = 0; i < n; i++) {
 			assertEquals(pairs[i], pq.poll());
 			assertTrue(pq.contains(pairs[i].element));
@@ -1186,12 +1186,12 @@ public class SimpleBinaryHeapTests {
 			assertEquals(n+i+1, pq.size());
 			assertEquals("A", pq.peekElement());
 			assertEquals(pairs[n-1], pq.peek());
-			assertEquals((int)'A', pq.peekPriority(), 0.0);
+			assertEquals((int)'A', pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
-			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 		}
-		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"), 0.0);
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
 		for (int i = 0; i < n; i++) {
 			assertEquals(pairs[n-1-i], pq.poll());
 			assertTrue(pq.contains(elements[n-1-i]));
@@ -1223,12 +1223,12 @@ public class SimpleBinaryHeapTests {
 			assertEquals(n+i+1, pq.size());
 			assertEquals("A", pq.peekElement());
 			assertEquals(new PriorityQueueNode.Integer<String>("A",(int)'A'), pq.peek());
-			assertEquals((int)'A', pq.peekPriority(), 0.0);
+			assertEquals((int)'A', pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
-			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 		}
-		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"), 0.0);
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
 		for (int i = 0; i < n; i++) {
 			String expected = ""+((char)('A'+i));
 			assertEquals(new PriorityQueueNode.Integer<String>(expected, (int)('A'+i)), pq.poll());
@@ -1252,14 +1252,14 @@ public class SimpleBinaryHeapTests {
 		assertTrue(pq.isEmpty());
 		assertNull(pq.peekElement());
 		assertNull(pq.peek());
-		assertEquals(Integer.MAX_VALUE, pq.peekPriority(), 0.0);
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority());
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.offer(elements[i], priorities[i]));
 			assertEquals(i+1, pq.size());
 			assertFalse(pq.isEmpty());
 			assertEquals("A", pq.peekElement());
 			assertEquals(pairs[0], pq.peek());
-			assertEquals((int)'A', pq.peekPriority(), 0.0);
+			assertEquals((int)'A', pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
@@ -1268,12 +1268,12 @@ public class SimpleBinaryHeapTests {
 			assertEquals(n+i+1, pq.size());
 			assertEquals("A", pq.peekElement());
 			assertEquals(pairs[0], pq.peek());
-			assertEquals((int)'A', pq.peekPriority(), 0.0);
+			assertEquals((int)'A', pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
-			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 		}
-		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"), 0.0);
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
 		for (int i = 0; i < n; i++) {
 			assertEquals(elements[i], pq.pollElement());
 			assertTrue(pq.contains(pairs[i].element));
@@ -1301,14 +1301,14 @@ public class SimpleBinaryHeapTests {
 		assertTrue(pq.isEmpty());
 		assertNull(pq.peekElement());
 		assertNull(pq.peek());
-		assertEquals(Integer.MAX_VALUE, pq.peekPriority(), 0.0);
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority());
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.add(elements[i], priorities[i]));
 			assertEquals(i+1, pq.size());
 			assertFalse(pq.isEmpty());
 			assertEquals("A", pq.peekElement());
 			assertEquals(pairs[0], pq.peek());
-			assertEquals((int)'A', pq.peekPriority(), 0.0);
+			assertEquals((int)'A', pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
@@ -1317,12 +1317,12 @@ public class SimpleBinaryHeapTests {
 			assertEquals(n+i+1, pq.size());
 			assertEquals("A", pq.peekElement());
 			assertEquals(pairs[0], pq.peek());
-			assertEquals((int)'A', pq.peekPriority(), 0.0);
+			assertEquals((int)'A', pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
-			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 		}
-		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"), 0.0);
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
 		for (int i = 0; i < n; i++) {
 			assertEquals(elements[i], pq.pollElement());
 			assertTrue(pq.contains(pairs[i].element));
@@ -1345,14 +1345,14 @@ public class SimpleBinaryHeapTests {
 		assertTrue(pq.isEmpty());
 		assertNull(pq.peekElement());
 		assertNull(pq.peek());
-		assertEquals(Integer.MAX_VALUE, pq.peekPriority(), 0.0);
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority());
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.offer(elements[i], priorities[i]));
 			assertEquals(i+1, pq.size());
 			assertFalse(pq.isEmpty());
 			assertEquals(elements[i], pq.peekElement());
 			assertEquals(pairs[i], pq.peek());
-			assertEquals((int)elements[i].charAt(0), pq.peekPriority(), 0.0);
+			assertEquals((int)elements[i].charAt(0), pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
@@ -1361,12 +1361,12 @@ public class SimpleBinaryHeapTests {
 			assertEquals(n+i+1, pq.size());
 			assertEquals("A", pq.peekElement());
 			assertEquals(pairs[n-1], pq.peek());
-			assertEquals((int)'A', pq.peekPriority(), 0.0);
+			assertEquals((int)'A', pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
-			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 		}
-		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"), 0.0);
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
 		for (int i = 0; i < n; i++) {
 			assertEquals(elements[n-1-i], pq.pollElement());
 			assertTrue(pq.contains(elements[n-1-i]));
@@ -1389,7 +1389,7 @@ public class SimpleBinaryHeapTests {
 		assertTrue(pq.isEmpty());
 		assertNull(pq.peekElement());
 		assertNull(pq.peek());
-		assertEquals(Integer.MAX_VALUE, pq.peekPriority(), 0.0);
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority());
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.offer(elements[i], priorities[i]));
 			assertEquals(i+1, pq.size());
@@ -1402,12 +1402,12 @@ public class SimpleBinaryHeapTests {
 			assertEquals(n+i+1, pq.size());
 			assertEquals("A", pq.peekElement());
 			assertEquals(new PriorityQueueNode.Integer<String>("A",(int)'A'), pq.peek());
-			assertEquals((int)'A', pq.peekPriority(), 0.0);
+			assertEquals((int)'A', pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
-			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 		}
-		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"), 0.0);
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
 		for (int i = 0; i < n; i++) {
 			String expected = ""+((char)('A'+i));
 			assertEquals(expected, pq.pollElement());
@@ -1578,7 +1578,7 @@ public class SimpleBinaryHeapTests {
 				pq.offer(elements[j], priorities[j]);
 			}
 			assertTrue(pq.change(elements[i], -1));
-			assertEquals(-1.0, pq.peekPriority(elements[i]), 0.0);
+			assertEquals(-1, pq.peekPriority(elements[i]));
 			assertEquals(elements[i], pq.pollElement());
 			for (int j = 0; j < n; j++) {
 				if (i!=j) {
@@ -1594,7 +1594,7 @@ public class SimpleBinaryHeapTests {
 				pq.offer(elements[j], priorities[j]);
 			}
 			assertTrue(pq.change(elements[i], -100));
-			assertEquals(-100.0, pq.peekPriority(elements[i]), 0.0);
+			assertEquals(-100, pq.peekPriority(elements[i]));
 			for (int j = 0; j < n; j++) {
 				if (i!=j) {
 					assertEquals(elements[j], pq.pollElement());
@@ -1605,14 +1605,14 @@ public class SimpleBinaryHeapTests {
 		}
 		// to interior tests
 		int maxP = 2*(n-1) + 2;
-		for (int p = 3; p <= maxP; p += 2.0) {
+		for (int p = 3; p <= maxP; p += 2) {
 			for (int i = 0; i < n; i++) {
 				SimpleBinaryHeap<String> pq = SimpleBinaryHeap.createMaxHeap();
 				for (int j = 0; j < n; j++) {
 					pq.offer(elements[j], priorities[j]);
 				}
 				assertTrue(pq.change(elements[i], -p));
-				assertEquals(-p, pq.peekPriority(elements[i]), 0.0);
+				assertEquals(-p, pq.peekPriority(elements[i]));
 				int j = 0;
 				for (; j < n; j++) {
 					if (i != j) {
@@ -1639,7 +1639,7 @@ public class SimpleBinaryHeapTests {
 				pq.offer(elements[j], priorities[j]);
 			}
 			assertFalse(pq.change(elements[i], priorities[i]));
-			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 			for (int j = 0; j < n; j++) {
 				assertEquals(elements[j], pq.pollElement());
 			}
@@ -1647,13 +1647,13 @@ public class SimpleBinaryHeapTests {
 		}
 		// new element test
 		maxP = 2*(n-1) + 3;
-		for (int p = 1; p <= maxP; p += 2.0) {
+		for (int p = 1; p <= maxP; p += 2) {
 			SimpleBinaryHeap<String> pq = SimpleBinaryHeap.createMaxHeap();
 			for (int j = 0; j < n; j++) {
 				pq.offer(elements[j], priorities[j]);
 			}
 			assertTrue(pq.change("YYY", -p));
-			assertEquals(-p, pq.peekPriority("YYY"), 0.0);
+			assertEquals(-p, pq.peekPriority("YYY"));
 			int j = 0;
 			for (; j < n; j++) {
 				if (priorities[j] > -p) {
@@ -1687,7 +1687,7 @@ public class SimpleBinaryHeapTests {
 				pq.offer(elements[j], priorities[j]);
 			}
 			assertTrue(pq.promote(elements[i], -1));
-			assertEquals(-1, pq.peekPriority(elements[i]), 0.0);
+			assertEquals(-1, pq.peekPriority(elements[i]));
 			assertEquals(elements[i], pq.pollElement());
 			for (int j = 0; j < n; j++) {
 				if (i!=j) {
@@ -1703,7 +1703,7 @@ public class SimpleBinaryHeapTests {
 				pq.offer(elements[j], priorities[j]);
 			}
 			assertTrue(pq.demote(elements[i], -100));
-			assertEquals(-100, pq.peekPriority(elements[i]), 0.0);
+			assertEquals(-100, pq.peekPriority(elements[i]));
 			for (int j = 0; j < n; j++) {
 				if (i!=j) {
 					assertEquals(elements[j], pq.pollElement());
@@ -1725,7 +1725,7 @@ public class SimpleBinaryHeapTests {
 				} else {
 					assertTrue(pq.demote(elements[i], -p));
 				}
-				assertEquals(-p, pq.peekPriority(elements[i]), 0.0);
+				assertEquals(-p, pq.peekPriority(elements[i]));
 				int j = 0;
 				for (; j < n; j++) {
 					if (i != j) {
@@ -1752,9 +1752,9 @@ public class SimpleBinaryHeapTests {
 				pq.offer(elements[j], priorities[j]);
 			}
 			assertFalse(pq.promote(elements[i], priorities[i]));
-			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 			assertFalse(pq.demote(elements[i], priorities[i]));
-			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 			for (int j = 0; j < n; j++) {
 				assertEquals(elements[j], pq.pollElement());
 			}
@@ -1789,14 +1789,14 @@ public class SimpleBinaryHeapTests {
 		assertTrue(pq.isEmpty());
 		assertNull(pq.peekElement());
 		assertNull(pq.peek());
-		assertEquals(Integer.MIN_VALUE, pq.peekPriority(), 0.0);
+		assertEquals(Integer.MIN_VALUE, pq.peekPriority());
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.offer(pairs[i]));
 			assertEquals(i+1, pq.size());
 			assertFalse(pq.isEmpty());
 			assertEquals("A", pq.peekElement());
 			assertEquals(pairs[0], pq.peek());
-			assertEquals((int)'A', pq.peekPriority(), 0.0);
+			assertEquals((int)'A', pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
@@ -1805,12 +1805,12 @@ public class SimpleBinaryHeapTests {
 			assertEquals(n+i+1, pq.size());
 			assertEquals("A", pq.peekElement());
 			assertEquals(pairs[0], pq.peek());
-			assertEquals((int)'A', pq.peekPriority(), 0.0);
+			assertEquals((int)'A', pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
-			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 		}
-		assertEquals(Integer.MIN_VALUE, pq.peekPriority("hello"), 0.0);
+		assertEquals(Integer.MIN_VALUE, pq.peekPriority("hello"));
 		for (int i = 0; i < n; i++) {
 			assertEquals(pairs[i], pq.poll());
 			assertTrue(pq.contains(pairs[i].element));
@@ -1833,14 +1833,14 @@ public class SimpleBinaryHeapTests {
 		assertTrue(pq.isEmpty());
 		assertNull(pq.peekElement());
 		assertNull(pq.peek());
-		assertEquals(Integer.MIN_VALUE, pq.peekPriority(), 0.0);
+		assertEquals(Integer.MIN_VALUE, pq.peekPriority());
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.add(pairs[i]));
 			assertEquals(i+1, pq.size());
 			assertFalse(pq.isEmpty());
 			assertEquals("A", pq.peekElement());
 			assertEquals(pairs[0], pq.peek());
-			assertEquals((int)'A', pq.peekPriority(), 0.0);
+			assertEquals((int)'A', pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
@@ -1849,12 +1849,12 @@ public class SimpleBinaryHeapTests {
 			assertEquals(n+i+1, pq.size());
 			assertEquals("A", pq.peekElement());
 			assertEquals(pairs[0], pq.peek());
-			assertEquals((int)'A', pq.peekPriority(), 0.0);
+			assertEquals((int)'A', pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
-			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 		}
-		assertEquals(Integer.MIN_VALUE, pq.peekPriority("hello"), 0.0);
+		assertEquals(Integer.MIN_VALUE, pq.peekPriority("hello"));
 		for (int i = 0; i < n; i++) {
 			assertEquals(pairs[i], pq.poll());
 			assertTrue(pq.contains(pairs[i].element));
@@ -1877,14 +1877,14 @@ public class SimpleBinaryHeapTests {
 		assertTrue(pq.isEmpty());
 		assertNull(pq.peekElement());
 		assertNull(pq.peek());
-		assertEquals(Integer.MIN_VALUE, pq.peekPriority(), 0.0);
+		assertEquals(Integer.MIN_VALUE, pq.peekPriority());
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.offer(pairs[i]));
 			assertEquals(i+1, pq.size());
 			assertFalse(pq.isEmpty());
 			assertEquals(elements[i], pq.peekElement());
 			assertEquals(pairs[i], pq.peek());
-			assertEquals((int)elements[i].charAt(0), pq.peekPriority(), 0.0);
+			assertEquals((int)elements[i].charAt(0), pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
@@ -1893,12 +1893,12 @@ public class SimpleBinaryHeapTests {
 			assertEquals(n+i+1, pq.size());
 			assertEquals("A", pq.peekElement());
 			assertEquals(pairs[n-1], pq.peek());
-			assertEquals((int)'A', pq.peekPriority(), 0.0);
+			assertEquals((int)'A', pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
-			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 		}
-		assertEquals(Integer.MIN_VALUE, pq.peekPriority("hello"), 0.0);
+		assertEquals(Integer.MIN_VALUE, pq.peekPriority("hello"));
 		for (int i = 0; i < n; i++) {
 			assertEquals(pairs[n-1-i], pq.poll());
 			assertTrue(pq.contains(elements[n-1-i]));
@@ -1921,7 +1921,7 @@ public class SimpleBinaryHeapTests {
 		assertTrue(pq.isEmpty());
 		assertNull(pq.peekElement());
 		assertNull(pq.peek());
-		assertEquals(Integer.MIN_VALUE, pq.peekPriority(), 0.0);
+		assertEquals(Integer.MIN_VALUE, pq.peekPriority());
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.offer(pairs[i]));
 			assertEquals(i+1, pq.size());
@@ -1934,12 +1934,12 @@ public class SimpleBinaryHeapTests {
 			assertEquals(n+i+1, pq.size());
 			assertEquals("A", pq.peekElement());
 			assertEquals(new PriorityQueueNode.Integer<String>("A",(int)'A'), pq.peek());
-			assertEquals((int)'A', pq.peekPriority(), 0.0);
+			assertEquals((int)'A', pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
-			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 		}
-		assertEquals(Integer.MIN_VALUE, pq.peekPriority("hello"), 0.0);
+		assertEquals(Integer.MIN_VALUE, pq.peekPriority("hello"));
 		for (int i = 0; i < n; i++) {
 			String expected = ""+((char)('A'-i));
 			assertEquals(new PriorityQueueNode.Integer<String>(expected, (int)('A'-i)), pq.poll());
@@ -1972,12 +1972,12 @@ public class SimpleBinaryHeapTests {
 			assertEquals(n+i+1, pq.size());
 			assertEquals("A", pq.peekElement());
 			assertEquals(pairs[0], pq.peek());
-			assertEquals((int)'A', pq.peekPriority(), 0.0);
+			assertEquals((int)'A', pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
-			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 		}
-		assertEquals(Integer.MIN_VALUE, pq.peekPriority("hello"), 0.0);
+		assertEquals(Integer.MIN_VALUE, pq.peekPriority("hello"));
 		for (int i = 0; i < n; i++) {
 			assertEquals(pairs[i], pq.poll());
 			assertTrue(pq.contains(pairs[i].element));
@@ -2014,12 +2014,12 @@ public class SimpleBinaryHeapTests {
 			assertEquals(n+i+1, pq.size());
 			assertEquals("A", pq.peekElement());
 			assertEquals(pairs[n-1], pq.peek());
-			assertEquals((int)'A', pq.peekPriority(), 0.0);
+			assertEquals((int)'A', pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
-			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 		}
-		assertEquals(Integer.MIN_VALUE, pq.peekPriority("hello"), 0.0);
+		assertEquals(Integer.MIN_VALUE, pq.peekPriority("hello"));
 		for (int i = 0; i < n; i++) {
 			assertEquals(pairs[n-1-i], pq.poll());
 			assertTrue(pq.contains(elements[n-1-i]));
@@ -2051,12 +2051,12 @@ public class SimpleBinaryHeapTests {
 			assertEquals(n+i+1, pq.size());
 			assertEquals("A", pq.peekElement());
 			assertEquals(new PriorityQueueNode.Integer<String>("A",(int)'A'), pq.peek());
-			assertEquals((int)'A', pq.peekPriority(), 0.0);
+			assertEquals((int)'A', pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
-			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 		}
-		assertEquals(Integer.MIN_VALUE, pq.peekPriority("hello"), 0.0);
+		assertEquals(Integer.MIN_VALUE, pq.peekPriority("hello"));
 		for (int i = 0; i < n; i++) {
 			String expected = ""+((char)('A'-i));
 			assertEquals(new PriorityQueueNode.Integer<String>(expected, (int)('A'-i)), pq.poll());
@@ -2080,14 +2080,14 @@ public class SimpleBinaryHeapTests {
 		assertTrue(pq.isEmpty());
 		assertNull(pq.peekElement());
 		assertNull(pq.peek());
-		assertEquals(Integer.MIN_VALUE, pq.peekPriority(), 0.0);
+		assertEquals(Integer.MIN_VALUE, pq.peekPriority());
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.offer(elements[i], priorities[i]));
 			assertEquals(i+1, pq.size());
 			assertFalse(pq.isEmpty());
 			assertEquals("A", pq.peekElement());
 			assertEquals(pairs[0], pq.peek());
-			assertEquals((int)'A', pq.peekPriority(), 0.0);
+			assertEquals((int)'A', pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
@@ -2096,12 +2096,12 @@ public class SimpleBinaryHeapTests {
 			assertEquals(n+i+1, pq.size());
 			assertEquals("A", pq.peekElement());
 			assertEquals(pairs[0], pq.peek());
-			assertEquals((int)'A', pq.peekPriority(), 0.0);
+			assertEquals((int)'A', pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
-			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 		}
-		assertEquals(Integer.MIN_VALUE, pq.peekPriority("hello"), 0.0);
+		assertEquals(Integer.MIN_VALUE, pq.peekPriority("hello"));
 		for (int i = 0; i < n; i++) {
 			assertEquals(elements[i], pq.pollElement());
 			assertTrue(pq.contains(pairs[i].element));
@@ -2129,14 +2129,14 @@ public class SimpleBinaryHeapTests {
 		assertTrue(pq.isEmpty());
 		assertNull(pq.peekElement());
 		assertNull(pq.peek());
-		assertEquals(Integer.MIN_VALUE, pq.peekPriority(), 0.0);
+		assertEquals(Integer.MIN_VALUE, pq.peekPriority());
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.add(elements[i], priorities[i]));
 			assertEquals(i+1, pq.size());
 			assertFalse(pq.isEmpty());
 			assertEquals("A", pq.peekElement());
 			assertEquals(pairs[0], pq.peek());
-			assertEquals((int)'A', pq.peekPriority(), 0.0);
+			assertEquals((int)'A', pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
@@ -2145,12 +2145,12 @@ public class SimpleBinaryHeapTests {
 			assertEquals(n+i+1, pq.size());
 			assertEquals("A", pq.peekElement());
 			assertEquals(pairs[0], pq.peek());
-			assertEquals((int)'A', pq.peekPriority(), 0.0);
+			assertEquals((int)'A', pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
-			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 		}
-		assertEquals(Integer.MIN_VALUE, pq.peekPriority("hello"), 0.0);
+		assertEquals(Integer.MIN_VALUE, pq.peekPriority("hello"));
 		for (int i = 0; i < n; i++) {
 			assertEquals(elements[i], pq.pollElement());
 			assertTrue(pq.contains(pairs[i].element));
@@ -2173,14 +2173,14 @@ public class SimpleBinaryHeapTests {
 		assertTrue(pq.isEmpty());
 		assertNull(pq.peekElement());
 		assertNull(pq.peek());
-		assertEquals(Integer.MIN_VALUE, pq.peekPriority(), 0.0);
+		assertEquals(Integer.MIN_VALUE, pq.peekPriority());
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.offer(elements[i], priorities[i]));
 			assertEquals(i+1, pq.size());
 			assertFalse(pq.isEmpty());
 			assertEquals(elements[i], pq.peekElement());
 			assertEquals(pairs[i], pq.peek());
-			assertEquals((int)elements[i].charAt(0), pq.peekPriority(), 0.0);
+			assertEquals((int)elements[i].charAt(0), pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.contains(elements[i]));
@@ -2189,12 +2189,12 @@ public class SimpleBinaryHeapTests {
 			assertEquals(n+i+1, pq.size());
 			assertEquals("A", pq.peekElement());
 			assertEquals(pairs[n-1], pq.peek());
-			assertEquals((int)'A', pq.peekPriority(), 0.0);
+			assertEquals((int)'A', pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
-			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 		}
-		assertEquals(Integer.MIN_VALUE, pq.peekPriority("hello"), 0.0);
+		assertEquals(Integer.MIN_VALUE, pq.peekPriority("hello"));
 		for (int i = 0; i < n; i++) {
 			assertEquals(elements[n-1-i], pq.pollElement());
 			assertTrue(pq.contains(elements[n-1-i]));
@@ -2217,7 +2217,7 @@ public class SimpleBinaryHeapTests {
 		assertTrue(pq.isEmpty());
 		assertNull(pq.peekElement());
 		assertNull(pq.peek());
-		assertEquals(Integer.MIN_VALUE, pq.peekPriority(), 0.0);
+		assertEquals(Integer.MIN_VALUE, pq.peekPriority());
 		for (int i = 0; i < n; i++) {
 			assertTrue(pq.offer(elements[i], priorities[i]));
 			assertEquals(i+1, pq.size());
@@ -2230,12 +2230,12 @@ public class SimpleBinaryHeapTests {
 			assertEquals(n+i+1, pq.size());
 			assertEquals("A", pq.peekElement());
 			assertEquals(new PriorityQueueNode.Integer<String>("A",(int)'A'), pq.peek());
-			assertEquals((int)'A', pq.peekPriority(), 0.0);
+			assertEquals((int)'A', pq.peekPriority());
 		}
 		for (int i = 0; i < n; i++) {
-			assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
 		}
-		assertEquals(Integer.MIN_VALUE, pq.peekPriority("hello"), 0.0);
+		assertEquals(Integer.MIN_VALUE, pq.peekPriority("hello"));
 		for (int i = 0; i < n; i++) {
 			String expected = ""+((char)('A'-i));
 			assertEquals(expected, pq.pollElement());
