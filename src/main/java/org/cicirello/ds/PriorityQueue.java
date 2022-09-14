@@ -282,6 +282,35 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	E pollElement();
 	
 	/**
+	 * Removes and returns the next (element, priority) pair in priority order from this PriorityQueue,
+	 * adding a new (element, priority) pair prior to returning.
+	 *
+	 * @param pair The (element, priority) pair to add.
+	 *
+	 * @return the next (element, priority) pair in priority order, or null if empty prior to the call.
+	 */
+	default PriorityQueueNode.Integer<E> pollThenAdd(PriorityQueueNode.Integer<E> pair) {
+		PriorityQueueNode.Integer<E> next = poll();
+		add(pair);
+		return next;
+	}
+	
+	/**
+	 * Removes and returns the next element in priority order from this PriorityQueue,
+	 * adding a new (element, priority) pair to the PriorityQueue with a specified priority.
+	 *
+	 * @param element The new element.
+	 * @param priority The priority of the new element.
+	 *
+	 * @return the next element in priority order, or null if empty.
+	 */
+	default E pollThenAdd(E element, int priority) {
+		E e = pollElement();
+		add(element, priority);
+		return e;
+	}
+	
+	/**
 	 * Promotes an element relative to priority order if the element is
 	 * present in the PriorityQueue. For a min-heap, promotion means
 	 * decreasing the element's priority, while for a max-heap, promotion

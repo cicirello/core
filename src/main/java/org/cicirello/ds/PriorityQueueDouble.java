@@ -282,6 +282,35 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
 	E pollElement();
 	
 	/**
+	 * Removes and returns the next (element, priority) pair in priority order from this PriorityQueueDouble,
+	 * adding a new (element, priority) pair prior to returning.
+	 *
+	 * @param pair The (element, priority) pair to add.
+	 *
+	 * @return the next (element, priority) pair in priority order, or null if empty prior to the call.
+	 */
+	default PriorityQueueNode.Double<E> pollThenAdd(PriorityQueueNode.Double<E> pair) {
+		PriorityQueueNode.Double<E> next = poll();
+		add(pair);
+		return next;
+	}
+	
+	/**
+	 * Removes and returns the next element in priority order from this PriorityQueueDouble,
+	 * adding a new (element, priority) pair to the PriorityQueueDouble with a specified priority.
+	 *
+	 * @param element The new element.
+	 * @param priority The priority of the new element.
+	 *
+	 * @return the next element in priority order, or null if empty.
+	 */
+	default E pollThenAdd(E element, double priority) {
+		E e = pollElement();
+		add(element, priority);
+		return e;
+	}
+	
+	/**
 	 * Promotes an element relative to priority order if the element is
 	 * present in the PriorityQueueDouble. For a min-heap, promotion means
 	 * decreasing the element's priority, while for a max-heap, promotion
