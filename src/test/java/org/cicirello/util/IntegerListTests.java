@@ -31,6 +31,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class IntegerListTests {
 	
 	@Test
+	public void testSort() {
+		IntegerList list = new IntegerList(new int[] {8, 2, 5, 1, 6, 3, 7, 9, 0, 4});
+		list.sort();
+		assertArrayEquals(new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, list.toArray());
+	}
+	
+	@Test
 	public void testEmptyList() {
 		IntegerList list = new IntegerList();
 		assertTrue(list.isEmpty());
