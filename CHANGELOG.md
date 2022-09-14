@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 * PriorityQueue.pollThenAdd and PriorityQueueDouble.pollThenAdd methods, including default implementation in
   the interfaces, and overridden implementation in the binary heap classes that exploit binary heap structure.
+* IntegerList.sort() and DoubleList.sort() methods.
 
 ### Changed
 
