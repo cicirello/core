@@ -24,7 +24,6 @@ package org.cicirello.ds;
 
 import java.lang.reflect.Array;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -63,8 +62,8 @@ import org.cicirello.util.Copyable;
  *     {@link #peek}, {@link #peekElement}, {@link #peekPriority()}, {@link #size()}</li>
  * <li><b>O(lg n):</b> {@link #add(Object, int)}, {@link #add(PriorityQueueNode.Integer)},
  *     {@link #offer(Object, int)}, {@link #offer(PriorityQueueNode.Integer)},
- *     {@link #poll}, {@link #pollElement}, {@link #remove()},  
- *     {@link #removeElement()}</li>
+ *     {@link #poll}, {@link #pollElement}, {@link #pollThenAdd(Object, int)}, {@link #pollThenAdd(PriorityQueueNode.Integer)},
+ *     {@link #remove()}, {@link #removeElement()}</li>
  * <li><b>O(m):</b> {@link #createMaxHeap(Collection)}, 
  *     {@link #createMinHeap(Collection)}</li>
  * <li><b>O(n):</b> {@link #change}, {@link #clear}, {@link #contains}, {@link #copy()}, {@link #demote}, {@link #ensureCapacity}, {@link #equals}, {@link #hashCode}, 
@@ -120,8 +119,7 @@ public final class SimpleBinaryHeap<E> implements MergeablePriorityQueue<E, Simp
 	 * @param initialElements The initial collection of (element, priority) pairs, which must be 
 	 * non-empty.
 	 *
-	 * @throws IllegalArgumentException if initialElements is empty, or if more than
-	 * one pair in initialElements contains the same element.
+	 * @throws IllegalArgumentException if initialElements is empty.
 	 */
 	private SimpleBinaryHeap(Collection<PriorityQueueNode.Integer<E>> initialElements) {
 		this(initialElements, (p1, p2) -> p1 < p2);

@@ -34,31 +34,30 @@ import java.util.ArrayDeque;
 import org.cicirello.util.Copyable;
 
 /**
- * <p>An implementation of a Fibonacci Heap. An instance of a FibonacciHeap
- * contains (element, priority) pairs, such that the elements are distinct.
- * The priority values are of type int.</p> 
+ * <p>An implementation of a Fibonacci Heap. An instance of a SimpleFibonacciHeapDouble
+ * contains (element, priority) pairs, such that the priority values are of type double.</p> 
  *
  * <p><b>Origin:</b> Fibonacci heaps were first introduced in the following article:
  * M. L. Fredman and R. E. Tarjan (1987). Fibonacci Heaps and Their Uses in Improved Network
  * Optimization Algorithms. <i>Journal of the ACM</i>, 34(3): 596-615, July 1987.</p>
  *
+ * <p>Consider using the {@link FibonacciHeapDouble} class instead if your application requires 
+ * any of the following: distinct elements, efficient containment checks, efficient priority
+ * increases or decreases, efficient arbitrary element removals. The {@link FibonacciHeapDouble}
+ * class can find an arbitrary element in constant time, making all of those operations faster.</p>
+ *
  * <p><b>Priority order:</b>
- * FibonacciHeap instances are created via factory methods with names beginning
+ * SimpleFibonacciHeapDouble instances are created via factory methods with names beginning
  * with <code>create</code>. The priority order depends upon the factory method
- * used to create the FibonacciHeap. Methods named <code>createMinHeap</code> produce
+ * used to create the SimpleFibonacciHeapDouble. Methods named <code>createMinHeap</code> produce
  * a min heap with priority order minimum-priority-first-out. Methods named 
  * <code>createMaxHeap</code> produce a max heap with priority order 
  * maximum-priority-first-out.</p>
  *
- * <p><b>Distinctness:</b>
- * The {@link Object#hashCode} and {@link Object#equals} methods are used
- * to enforce distinctness, so be sure that the class of the elements
- * properly implements these methods, or else behavior is not guaranteed.</p>
- *
  * <p><b>Creating instances:</b> To create an instance, use one of the factory
  * methods, such as with:</p>
  * <pre><code>
- * FibonacciHeap&lt;String&gt; pq = FibonacciHeap.createMinHeap();
+ * SimpleFibonacciHeapDouble&lt;String&gt; pq = SimpleFibonacciHeapDouble.createMinHeap();
  * </code></pre>
  *
  * <p><b>Method runtimes:</b> The asymptotic runtime of the methods of
@@ -67,36 +66,32 @@ import org.cicirello.util.Copyable;
  * runtimes are amortized time and not actual time (see a reference on Fibonacci heaps for
  * details).</p>
  * <ul>
- * <li><b>O(1):</b> {@link #add(Object, int)}, {@link #add(PriorityQueueNode.Integer)}, 
- *     {@link #contains}, {@link #createMaxHeap()}, 
+ * <li><b>O(1):</b> {@link #add(Object, double)}, {@link #add(PriorityQueueNode.Double)}, 
+ *     {@link #createMaxHeap()}, 
  *     {@link #createMinHeap()}, {@link #element}, {@link #isEmpty}, {@link #iterator},
- *     {@link #merge(FibonacciHeap)}, {@link #offer(E, int)}, {@link #offer(PriorityQueueNode.Integer)},
- *     {@link #peek}, {@link #peekElement}, {@link #peekPriority()}, {@link #peekPriority(E)},
- *     {@link #promote}, {@link #size()}</li>
- * <li><b>O(lg n):</b> {@link #demote}, {@link #poll}, {@link #pollElement}, 
- *      {@link #pollThenAdd(Object, int)}, {@link #pollThenAdd(PriorityQueueNode.Integer)}, {@link #remove()},
- *      {@link #remove(Object)}, {@link #removeElement()}</li> 
- * <li><b>O(m):</b> {@link #addAll(Collection)}, {@link #containsAll(Collection)}, 
+ *     {@link #merge(SimpleFibonacciHeapDouble)}, {@link #offer(E, double)}, {@link #offer(PriorityQueueNode.Double)},
+ *     {@link #peek}, {@link #peekElement}, {@link #peekPriority()},
+ *     {@link #size()}</li>
+ * <li><b>O(lg n):</b> {@link #poll}, {@link #pollElement}, {@link #pollThenAdd(Object, double)}, 
+ *      {@link #pollThenAdd(PriorityQueueNode.Double)}, {@link #remove()},
+ *      {@link #removeElement()}</li> 
+ * <li><b>O(m):</b> {@link #addAll(Collection)},  
  *     {@link #createMaxHeap(Collection)}, {@link #createMinHeap(Collection)}</li>
- * <li><b>O(n):</b> {@link #clear}, {@link #copy()}, {@link #equals}, {@link #hashCode}, 
+ * <li><b>O(n):</b> {@link #change}, {@link #clear}, {@link #contains}, {@link #copy()}, {@link #demote}, {@link #equals}, 
+ *     {@link #hashCode}, {@link #peekPriority(E)}, {@link #promote}, {@link #remove(Object)}, 
  *     {@link #toArray()}, {@link #toArray(Object[])}</li>
- * <li><b>O(n + m):</b> {@link #removeAll(Collection)}, {@link #retainAll(Collection)}</li>
+ * <li><b>O(n + m):</b> {@link #containsAll(Collection)}, {@link #removeAll(Collection)}, {@link #retainAll(Collection)}</li>
  * </ul>
- * <p>The amortized runtime of {@link #change} depends on the direction of change. If the
- * priority is decreased for a min-heap or increased for a max-heap, the amortized runtime
- * of {@link #change} is O(1); but if the priority is increased for a min-heap or decreased
- * for a max-heap, then the amortized time of {@link #change} is O(lg n).</p>
  *
- * @param <E> The type of object contained in the FibonacciHeap.
+ * @param <E> The type of object contained in the SimpleFibonacciHeapDouble.
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, FibonacciHeap<E>>, Copyable<FibonacciHeap<E>> {
+public final class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueueDouble<E, SimpleFibonacciHeapDouble<E>>, Copyable<SimpleFibonacciHeapDouble<E>> {
 	
-	private HashMap<E, Node<E>> index;
 	private final PriorityComparator compare;
-	private final int extreme;
+	private final double extreme;
 	
 	private int size;
 	private Node<E> min;
@@ -111,21 +106,20 @@ public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, Fibonac
 	/* 
 	 * PRIVATE: Use factory methods for creation.
 	 *
-	 * Initializes an empty FibonacciHeap.
+	 * Initializes an empty SimpleFibonacciHeapDouble.
 	 */
-	private FibonacciHeap() {
+	private SimpleFibonacciHeapDouble() {
 		this((p1, p2) -> p1 < p2);
 	}
 	
 	/* 
 	 * PRIVATE: Use factory methods for creation.
 	 *
-	 * Initializes an empty FibonacciHeap.
+	 * Initializes an empty SimpleFibonacciHeapDouble.
 	 */
-	private FibonacciHeap(PriorityComparator compare) {
+	private SimpleFibonacciHeapDouble(PriorityComparator compare) {
 		this.compare = compare;
-		extreme = compare.comesBefore(0, 1) ? java.lang.Integer.MAX_VALUE : java.lang.Integer.MIN_VALUE;
-		index = new HashMap<E, Node<E>>();
+		extreme = compare.comesBefore(0, 1) ? java.lang.Double.POSITIVE_INFINITY : java.lang.Double.NEGATIVE_INFINITY;
 		// length of array used by consolidate is initialized to 45 as follows:
 		// 1) since size is an int, the implicit limit on capacity is Integer.MAX_VALUE.
 		// 2) Thus, the highest that D(n) can be for a call to consolidate is:
@@ -138,30 +132,25 @@ public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, Fibonac
 	
 	/* 
 	 * PRIVATE: Use factory methods for creation.
-	 * Initializes a FibonacciHeap from a collection of (element, priority) pairs.
+	 * Initializes a SimpleFibonacciHeapDouble from a collection of (element, priority) pairs.
 	 *
 	 * @param initialElements The initial collection of (element, priority) pairs.
 	 *
-	 * @throws IllegalArgumentException if more than one pair in initialElements contains the same element.
 	 */
-	private FibonacciHeap(Collection<PriorityQueueNode.Integer<E>> initialElements) {
+	private SimpleFibonacciHeapDouble(Collection<PriorityQueueNode.Double<E>> initialElements) {
 		this(initialElements, (p1, p2) -> p1 < p2);
 	}
 	
 	/* 
 	 * PRIVATE: Use factory methods for creation.
-	 * Initializes a FibonacciHeap from a collection of (element, priority) pairs.
+	 * Initializes a SimpleFibonacciHeapDouble from a collection of (element, priority) pairs.
 	 *
 	 * @param initialElements The initial collection of (element, priority) pairs.
 	 *
-	 * @throws IllegalArgumentException if more than one pair in initialElements contains the same element.
 	 */
-	private FibonacciHeap(Collection<PriorityQueueNode.Integer<E>> initialElements, PriorityComparator compare) {
+	private SimpleFibonacciHeapDouble(Collection<PriorityQueueNode.Double<E>> initialElements, PriorityComparator compare) {
 		this(compare);
-		for (PriorityQueueNode.Integer<E> element : initialElements) {
-			if (index.containsKey(element.element)) {
-				throw new IllegalArgumentException("initialElements contains duplicates");
-			}
+		for (PriorityQueueNode.Double<E> element : initialElements) {
 			internalOffer(element.copy());
 		}
 	}
@@ -169,75 +158,103 @@ public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, Fibonac
 	/*
 	 * private copy constructor to support the copy() method.
 	 */
-	private FibonacciHeap(FibonacciHeap<E> other) {
+	private SimpleFibonacciHeapDouble(SimpleFibonacciHeapDouble<E> other) {
 		this(other.compare);
 		size = other.size;
-		min = other.min != null ? other.min.copy(index) : null;
+		min = other.min != null ? other.min.copy() : null;
 	}
 	
 	@Override
-	public FibonacciHeap<E> copy() {
-		return new FibonacciHeap<E>(this);
+	public SimpleFibonacciHeapDouble<E> copy() {
+		return new SimpleFibonacciHeapDouble<E>(this);
 	}
 	
 	/**
-	 * Creates an empty FibonacciHeap with minimum-priority-first-out priority order.
+	 * Creates an empty SimpleFibonacciHeapDouble with minimum-priority-first-out priority order.
 	 *
-	 * @param <E> The type of elements contained in the FibonacciHeap.
+	 * @param <E> The type of elements contained in the SimpleFibonacciHeapDouble.
 	 *
-	 * @return an empty FibonacciHeap with a minimum-priority-first-out priority order
+	 * @return an empty SimpleFibonacciHeapDouble with a minimum-priority-first-out priority order
 	 */
-	public static <E> FibonacciHeap<E> createMinHeap() {
-		return new FibonacciHeap<E>();
+	public static <E> SimpleFibonacciHeapDouble<E> createMinHeap() {
+		return new SimpleFibonacciHeapDouble<E>();
 	}
 	
 	/**
-	 * Creates a FibonacciHeap from a collection of (element, priority) pairs,
+	 * Creates a SimpleFibonacciHeapDouble from a collection of (element, priority) pairs,
 	 * with a minimum-priority-first-out priority order.
 	 *
 	 * @param initialElements The initial collection of (element, priority) pairs.
-	 * @param <E> The type of elements contained in the FibonacciHeap.
+	 * @param <E> The type of elements contained in the SimpleFibonacciHeapDouble.
 	 *
-	 * @return a FibonacciHeap with a minimum-priority-first-out priority order
+	 * @return a SimpleFibonacciHeapDouble with a minimum-priority-first-out priority order
 	 *
-	 * @throws IllegalArgumentException if more than one pair in initialElements contains the same element.
 	 */
-	public static <E> FibonacciHeap<E> createMinHeap(Collection<PriorityQueueNode.Integer<E>> initialElements) {
-		return new FibonacciHeap<E>(initialElements);
+	public static <E> SimpleFibonacciHeapDouble<E> createMinHeap(Collection<PriorityQueueNode.Double<E>> initialElements) {
+		return new SimpleFibonacciHeapDouble<E>(initialElements);
 	}
 	
 	/**
-	 * Creates an empty FibonacciHeap with maximum-priority-first-out priority order.
+	 * Creates an empty SimpleFibonacciHeapDouble with maximum-priority-first-out priority order.
 	 *
-	 * @param <E> The type of elements contained in the FibonacciHeap.
+	 * @param <E> The type of elements contained in the SimpleFibonacciHeapDouble.
 	 *
-	 * @return an empty FibonacciHeap with a maximum-priority-first-out priority order
+	 * @return an empty SimpleFibonacciHeapDouble with a maximum-priority-first-out priority order
 	 */
-	public static <E> FibonacciHeap<E> createMaxHeap() {
-		return new FibonacciHeap<E>((p1, p2) -> p1 > p2);
+	public static <E> SimpleFibonacciHeapDouble<E> createMaxHeap() {
+		return new SimpleFibonacciHeapDouble<E>((p1, p2) -> p1 > p2);
 	}
 	
 	/**
-	 * Creates a FibonacciHeap from a collection of (element, priority) pairs,
+	 * Creates a SimpleFibonacciHeapDouble from a collection of (element, priority) pairs,
 	 * with a maximum-priority-first-out priority order.
 	 *
 	 * @param initialElements The initial collection of (element, priority) pairs.
-	 * @param <E> The type of elements contained in the FibonacciHeap.
+	 * @param <E> The type of elements contained in the SimpleFibonacciHeapDouble.
 	 *
-	 * @return a FibonacciHeap with a maximum-priority-first-out priority order
+	 * @return a SimpleFibonacciHeapDouble with a maximum-priority-first-out priority order
 	 *
-	 * @throws IllegalArgumentException if more than one pair in initialElements contains the same element.
 	 */
-	public static <E> FibonacciHeap<E> createMaxHeap(Collection<PriorityQueueNode.Integer<E>> initialElements) {
-		return new FibonacciHeap<E>(initialElements, (p1, p2) -> p1 > p2);
+	public static <E> SimpleFibonacciHeapDouble<E> createMaxHeap(Collection<PriorityQueueNode.Double<E>> initialElements) {
+		return new SimpleFibonacciHeapDouble<E>(initialElements, (p1, p2) -> p1 > p2);
 	}
 	
+	/**
+	 * <p>Adds an (element, priority) pair to the SimpleFibonacciHeapDouble with a specified priority.</p>
+	 *
+	 * @param element The element.
+	 * @param priority The priority of the element.
+	 *
+	 * @return true if the (element, priority) pair was added.
+	 */
 	@Override
-	public final boolean change(E element, int priority) {
-		if (!offer(element, priority)) {
-			// No need to null check this because condition above guarantees
-			// that this should be non-null.
-			Node<E> node = index.get(element);
+	public final boolean add(E element, double priority) {
+		return offer(element, priority);
+	}
+	
+	/**
+	 * <p>Adds an (element, priority) pair to the SimpleFibonacciHeapDouble.</p>
+	 *
+	 * @param pair The (element, priority) pair to add.
+	 *
+	 * @return true if the (element, priority) pair was added.
+	 *
+	 */
+	@Override
+	public final boolean add(PriorityQueueNode.Double<E> pair) {
+		return offer(pair);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>If it contains multiple entries for the element, the specific one
+	 * that it chooses to attempt to change is undefined.</p>
+	 */
+	@Override
+	public final boolean change(E element, double priority) {
+		Node<E> node = find(element);
+		if (node != null) {
 			if (compare.comesBefore(priority, node.e.value)) {
 				internalPromote(node, priority);
 				return true;
@@ -247,15 +264,12 @@ public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, Fibonac
 			}
 			return false;
 		}
-		return true;
+		return offer(element, priority);
 	}
 	
 	@Override
 	public final void clear() {
 		size = 0;
-		// clear the index... old way: index.clear();
-		// instead let garbage collector take care of it, just reinitialize:
-		index = new HashMap<E, Node<E>>();
 		// set min to null which should cause garbage collection
 		// of entire fibonacci heap (impossible to have references to Nodes
 		// external from this class.
@@ -264,16 +278,48 @@ public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, Fibonac
 	
 	@Override
 	public final boolean contains(Object o) {
-		if (o instanceof PriorityQueueNode.Integer) {
-			PriorityQueueNode.Integer pair = (PriorityQueueNode.Integer)o;
-			return index.containsKey(pair.element);
+		if (o instanceof PriorityQueueNode.Double) {
+			PriorityQueueNode.Double pair = (PriorityQueueNode.Double)o;
+			return find(pair.element) != null;
 		}
-		return index.containsKey(o);
+		return find(o) != null;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The runtime of this method is O(n + m) where n is current size
+	 * of the heap and m is the size of the Collection c. In general this
+	 * is more efficient than calling {@link #contains(Object)} repeatedly.</p>
+	 */
 	@Override
-	public final boolean demote(E element, int priority) {
-		Node<E> node = index.get(element);
+	public final boolean containsAll(Collection<?> c) {
+		HashSet<E> containsThese = new HashSet<E>();
+		for (PriorityQueueNode.Double<E> e : this) {
+			containsThese.add(e.element);
+		}
+		for (Object o : c) {
+			if (o instanceof PriorityQueueNode.Double) {
+				PriorityQueueNode.Double pair = (PriorityQueueNode.Double)o;
+				if (!containsThese.contains(pair.element)){
+					return false;
+				}
+			} else if (!containsThese.contains(o)){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>If it contains multiple entries for the element, the specific one
+	 * that it chooses to attempt to demote is undefined.</p>
+	 */
+	@Override
+	public final boolean demote(E element, double priority) {
+		Node<E> node = find(element);
 		if (node != null && compare.comesBefore(node.e.value, priority)) {
 			internalDemote(node, priority);
 			return true;
@@ -282,11 +328,11 @@ public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, Fibonac
 	}
 	
 	/**
-	 * Checks if this FibonacciHeap contains the same (element, priority)
-	 * pairs as another FibonacciHeap, including the specific structure
-	 * the FibonacciHeap, as well as that the priority order is the same.
+	 * Checks if this SimpleFibonacciHeapDouble contains the same (element, priority)
+	 * pairs as another SimpleFibonacciHeapDouble, including the specific structure
+	 * the SimpleFibonacciHeapDouble, as well as that the priority order is the same.
 	 *
-	 * @param other The other FibonacciHeap.
+	 * @param other The other SimpleFibonacciHeapDouble.
 	 *
 	 * @return true if and only if this and other contain the same (element, priority)
 	 * pairs, with the same priority order.
@@ -294,13 +340,13 @@ public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, Fibonac
 	@Override
 	public boolean equals(Object other) {
 		if (other == null) return false;
-		if (other instanceof FibonacciHeap) {
+		if (other instanceof SimpleFibonacciHeapDouble) {
 			@SuppressWarnings("unchecked")
-			FibonacciHeap<E> casted = (FibonacciHeap<E>)other;
+			SimpleFibonacciHeapDouble<E> casted = (SimpleFibonacciHeapDouble<E>)other;
 			if (size != casted.size) return false;
 			if (compare.comesBefore(0, 1) != casted.compare.comesBefore(0, 1)) return false;
-			Iterator<PriorityQueueNode.Integer<E>> iter = iterator();
-			Iterator<PriorityQueueNode.Integer<E>> otherIter = casted.iterator();
+			Iterator<PriorityQueueNode.Double<E>> iter = iterator();
+			Iterator<PriorityQueueNode.Double<E>> otherIter = casted.iterator();
 			while (iter.hasNext()) {
 				if (!iter.next().equals(otherIter.next())) {
 					return false;
@@ -313,15 +359,15 @@ public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, Fibonac
 	}
 	
 	/**
-	 * Computes a hashCode for the BinaryHeapInteger.
+	 * Computes a hashCode for the BinaryHeapDouble.
 	 *
 	 * @return a hashCode
 	 */
 	@Override
 	public int hashCode() {
 		int h = 0;
-		for (PriorityQueueNode.Integer<E> e : this) {
-			h = 31 * h + java.lang.Integer.hashCode(e.value);
+		for (PriorityQueueNode.Double<E> e : this) {
+			h = 31 * h + java.lang.Double.hashCode(e.value);
 			h = 31 * h + e.element.hashCode();
 		}
 		return h;
@@ -333,8 +379,8 @@ public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, Fibonac
 	}
 	
 	@Override
-	public final Iterator<PriorityQueueNode.Integer<E>> iterator() {
-		return new FibonacciHeapIterator();
+	public final Iterator<PriorityQueueNode.Double<E>> iterator() {
+		return new FibonacciHeapDoubleIterator();
 	}
 	
 	/**
@@ -344,7 +390,7 @@ public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, Fibonac
 	 * minheap while the other is a maxheap)
 	 */
 	@Override
-	public boolean merge(FibonacciHeap<E> other) {
+	public boolean merge(SimpleFibonacciHeapDouble<E> other) {
 		if (compare.comesBefore(0,1) != other.compare.comesBefore(0,1)) {
 			throw new IllegalArgumentException("this and other follow different priority-order");
 		}
@@ -354,7 +400,6 @@ public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, Fibonac
 				min = other.min;
 			}
 			size += other.size;
-			index.putAll(other.index);
 			other.clear();
 			return true;
 		}
@@ -362,37 +407,27 @@ public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, Fibonac
 	}
 	
 	/**
-	 * Adds an (element, priority) pair to the FibonacciHeap with a specified priority,
-	 * provided the element is not already in the FibonacciHeap.
+	 * Adds an (element, priority) pair to the SimpleFibonacciHeapDouble with a specified priority.
 	 *
 	 * @param element The element.
 	 * @param priority The priority of the element.
 	 *
-	 * @return true if the (element, priority) pair was added, and false if the
-	 * FibonacciHeap already contained the element.
+	 * @return true if the (element, priority) pair was added.
 	 */
 	@Override
-	public final boolean offer(E element, int priority) {
-		if (index.containsKey(element)) {
-			return false;
-		} 
-		return internalOffer(new PriorityQueueNode.Integer<E>(element, priority));
+	public final boolean offer(E element, double priority) {
+		return internalOffer(new PriorityQueueNode.Double<E>(element, priority));
 	}
 	
 	/**
-	 * Adds an (element, priority) pair to the FibonacciHeap,
-	 * provided the element is not already in the FibonacciHeap.
+	 * Adds an (element, priority) pair to the SimpleFibonacciHeapDouble.
 	 *
 	 * @param pair The (element, priority) pair to add.
 	 *
-	 * @return true if the (element, priority) pair was added, and false if the
-	 * FibonacciHeap already contained the element.
+	 * @return true if the (element, priority) pair was added.
 	 */
 	@Override
-	public final boolean offer(PriorityQueueNode.Integer<E> pair) {
-		if (index.containsKey(pair.element)) {
-			return false;
-		}
+	public final boolean offer(PriorityQueueNode.Double<E> pair) {
 		return internalOffer(pair.copy());
 	}
 	
@@ -402,32 +437,37 @@ public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, Fibonac
 	}
 	
 	@Override
-	public final PriorityQueueNode.Integer<E> peek() {
+	public final PriorityQueueNode.Double<E> peek() {
 		return min != null ? min.e : null;
 	}
 	
 	@Override
-	public final int peekPriority() {
+	public final double peekPriority() {
 		return min != null ? min.e.value : extreme;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>If it contains multiple entries for the element, it returns the
+	 * priority of one of them, but doesn't define which is chosen.</p>
+	 */
 	@Override
-	public final int peekPriority(E element) {
-		Node<E> node = index.get(element);
+	public final double peekPriority(E element) {
+		Node<E> node = find(element);
 		return node != null ? node.e.value : extreme;
 	}
 	
 	@Override
 	public final E pollElement() {
-		PriorityQueueNode.Integer<E> min = poll();
+		PriorityQueueNode.Double<E> min = poll();
 		return min != null ? min.element : null;
 	}
 	
 	@Override
-	public final PriorityQueueNode.Integer<E> poll() {
+	public final PriorityQueueNode.Double<E> poll() {
 		if (size == 1) {
-			PriorityQueueNode.Integer<E> pair = min.e;
-			index.remove(pair.element);
+			PriorityQueueNode.Double<E> pair = min.e;
 			min = null;
 			size = 0;
 			return pair;
@@ -441,16 +481,21 @@ public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, Fibonac
 			z.left.right = min;
 			min.left  = z.left;
 			consolidate();
-			index.remove(z.e.element);
 			size--;
 			return z.e;
 		}
 		return null;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>If it contains multiple entries for the element, the specific one
+	 * that it chooses to attempt to promote is undefined.</p>
+	 */
 	@Override
-	public final boolean promote(E element, int priority) {
-		Node<E> node = index.get(element);
+	public final boolean promote(E element, double priority) {
+		Node<E> node = find(element);
 		if (node != null && compare.comesBefore(priority, node.e.value)) {
 			internalPromote(node, priority);
 			return true;
@@ -458,14 +503,20 @@ public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, Fibonac
 		return false;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>If it contains multiple entries for the element, it removes
+	 * one of them, but doesn't define which is removed.</p>
+	 */
 	@Override
 	public final boolean remove(Object o) {
 		Node<E> node = null;
-		if (o instanceof PriorityQueueNode.Integer) {
-			PriorityQueueNode.Integer pair = (PriorityQueueNode.Integer)o;
-			node = index.get(pair.element);
+		if (o instanceof PriorityQueueNode.Double) {
+			PriorityQueueNode.Double pair = (PriorityQueueNode.Double)o;
+			node = find(pair.element);
 		} else {
-			node = index.get(o);
+			node = find(o);
 		}
 		if (node == null) {
 			return false;
@@ -480,31 +531,28 @@ public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, Fibonac
 	 *
 	 * <p>The runtime of this method is O(n + m) where n is current size
 	 * of the heap and m is the size of the Collection c. In general this
-	 * is more efficient than calling remove repeatedly, unless you are
-	 * removing a relatively small number of elements, in which case you
-	 * should instead call {@link #remove(Object)} for each element you
-	 * want to remove.</p>
+	 * is more efficient than calling remove repeatedly.</p>
 	 */
 	@Override
 	public final boolean removeAll(Collection<?> c) {
 		HashSet<Object> discardThese = new HashSet<Object>();
 		for (Object o : c) {
-			if (o instanceof PriorityQueueNode.Integer) {
-				PriorityQueueNode.Integer pair = (PriorityQueueNode.Integer)o;
+			if (o instanceof PriorityQueueNode.Double) {
+				PriorityQueueNode.Double pair = (PriorityQueueNode.Double)o;
 				discardThese.add(pair.element);
 			} else {
 				discardThese.add(o);
 			}
 		}
-		ArrayList<PriorityQueueNode.Integer<E>> keepList = new ArrayList<PriorityQueueNode.Integer<E>>();
-		for (PriorityQueueNode.Integer<E> e : this) {
+		ArrayList<PriorityQueueNode.Double<E>> keepList = new ArrayList<PriorityQueueNode.Double<E>>();
+		for (PriorityQueueNode.Double<E> e : this) {
 			if (!discardThese.contains(e.element)) {
 				keepList.add(e);
 			}
 		}
 		if (keepList.size() < size) {
 			clear();
-			for (PriorityQueueNode.Integer<E> e : keepList) {
+			for (PriorityQueueNode.Double<E> e : keepList) {
 				internalOffer(e);
 			}
 			return true;
@@ -517,31 +565,28 @@ public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, Fibonac
 	 *
 	 * <p>The runtime of this method is O(n + m) where n is current size
 	 * of the heap and m is the size of the Collection c. In general this
-	 * is more efficient than calling remove repeatedly, unless you are
-	 * removing a relatively small number of elements, in which case you
-	 * should instead call {@link #remove(Object)} for each element you
-	 * want to remove.</p>
+	 * is more efficient than calling remove repeatedly.</p>
 	 */
 	@Override
 	public final boolean retainAll(Collection<?> c) {
 		HashSet<Object> keepThese = new HashSet<Object>();
 		for (Object o : c) {
-			if (o instanceof PriorityQueueNode.Integer) {
-				PriorityQueueNode.Integer pair = (PriorityQueueNode.Integer)o;
+			if (o instanceof PriorityQueueNode.Double) {
+				PriorityQueueNode.Double pair = (PriorityQueueNode.Double)o;
 				keepThese.add(pair.element);
 			} else {
 				keepThese.add(o);
 			}
 		}
-		ArrayList<PriorityQueueNode.Integer<E>> keepList = new ArrayList<PriorityQueueNode.Integer<E>>(keepThese.size());
-		for (PriorityQueueNode.Integer<E> e : this) {
+		ArrayList<PriorityQueueNode.Double<E>> keepList = new ArrayList<PriorityQueueNode.Double<E>>(keepThese.size());
+		for (PriorityQueueNode.Double<E> e : this) {
 			if (keepThese.contains(e.element)) {
 				keepList.add(e);
 			}
 		}
 		if (keepList.size() < size) {
 			clear();
-			for (PriorityQueueNode.Integer<E> e : keepList) {
+			for (PriorityQueueNode.Double<E> e : keepList) {
 				internalOffer(e);
 			}
 			return true;
@@ -558,7 +603,7 @@ public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, Fibonac
 	public final Object[] toArray() {
 		Object[] array = new Object[size];
 		int i = 0;
-		for (PriorityQueueNode.Integer<E> e : this) {
+		for (PriorityQueueNode.Double<E> e : this) {
 			array[i] = e;
 			i++;
 		}
@@ -570,7 +615,7 @@ public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, Fibonac
 		@SuppressWarnings("unchecked")
 		T[] result = array.length >= size ? array : (T[])Array.newInstance(array.getClass().getComponentType(), size);
 		int i = 0;
-		for (PriorityQueueNode.Integer<E> e : this) {
+		for (PriorityQueueNode.Double<E> e : this) {
 			@SuppressWarnings("unchecked")
 			T nextElement = (T)e;
 			result[i] = nextElement;
@@ -582,17 +627,26 @@ public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, Fibonac
 		return result;
 	}
 	
+	private final Node<E> find(Object element) {
+		NodeIterator iter = new NodeIterator();
+		while (iter.hasNext()) {
+			Node<E> n  = iter.next();
+			if (n.e.element.equals(element)) {
+				return n;
+			}
+		}
+		return null;
+	}
+	
 	/*
 	 * used internally: doesn't check if already contains element
 	 */
-	private boolean internalOffer(PriorityQueueNode.Integer<E> pair) {
+	private boolean internalOffer(PriorityQueueNode.Double<E> pair) {
 		if (min == null) {
 			min = new Node<E>(pair);
-			index.put(pair.element, min);
 			size = 1;
 		} else {
 			Node<E> added = new Node<E>(pair, min);
-			index.put(pair.element, added);
 			if (compare.comesBefore(pair.value, min.e.value)) {
 				min = added;
 			}
@@ -601,7 +655,7 @@ public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, Fibonac
 		return true;
 	}
 	
-	private void internalPromote(Node<E> x, int priority) {
+	private void internalPromote(Node<E> x, double priority) {
 		// only called if priority decreased for a minheap (increased for a maxheap)
 		// so no checks needed here.
 		x.e.value = priority;
@@ -615,7 +669,7 @@ public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, Fibonac
 		}
 	}
 	
-	private void internalDemote(Node<E> x, int priority) {
+	private void internalDemote(Node<E> x, double priority) {
 		// only called if priority increased for a minheap (decreased for a maxheap)
 		// so no checks needed here.
 		
@@ -733,11 +787,11 @@ public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, Fibonac
 	
 	@FunctionalInterface
 	private static interface PriorityComparator {
-		boolean comesBefore(int p1, int p2);
+		boolean comesBefore(double p1, double p2);
 	}
 	
 	private class Node<E2> {
-		private PriorityQueueNode.Integer<E2> e;
+		private PriorityQueueNode.Double<E2> e;
 		private Node<E2> parent;
 		private Node<E2> child;
 		private Node<E2> left;
@@ -748,7 +802,7 @@ public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, Fibonac
 		/*
 		 * new root list (i.e., called to create new top-level list when empty
 		 */
-		public Node(PriorityQueueNode.Integer<E2> e) {
+		public Node(PriorityQueueNode.Double<E2> e) {
 			this.e = e;
 			singletonList();
 		}
@@ -756,7 +810,7 @@ public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, Fibonac
 		/*
 		 * adds newly constructed node to root list
 		 */
-		public Node(PriorityQueueNode.Integer<E2> e, Node<E2> list) {
+		public Node(PriorityQueueNode.Double<E2> e, Node<E2> list) {
 			this.e = e;
 			insertInto(list);
 		}
@@ -772,24 +826,22 @@ public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, Fibonac
 			left = toTheLeft;
 		}
 		
-		private Node<E2> copy(HashMap<E2, Node<E2>> indexCopy) {
-			return copyList(this, null, indexCopy);
+		private Node<E2> copy() {
+			return copyList(this, null);
 		}
 		
-		private Node<E2> copyList(Node<E2> x, Node<E2> p, HashMap<E2, Node<E2>> indexCopy) {
+		private Node<E2> copyList(Node<E2> x, Node<E2> p) {
 			Node<E2> y = new Node<E2>(x);
-			indexCopy.put(y.e.element, y);
 			y.parent = p;
 			if (x.child != null) {
-				y.child = copyList(x.child, y, indexCopy);
+				y.child = copyList(x.child, y);
 			}
 			Node<E2> rightOf = y;
 			for (Node<E2> next = x.right; next != x; next = next.right, rightOf = rightOf.right) {
 				rightOf.right = new Node<E2>(next, rightOf);
-				indexCopy.put(rightOf.right.e.element, rightOf.right);
 				rightOf.right.parent = p;
 				if (next.child != null) {
-					rightOf.right.child = copyList(next.child, rightOf.right, indexCopy);
+					rightOf.right.child = copyList(next.child, rightOf.right);
 				}
 			}
 			rightOf.right = y;
@@ -821,11 +873,11 @@ public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, Fibonac
 		}
 	}
 	
-	private class FibonacciHeapIterator implements Iterator<PriorityQueueNode.Integer<E>> {
+	private class FibonacciHeapDoubleIterator implements Iterator<PriorityQueueNode.Double<E>> {
 		
 		private final Deque<Node<E>> stack;
 		
-		public FibonacciHeapIterator() {
+		public FibonacciHeapDoubleIterator() {
 			stack = new ArrayDeque<Node<E>>(size);
 			if (size > 0) {
 				stack.push(min);
@@ -841,7 +893,7 @@ public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, Fibonac
 		}
 		
 		@Override
-		public PriorityQueueNode.Integer<E> next() {
+		public PriorityQueueNode.Double<E> next() {
 			// normally, the next method of an Iterator is
 			// required to throw NoSuchElementException is caled when empty.
 			// The pop() method of the ArrayDeque does this though. So no need
@@ -855,6 +907,43 @@ public final class FibonacciHeap<E> implements MergeablePriorityQueue<E, Fibonac
 				}
 			}
 			return current.e;
+		}
+	}
+	
+	private class NodeIterator implements Iterator<Node<E>> {
+		
+		private final Deque<Node<E>> stack;
+		
+		public NodeIterator() {
+			stack = new ArrayDeque<Node<E>>(size);
+			if (size > 0) {
+				stack.push(min);
+				for (Node<E> next = min.right; next != min; next = next.right) {
+					stack.push(next);
+				}
+			}				
+		}
+		
+		@Override
+		public boolean hasNext() {
+			return !stack.isEmpty();
+		}
+		
+		@Override
+		public Node<E> next() {
+			// normally, the next method of an Iterator is
+			// required to throw NoSuchElementException is called when empty.
+			// The pop() method of the ArrayDeque does this though. So no need
+			// for explicit check.
+			Node<E> current = stack.pop();
+			if (current.degree > 0) {
+				stack.push(current.child);
+				Node<E> next = current.child.right;
+				for (int i = 1; i < current.degree; i++, next = next.right) {
+					stack.push(next);
+				}
+			}
+			return current;
 		}
 	}
 }
