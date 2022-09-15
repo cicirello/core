@@ -30,7 +30,6 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import org.cicirello.util.Copyable;
-import org.cicirello.util.IntegerList;
 
 /**
  * <p>An implementation of a Binary Heap. An instance of a SimpleBinaryHeap
@@ -72,8 +71,8 @@ import org.cicirello.util.IntegerList;
  *     {@link #peekPriority(Object)}, {@link #promote}, {@link #remove(Object)}, {@link #toArray()}, {@link #toArray(Object[])}, 
  *     {@link #trimToSize}</li>
  * <li><b>O(n + m):</b> {@link #addAll(Collection)}, {@link #merge(SimpleBinaryHeap)}, 
- *     {@link #removeAll(Collection)}</li>
- * <li><b>O(nm):</b> {@link #containsAll(Collection)}, {@link #retainAll(Collection)}</li>
+ *     {@link #removeAll(Collection)}, {@link #retainAll(Collection)}</li>
+ * <li><b>O(nm):</b> {@link #containsAll(Collection)}</li>
  * </ul>
  *
  * @param <E> The type of object contained in the SimpleBinaryHeap.
@@ -676,46 +675,39 @@ public final class SimpleBinaryHeap<E> implements MergeablePriorityQueue<E, Simp
 		return changed;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The runtime of this method is O(n + m) where n is current size
+	 * of the heap and m is the size of the Collection c. In general this
+	 * is more efficient than calling remove repeatedly.</p>
+	 */
 	@Override
 	public final boolean retainAll(Collection<?> c) {
-		boolean[] keepThese = new boolean[size];
+		HashSet<Object> keepThese = new HashSet<Object>();
 		for (Object o : c) {
 			if (o instanceof PriorityQueueNode.Integer) {
 				PriorityQueueNode.Integer pair = (PriorityQueueNode.Integer)o;
-				for (int i = 0; i < size; i++) {
-					if (buffer[i].element.equals(pair.element)) {
-						keepThese[i] = true;
-					}
-				}
+				keepThese.add(pair.element);
 			} else {
-				for (int i = 0; i < size; i++) {
-					if (buffer[i].element.equals(o)) {
-						keepThese[i] = true;
-					}
-				}
+				keepThese.add(o);
 			}
 		}
-		IntegerList discardThese = new IntegerList(size);
-		for (int i = 0; i < size; i++) {
-			if (!keepThese[i]) {
-				discardThese.add(i);
-			}
-		}
-		if (discardThese.size() > 0) {
-			for (int i = discardThese.size()-1; i >= 0; i--) {
-				int j = discardThese.get(i);
+		boolean changed = false;
+		for (int i = size-1; i >= 0; i--) {
+			if (!keepThese.contains(buffer[i].element)) {
+				changed = true;
 				size--;
-				if (j == size) {
-					buffer[j] = null;
-				} else {
-					buffer[j] = buffer[size];
-					buffer[size] = null;
+				if (i != size) {
+					buffer[i] = buffer[size];
 				}
+				buffer[size] = null;
 			}
-			buildHeap();
-			return true;
 		}
-		return false;
+		if (changed) {
+			buildHeap();
+		}
+		return changed;
 	}
 	
 	@Override
