@@ -88,7 +88,7 @@ import org.cicirello.util.Copyable;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public final class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueueDouble<E, SimpleFibonacciHeapDouble<E>>, Copyable<SimpleFibonacciHeapDouble<E>> {
+public class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueueDouble<E, SimpleFibonacciHeapDouble<E>>, Copyable<SimpleFibonacciHeapDouble<E>> {
 	
 	private final PriorityComparator compare;
 	private final double extreme;
@@ -113,11 +113,11 @@ public final class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueu
 	}
 	
 	/* 
-	 * PRIVATE: Use factory methods for creation.
+	 * package private for use by subclass: Use factory methods for creation otherwise.
 	 *
 	 * Initializes an empty SimpleFibonacciHeapDouble.
 	 */
-	private SimpleFibonacciHeapDouble(PriorityComparator compare) {
+	SimpleFibonacciHeapDouble(PriorityComparator compare) {
 		this.compare = compare;
 		extreme = compare.comesBefore(0, 1) ? java.lang.Double.POSITIVE_INFINITY : java.lang.Double.NEGATIVE_INFINITY;
 		// length of array used by consolidate is initialized to 45 as follows:
@@ -156,9 +156,9 @@ public final class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueu
 	}
 	
 	/*
-	 * private copy constructor to support the copy() method.
+	 * package private copy constructor to support the copy() method, including in subclass.
 	 */
-	private SimpleFibonacciHeapDouble(SimpleFibonacciHeapDouble<E> other) {
+	SimpleFibonacciHeapDouble(SimpleFibonacciHeapDouble<E> other) {
 		this(other.compare);
 		size = other.size;
 		min = other.min != null ? other.min.copy() : null;
@@ -228,7 +228,7 @@ public final class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueu
 	 * @return true if the (element, priority) pair was added.
 	 */
 	@Override
-	public final boolean add(E element, double priority) {
+	public boolean add(E element, double priority) {
 		return offer(element, priority);
 	}
 	
@@ -241,7 +241,7 @@ public final class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueu
 	 *
 	 */
 	@Override
-	public final boolean add(PriorityQueueNode.Double<E> pair) {
+	public boolean add(PriorityQueueNode.Double<E> pair) {
 		return offer(pair);
 	}
 	
@@ -252,7 +252,7 @@ public final class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueu
 	 * that it chooses to attempt to change is undefined.</p>
 	 */
 	@Override
-	public final boolean change(E element, double priority) {
+	public boolean change(E element, double priority) {
 		Node<E> node = find(element);
 		if (node != null) {
 			if (compare.comesBefore(priority, node.e.value)) {
@@ -268,7 +268,7 @@ public final class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueu
 	}
 	
 	@Override
-	public final void clear() {
+	public void clear() {
 		size = 0;
 		// set min to null which should cause garbage collection
 		// of entire fibonacci heap (impossible to have references to Nodes
@@ -277,7 +277,7 @@ public final class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueu
 	}
 	
 	@Override
-	public final boolean contains(Object o) {
+	public boolean contains(Object o) {
 		if (o instanceof PriorityQueueNode.Double) {
 			PriorityQueueNode.Double pair = (PriorityQueueNode.Double)o;
 			return find(pair.element) != null;
@@ -293,7 +293,7 @@ public final class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueu
 	 * is more efficient than calling {@link #contains(Object)} repeatedly.</p>
 	 */
 	@Override
-	public final boolean containsAll(Collection<?> c) {
+	public boolean containsAll(Collection<?> c) {
 		HashSet<E> containsThese = new HashSet<E>();
 		for (PriorityQueueNode.Double<E> e : this) {
 			containsThese.add(e.element);
@@ -318,7 +318,7 @@ public final class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueu
 	 * that it chooses to attempt to demote is undefined.</p>
 	 */
 	@Override
-	public final boolean demote(E element, double priority) {
+	public boolean demote(E element, double priority) {
 		Node<E> node = find(element);
 		if (node != null && compare.comesBefore(node.e.value, priority)) {
 			internalDemote(node, priority);
@@ -359,7 +359,7 @@ public final class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueu
 	}
 	
 	/**
-	 * Computes a hashCode for the BinaryHeapDouble.
+	 * Computes a hashCode.
 	 *
 	 * @return a hashCode
 	 */
@@ -415,7 +415,7 @@ public final class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueu
 	 * @return true if the (element, priority) pair was added.
 	 */
 	@Override
-	public final boolean offer(E element, double priority) {
+	public boolean offer(E element, double priority) {
 		return internalOffer(new PriorityQueueNode.Double<E>(element, priority));
 	}
 	
@@ -427,7 +427,7 @@ public final class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueu
 	 * @return true if the (element, priority) pair was added.
 	 */
 	@Override
-	public final boolean offer(PriorityQueueNode.Double<E> pair) {
+	public boolean offer(PriorityQueueNode.Double<E> pair) {
 		return internalOffer(pair.copy());
 	}
 	
@@ -453,7 +453,7 @@ public final class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueu
 	 * priority of one of them, but doesn't define which is chosen.</p>
 	 */
 	@Override
-	public final double peekPriority(E element) {
+	public double peekPriority(E element) {
 		Node<E> node = find(element);
 		return node != null ? node.e.value : extreme;
 	}
@@ -465,7 +465,7 @@ public final class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueu
 	}
 	
 	@Override
-	public final PriorityQueueNode.Double<E> poll() {
+	public PriorityQueueNode.Double<E> poll() {
 		if (size == 1) {
 			PriorityQueueNode.Double<E> pair = min.e;
 			min = null;
@@ -494,7 +494,7 @@ public final class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueu
 	 * that it chooses to attempt to promote is undefined.</p>
 	 */
 	@Override
-	public final boolean promote(E element, double priority) {
+	public boolean promote(E element, double priority) {
 		Node<E> node = find(element);
 		if (node != null && compare.comesBefore(priority, node.e.value)) {
 			internalPromote(node, priority);
@@ -510,7 +510,7 @@ public final class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueu
 	 * one of them, but doesn't define which is removed.</p>
 	 */
 	@Override
-	public final boolean remove(Object o) {
+	public boolean remove(Object o) {
 		Node<E> node = null;
 		if (o instanceof PriorityQueueNode.Double) {
 			PriorityQueueNode.Double pair = (PriorityQueueNode.Double)o;
@@ -627,7 +627,10 @@ public final class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueu
 		return result;
 	}
 	
-	private final Node<E> find(Object element) {
+	/**
+	 * package access to enable sublcass overriding with simple index check/
+	 */
+	Node<E> find(Object element) {
 		NodeIterator iter = new NodeIterator();
 		while (iter.hasNext()) {
 			Node<E> n  = iter.next();
@@ -644,9 +647,11 @@ public final class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueu
 	private boolean internalOffer(PriorityQueueNode.Double<E> pair) {
 		if (min == null) {
 			min = new Node<E>(pair);
+			record(pair.element, min);
 			size = 1;
 		} else {
 			Node<E> added = new Node<E>(pair, min);
+			record(pair.element, added);
 			if (compare.comesBefore(pair.value, min.e.value)) {
 				min = added;
 			}
@@ -654,6 +659,8 @@ public final class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueu
 		}
 		return true;
 	}
+	
+	void record(E element, Node<E> node) {}
 	
 	private void internalPromote(Node<E> x, double priority) {
 		// only called if priority decreased for a minheap (increased for a maxheap)
@@ -786,12 +793,16 @@ public final class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueu
 	}
 	
 	@FunctionalInterface
-	private static interface PriorityComparator {
+	static interface PriorityComparator {
 		boolean comesBefore(double p1, double p2);
 	}
 	
-	private class Node<E2> {
-		private PriorityQueueNode.Double<E2> e;
+	NodeIterator nodeIterator() {
+		return new NodeIterator();
+	}
+	
+	class Node<E2> {
+		PriorityQueueNode.Double<E2> e;
 		private Node<E2> parent;
 		private Node<E2> child;
 		private Node<E2> left;
@@ -910,7 +921,7 @@ public final class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueu
 		}
 	}
 	
-	private class NodeIterator implements Iterator<Node<E>> {
+	class NodeIterator implements Iterator<Node<E>> {
 		
 		private final Deque<Node<E>> stack;
 		
