@@ -38,6 +38,38 @@ public class SimpleBinaryHeapDoubleTests {
 	// TESTS THAT ARE NEITHER STRICTLY MIN HEAP TESTS NOW MAX HEAP TESTS
 	
 	@Test
+	public void testContainsAll() {
+		String[] elements = {"A", "B", "C", "D"};
+		double[] priorities = { 8, 6, 4, 2 };
+		SimpleBinaryHeapDouble<String> pq = SimpleBinaryHeapDouble.createMinHeap();
+		ArrayList<PriorityQueueNode.Double<String>> list = new ArrayList<PriorityQueueNode.Double<String>>();
+		for (int i = 0; i < elements.length; i++) {
+			list.add(new PriorityQueueNode.Double<String>(elements[i], priorities[i]));
+		}
+		for (int i = 0; i < elements.length; i++) {
+			assertFalse(pq.containsAll(list));
+			assertTrue(pq.add(elements[i], priorities[i]));
+		}
+		assertTrue(pq.containsAll(list));
+	}
+	
+	@Test
+	public void testContainsAllElements() {
+		String[] elements = {"A", "B", "C", "D"};
+		double[] priorities = { 8, 6, 4, 2 };
+		SimpleBinaryHeapDouble<String> pq = SimpleBinaryHeapDouble.createMinHeap();
+		ArrayList<String> list = new ArrayList<String>();
+		for (int i = 0; i < elements.length; i++) {
+			list.add(elements[i]);
+		}
+		for (int i = 0; i < elements.length; i++) {
+			assertFalse(pq.containsAll(list));
+			assertTrue(pq.add(elements[i], priorities[i]));
+		}
+		assertTrue(pq.containsAll(list));
+	}
+	
+	@Test
 	public void testMerge() {
 		int n = 24;
 		String[] elements1 = new String[n];

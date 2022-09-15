@@ -70,9 +70,8 @@ import org.cicirello.util.Copyable;
  * <li><b>O(n):</b> {@link #change}, {@link #clear}, {@link #contains}, {@link #copy()}, {@link #demote}, {@link #ensureCapacity}, {@link #equals}, {@link #hashCode}, 
  *     {@link #peekPriority(Object)}, {@link #promote}, {@link #remove(Object)}, {@link #toArray()}, {@link #toArray(Object[])}, 
  *     {@link #trimToSize}</li>
- * <li><b>O(n + m):</b> {@link #addAll(Collection)}, {@link #merge(SimpleBinaryHeap)}, 
+ * <li><b>O(n + m):</b> {@link #addAll(Collection)}, {@link #containsAll(Collection)}, {@link #merge(SimpleBinaryHeap)}, 
  *     {@link #removeAll(Collection)}, {@link #retainAll(Collection)}</li>
- * <li><b>O(nm):</b> {@link #containsAll(Collection)}</li>
  * </ul>
  *
  * @param <E> The type of object contained in the SimpleBinaryHeap.
@@ -350,6 +349,32 @@ public final class SimpleBinaryHeap<E> implements MergeablePriorityQueue<E, Simp
 			return find(pair.element) >= 0;
 		}
 		return find(o) >= 0;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The runtime of this method is O(n + m) where n is current size
+	 * of the heap and m is the size of the Collection c. In general this
+	 * is more efficient than calling {@link #contains(Object)} repeatedly.</p>
+	 */
+	@Override
+	public final boolean containsAll(Collection<?> c) {
+		HashSet<E> containsThese = new HashSet<E>();
+		for (int i = 0; i < size; i++) {
+			containsThese.add(buffer[i].element);
+		}
+		for (Object o : c) {
+			if (o instanceof PriorityQueueNode.Integer) {
+				PriorityQueueNode.Integer pair = (PriorityQueueNode.Integer)o;
+				if (!containsThese.contains(pair.element)){
+					return false;
+				}
+			} else if (!containsThese.contains(o)){
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	/**
