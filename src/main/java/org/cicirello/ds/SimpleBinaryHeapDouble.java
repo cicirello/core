@@ -62,8 +62,8 @@ import org.cicirello.util.Copyable;
  *     {@link #peek}, {@link #peekElement}, {@link #peekPriority()}, {@link #size()}</li>
  * <li><b>O(lg n):</b> {@link #add(Object, double)}, {@link #add(PriorityQueueNode.Double)},
  *     {@link #offer(Object, double)}, {@link #offer(PriorityQueueNode.Double)},
- *     {@link #poll}, {@link #pollElement}, {@link #remove()},  
- *     {@link #removeElement()}</li>
+ *     {@link #poll}, {@link #pollElement}, {@link #pollThenAdd(Object, double)}, {@link #pollThenAdd(PriorityQueueNode.Double)},
+ *     {@link #remove()}, {@link #removeElement()}</li>
  * <li><b>O(m):</b> {@link #createMaxHeap(Collection)}, 
  *     {@link #createMinHeap(Collection)}</li>
  * <li><b>O(n):</b> {@link #change}, {@link #clear}, {@link #contains}, {@link #copy()}, {@link #demote}, {@link #ensureCapacity}, {@link #equals}, {@link #hashCode}, 
@@ -119,8 +119,7 @@ public final class SimpleBinaryHeapDouble<E> implements MergeablePriorityQueueDo
 	 * @param initialElements The initial collection of (element, priority) pairs, which must be 
 	 * non-empty.
 	 *
-	 * @throws IllegalArgumentException if initialElements is empty, or if more than
-	 * one pair in initialElements contains the same element.
+	 * @throws IllegalArgumentException if initialElements is empty.
 	 */
 	private SimpleBinaryHeapDouble(Collection<PriorityQueueNode.Double<E>> initialElements) {
 		this(initialElements, (p1, p2) -> p1 < p2);

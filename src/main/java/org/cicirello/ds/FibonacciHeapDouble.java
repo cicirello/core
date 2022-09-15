@@ -73,7 +73,8 @@ import org.cicirello.util.Copyable;
  *     {@link #merge(FibonacciHeapDouble)}, {@link #offer(E, double)}, {@link #offer(PriorityQueueNode.Double)},
  *     {@link #peek}, {@link #peekElement}, {@link #peekPriority()}, {@link #peekPriority(E)},
  *     {@link #promote}, {@link #size()}</li>
- * <li><b>O(lg n):</b> {@link #demote}, {@link #poll}, {@link #pollElement}, {@link #remove()},
+ * <li><b>O(lg n):</b> {@link #demote}, {@link #poll}, {@link #pollElement}, 
+ *      {@link #pollThenAdd(Object, double)}, {@link #pollThenAdd(PriorityQueueNode.Double)}, {@link #remove()},
  *      {@link #remove(Object)}, {@link #removeElement()}</li> 
  * <li><b>O(m):</b> {@link #addAll(Collection)}, {@link #containsAll(Collection)}, 
  *     {@link #createMaxHeap(Collection)}, {@link #createMinHeap(Collection)}</li>
