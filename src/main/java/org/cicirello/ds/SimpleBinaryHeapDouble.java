@@ -71,8 +71,9 @@ import org.cicirello.util.IntegerList;
  * <li><b>O(n):</b> {@link #change}, {@link #clear}, {@link #contains}, {@link #copy()}, {@link #demote}, {@link #ensureCapacity}, {@link #equals}, {@link #hashCode}, 
  *     {@link #peekPriority(Object)}, {@link #promote}, {@link #remove(Object)}, {@link #toArray()}, {@link #toArray(Object[])}, 
  *     {@link #trimToSize}</li>
- * <li><b>O(n + m):</b> {@link #addAll(Collection)}, {@link #merge(SimpleBinaryHeapDouble)}</li>
- * <li><b>O(nm):</b> {@link #containsAll(Collection)}, {@link #removeAll(Collection)}, {@link #retainAll(Collection)}</li>
+ * <li><b>O(n + m):</b> {@link #addAll(Collection)}, {@link #merge(SimpleBinaryHeapDouble)}, 
+ *     {@link #removeAll(Collection)}</li>
+ * <li><b>O(nm):</b> {@link #containsAll(Collection)}, {@link #retainAll(Collection)}</li>
  * </ul>
  *
  * @param <E> The type of object contained in the SimpleBinaryHeapDouble.
@@ -642,42 +643,37 @@ public final class SimpleBinaryHeapDouble<E> implements MergeablePriorityQueueDo
 	 * <p>Unlike the {@link remove(Object)} method, which removes one instance of the Object
 	 * in cases where it appears multiple times, this method removes all instances of all objects
 	 * in the Collection.</p>
+	 *
+	 * <p>The runtime of this method is O(n + m) where n is current size
+	 * of the heap and m is the size of the Collection c. In general this
+	 * is more efficient than calling remove repeatedly.</p>
 	 */
 	@Override
 	public final boolean removeAll(Collection<?> c) {
-		IntegerList discardThese = new IntegerList(c.size());
+		HashSet<Object> discardThese = new HashSet<Object>();
 		for (Object o : c) {
 			if (o instanceof PriorityQueueNode.Double) {
 				PriorityQueueNode.Double pair = (PriorityQueueNode.Double)o;
-				for (int i = 0; i < size; i++) {
-					if (buffer[i].element.equals(pair.element)) {
-						discardThese.add(i);
-					}
-				}
+				discardThese.add(pair.element);
 			} else {
-				for (int i = 0; i < size; i++) {
-					if (buffer[i].element.equals(o)) {
-						discardThese.add(i);
-					}
-				}
+				discardThese.add(o);
 			}
 		}
-		discardThese.sort();
-		if (discardThese.size() > 0) {
-			for (int i = discardThese.size()-1; i >= 0; i--) {
-				int j = discardThese.get(i);
+		boolean changed = false;
+		for (int i = size-1; i >= 0; i--) {
+			if (discardThese.contains(buffer[i].element)) {
+				changed = true;
 				size--;
-				if (j == size) {
-					buffer[j] = null;
-				} else {
-					buffer[j] = buffer[size];
-					buffer[size] = null;
+				if (i != size) {
+					buffer[i] = buffer[size];
 				}
+				buffer[size] = null;
 			}
-			buildHeap();
-			return true;
 		}
-		return false;
+		if (changed) {
+			buildHeap();
+		}
+		return changed;
 	}
 	
 	@Override
