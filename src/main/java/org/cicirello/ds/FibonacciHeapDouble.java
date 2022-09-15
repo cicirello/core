@@ -451,7 +451,7 @@ public final class FibonacciHeapDouble<E> extends SimpleFibonacciHeapDouble<E> i
 	}
 	
 	/**
-	 * package access to enable sublcass overriding with simple index check/
+	 * package access to enable sublcass overriding with simple index check
 	 */
 	final Node<E> find(Object element) {
 		return index.get(element);
