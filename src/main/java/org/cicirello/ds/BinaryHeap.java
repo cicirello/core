@@ -446,16 +446,6 @@ public final class BinaryHeap<E> implements MergeablePriorityQueue<E, BinaryHeap
 		return changed;
 	}
 	
-	/**
-	 * Adds an (element, priority) pair to the BinaryHeap with a specified priority,
-	 * provided the element is not already in the BinaryHeap.
-	 *
-	 * @param element The element.
-	 * @param priority The priority of the element.
-	 *
-	 * @return true if the (element, priority) pair was added, and false if the
-	 * BinaryHeap already contained the element.
-	 */
 	@Override
 	public final boolean offer(E element, int priority) {
 		if (contains(element)) {
@@ -464,15 +454,6 @@ public final class BinaryHeap<E> implements MergeablePriorityQueue<E, BinaryHeap
 		return internalOffer(new PriorityQueueNode.Integer<E>(element, priority));
 	}
 	
-	/**
-	 * Adds an (element, priority) pair to the BinaryHeap,
-	 * provided the element is not already in the BinaryHeap.
-	 *
-	 * @param pair The (element, priority) pair to add.
-	 *
-	 * @return true if the (element, priority) pair was added, and false if the
-	 * BinaryHeap already contained the element.
-	 */
 	@Override
 	public final boolean offer(PriorityQueueNode.Integer<E> pair) {
 		if (contains(pair.element)) {
@@ -529,12 +510,7 @@ public final class BinaryHeap<E> implements MergeablePriorityQueue<E, BinaryHeap
 	}
 	
 	/**
-	 * Removes and returns the next (element, priority) pair in priority order from this PriorityQueue,
-	 * adding a new (element, priority) pair prior to returning.
-	 *
-	 * @param pair The (element, priority) pair to add.
-	 *
-	 * @return the next (element, priority) pair in priority order, or null if empty prior to the call.
+	 * {@inheritDoc}
 	 *
 	 * @throws IllegalArgumentException if, after the poll part of this operation, the priority queue contains
 	 * the element from the pair to add.
@@ -559,13 +535,7 @@ public final class BinaryHeap<E> implements MergeablePriorityQueue<E, BinaryHeap
 	}
 	
 	/**
-	 * Removes and returns the next element in priority order from this PriorityQueue,
-	 * adding a new (element, priority) pair to the PriorityQueueDouble with a specified priority.
-	 *
-	 * @param element The new element.
-	 * @param priority The priority of the new element.
-	 *
-	 * @return the next element in priority order, or null if empty.
+	 * {@inheritDoc}
 	 *
 	 * @throws IllegalArgumentException if, after the poll part of this operation, the priority queue contains
 	 * the element.
@@ -732,6 +702,14 @@ public final class BinaryHeap<E> implements MergeablePriorityQueue<E, BinaryHeap
 		return array;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @throws ArrayStoreException if the runtime component type of array is not
+	 * compatible with the type of the (element, priority) pairs.
+	 *
+	 * @throws NullPointerException if array is null
+	 */
 	@Override
 	public final <T> T[] toArray(T[] array) {
 		@SuppressWarnings("unchecked")

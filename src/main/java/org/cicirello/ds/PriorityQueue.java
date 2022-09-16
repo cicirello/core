@@ -39,7 +39,7 @@ import java.util.Queue;
 public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	
 	/**
-	 * <p>Adds an (element, priority) pair to the PriorityQueue with a specified priority.</p>
+	 * <p>Adds an (element, priority) pair to the priority queue with a specified priority.</p>
 	 *
 	 * <p>This method differs from {@link #offer(Object, int)}
 	 * in that it throws an exception if the add fails, while the offer method instead returns false,
@@ -61,7 +61,7 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	}
 	
 	/**
-	 * <p>Adds an (element, priority) pair to the PriorityQueue.</p>
+	 * <p>Adds an (element, priority) pair to the priority queue.</p>
 	 *
 	 * <p>This method differs from {@link #offer(PriorityQueueNode.Integer)}
 	 * in that it throws an exception if the add fails, while the offer method instead returns false,
@@ -83,16 +83,13 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	}
 	
 	/**
-	 * <p>Adds all (element, priority) pairs from a Collection to the PriorityQueue.</p>
-	 *
-	 * <p>The default implementation calls the {@link #add(PriorityQueueNode.Integer)} 
-	 * for each pair in the Collection.</p> 
+	 * <p>Adds all (element, priority) pairs from a Collection to the priority queue.</p>
 	 *
 	 * @param c the Collection of (element, priority) pairs to add.
 	 *
 	 * @return true if the (element, priority) pairs were added.
 	 *
-	 * @throws IllegalArgumentException if the PriorityQueue fails to add any
+	 * @throws IllegalArgumentException if the priority queue fails to add any
 	 * of the (element, priority) pairs, which will occur only for the implementations that require
 	 * distinctness.
 	 */
@@ -107,44 +104,48 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	}
 	
 	/**
-	 * Changes the priority of an element if the element is
-	 * present in the PriorityQueue, and otherwise adds the
-	 * (element, priority) pair to the PriorityQueue.
+	 * <p>Changes the priority of an element if the element is
+	 * present in the priority queue, and otherwise adds the
+	 * (element, priority) pair to the priority queue.</p>
+	 *
+	 * <p>For those implementations that allow duplicate elements,
+	 * this method changes the priority of only one element, without
+	 * defining which is chosen when such duplicates exist.</p>
 	 *
 	 * @param element The element whose priority is to change.
 	 * @param priority Its new priority.
 	 *
-	 * @return true if and only if the PriorityQueue changed
+	 * @return true if and only if the priority queue changed
 	 * as a consequence of this method call.
 	 */
 	boolean change(E element, int priority);
 	
 	/**
-	 * Clears the PriorityQueue, removing all elements.
+	 * Clears the priority queue, removing all elements.
 	 */
 	@Override
 	void clear();
 	
 	/**
-	 * Checks if this PriorityQueue contains a given element
+	 * Checks if this priority queue contains a given element
 	 * or an (element, priority) pair with a given element.
 	 *
 	 * @param o An element or (element, priority) pair to check
 	 *    for containment of the element.
 	 *
-	 * @return true if and only if this PriorityQueue contains the element.
+	 * @return true if and only if this priority queue contains the element.
 	 */
 	@Override
 	boolean contains(Object o);
 	
 	/**
-	 * Checks if this PriorityQueue contains all elements
+	 * Checks if this priority queue contains all elements
 	 * or (element, priority) pairs from a given Collection.
 	 *
 	 * @param c A Collection of elements or (element, priority) pairs to check
 	 *    for containment.
 	 *
-	 * @return true if and only if this PriorityQueue contains all of the elements
+	 * @return true if and only if this priority queue contains all of the elements
 	 * or (element, priority) pairs in c.
 	 */
 	@Override
@@ -156,24 +157,28 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	}
 	
 	/**
-	 * Demotes an element relative to priority order if the element is
-	 * present in the PriorityQueue. For a min-heap, demotion means
+	 * <p>Demotes an element relative to priority order if the element is
+	 * present in the priority queue. For a min-heap, demotion means
 	 * increasing the element's priority, while for a max-heap, demotion
-	 * means decreasing its priority. If the element is not in the PriorityQueue,
-	 * or if its new priority is not a demotion, then this method does nothing.
+	 * means decreasing its priority. If the element is not in the priority queue,
+	 * or if its new priority is not a demotion, then this method does nothing.</p>
+	 *
+	 * <p>For those implementations that allow duplicate elements,
+	 * this method changes the priority of only one element, without
+	 * defining which is chosen when such duplicates exist.</p>
 	 *
 	 * @param element The element whose priority is to change.
 	 * @param priority Its new priority.
 	 *
-	 * @return true if and only if the PriorityQueue changed
+	 * @return true if and only if the priority queue changed
 	 * as a consequence of this method call.
 	 */
 	boolean demote(E element, int priority);
 	
 	/**
-	 * <p>Gets the next (element, priority) pair in priority order from this PriorityQueue,
+	 * <p>Gets the next (element, priority) pair in priority order from this priority queue,
 	 * without removing it.</p>
-	 * <p>This method differs from {@link #peek()} in that if the PriorityQueue is
+	 * <p>This method differs from {@link #peek()} in that if the priority queue is
 	 * empty, this method throws an exception, while {@link #peek()} returns null.</p>
 	 * <p>This method serves a different purpose than {@link peekElement()}. The
 	 * {@link peekElement()} methods returns only the element of the (element, priority)
@@ -182,7 +187,7 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	 *
 	 * @return the next (element, priority) pair in priority order.
 	 *
-	 * @throws NoSuchElementException if the PriorityQueue is empty
+	 * @throws NoSuchElementException if the priority queue is empty
 	 */
 	@Override
 	default PriorityQueueNode.Integer<E> element() {
@@ -194,7 +199,7 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	}
 	
 	/**
-	 * Checks if the PriorityQueue is empty.
+	 * Checks if the priority queue is empty.
 	 *
 	 * @return true if and only if it is empty
 	 */
@@ -212,27 +217,31 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	Iterator<PriorityQueueNode.Integer<E>> iterator();
 	
 	/**
-	 * Adds an (element, priority) pair to the PriorityQueue with a specified priority.
+	 * Adds an (element, priority) pair to the priority queue with a specified priority.
 	 *
 	 * @param element The element.
 	 * @param priority The priority of the element.
 	 *
 	 * @return true if the (element, priority) pair was added, and false otherwise
+	 * such as for those implementations that enforce distinct elements. For those implementations
+	 * that allow duplicate elements, this method should always return true.
 	 */
 	boolean offer(E element, int priority);
 	
 	/**
-	 * Adds an (element, priority) pair to the PriorityQueue.
+	 * Adds an (element, priority) pair to the priority queue.
 	 *
 	 * @param pair The (element, priority) pair to add.
 	 *
 	 * @return true if the (element, priority) pair was added, and false otherwise
+	 * such as for those implementations that enforce distinct elements. For those implementations
+	 * that allow duplicate elements, this method should always return true.
 	 */
 	@Override
 	boolean offer(PriorityQueueNode.Integer<E> pair);
 	
 	/**
-	 * Gets the next (element, priority) pair in priority order from this PriorityQueue,
+	 * Gets the next (element, priority) pair in priority order from this priority queue,
 	 * without removing it.
 	 *
 	 * @return the next (element, priority) pair in priority order, or null if empty.
@@ -241,16 +250,19 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	PriorityQueueNode.Integer<E> peek();
 	
 	/**
-	 * Gets the priority of the next element in priority order in the PriorityQueue.
+	 * Gets the priority of the next element in priority order in the priority queue.
 	 *
 	 * @return the priority of the next element in priority order.
 	 */
 	int peekPriority();
 	
 	/**
-	 * Gets the priority of a specified element if it is present in the PriorityQueue.
+	 * <p>Gets the priority of a specified element if it is present in the priority queue.
 	 * This interface does not define the behavior when the element is not present.
-	 * Implementations may define the behavior when the element is not present.
+	 * Implementations may define the behavior when the element is not present.</p>
+	 *
+	 * <p>For those implementations that allow duplicate elements, it returns the priority
+	 * of any one of them, without defining which is chosen.</p>
 	 *
 	 * @param element The element whose priority is returned.
 	 *
@@ -259,7 +271,7 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	int peekPriority(E element);
 	
 	/**
-	 * Gets the next element in priority order from this PriorityQueue,
+	 * Gets the next element in priority order from this priority queue,
 	 * without removing it.
 	 *
 	 * @return the next element in priority order, or null if empty.
@@ -267,7 +279,7 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	E peekElement();
 	
 	/**
-	 * Removes and returns the next (element, priority) pair in priority order from this PriorityQueue.
+	 * Removes and returns the next (element, priority) pair in priority order from this priority queue.
 	 *
 	 * @return the next (element, priority) pair in priority order, or null if empty.
 	 */
@@ -275,15 +287,19 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	PriorityQueueNode.Integer<E> poll();
 	
 	/**
-	 * Removes and returns the next element in priority order from this PriorityQueue.
+	 * Removes and returns the next element in priority order from this priority queue.
 	 *
 	 * @return the next element in priority order, or null if empty.
 	 */
 	E pollElement();
 	
 	/**
-	 * Removes and returns the next (element, priority) pair in priority order from this PriorityQueue,
-	 * adding a new (element, priority) pair prior to returning.
+	 * <p>Removes and returns the next (element, priority) pair in priority order from this priority queue,
+	 * adding a new (element, priority) pair prior to returning.</p>
+	 *
+	 * <p>The behavior of this method is equivalent to calling {@link #poll()}, followed by calling
+	 * {@link #add(PriorityQueueNode.Integer)}, although some implementing classes may implement this
+	 * differently where it is possible to do so more efficiently.</p>
 	 *
 	 * @param pair The (element, priority) pair to add.
 	 *
@@ -296,13 +312,17 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	}
 	
 	/**
-	 * Removes and returns the next element in priority order from this PriorityQueue,
-	 * adding a new (element, priority) pair to the PriorityQueue with a specified priority.
+	 * <p>Removes and returns the next element in priority order from this priority queue,
+	 * adding a new (element, priority) pair to the priority queue with a specified priority.</p>
+	 *
+	 * <p>The behavior of this method is equivalent to calling {@link #pollElement()}, followed by calling
+	 * {@link #add(E, int)}, although some implementing classes may implement this
+	 * differently where it is possible to do so more efficiently.</p>
 	 *
 	 * @param element The new element.
 	 * @param priority The priority of the new element.
 	 *
-	 * @return the next element in priority order, or null if empty.
+	 * @return the next element in priority order, or null if empty prior to the call.
 	 */
 	default E pollThenAdd(E element, int priority) {
 		E e = pollElement();
@@ -311,28 +331,32 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	}
 	
 	/**
-	 * Promotes an element relative to priority order if the element is
-	 * present in the PriorityQueue. For a min-heap, promotion means
+	 * <p>Promotes an element relative to priority order if the element is
+	 * present in the priority queue. For a min-heap, promotion means
 	 * decreasing the element's priority, while for a max-heap, promotion
-	 * means increasing its priority. If the element is not in the PriorityQueue,
-	 * or if its new priority is not a promotion, then this method does nothing.
+	 * means increasing its priority. If the element is not in the priority queue,
+	 * or if its new priority is not a promotion, then this method does nothing.</p>
+	 *
+	 * <p>For those implementations that allow duplicate elements,
+	 * this method changes the priority of only one element, without
+	 * defining which is chosen when such duplicates exist.</p>
 	 *
 	 * @param element The element whose priority is to change.
 	 * @param priority Its new priority.
 	 *
-	 * @return true if and only if the PriorityQueue changed
+	 * @return true if and only if the priority queue changed
 	 * as a consequence of this method call.
 	 */
 	boolean promote(E element, int priority);
 	
 	/**
-	 * Removes and returns the next (element, priority) pair in priority order from this PriorityQueue.
-	 * This method differs from {@link #poll()} in that if the PriorityQueue is
+	 * Removes and returns the next (element, priority) pair in priority order from this priority queue.
+	 * This method differs from {@link #poll()} in that if the priority queue is
 	 * empty, this method throws an exception, while {@link #poll()} returns null.
 	 *
 	 * @return the next (element, priority) pair in priority order.
 	 *
-	 * @throws NoSuchElementException if the PriorityQueue is empty
+	 * @throws NoSuchElementException if the priority queue is empty
 	 */
 	@Override
 	default PriorityQueueNode.Integer<E> remove() {
@@ -344,8 +368,12 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	}
 	
 	/**
-	 * Removes from this PriorityQueue the (element, priority) pair, if present, 
-	 * for a specified element or element from a specified (element, priority) pair.
+	 * <p>Removes from this priority queue the (element, priority) pair, if present, 
+	 * for a specified element or element from a specified (element, priority) pair.</p>
+	 *
+	 * <p>For those implementations that allow duplicate elements,
+	 * this method removes only one element, without
+	 * defining which is chosen when such duplicates exist.</p>
 	 *
 	 * @param o An element or (element, priority) pair, such that element designates
 	 * the desired pair to remove (note that if you pass an (element, priority) pair,
@@ -358,25 +386,25 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	boolean remove(Object o);
 	
 	/**
-	 * Removes from this PriorityQueue all (element, priority) pairs
+	 * Removes from this priority queue all (element, priority) pairs
 	 * such that a given Collection c either contains the element or
 	 * contains an (element, priority) pair with the same element.
 	 *
 	 * @param c A Collection of elements or (element, priority) pairs for removal.
 	 *
-	 * @return true if and only if this PriorityQueue changed as a result of this method.
+	 * @return true if and only if this priority queue changed as a result of this method.
 	 */
 	@Override
 	boolean removeAll(Collection<?> c);
 	
 	/**
-	 * Removes and returns the next element in priority order from this PriorityQueue.
-	 * This method differs from {@link #pollElement()} in that if the PriorityQueue is
+	 * Removes and returns the next element in priority order from this priority queue.
+	 * This method differs from {@link #pollElement()} in that if the priority queue is
 	 * empty, this method throws an exception, while {@link #pollElement()} returns null.
 	 *
 	 * @return the next element in priority order.
 	 *
-	 * @throws NoSuchElementException if the PriorityQueue is empty
+	 * @throws NoSuchElementException if the priority queue is empty
 	 */
 	default E removeElement() {
 		E result = pollElement();
@@ -387,46 +415,46 @@ public interface PriorityQueue<E> extends Queue<PriorityQueueNode.Integer<E>> {
 	}
 	
 	/**
-	 * Removes from this PriorityQueue all (element, priority) pairs
+	 * Removes from this priority queue all (element, priority) pairs
 	 * except for the elements or (element, priority) pairs contained in a 
 	 * given Collection c.
 	 *
 	 * @param c A Collection of elements or (element, priority) pairs to keep.
 	 *
-	 * @return true if and only if this PriorityQueue changed as a result of this method.
+	 * @return true if and only if this priority queue changed as a result of this method.
 	 */
 	@Override
 	boolean retainAll(Collection<?> c);
 	
 	/**
-	 * Gets the current size of the PriorityQueue, which is the
+	 * Gets the current size of the priority queue, which is the
 	 * number of (element, value) pairs that it contains.
 	 *
-	 * @return the current size of the PriorityQueue.
+	 * @return the current size of the priority queue.
 	 */
 	@Override
 	int size();
 	
 	/**
 	 * Returns an array containing all of the (element, priority) pairs contained in the
-	 * PriorityQueue. The order is not guaranteed. The runtime component type is Object.
-	 * The PriorityQueue does not maintain any references to the array that is returned,
+	 * priority queue. The order is not guaranteed. The runtime component type is Object.
+	 * The priority queue does not maintain any references to the array that is returned,
 	 * instead creating a new array upon each call to the toArray method. The length of the
-	 * array that is returned is equal to the current {@link #size()} of the PriorityQueue.
+	 * array that is returned is equal to the current {@link #size()} of the priority queue.
 	 *
 	 * @return an array, whose runtime component type is Object, containing all of the 
-	 * (element, priority) pairs currently in the PriorityQueue.
+	 * (element, priority) pairs currently in the priority queue.
 	 */
 	@Override
 	Object[] toArray();
 	
 	/**
 	 * Returns an array containing all of the (element, priority) pairs contained in the
-	 * PriorityQueue. The order is not guaranteed. The runtime component type is the same
+	 * priority queue. The order is not guaranteed. The runtime component type is the same
 	 * as the array passed to it as a parameter. If the specified array is large enough,
 	 * then it is used, otherwise a new array is allocated whose length is equal to 
-	 * the current {@link #size()} of the PriorityQueue. If the specified array is larger
-	 * than the current size() of the PriorityQueue, the first extra cell is set to null.
+	 * the current {@link #size()} of the priority queue. If the specified array is larger
+	 * than the current size() of the priority queue, the first extra cell is set to null.
 	 *
 	 * @param array The array in which to place the (element, priority) pairs, if it is
 	 * sufficiently large, otherwise a new array of length {@link #size()} is allocated of

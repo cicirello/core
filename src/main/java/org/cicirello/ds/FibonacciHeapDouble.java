@@ -71,7 +71,7 @@ import org.cicirello.util.Copyable;
  *     {@link #contains}, {@link #createMaxHeap()}, 
  *     {@link #createMinHeap()}, {@link #element}, {@link #isEmpty}, {@link #iterator},
  *     {@link #merge}, {@link #offer(E, double)}, {@link #offer(PriorityQueueNode.Double)},
- *     {@link #peek}, {@link #peekElement}, {@link #peekPriority()}, {@link #peekPriority(E)},
+ *     {@link #peek}, {@link #peekElement}, {@link #peekPriority()}, {@link #peekPriority(Object)},
  *     {@link #promote}, {@link #size()}</li>
  * <li><b>O(lg n):</b> {@link #demote}, {@link #poll}, {@link #pollElement}, 
  *      {@link #pollThenAdd(Object, double)}, {@link #pollThenAdd(PriorityQueueNode.Double)}, {@link #remove()},
@@ -214,11 +214,6 @@ public final class FibonacciHeapDouble<E> extends SimpleFibonacciHeapDouble<E> {
 		return new FibonacciHeapDouble<E>(initialElements, (p1, p2) -> p1 > p2);
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 *
-	 * @throws IllegalArgumentException if it already contains an (element, priority) pair with this element
-	 */
 	@Override
 	public boolean add(E element, double priority) {
 		if (index.containsKey(element)) {
@@ -227,34 +222,12 @@ public final class FibonacciHeapDouble<E> extends SimpleFibonacciHeapDouble<E> {
 		return offer(element, priority);
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 *
-	 * @throws IllegalArgumentException if it already contains an (element, priority) pair with the element
-	 * from this pair.
-	 */
 	@Override
 	public boolean add(PriorityQueueNode.Double<E> pair) {
 		if (index.containsKey(pair.element)) {
 			throw new IllegalArgumentException("already contains an (element, priority) pair with this element");
 		}
 		return offer(pair);
-	}
-	
-	/**
-	 * Changes the priority of an element if the element is
-	 * present in the PriorityQueueDouble, and otherwise adds the
-	 * (element, priority) pair to the PriorityQueueDouble.
-	 *
-	 * @param element The element whose priority is to change.
-	 * @param priority Its new priority.
-	 *
-	 * @return true if and only if the PriorityQueueDouble changed
-	 * as a consequence of this method call.
-	 */
-	@Override
-	public final boolean change(E element, double priority) {
-		return super.change(element, priority);
 	}
 	
 	@Override
@@ -301,24 +274,6 @@ public final class FibonacciHeapDouble<E> extends SimpleFibonacciHeapDouble<E> {
 	}
 	
 	/**
-	 * Demotes an element relative to priority order if the element is
-	 * present in the PriorityQueueDouble. For a min-heap, demotion means
-	 * increasing the element's priority, while for a max-heap, demotion
-	 * means decreasing its priority. If the element is not in the PriorityQueueDouble,
-	 * or if its new priority is not a demotion, then this method does nothing.
-	 *
-	 * @param element The element whose priority is to change.
-	 * @param priority Its new priority.
-	 *
-	 * @return true if and only if the PriorityQueueDouble changed
-	 * as a consequence of this method call.
-	 */
-	@Override
-	public final boolean demote(E element, double priority) {
-		return super.demote(element, priority);
-	}
-	
-	/**
 	 * Checks if this FibonacciHeapDouble contains the same (element, priority)
 	 * pairs as another FibonacciHeapDouble, including the specific structure
 	 * the FibonacciHeapDouble, as well as that the priority order is the same.
@@ -332,7 +287,6 @@ public final class FibonacciHeapDouble<E> extends SimpleFibonacciHeapDouble<E> {
 	public boolean equals(Object other) {
 		return super.equals(other) && other instanceof FibonacciHeapDouble;
 	}
-	
 	
 	/**
 	 * {@inheritDoc}
@@ -356,16 +310,6 @@ public final class FibonacciHeapDouble<E> extends SimpleFibonacciHeapDouble<E> {
 		return super.merge(other);
 	}
 	
-	/**
-	 * Adds an (element, priority) pair to the FibonacciHeapDouble with a specified priority,
-	 * provided the element is not already in the FibonacciHeapDouble.
-	 *
-	 * @param element The element.
-	 * @param priority The priority of the element.
-	 *
-	 * @return true if the (element, priority) pair was added, and false if the
-	 * FibonacciHeapDouble already contained the element.
-	 */
 	@Override
 	public final boolean offer(E element, double priority) {
 		if (index.containsKey(element)) {
@@ -374,15 +318,6 @@ public final class FibonacciHeapDouble<E> extends SimpleFibonacciHeapDouble<E> {
 		return super.offer(element, priority);
 	}
 	
-	/**
-	 * Adds an (element, priority) pair to the FibonacciHeapDouble,
-	 * provided the element is not already in the FibonacciHeapDouble.
-	 *
-	 * @param pair The (element, priority) pair to add.
-	 *
-	 * @return true if the (element, priority) pair was added, and false if the
-	 * FibonacciHeapDouble already contained the element.
-	 */
 	@Override
 	public final boolean offer(PriorityQueueNode.Double<E> pair) {
 		if (index.containsKey(pair.element)) {
@@ -390,21 +325,6 @@ public final class FibonacciHeapDouble<E> extends SimpleFibonacciHeapDouble<E> {
 		}
 		return super.offer(pair);
 	}
-	
-	/**
-	 * Gets the priority of a specified element if it is present in the PriorityQueueDouble.
-	 * This interface does not define the behavior when the element is not present.
-	 * Implementations may define the behavior when the element is not present.
-	 *
-	 * @param element The element whose priority is returned.
-	 *
-	 * @return the priority of a specified element.
-	 */
-	@Override
-	public final double peekPriority(E element) {
-		return super.peekPriority(element);
-	}
-	
 	
 	@Override
 	public final PriorityQueueNode.Double<E> poll() {
@@ -416,41 +336,7 @@ public final class FibonacciHeapDouble<E> extends SimpleFibonacciHeapDouble<E> {
 		
 	}
 	
-	/**
-	 * Promotes an element relative to priority order if the element is
-	 * present in the PriorityQueueDouble. For a min-heap, promotion means
-	 * decreasing the element's priority, while for a max-heap, promotion
-	 * means increasing its priority. If the element is not in the PriorityQueueDouble,
-	 * or if its new priority is not a promotion, then this method does nothing.
-	 *
-	 * @param element The element whose priority is to change.
-	 * @param priority Its new priority.
-	 *
-	 * @return true if and only if the PriorityQueueDouble changed
-	 * as a consequence of this method call.
-	 */
-	@Override
-	public final boolean promote(E element, double priority) {
-		return super.promote(element, priority);
-	}
-	
-	/**
-	 * Removes from this PriorityQueueDouble the (element, priority) pair, if present, 
-	 * for a specified element or element from a specified (element, priority) pair.
-	 *
-	 * @param o An element or (element, priority) pair, such that element designates
-	 * the desired pair to remove (note that if you pass an (element, priority) pair,
-	 * only the element must match to cause removal.
-	 *
-	 * @return true if and only if an (element, priority) pair was removed as a result
-	 * of this method call.
-	 */
-	@Override
-	public final boolean remove(Object o) {
-		return super.remove(o);
-	}
-	
-	/**
+	/*
 	 * package access: overridden with simple index check
 	 */
 	@Override
@@ -458,7 +344,7 @@ public final class FibonacciHeapDouble<E> extends SimpleFibonacciHeapDouble<E> {
 		return index.get(element);
 	}
 	
-	/**
+	/*
 	 * package access: overridden to record mapping from element to node in index.
 	 */
 	@Override
