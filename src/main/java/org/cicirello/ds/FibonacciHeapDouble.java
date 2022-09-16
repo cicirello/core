@@ -451,12 +451,17 @@ public final class FibonacciHeapDouble<E> extends SimpleFibonacciHeapDouble<E> i
 	}
 	
 	/**
-	 * package access to enable sublcass overriding with simple index check
+	 * package access: overridden with simple index check
 	 */
+	@Override
 	final Node<E> find(Object element) {
 		return index.get(element);
 	}
 	
+	/**
+	 * package access: overridden to record mapping from element to node in index.
+	 */
+	@Override
 	final void record(E element, Node<E> node) {
 		index.put(element, node);
 	}
