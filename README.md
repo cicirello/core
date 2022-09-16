@@ -75,14 +75,14 @@ Maven Central is unavailable.
 
 ### Importing from Maven Central
 
-Add this to the dependencies section of your pom.xml, replacing 
-the version number with the version that you want to use.
+Add this to the dependencies section of your pom.xml, replacing `x.y.z` with
+the version number that you want to use.
 
 ```XML
 <dependency>
   <groupId>org.cicirello</groupId>
   <artifactId>core</artifactId>
-  <version>2.2.1</version>
+  <version>x.y.z</version>
 </dependency>
 ```
 
