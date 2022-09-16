@@ -70,7 +70,6 @@ public class FibonacciHeapDoubleTests {
 		assertTrue(pq.containsAll(list));
 	}
 	
-	
 	@Test
 	public void testMerge() {
 		int n = 24;

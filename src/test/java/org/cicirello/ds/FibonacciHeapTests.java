@@ -39,6 +39,38 @@ public class FibonacciHeapTests {
 	// TESTS THAT ARE NEITHER STRICTLY MIN HEAP TESTS NOW MAX HEAP TESTS
 	
 	@Test
+	public void testContainsAll() {
+		String[] elements = {"A", "B", "C", "D"};
+		int[] priorities = { 8, 6, 4, 2 };
+		FibonacciHeap<String> pq = FibonacciHeap.createMinHeap();
+		ArrayList<PriorityQueueNode.Integer<String>> list = new ArrayList<PriorityQueueNode.Integer<String>>();
+		for (int i = 0; i < elements.length; i++) {
+			list.add(new PriorityQueueNode.Integer<String>(elements[i], priorities[i]));
+		}
+		for (int i = 0; i < elements.length; i++) {
+			assertFalse(pq.containsAll(list));
+			assertTrue(pq.add(elements[i], priorities[i]));
+		}
+		assertTrue(pq.containsAll(list));
+	}
+	
+	@Test
+	public void testContainsAllElements() {
+		String[] elements = {"A", "B", "C", "D"};
+		int[] priorities = { 8, 6, 4, 2 };
+		FibonacciHeap<String> pq = FibonacciHeap.createMinHeap();
+		ArrayList<String> list = new ArrayList<String>();
+		for (int i = 0; i < elements.length; i++) {
+			list.add(elements[i]);
+		}
+		for (int i = 0; i < elements.length; i++) {
+			assertFalse(pq.containsAll(list));
+			assertTrue(pq.add(elements[i], priorities[i]));
+		}
+		assertTrue(pq.containsAll(list));
+	}
+	
+	@Test
 	public void testMerge() {
 		int n = 24;
 		String[] elements1 = new String[n];
@@ -95,6 +127,62 @@ public class FibonacciHeapTests {
 	}
 	
 	@Test
+	public void testMergeWithSimple() {
+		int n = 24;
+		String[] elements1 = new String[n];
+		int[] priorities1 = new int[n];
+		String[] elements2 = new String[n];
+		int[] priorities2 = new int[n];
+		ArrayList<PriorityQueueNode.Integer<String>> list1 = new ArrayList<PriorityQueueNode.Integer<String>>();
+		ArrayList<PriorityQueueNode.Integer<String>> list2 = new ArrayList<PriorityQueueNode.Integer<String>>();
+		final FibonacciHeap<String> pq1 = FibonacciHeap.createMinHeap();
+		final SimpleFibonacciHeap<String> pq2 = SimpleFibonacciHeap.createMinHeap();
+		int count = 0;
+		for (int i = 0; i < 2*n; i+=2) {
+			count++;
+			elements1[i/2] = "A" + i;
+			elements2[i/2] = "A" + (i+1);
+			priorities1[i/2] = i;
+			priorities2[i/2] = i+1;
+			PriorityQueueNode.Integer<String> node1 = new PriorityQueueNode.Integer<String>(elements1[i/2], priorities1[i/2]);
+			PriorityQueueNode.Integer<String> node2 = new PriorityQueueNode.Integer<String>(elements2[i/2], priorities2[i/2]);
+			list1.add(node1);
+			list2.add(node2);
+			pq1.offer(node1);
+			pq2.offer(node2);
+			if (count == 8 || count == 16) {
+				// ensure multilevel structure
+				pq1.offer("XYZ", -100);
+				pq2.offer("XYZ", -100);
+				pq1.poll();
+				pq2.poll();
+			}
+		}
+		assertFalse(pq1.merge(SimpleFibonacciHeap.createMinHeap()));
+		assertTrue(pq1.merge(pq2));
+		assertTrue(pq2.isEmpty());
+		assertEquals(0, pq2.size());
+		assertEquals(2*n, pq1.size());
+		for (int i = 0; i < n; i++) {
+			assertTrue(pq1.contains(elements1[i]));
+			assertTrue(pq1.contains(elements2[i]));
+			assertEquals(priorities1[i], pq1.peekPriority(elements1[i]));
+			assertEquals(priorities2[i], pq1.peekPriority(elements2[i]));
+		}
+		for (int i = 0; i < n; i++) {
+			assertEquals(list1.get(i), pq1.poll());
+			assertEquals(list2.get(i), pq1.poll());
+		}
+		assertTrue(pq1.isEmpty());
+		assertEquals(0, pq1.size());
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> pq1.merge(SimpleFibonacciHeap.createMaxHeap())
+		);
+	}
+	
+	@Test
 	public void testMergeOtherBetterMin() {
 		int n = 24;
 		String[] elements1 = new String[n];
@@ -147,6 +235,62 @@ public class FibonacciHeapTests {
 		IllegalArgumentException thrown = assertThrows( 
 			IllegalArgumentException.class,
 			() -> pq1.merge(FibonacciHeap.createMaxHeap())
+		);
+	}
+	
+	@Test
+	public void testMergeOtherBetterMinWithSimple() {
+		int n = 24;
+		String[] elements1 = new String[n];
+		int[] priorities1 = new int[n];
+		String[] elements2 = new String[n];
+		int[] priorities2 = new int[n];
+		ArrayList<PriorityQueueNode.Integer<String>> list1 = new ArrayList<PriorityQueueNode.Integer<String>>();
+		ArrayList<PriorityQueueNode.Integer<String>> list2 = new ArrayList<PriorityQueueNode.Integer<String>>();
+		final FibonacciHeap<String> pq1 = FibonacciHeap.createMinHeap();
+		final SimpleFibonacciHeap<String> pq2 = SimpleFibonacciHeap.createMinHeap();
+		int count = 0;
+		for (int i = 0; i < 2*n; i+=2) {
+			count++;
+			elements1[i/2] = "A" + i;
+			elements2[i/2] = "A" + (i+1);
+			priorities1[i/2] = i;
+			priorities2[i/2] = i+1;
+			PriorityQueueNode.Integer<String> node1 = new PriorityQueueNode.Integer<String>(elements1[i/2], priorities1[i/2]);
+			PriorityQueueNode.Integer<String> node2 = new PriorityQueueNode.Integer<String>(elements2[i/2], priorities2[i/2]);
+			list1.add(node1);
+			list2.add(node2);
+			pq2.offer(node1);
+			pq1.offer(node2);
+			if (count == 8 || count == 16) {
+				// ensure multilevel structure
+				pq1.offer("XYZ", -100);
+				pq2.offer("XYZ", -100);
+				pq1.poll();
+				pq2.poll();
+			}
+		}
+		assertFalse(pq1.merge(SimpleFibonacciHeap.createMinHeap()));
+		assertTrue(pq1.merge(pq2));
+		assertTrue(pq2.isEmpty());
+		assertEquals(0, pq2.size());
+		assertEquals(2*n, pq1.size());
+		for (int i = 0; i < n; i++) {
+			assertTrue(pq1.contains(elements1[i]));
+			assertTrue(pq1.contains(elements2[i]));
+			assertEquals(priorities1[i], pq1.peekPriority(elements1[i]));
+			assertEquals(priorities2[i], pq1.peekPriority(elements2[i]));
+		}
+		for (int i = 0; i < n; i++) {
+			assertEquals(list1.get(i), pq1.poll());
+			assertEquals(list2.get(i), pq1.poll());
+		}
+		assertTrue(pq1.isEmpty());
+		assertEquals(0, pq1.size());
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> pq1.merge(SimpleFibonacciHeap.createMaxHeap())
 		);
 	}
 	
@@ -507,6 +651,8 @@ public class FibonacciHeapTests {
 		FibonacciHeap<String> pq2 = FibonacciHeap.createMinHeap(list2);
 		FibonacciHeap<String> pq3 = FibonacciHeap.createMaxHeap(list3);
 		FibonacciHeap<String> pq4 = FibonacciHeap.createMaxHeap(list4);
+		SimpleFibonacciHeap<String> pqSimple = SimpleFibonacciHeap.createMinHeap(list1);
+		assertNotEquals(pq1, pqSimple);
 		assertEquals(pq1, pq2);
 		assertEquals(pq1.hashCode(), pq2.hashCode());
 		assertEquals(pq3, pq4);
@@ -1191,6 +1337,7 @@ public class FibonacciHeapTests {
 			assertTrue(pq.contains(elements[i]));
 			assertTrue(pq.contains(pairs[i]));
 			assertFalse(pq.offer(pairs[i]));
+			assertFalse(pq.offer(pairs[i].element, pairs[i].value));
 			assertEquals(n, pq.size());
 			assertEquals("A", pq.peekElement());
 			assertEquals(pairs[0], pq.peek());
@@ -1951,6 +2098,7 @@ public class FibonacciHeapTests {
 			assertTrue(pq.contains(elements[i]));
 			assertTrue(pq.contains(pairs[i]));
 			assertFalse(pq.offer(pairs[i]));
+			assertFalse(pq.offer(pairs[i].element, pairs[i].value));
 			assertEquals(n, pq.size());
 			assertEquals("A", pq.peekElement());
 			assertEquals(pairs[0], pq.peek());

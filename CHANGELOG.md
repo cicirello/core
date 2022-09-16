@@ -26,6 +26,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 * Improved javadoc documentation in the PriorityQueue and PriorityQueueDouble interfaces, and the various
   classes that implement them.
+* Refactored FibonacciHeap as a subclass of the new SimpleFibonacciHeap.
+* Refactored FibonacciHeapDouble as a subclass of the new SimpleFibonacciHeapDouble.
 
 ### Deprecated
 
