@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2022-09-16
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### CI/CD
+
+### Other
+
+
+## [2.3.0] - 2022-09-16
+
+### Added
 * SimpleBinaryHeap class: a basic implementation of a binary heap with integer priorities that allows 
   duplicate elements (unlike the BinaryHeap class), but lacks constant time lookups and thus lacks the 
   speed advantage for operations like priority changes that constant time lookups provide.
@@ -28,16 +45,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   classes that implement them.
 * Refactored FibonacciHeap as a subclass of the new SimpleFibonacciHeap.
 * Refactored FibonacciHeapDouble as a subclass of the new SimpleFibonacciHeapDouble.
-
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### CI/CD
-
-### Other
 
 
 ## [2.2.2] - 2022-07-13
