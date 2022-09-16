@@ -253,28 +253,11 @@ public final class SimpleBinaryHeapDouble<E> implements MergeablePriorityQueueDo
 		return new SimpleBinaryHeapDouble<E>(initialElements, (p1, p2) -> p1 > p2);
 	}
 	
-	/**
-	 * <p>Adds an (element, priority) pair to the PriorityQueueDouble with a specified priority.</p>
-	 *
-	 * @param element The element.
-	 * @param priority The priority of the element.
-	 *
-	 * @return true if the (element, priority) pair was added.
-	 */
 	@Override
 	public final boolean add(E element, double priority) {
 		return offer(element, priority);
 	}
 	
-	/**
-	 * <p>Adds an (element, priority) pair to the PriorityQueueDouble.</p>
-	 *
-	 *
-	 * @param pair The (element, priority) pair to add.
-	 *
-	 * @return true if the (element, priority) pair was added.
-	 *
-	 */
 	@Override
 	public final boolean add(PriorityQueueNode.Double<E> pair) {
 		return offer(pair);
@@ -308,12 +291,6 @@ public final class SimpleBinaryHeapDouble<E> implements MergeablePriorityQueueDo
 		return changed;
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>If it contains multiple entries for the element, the specific one
-	 * that it chooses to attempt to change is undefined.</p>
-	 */
 	@Override
 	public final boolean change(E element, double priority) {
 		int i = find(element);
@@ -375,12 +352,6 @@ public final class SimpleBinaryHeapDouble<E> implements MergeablePriorityQueueDo
 		return true;
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>If it contains multiple entries for the element, the specific one
-	 * that it chooses to attempt to demote is undefined.</p>
-	 */
 	@Override
 	public final boolean demote(E element, double priority) {
 		int i = find(element);
@@ -488,26 +459,11 @@ public final class SimpleBinaryHeapDouble<E> implements MergeablePriorityQueueDo
 		return changed;
 	}
 	
-	/**
-	 * Adds an (element, priority) pair to the SimpleBinaryHeapDouble with a specified priority.
-	 *
-	 * @param element The element.
-	 * @param priority The priority of the element.
-	 *
-	 * @return true if the (element, priority) pair was added.
-	 */
 	@Override
 	public final boolean offer(E element, double priority) {
 		return internalOffer(new PriorityQueueNode.Double<E>(element, priority));
 	}
 	
-	/**
-	 * Adds an (element, priority) pair to the SimpleBinaryHeapDouble.
-	 *
-	 * @param pair The (element, priority) pair to add.
-	 *
-	 * @return true if the (element, priority) pair was added.
-	 */
 	@Override
 	public final boolean offer(PriorityQueueNode.Double<E> pair) {
 		return internalOffer(pair.copy());
@@ -528,12 +484,6 @@ public final class SimpleBinaryHeapDouble<E> implements MergeablePriorityQueueDo
 		return size > 0 ? buffer[0].value: extreme;
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>If it contains multiple entries for the element, it returns the
-	 * priority of one of them, but doesn't define which is chosen.</p>
-	 */
 	@Override
 	public final double peekPriority(E element) {
 		int i = find(element);
@@ -564,14 +514,6 @@ public final class SimpleBinaryHeapDouble<E> implements MergeablePriorityQueueDo
 		}
 	}
 	
-	/**
-	 * Removes and returns the next (element, priority) pair in priority order from this PriorityQueueDouble,
-	 * adding a new (element, priority) pair prior to returning.
-	 *
-	 * @param pair The (element, priority) pair to add.
-	 *
-	 * @return the next (element, priority) pair in priority order, or null if empty prior to the call.
-	 */
 	@Override
 	public final PriorityQueueNode.Double<E> pollThenAdd(PriorityQueueNode.Double<E> pair) {
 		PriorityQueueNode.Double<E> min = size > 0 ? buffer[0] : null;
@@ -584,15 +526,6 @@ public final class SimpleBinaryHeapDouble<E> implements MergeablePriorityQueueDo
 		return min;
 	}
 	
-	/**
-	 * Removes and returns the next element in priority order from this PriorityQueueDouble,
-	 * adding a new (element, priority) pair to the PriorityQueueDouble with a specified priority.
-	 *
-	 * @param element The new element.
-	 * @param priority The priority of the new element.
-	 *
-	 * @return the next element in priority order, or null if empty.
-	 */
 	@Override
 	public final E pollThenAdd(E element, double priority) {
 		E min = size > 0 ? buffer[0].element : null;
@@ -605,12 +538,6 @@ public final class SimpleBinaryHeapDouble<E> implements MergeablePriorityQueueDo
 		return min;
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>If it contains multiple entries for the element, the specific one
-	 * that it chooses to attempt to promote is undefined.</p>
-	 */
 	@Override
 	public final boolean promote(E element, double priority) {
 		int i = find(element);
@@ -624,12 +551,6 @@ public final class SimpleBinaryHeapDouble<E> implements MergeablePriorityQueueDo
 		return false;
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>If it contains multiple entries for the element, it removes
-	 * one of them, but doesn't define which is removed.</p>
-	 */
 	@Override
 	public final boolean remove(Object o) {
 		int i = -1;
@@ -747,6 +668,14 @@ public final class SimpleBinaryHeapDouble<E> implements MergeablePriorityQueueDo
 		return array;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @throws ArrayStoreException if the runtime component type of array is not
+	 * compatible with the type of the (element, priority) pairs.
+	 *
+	 * @throws NullPointerException if array is null
+	 */
 	@Override
 	public final <T> T[] toArray(T[] array) {
 		@SuppressWarnings("unchecked")

@@ -219,40 +219,18 @@ public class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueueDoubl
 		return new SimpleFibonacciHeapDouble<E>(initialElements, (p1, p2) -> p1 > p2);
 	}
 	
-	/**
-	 * <p>Adds an (element, priority) pair to the SimpleFibonacciHeapDouble with a specified priority.</p>
-	 *
-	 * @param element The element.
-	 * @param priority The priority of the element.
-	 *
-	 * @return true if the (element, priority) pair was added.
-	 */
 	@Override
 	public boolean add(E element, double priority) {
 		return offer(element, priority);
 	}
 	
-	/**
-	 * <p>Adds an (element, priority) pair to the SimpleFibonacciHeapDouble.</p>
-	 *
-	 * @param pair The (element, priority) pair to add.
-	 *
-	 * @return true if the (element, priority) pair was added.
-	 *
-	 */
 	@Override
 	public boolean add(PriorityQueueNode.Double<E> pair) {
 		return offer(pair);
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>If it contains multiple entries for the element, the specific one
-	 * that it chooses to attempt to change is undefined.</p>
-	 */
 	@Override
-	public boolean change(E element, double priority) {
+	public final boolean change(E element, double priority) {
 		Node<E> node = find(element);
 		if (node != null) {
 			if (compare.comesBefore(priority, node.e.value)) {
@@ -311,14 +289,8 @@ public class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueueDoubl
 		return true;
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>If it contains multiple entries for the element, the specific one
-	 * that it chooses to attempt to demote is undefined.</p>
-	 */
 	@Override
-	public boolean demote(E element, double priority) {
+	public final boolean demote(E element, double priority) {
 		Node<E> node = find(element);
 		if (node != null && compare.comesBefore(node.e.value, priority)) {
 			internalDemote(node, priority);
@@ -406,26 +378,11 @@ public class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueueDoubl
 		return false;
 	}
 	
-	/**
-	 * Adds an (element, priority) pair to the SimpleFibonacciHeapDouble with a specified priority.
-	 *
-	 * @param element The element.
-	 * @param priority The priority of the element.
-	 *
-	 * @return true if the (element, priority) pair was added.
-	 */
 	@Override
 	public boolean offer(E element, double priority) {
 		return internalOffer(new PriorityQueueNode.Double<E>(element, priority));
 	}
 	
-	/**
-	 * Adds an (element, priority) pair to the SimpleFibonacciHeapDouble.
-	 *
-	 * @param pair The (element, priority) pair to add.
-	 *
-	 * @return true if the (element, priority) pair was added.
-	 */
 	@Override
 	public boolean offer(PriorityQueueNode.Double<E> pair) {
 		return internalOffer(pair.copy());
@@ -446,14 +403,8 @@ public class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueueDoubl
 		return min != null ? min.e.value : extreme;
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>If it contains multiple entries for the element, it returns the
-	 * priority of one of them, but doesn't define which is chosen.</p>
-	 */
 	@Override
-	public double peekPriority(E element) {
+	public final double peekPriority(E element) {
 		Node<E> node = find(element);
 		return node != null ? node.e.value : extreme;
 	}
@@ -487,14 +438,8 @@ public class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueueDoubl
 		return null;
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>If it contains multiple entries for the element, the specific one
-	 * that it chooses to attempt to promote is undefined.</p>
-	 */
 	@Override
-	public boolean promote(E element, double priority) {
+	public final boolean promote(E element, double priority) {
 		Node<E> node = find(element);
 		if (node != null && compare.comesBefore(priority, node.e.value)) {
 			internalPromote(node, priority);
@@ -503,14 +448,8 @@ public class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueueDoubl
 		return false;
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>If it contains multiple entries for the element, it removes
-	 * one of them, but doesn't define which is removed.</p>
-	 */
 	@Override
-	public boolean remove(Object o) {
+	public final boolean remove(Object o) {
 		Node<E> node = null;
 		if (o instanceof PriorityQueueNode.Double) {
 			PriorityQueueNode.Double pair = (PriorityQueueNode.Double)o;
@@ -610,6 +549,14 @@ public class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueueDoubl
 		return array;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @throws ArrayStoreException if the runtime component type of array is not
+	 * compatible with the type of the (element, priority) pairs.
+	 *
+	 * @throws NullPointerException if array is null
+	 */
 	@Override
 	public final <T> T[] toArray(T[] array) {
 		@SuppressWarnings("unchecked")
@@ -627,7 +574,7 @@ public class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueueDoubl
 		return result;
 	}
 	
-	/**
+	/*
 	 * package access to enable sublcass overriding with simple index check/
 	 */
 	Node<E> find(Object element) {
@@ -640,6 +587,8 @@ public class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueueDoubl
 		}
 		return null;
 	}
+	
+	void record(E element, Node<E> node) {}
 	
 	/*
 	 * used internally: doesn't check if already contains element
@@ -659,8 +608,6 @@ public class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueueDoubl
 		}
 		return true;
 	}
-	
-	void record(E element, Node<E> node) {}
 	
 	private void internalPromote(Node<E> x, double priority) {
 		// only called if priority decreased for a minheap (increased for a maxheap)
