@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * SimpleBinaryHeapDouble class: a basic implementation of a binary heap with double priorities that allows 
   duplicate elements (unlike the BinaryHeapDouble class), but lacks constant time lookups and thus lacks the 
   speed advantage for operations like priority changes that constant time lookups provide.
+* SimpleFibonacciHeap class: a basic implementation of a Fibonacci heap with integer priorities that allows 
+  duplicate elements (unlike the FibonacciHeap class), but lacks constant time lookups and thus lacks the 
+  speed advantage for operations like priority changes that constant time lookups provide.
 * SimpleFibonacciHeapDouble class: a basic implementation of a Fibonacci heap with double priorities that allows 
   duplicate elements (unlike the FibonacciHeapDouble class), but lacks constant time lookups and thus lacks the 
   speed advantage for operations like priority changes that constant time lookups provide.
