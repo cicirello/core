@@ -99,18 +99,7 @@ public class DoubleListTests {
 		int sIndex = 0;
 		for (double[] array : cases) {
 			DoubleList list = new DoubleList(array.clone());
-			assertFalse(list.isEmpty());
-			assertEquals(array.length, list.size());
-			for (double e : array) {
-				assertTrue(list.contains(e));
-			}
-			assertFalse(list.contains(99));
-			for (int i = 0; i < array.length; i++) {
-				assertEquals(array[i], list.get(i), 0.0);
-			}
-			double[] fromList = list.toArray();
-			assertEquals(array.length, fromList.length);
-			assertArrayEquals(array, fromList, 0.0);
+			fromArrayTestHelper(list, array);
 			assertEquals(s[sIndex], list.toString());
 			assertTrue(s.hashCode() != 0);
 			
@@ -119,17 +108,7 @@ public class DoubleListTests {
 			assertEquals(list, list2);
 			assertEquals(list.hashCode(), list2.hashCode());
 			assertFalse(list2.isEmpty());
-			assertEquals(array.length, list2.size());
-			for (double e : array) {
-				assertTrue(list2.contains(e));
-			}
-			assertFalse(list2.contains(99));
-			for (int i = 0; i < array.length; i++) {
-				assertEquals(array[i], list2.get(i), 0.0);
-			}
-			fromList = list2.toArray();
-			assertEquals(array.length, fromList.length);
-			assertArrayEquals(array, fromList, 0.0);
+			fromArrayTestHelper(list2, array);
 			assertEquals(s[sIndex], list.toString());
 			
 			sIndex++;
@@ -247,11 +226,11 @@ public class DoubleListTests {
 	public void testRemoveFromEnd() {
 		double[] array = {100, 101, 102, 103, 104, 105, 106, 107};
 		final DoubleList list = new DoubleList(array.clone());
-		for (int i = array.length - 1; i >= 0; i--) {
+		for (int i = array.length - 1; i > 0; i--) {
 			double value = list.remove(i);
 			assertEquals(array[i], value, 0.0);
 			assertEquals(i, list.size());
-			if (i > 0) assertFalse(list.isEmpty());
+			assertFalse(list.isEmpty());
 			for (int j = 0; j < i; j++) {
 				assertEquals(array[j], list.get(j), 0.0);
 			}
@@ -260,6 +239,9 @@ public class DoubleListTests {
 				() -> list.remove(list.size())
 			);
 		}
+		double value = list.remove(0);
+		assertEquals(array[0], value);
+		assertEquals(0, list.size());
 		assertTrue(list.isEmpty());
 	}
 	
@@ -267,15 +249,18 @@ public class DoubleListTests {
 	public void testRemoveFromFront() {
 		double[] array = {100, 101, 102, 103, 104, 105, 106, 107};
 		DoubleList list = new DoubleList(array.clone());
-		for (int i = 0; i < array.length; i++) {
+		for (int i = 0; i < array.length - 1; i++) {
 			double value = list.remove(0);
 			assertEquals(array[i], value, 0.0);
 			assertEquals(array.length - i - 1, list.size());
-			if (list.size() > 0) assertFalse(list.isEmpty());
+			assertFalse(list.isEmpty());
 			for (int j = i + 1; j < array.length; j++) {
 				assertEquals(array[j], list.get(j - i - 1), 0.0);
 			}
 		}
+		double value = list.remove(0);
+		assertEquals(array[array.length-1], value);
+		assertEquals(0, list.size());
 		assertTrue(list.isEmpty());
 	}
 	
@@ -324,14 +309,11 @@ public class DoubleListTests {
 			{100, 101},
 			{100, 101, 102}
 		};
-		for (double[] array : testCases) {
-			DoubleList list1 = new DoubleList(array.clone());
-			DoubleList list2 = new DoubleList(array.clone());
-			assertEquals(list1, list2);
-			assertEquals(list1.hashCode(), list2.hashCode());
-		}
 		for (int i = 0; i < testCases.length; i++) {
 			DoubleList list1 = new DoubleList(testCases[i].clone());
+			DoubleList list3 = new DoubleList(testCases[i].clone());
+			assertEquals(list1, list3);
+			assertEquals(list1.hashCode(), list3.hashCode());
 			for (int j = i+1; j < testCases.length; j++) {
 				DoubleList list2 = new DoubleList(testCases[j].clone());
 				assertNotEquals(list1, list2);
@@ -372,25 +354,14 @@ public class DoubleListTests {
 		}
 		DoubleList list = new DoubleList(testCase.clone());
 		list.ensureCapacity(17);
-		assertEquals(testCase.length, list.size());
-		for (int i = 0; i < testCase.length; i++) {
-			assertEquals(testCase[i], list.get(i), 0.0);
-		}
+		ensureCapacityTestHelper(testCase, list);
 		list.ensureCapacity(18);
-		assertEquals(testCase.length, list.size());
-		for (int i = 0; i < testCase.length; i++) {
-			assertEquals(testCase[i], list.get(i), 0.0);
-		}
+		ensureCapacityTestHelper(testCase, list);
 		list.ensureCapacity(19);
-		assertEquals(testCase.length, list.size());
-		for (int i = 0; i < testCase.length; i++) {
-			assertEquals(testCase[i], list.get(i), 0.0);
-		}
+		ensureCapacityTestHelper(testCase, list);
 		list.ensureCapacity(32);
 		assertEquals(testCase.length, list.size());
-		for (int i = 0; i < testCase.length; i++) {
-			assertEquals(testCase[i], list.get(i), 0.0);
-		}
+		ensureCapacityTestHelper(testCase, list);
 	}
 	
 	@Test
@@ -409,9 +380,7 @@ public class DoubleListTests {
 			assertEquals(array.length, list.size());
 			list.trimToSize();
 			assertEquals(array.length, list.size());
-			for (int i = 0; i < array.length; i++) {
-				assertEquals(array[i], list.get(i), 0.0);
-			}
+			assertArrayEquals(array, list.toArray());
 			list.add(500);
 			assertEquals(1+array.length, list.size());
 			for (int i = 0; i < array.length; i++) {
@@ -419,5 +388,27 @@ public class DoubleListTests {
 			}
 			assertEquals(500, list.get(array.length), 0.0);
 		}
+	}
+	
+	private void ensureCapacityTestHelper(double[] testCase, DoubleList list) {
+		assertEquals(testCase.length, list.size());
+		for (int i = 0; i < testCase.length; i++) {
+			assertEquals(testCase[i], list.get(i));
+		}
+	}
+	
+	private void fromArrayTestHelper(DoubleList list, double[] array) {
+		assertFalse(list.isEmpty());
+		assertEquals(array.length, list.size());
+		for (double e : array) {
+			assertTrue(list.contains(e));
+		}
+		assertFalse(list.contains(99));
+		for (int i = 0; i < array.length; i++) {
+			assertEquals(array[i], list.get(i));
+		}
+		double[] fromList = list.toArray();
+		assertEquals(array.length, fromList.length);
+		assertArrayEquals(array, fromList);
 	}
 }
