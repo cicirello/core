@@ -1,9 +1,1 @@
 jdkVersion = "17"
-
-ignoreFiles = """
-src/test/
-"""
-
-
-
-
