@@ -139,6 +139,20 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Adds all (element, priority) pairs from a Collection to the priority queue.</div>
 </dd>
+<dt><a href="org.cicirello.core/org/cicirello/util/ArrayFiller.html" class="type-name-link" title="class in org.cicirello.util">ArrayFiller</a> - Class in <a href="org.cicirello.core/org/cicirello/util/package-summary.html">org.cicirello.util</a></dt>
+<dd>
+<div class="block">Utility class for filling integer arrays with consecutive integers.</div>
+</dd>
+<dt><a href="org.cicirello.core/org/cicirello/util/ArrayLengthEnforcer.html" class="type-name-link" title="class in org.cicirello.util">ArrayLengthEnforcer</a> - Class in <a href="org.cicirello.core/org/cicirello/util/package-summary.html">org.cicirello.util</a></dt>
+<dd>
+<div class="block">Utility class for checking and enforcing that an array has a length equal to
+ a target length.</div>
+</dd>
+<dt><a href="org.cicirello.core/org/cicirello/util/ArrayMinimumLengthEnforcer.html" class="type-name-link" title="class in org.cicirello.util">ArrayMinimumLengthEnforcer</a> - Class in <a href="org.cicirello.core/org/cicirello/util/package-summary.html">org.cicirello.util</a></dt>
+<dd>
+<div class="block">Utility class for checking and enforcing that the length of an array is at least
+ some target minimum length.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:B">B</h2>
 <dl class="index">
@@ -409,6 +423,14 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">A simple interface for objects that can be copied.</div>
 </dd>
+<dt><a href="org.cicirello.core/org/cicirello/util/ArrayFiller.html#create(int)" class="member-name-link">create(int)</a> - Static method in class org.cicirello.util.<a href="org.cicirello.core/org/cicirello/util/ArrayFiller.html" title="class in org.cicirello.util">ArrayFiller</a></dt>
+<dd>
+<div class="block">Creates an array and fills it with the integers: 0, 1, ....</div>
+</dd>
+<dt><a href="org.cicirello.core/org/cicirello/util/ArrayFiller.html#create(int,int)" class="member-name-link">create(int, int)</a> - Static method in class org.cicirello.util.<a href="org.cicirello.core/org/cicirello/util/ArrayFiller.html" title="class in org.cicirello.util">ArrayFiller</a></dt>
+<dd>
+<div class="block">Creates an array and fills it with the integers: x+0, x+1, ....</div>
+</dd>
 <dt><a href="org.cicirello.core/org/cicirello/ds/BinaryHeap.html#createMaxHeap()" class="member-name-link">createMaxHeap()</a> - Static method in class org.cicirello.ds.<a href="org.cicirello.core/org/cicirello/ds/BinaryHeap.html" title="class in org.cicirello.ds">BinaryHeap</a></dt>
 <dd>
 <div class="block">Creates an empty BinaryHeap with the <a href="org.cicirello.core/org/cicirello/ds/BinaryHeap.html#DEFAULT_INITIAL_CAPACITY"><code>BinaryHeap.DEFAULT_INITIAL_CAPACITY</code></a>
@@ -641,6 +663,16 @@ loadScripts(document, 'script');</script>
 <div class="block">Creates a SimpleFibonacciHeap from a collection of (element, priority) pairs,
  with a minimum-priority-first-out priority order.</div>
 </dd>
+<dt><a href="org.cicirello.core/org/cicirello/util/ArrayFiller.html#createReverse(int)" class="member-name-link">createReverse(int)</a> - Static method in class org.cicirello.util.<a href="org.cicirello.core/org/cicirello/util/ArrayFiller.html" title="class in org.cicirello.util">ArrayFiller</a></dt>
+<dd>
+<div class="block">Creates an array and fills it with the integers: n-1, n-1, ..., 1, 0,
+ where n is the length of the array.</div>
+</dd>
+<dt><a href="org.cicirello.core/org/cicirello/util/ArrayFiller.html#createReverse(int,int)" class="member-name-link">createReverse(int, int)</a> - Static method in class org.cicirello.util.<a href="org.cicirello.core/org/cicirello/util/ArrayFiller.html" title="class in org.cicirello.util">ArrayFiller</a></dt>
+<dd>
+<div class="block">Creates an array and fills it with the integers: x+n-1, x+n-1, ..., x+1, x,
+ where n is the length of the array.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:D">D</h2>
 <dl class="index">
@@ -787,6 +819,78 @@ loadScripts(document, 'script');</script>
 <div class="block">Gets the next (element, priority) pair in priority order from this priority queue,
  without removing it.</div>
 </dd>
+<dt><a href="org.cicirello.core/org/cicirello/util/ArrayLengthEnforcer.html#enforce(boolean%5B%5D,int)" class="member-name-link">enforce(boolean[], int)</a> - Static method in class org.cicirello.util.<a href="org.cicirello.core/org/cicirello/util/ArrayLengthEnforcer.html" title="class in org.cicirello.util">ArrayLengthEnforcer</a></dt>
+<dd>
+<div class="block">Validates the length of an array and that it is non-null, checking that it is equal to 
+ a specified target length.</div>
+</dd>
+<dt><a href="org.cicirello.core/org/cicirello/util/ArrayMinimumLengthEnforcer.html#enforce(boolean%5B%5D,int)" class="member-name-link">enforce(boolean[], int)</a> - Static method in class org.cicirello.util.<a href="org.cicirello.core/org/cicirello/util/ArrayMinimumLengthEnforcer.html" title="class in org.cicirello.util">ArrayMinimumLengthEnforcer</a></dt>
+<dd>
+<div class="block">Validates that an array is non-null and has a length at least that of a target minimum.</div>
+</dd>
+<dt><a href="org.cicirello.core/org/cicirello/util/ArrayLengthEnforcer.html#enforce(byte%5B%5D,int)" class="member-name-link">enforce(byte[], int)</a> - Static method in class org.cicirello.util.<a href="org.cicirello.core/org/cicirello/util/ArrayLengthEnforcer.html" title="class in org.cicirello.util">ArrayLengthEnforcer</a></dt>
+<dd>
+<div class="block">Validates the length of an array and that it is non-null, checking that it is equal to 
+ a specified target length.</div>
+</dd>
+<dt><a href="org.cicirello.core/org/cicirello/util/ArrayMinimumLengthEnforcer.html#enforce(byte%5B%5D,int)" class="member-name-link">enforce(byte[], int)</a> - Static method in class org.cicirello.util.<a href="org.cicirello.core/org/cicirello/util/ArrayMinimumLengthEnforcer.html" title="class in org.cicirello.util">ArrayMinimumLengthEnforcer</a></dt>
+<dd>
+<div class="block">Validates that an array is non-null and has a length at least that of a target minimum.</div>
+</dd>
+<dt><a href="org.cicirello.core/org/cicirello/util/ArrayLengthEnforcer.html#enforce(char%5B%5D,int)" class="member-name-link">enforce(char[], int)</a> - Static method in class org.cicirello.util.<a href="org.cicirello.core/org/cicirello/util/ArrayLengthEnforcer.html" title="class in org.cicirello.util">ArrayLengthEnforcer</a></dt>
+<dd>
+<div class="block">Validates the length of an array and that it is non-null, checking that it is equal to 
+ a specified target length.</div>
+</dd>
+<dt><a href="org.cicirello.core/org/cicirello/util/ArrayMinimumLengthEnforcer.html#enforce(char%5B%5D,int)" class="member-name-link">enforce(char[], int)</a> - Static method in class org.cicirello.util.<a href="org.cicirello.core/org/cicirello/util/ArrayMinimumLengthEnforcer.html" title="class in org.cicirello.util">ArrayMinimumLengthEnforcer</a></dt>
+<dd>
+<div class="block">Validates that an array is non-null and has a length at least that of a target minimum.</div>
+</dd>
+<dt><a href="org.cicirello.core/org/cicirello/util/ArrayLengthEnforcer.html#enforce(double%5B%5D,int)" class="member-name-link">enforce(double[], int)</a> - Static method in class org.cicirello.util.<a href="org.cicirello.core/org/cicirello/util/ArrayLengthEnforcer.html" title="class in org.cicirello.util">ArrayLengthEnforcer</a></dt>
+<dd>
+<div class="block">Validates the length of an array and that it is non-null, checking that it is equal to 
+ a specified target length.</div>
+</dd>
+<dt><a href="org.cicirello.core/org/cicirello/util/ArrayMinimumLengthEnforcer.html#enforce(double%5B%5D,int)" class="member-name-link">enforce(double[], int)</a> - Static method in class org.cicirello.util.<a href="org.cicirello.core/org/cicirello/util/ArrayMinimumLengthEnforcer.html" title="class in org.cicirello.util">ArrayMinimumLengthEnforcer</a></dt>
+<dd>
+<div class="block">Validates that an array is non-null and has a length at least that of a target minimum.</div>
+</dd>
+<dt><a href="org.cicirello.core/org/cicirello/util/ArrayLengthEnforcer.html#enforce(float%5B%5D,int)" class="member-name-link">enforce(float[], int)</a> - Static method in class org.cicirello.util.<a href="org.cicirello.core/org/cicirello/util/ArrayLengthEnforcer.html" title="class in org.cicirello.util">ArrayLengthEnforcer</a></dt>
+<dd>
+<div class="block">Validates the length of an array and that it is non-null, checking that it is equal to 
+ a specified target length.</div>
+</dd>
+<dt><a href="org.cicirello.core/org/cicirello/util/ArrayMinimumLengthEnforcer.html#enforce(float%5B%5D,int)" class="member-name-link">enforce(float[], int)</a> - Static method in class org.cicirello.util.<a href="org.cicirello.core/org/cicirello/util/ArrayMinimumLengthEnforcer.html" title="class in org.cicirello.util">ArrayMinimumLengthEnforcer</a></dt>
+<dd>
+<div class="block">Validates that an array is non-null and has a length at least that of a target minimum.</div>
+</dd>
+<dt><a href="org.cicirello.core/org/cicirello/util/ArrayLengthEnforcer.html#enforce(int%5B%5D,int)" class="member-name-link">enforce(int[], int)</a> - Static method in class org.cicirello.util.<a href="org.cicirello.core/org/cicirello/util/ArrayLengthEnforcer.html" title="class in org.cicirello.util">ArrayLengthEnforcer</a></dt>
+<dd>
+<div class="block">Validates the length of an array and that it is non-null, checking that it is equal to 
+ a specified target length.</div>
+</dd>
+<dt><a href="org.cicirello.core/org/cicirello/util/ArrayMinimumLengthEnforcer.html#enforce(int%5B%5D,int)" class="member-name-link">enforce(int[], int)</a> - Static method in class org.cicirello.util.<a href="org.cicirello.core/org/cicirello/util/ArrayMinimumLengthEnforcer.html" title="class in org.cicirello.util">ArrayMinimumLengthEnforcer</a></dt>
+<dd>
+<div class="block">Validates that an array is non-null and has a length at least that of a target minimum.</div>
+</dd>
+<dt><a href="org.cicirello.core/org/cicirello/util/ArrayLengthEnforcer.html#enforce(long%5B%5D,int)" class="member-name-link">enforce(long[], int)</a> - Static method in class org.cicirello.util.<a href="org.cicirello.core/org/cicirello/util/ArrayLengthEnforcer.html" title="class in org.cicirello.util">ArrayLengthEnforcer</a></dt>
+<dd>
+<div class="block">Validates the length of an array and that it is non-null, checking that it is equal to 
+ a specified target length.</div>
+</dd>
+<dt><a href="org.cicirello.core/org/cicirello/util/ArrayMinimumLengthEnforcer.html#enforce(long%5B%5D,int)" class="member-name-link">enforce(long[], int)</a> - Static method in class org.cicirello.util.<a href="org.cicirello.core/org/cicirello/util/ArrayMinimumLengthEnforcer.html" title="class in org.cicirello.util">ArrayMinimumLengthEnforcer</a></dt>
+<dd>
+<div class="block">Validates that an array is non-null and has a length at least that of a target minimum.</div>
+</dd>
+<dt><a href="org.cicirello.core/org/cicirello/util/ArrayLengthEnforcer.html#enforce(short%5B%5D,int)" class="member-name-link">enforce(short[], int)</a> - Static method in class org.cicirello.util.<a href="org.cicirello.core/org/cicirello/util/ArrayLengthEnforcer.html" title="class in org.cicirello.util">ArrayLengthEnforcer</a></dt>
+<dd>
+<div class="block">Validates the length of an array and that it is non-null, checking that it is equal to 
+ a specified target length.</div>
+</dd>
+<dt><a href="org.cicirello.core/org/cicirello/util/ArrayMinimumLengthEnforcer.html#enforce(short%5B%5D,int)" class="member-name-link">enforce(short[], int)</a> - Static method in class org.cicirello.util.<a href="org.cicirello.core/org/cicirello/util/ArrayMinimumLengthEnforcer.html" title="class in org.cicirello.util">ArrayMinimumLengthEnforcer</a></dt>
+<dd>
+<div class="block">Validates that an array is non-null and has a length at least that of a target minimum.</div>
+</dd>
 <dt><a href="org.cicirello.core/org/cicirello/ds/BinaryHeap.html#ensureCapacity(int)" class="member-name-link">ensureCapacity(int)</a> - Method in class org.cicirello.ds.<a href="org.cicirello.core/org/cicirello/ds/BinaryHeap.html" title="class in org.cicirello.ds">BinaryHeap</a></dt>
 <dd>
 <div class="block">Increases the capacity if the capacity is not
@@ -901,6 +1005,22 @@ loadScripts(document, 'script');</script>
 <dt><a href="org.cicirello.core/org/cicirello/ds/FibonacciHeapDouble.html" class="type-name-link" title="class in org.cicirello.ds">FibonacciHeapDouble</a>&lt;<a href="org.cicirello.core/org/cicirello/ds/FibonacciHeapDouble.html" title="type parameter in FibonacciHeapDouble">E</a>&gt; - Class in <a href="org.cicirello.core/org/cicirello/ds/package-summary.html">org.cicirello.ds</a></dt>
 <dd>
 <div class="block">An implementation of a Fibonacci Heap.</div>
+</dd>
+<dt><a href="org.cicirello.core/org/cicirello/util/ArrayFiller.html#fill(int%5B%5D)" class="member-name-link">fill(int[])</a> - Static method in class org.cicirello.util.<a href="org.cicirello.core/org/cicirello/util/ArrayFiller.html" title="class in org.cicirello.util">ArrayFiller</a></dt>
+<dd>
+<div class="block">Fills an existing array with integers: 0, 1, ....</div>
+</dd>
+<dt><a href="org.cicirello.core/org/cicirello/util/ArrayFiller.html#fill(int%5B%5D,int)" class="member-name-link">fill(int[], int)</a> - Static method in class org.cicirello.util.<a href="org.cicirello.core/org/cicirello/util/ArrayFiller.html" title="class in org.cicirello.util">ArrayFiller</a></dt>
+<dd>
+<div class="block">Fills an existing array with integers: x+0, x+1, ....</div>
+</dd>
+<dt><a href="org.cicirello.core/org/cicirello/util/ArrayFiller.html#fillPartial(int%5B%5D,int)" class="member-name-link">fillPartial(int[], int)</a> - Static method in class org.cicirello.util.<a href="org.cicirello.core/org/cicirello/util/ArrayFiller.html" title="class in org.cicirello.util">ArrayFiller</a></dt>
+<dd>
+<div class="block">Fills part of an existing array with integers: 0, 1, ..., (k-1).</div>
+</dd>
+<dt><a href="org.cicirello.core/org/cicirello/util/ArrayFiller.html#fillPartial(int%5B%5D,int,int)" class="member-name-link">fillPartial(int[], int, int)</a> - Static method in class org.cicirello.util.<a href="org.cicirello.core/org/cicirello/util/ArrayFiller.html" title="class in org.cicirello.util">ArrayFiller</a></dt>
+<dd>
+<div class="block">Fills part of an existing array with integers: x+0, x+1, ....</div>
 </dd>
 <dt><a href="org.cicirello.core/org/cicirello/ds/DisjointIntegerSetForest.html#findSet(int)" class="member-name-link">findSet(int)</a> - Method in class org.cicirello.ds.<a href="org.cicirello.core/org/cicirello/ds/DisjointIntegerSetForest.html" title="class in org.cicirello.ds">DisjointIntegerSetForest</a></dt>
 <dd>
@@ -1766,6 +1886,16 @@ loadScripts(document, 'script');</script>
 <div class="block">Removes from this priority queue all (element, priority) pairs
  except for the elements or (element, priority) pairs contained in a 
  given Collection c.</div>
+</dd>
+<dt><a href="org.cicirello.core/org/cicirello/util/ArrayFiller.html#reverse(int%5B%5D)" class="member-name-link">reverse(int[])</a> - Static method in class org.cicirello.util.<a href="org.cicirello.core/org/cicirello/util/ArrayFiller.html" title="class in org.cicirello.util">ArrayFiller</a></dt>
+<dd>
+<div class="block">Fills an existing array with integers: n-1, n-2, ..., 1, 0,
+ where n is the length of the array</div>
+</dd>
+<dt><a href="org.cicirello.core/org/cicirello/util/ArrayFiller.html#reverse(int%5B%5D,int)" class="member-name-link">reverse(int[], int)</a> - Static method in class org.cicirello.util.<a href="org.cicirello.core/org/cicirello/util/ArrayFiller.html" title="class in org.cicirello.util">ArrayFiller</a></dt>
+<dd>
+<div class="block">Fills an existing array with integers: x+n-1, x+n-2, ..., x+1, x,
+ where n is the length of the array</div>
 </dd>
 </dl>
 <h2 class="title" id="I:S">S</h2>
