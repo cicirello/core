@@ -7,9 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2022-10-07
 
 ### Added
-* ArrayLengthEnforcer: utility class that validates array length equal to target, reallocating if necessary.
-* ArrayMinimumLengthEnforcer: utility class that validates array length at least a minimum target, reallocating if necessary.
-* ArrayFiller: utility class for creating and/or filling int arrays with consecutive integers.
 
 ### Changed
 
@@ -22,6 +19,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### CI/CD
 
 ### Other
+
+
+## [2.4.0] - 2022-10-07
+
+### Added
+* ArrayLengthEnforcer: utility class that validates array length equal to target, reallocating if necessary.
+* ArrayMinimumLengthEnforcer: utility class that validates array length at least a minimum target, reallocating if necessary.
+* ArrayFiller: utility class for creating and/or filling int arrays with consecutive integers.
 
 
 ## [2.3.0] - 2022-09-16
