@@ -537,7 +537,8 @@ public class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueueDoubl
 	}
 	
 	/*
-	 * used internally: doesn't check if already contains element
+	 * used internally: doesn't check if already contains element.
+	 * package access to enable sublcass overriding.
 	 */
 	FibonacciHeapDoubleNode<E> internalOffer(PriorityQueueNode.Double<E> pair) {
 		if (min == null) {
@@ -558,7 +559,7 @@ public class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueueDoubl
 		// only called if priority decreased for a minheap (increased for a maxheap)
 		// so no checks needed here.
 		x.e.value = priority;
-		FibonacciHeapDoubleNode<E> y = x.parent;
+		FibonacciHeapDoubleNode<E> y = x.parent();
 		if (y != null && compare.comesBefore(priority, y.e.value)) {
 			x.cut(y, min);
 			y.cascadingCut(min);			

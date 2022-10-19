@@ -32,7 +32,7 @@ import java.util.ArrayDeque;
  */
 final class FibonacciHeapDoubleNode<E> {
 	PriorityQueueNode.Double<E> e;
-	FibonacciHeapDoubleNode<E> parent;
+	private FibonacciHeapDoubleNode<E> parent;
 	private FibonacciHeapDoubleNode<E> child;
 	private FibonacciHeapDoubleNode<E> left;
 	private FibonacciHeapDoubleNode<E> right;
@@ -87,6 +87,10 @@ final class FibonacciHeapDoubleNode<E> {
 		rightOf.right = y;
 		y.left = rightOf;
 		return y;
+	}
+	
+	final FibonacciHeapDoubleNode<E> parent() {
+		return parent;
 	}
 	
 	final void singletonList() {
