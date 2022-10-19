@@ -369,12 +369,14 @@ public class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueueDoubl
 	
 	@Override
 	public boolean offer(E element, double priority) {
-		return internalOffer(new PriorityQueueNode.Double<E>(element, priority));
+		internalOffer(new PriorityQueueNode.Double<E>(element, priority));
+		return true;
 	}
 	
 	@Override
 	public boolean offer(PriorityQueueNode.Double<E> pair) {
-		return internalOffer(pair.copy());
+		internalOffer(pair.copy());
+		return true;
 	}
 	
 	@Override
@@ -534,25 +536,22 @@ public class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueueDoubl
 		return min == null ? null : min.find(element);
 	}
 	
-	void record(E element, FibonacciHeapDoubleNode<E> node) {}
-	
 	/*
 	 * used internally: doesn't check if already contains element
 	 */
-	private boolean internalOffer(PriorityQueueNode.Double<E> pair) {
+	FibonacciHeapDoubleNode<E> internalOffer(PriorityQueueNode.Double<E> pair) {
 		if (min == null) {
 			min = new FibonacciHeapDoubleNode<E>(pair);
-			record(pair.element, min);
 			size = 1;
+			return min;
 		} else {
 			FibonacciHeapDoubleNode<E> added = new FibonacciHeapDoubleNode<E>(pair, min);
-			record(pair.element, added);
 			if (compare.comesBefore(pair.value, min.e.value)) {
 				min = added;
 			}
 			size++;
+			return added;
 		}
-		return true;
 	}
 	
 	private void internalPromote(FibonacciHeapDoubleNode<E> x, double priority) {

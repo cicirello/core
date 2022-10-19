@@ -348,7 +348,9 @@ public final class FibonacciHeapDouble<E> extends SimpleFibonacciHeapDouble<E> {
 	 * package access: overridden to record mapping from element to node in index.
 	 */
 	@Override
-	final void record(E element, FibonacciHeapDoubleNode<E> node) {
-		index.put(element, node);
+	final FibonacciHeapDoubleNode<E> internalOffer(PriorityQueueNode.Double<E> pair) {
+		FibonacciHeapDoubleNode<E> node = super.internalOffer(pair);
+		index.put(pair.element, node);
+		return node;
 	}
 }
