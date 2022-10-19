@@ -463,29 +463,14 @@ public class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueueDoubl
 	 */
 	@Override
 	public final boolean removeAll(Collection<?> c) {
-		HashSet<Object> discardThese = new HashSet<Object>();
-		for (Object o : c) {
-			if (o instanceof PriorityQueueNode.Double) {
-				PriorityQueueNode.Double pair = (PriorityQueueNode.Double)o;
-				discardThese.add(pair.element);
-			} else {
-				discardThese.add(o);
-			}
-		}
+		HashSet<Object> discardThese = toSet(c);
 		ArrayList<PriorityQueueNode.Double<E>> keepList = new ArrayList<PriorityQueueNode.Double<E>>();
 		for (PriorityQueueNode.Double<E> e : this) {
 			if (!discardThese.contains(e.element)) {
 				keepList.add(e);
 			}
 		}
-		if (keepList.size() < size) {
-			clear();
-			for (PriorityQueueNode.Double<E> e : keepList) {
-				internalOffer(e);
-			}
-			return true;
-		}
-		return false;
+		return from(keepList);
 	}
 	
 	/**
@@ -497,29 +482,14 @@ public class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueueDoubl
 	 */
 	@Override
 	public final boolean retainAll(Collection<?> c) {
-		HashSet<Object> keepThese = new HashSet<Object>();
-		for (Object o : c) {
-			if (o instanceof PriorityQueueNode.Double) {
-				PriorityQueueNode.Double pair = (PriorityQueueNode.Double)o;
-				keepThese.add(pair.element);
-			} else {
-				keepThese.add(o);
-			}
-		}
+		HashSet<Object> keepThese = toSet(c);
 		ArrayList<PriorityQueueNode.Double<E>> keepList = new ArrayList<PriorityQueueNode.Double<E>>(keepThese.size());
 		for (PriorityQueueNode.Double<E> e : this) {
 			if (keepThese.contains(e.element)) {
 				keepList.add(e);
 			}
 		}
-		if (keepList.size() < size) {
-			clear();
-			for (PriorityQueueNode.Double<E> e : keepList) {
-				internalOffer(e);
-			}
-			return true;
-		}
-		return false;
+		return from(keepList);
 	}
 	
 	@Override
@@ -623,6 +593,30 @@ public class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueueDoubl
 		// 3. reinsert with new priority
 		x.e.value = priority;
 		internalOffer(x.e);
+	}
+	
+	private HashSet<Object> toSet(Collection<?> c) {
+		HashSet<Object> set = new HashSet<Object>();
+		for (Object o : c) {
+			if (o instanceof PriorityQueueNode.Double) {
+				PriorityQueueNode.Double pair = (PriorityQueueNode.Double)o;
+				set.add(pair.element);
+			} else {
+				set.add(o);
+			}
+		}
+		return set;
+	}
+	
+	private boolean from(ArrayList<PriorityQueueNode.Double<E>> keepList) {
+		if (keepList.size() < size) {
+			clear();
+			for (PriorityQueueNode.Double<E> e : keepList) {
+				internalOffer(e);
+			}
+			return true;
+		}
+		return false;
 	}
 	
 	@FunctionalInterface
