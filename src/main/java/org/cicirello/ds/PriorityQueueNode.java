@@ -93,6 +93,7 @@ public abstract class PriorityQueueNode<E> {
 	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
 	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
 	 */
+	@SuppressWarnings("JavaLangClash")
 	public static final class Integer<E> extends PriorityQueueNode<E> implements Copyable<Integer<E>> {
 		
 		// package-private on purpose for use by 
@@ -181,6 +182,7 @@ public abstract class PriorityQueueNode<E> {
 	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
 	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
 	 */
+	@SuppressWarnings("JavaLangClash")
 	public static final class Double<E> extends PriorityQueueNode<E> implements Copyable<Double<E>> {
 		
 		// package-private on purpose for use by 
