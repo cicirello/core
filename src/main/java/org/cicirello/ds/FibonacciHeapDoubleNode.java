@@ -29,6 +29,9 @@ import java.util.ArrayDeque;
 /**
  * Internal package access class for representing nodes in a fibonacci heap with
  * priory of type double.
+ *
+ * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
+ * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
 final class FibonacciHeapDoubleNode<E> {
 	PriorityQueueNode.Double<E> e;
