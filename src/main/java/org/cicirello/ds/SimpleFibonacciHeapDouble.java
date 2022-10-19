@@ -282,21 +282,6 @@ public class SimpleFibonacciHeapDouble<E> extends AbstractFibonacciHeapDouble<E>
 	}
 	
 	/**
-	 * Computes a hashCode.
-	 *
-	 * @return a hashCode
-	 */
-	@Override
-	public int hashCode() {
-		int h = 0;
-		for (PriorityQueueNode.Double<E> e : this) {
-			h = 31 * h + java.lang.Double.hashCode(e.value);
-			h = 31 * h + e.element.hashCode();
-		}
-		return h;
-	}
-	
-	/**
 	 * {@inheritDoc}
 	 *
 	 * @throws IllegalArgumentException if this and other have different priority-order (e.g., one is a 

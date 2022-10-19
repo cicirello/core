@@ -104,6 +104,21 @@ abstract class AbstractFibonacciHeapDouble<E> implements MergeablePriorityQueueD
 		}
 	}
 	
+	/**
+	 * Computes a hashCode.
+	 *
+	 * @return a hashCode
+	 */
+	@Override
+	public int hashCode() {
+		int h = 0;
+		for (PriorityQueueNode.Double<E> e : this) {
+			h = 31 * h + java.lang.Double.hashCode(e.value);
+			h = 31 * h + e.element.hashCode();
+		}
+		return h;
+	}
+	
 	@Override
 	public final boolean isEmpty() {
 		return size == 0;
