@@ -94,7 +94,7 @@ import org.cicirello.util.Copyable;
  */
 public final class FibonacciHeapDouble<E> extends SimpleFibonacciHeapDouble<E> {
 	
-	private HashMap<E, Node<E>> index;
+	private HashMap<E, FibonacciHeapDoubleNode<E>> index;
 	
 	/* 
 	 * PRIVATE: Use factory methods for creation.
@@ -112,7 +112,7 @@ public final class FibonacciHeapDouble<E> extends SimpleFibonacciHeapDouble<E> {
 	 */
 	private FibonacciHeapDouble(PriorityComparator compare) {
 		super(compare);
-		index = new HashMap<E, Node<E>>();
+		index = new HashMap<E, FibonacciHeapDoubleNode<E>>();
 	}
 	
 	/* 
@@ -149,10 +149,10 @@ public final class FibonacciHeapDouble<E> extends SimpleFibonacciHeapDouble<E> {
 	 */
 	private FibonacciHeapDouble(FibonacciHeapDouble<E> other) {
 		super(other);
-		index = new HashMap<E, Node<E>>();
-		NodeIterator iter = new NodeIterator();
+		index = new HashMap<E, FibonacciHeapDoubleNode<E>>();
+		FibonacciHeapDoubleNode.NodeIterator<E> iter = nodeIterator();
 		while (iter.hasNext()) {
-			Node<E> node = iter.next();
+			FibonacciHeapDoubleNode<E> node = iter.next();
 			index.put(node.e.element, node);
 		}
 	}
@@ -235,7 +235,7 @@ public final class FibonacciHeapDouble<E> extends SimpleFibonacciHeapDouble<E> {
 		super.clear();
 		// clear the index... old way: index.clear();
 		// instead let garbage collector take care of it, just reinitialize:
-		index = new HashMap<E, Node<E>>();
+		index = new HashMap<E, FibonacciHeapDoubleNode<E>>();
 		
 	}
 	
@@ -301,9 +301,9 @@ public final class FibonacciHeapDouble<E> extends SimpleFibonacciHeapDouble<E> {
 			FibonacciHeapDouble<E> fib = (FibonacciHeapDouble<E>)other;
 			index.putAll(fib.index);
 		} else {
-			NodeIterator iter = other.nodeIterator();
+			FibonacciHeapDoubleNode.NodeIterator<E> iter = other.nodeIterator();
 			while (iter.hasNext()) {
-				Node<E> node = iter.next();
+				FibonacciHeapDoubleNode<E> node = iter.next();
 				index.put(node.e.element, node);
 			}
 		}
@@ -340,7 +340,7 @@ public final class FibonacciHeapDouble<E> extends SimpleFibonacciHeapDouble<E> {
 	 * package access: overridden with simple index check
 	 */
 	@Override
-	final Node<E> find(Object element) {
+	final FibonacciHeapDoubleNode<E> find(Object element) {
 		return index.get(element);
 	}
 	
@@ -348,7 +348,7 @@ public final class FibonacciHeapDouble<E> extends SimpleFibonacciHeapDouble<E> {
 	 * package access: overridden to record mapping from element to node in index.
 	 */
 	@Override
-	final void record(E element, Node<E> node) {
+	final void record(E element, FibonacciHeapDoubleNode<E> node) {
 		index.put(element, node);
 	}
 }
