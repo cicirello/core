@@ -209,14 +209,7 @@ public class SimpleFibonacciHeapDouble<E> extends AbstractFibonacciHeapDouble<E>
 	public final boolean change(E element, double priority) {
 		FibonacciHeapDoubleNode<E> node = find(element);
 		if (node != null) {
-			if (compare.comesBefore(priority, node.e.value)) {
-				internalPromote(node, priority);
-				return true;
-			} else if (compare.comesBefore(node.e.value, priority)) {
-				internalDemote(node, priority);
-				return true;
-			}
-			return false;
+			return internalChange(node, priority);
 		}
 		return offer(element, priority);
 	}

@@ -300,6 +300,17 @@ abstract class AbstractFibonacciHeapDouble<E> implements MergeablePriorityQueueD
 		internalOffer(x.e);
 	}
 	
+	final boolean internalChange(FibonacciHeapDoubleNode<E> node, double priority) {
+		if (compare.comesBefore(priority, node.e.value)) {
+			internalPromote(node, priority);
+			return true;
+		} else if (compare.comesBefore(node.e.value, priority)) {
+			internalDemote(node, priority);
+			return true;
+		}
+		return false;
+	}
+	
 	final FibonacciHeapDoubleNode.NodeIterator<E> nodeIterator() {
 		return new FibonacciHeapDoubleNode.NodeIterator<E>(min);
 	}
