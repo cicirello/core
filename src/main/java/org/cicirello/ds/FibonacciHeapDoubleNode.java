@@ -33,11 +33,11 @@ import java.util.ArrayDeque;
 final class FibonacciHeapDoubleNode<E> {
 	PriorityQueueNode.Double<E> e;
 	FibonacciHeapDoubleNode<E> parent;
-	FibonacciHeapDoubleNode<E> child;
-	FibonacciHeapDoubleNode<E> left;
-	FibonacciHeapDoubleNode<E> right;
-	int degree;
-	boolean mark;
+	private FibonacciHeapDoubleNode<E> child;
+	private FibonacciHeapDoubleNode<E> left;
+	private FibonacciHeapDoubleNode<E> right;
+	private int degree;
+	private boolean mark;
 	
 	/*
 	 * new root list (i.e., called to create new top-level list when empty
@@ -143,12 +143,132 @@ final class FibonacciHeapDoubleNode<E> {
 		mark = false;
 	}
 	
-	static class FibonacciHeapDoubleIterator<E2> implements Iterator<PriorityQueueNode.Double<E2>> {
+	final FibonacciHeapDoubleNode<E> find(Object element) {
+		NodeIterator<E> iter = new NodeIterator<E>(this);
+		while (iter.hasNext()) {
+			FibonacciHeapDoubleNode<E> n  = iter.next();
+			if (n.e.element.equals(element)) {
+				return n;
+			}
+		}
+		return null;
+	}
+	
+	final FibonacciHeapDoubleNode<E> removeSelf() {
+		// this assumes there is more than one node. don't call for single node
+		if (child != null) {
+			child.clearParentReferences();
+			child.insertListInto(this);
+		}
+		FibonacciHeapDoubleNode<E> min = right;
+		left.right = min;
+		min.left  = left;
+		return min;
+	}
+	
+	static final class Consolidator<E2> {
+	
+		// This array is what is referred to in CLRS description
+		// of algorithm as A in the method consolidate. As an optimization
+		// we construct the array once, and reuse it on all calls to consolidate.
+		private final FibonacciHeapDoubleNode<E2>[] rootsByDegrees;
+		
+		private final static double INV_LOG_GOLDEN_RATIO = 2.0780869212350273;
+		
+		private final SimpleFibonacciHeapDouble.PriorityComparator compare;
+		
+		Consolidator(SimpleFibonacciHeapDouble.PriorityComparator compare) {
+			this.compare = compare;
+			// length of array used by consolidate is initialized to 45 as follows:
+			// 1) since size is an int, the implicit limit on capacity is Integer.MAX_VALUE.
+			// 2) Thus, the highest that D(n) can be for a call to consolidate is:
+			//    floor(log(Integer.MAX_VALUE) / log((1+sqrt(5))/2)) = 44.
+			// 3) Array must be of length 1+D(n), so longest array must be is 45.
+			// 4) consolidate computes the actual D(n) for a specific call, and uses only
+			//    part of this array.
+			rootsByDegrees = nodeArrayAllocate(45);
+		}
+		
+		private FibonacciHeapDoubleNode<E2>[] nodeArrayAllocate(int n) {
+			@SuppressWarnings("unchecked")
+			FibonacciHeapDoubleNode<E2>[] array = new FibonacciHeapDoubleNode[n];
+			return array;
+		}
+		
+		final FibonacciHeapDoubleNode<E2> consolidate(FibonacciHeapDoubleNode<E2> min, int size) {
+			int dn = (int)(Math.log(size) * INV_LOG_GOLDEN_RATIO);
+			
+			// first node of iteration
+			FibonacciHeapDoubleNode<E2> w = min;
+			// disconnect from left to enable detecting end of list
+			w.left.right = null;
+			do{
+				FibonacciHeapDoubleNode<E2> x = w;
+				// prepare for next iteration
+				w = w.right;
+				// disconnect x from root list
+				x.left = x.right = null;
+				
+				int d = x.degree;
+				while (rootsByDegrees[d] != null) {
+					FibonacciHeapDoubleNode<E2> y = rootsByDegrees[d];
+					if (compare.comesBefore(y.e.value, x.e.value)) {
+						FibonacciHeapDoubleNode<E2> temp = x;
+						x = y;
+						y = temp;
+					}
+					fibHeapLink(y, x);
+					rootsByDegrees[d] = null;
+					d++;
+				}
+				rootsByDegrees[d] = x;
+			} while (w != null);
+			
+			min = null;
+			for (int i = 0; i <= dn; i++) {
+				if (rootsByDegrees[i] != null) {
+					if (min == null) {
+						rootsByDegrees[i].singletonList();
+						min = rootsByDegrees[i];
+					} else {
+						rootsByDegrees[i].insertInto(min);
+						if (compare.comesBefore(rootsByDegrees[i].e.value, min.e.value)) {
+							min = rootsByDegrees[i];
+						}
+					}
+					// need this since this array is shared by all calls to consolidate
+					rootsByDegrees[i] = null;
+				}
+			}
+			return min;
+		}
+		
+		private void fibHeapLink(FibonacciHeapDoubleNode<E2> y, FibonacciHeapDoubleNode<E2> x) {
+			// 1. Remove y from root list step.
+			//    This is not needed because I'm instead
+			//    dismantling root list in consolidate
+			//    before rebuilding it.
+			// 2. Make y a child of x
+			if (x.degree > 0) {
+				y.insertInto(x.child);
+				y.parent = x;
+				x.degree++;
+			} else {
+				y.singletonList();
+				x.child = y;
+				y.parent = x;
+				x.degree = 1;
+			}
+			y.mark = false;
+		}
+	}
+
+	static final class FibonacciHeapDoubleIterator<E2> implements Iterator<PriorityQueueNode.Double<E2>> {
 		
 		private final NodeIterator<E2> iter;
 		
-		public FibonacciHeapDoubleIterator(FibonacciHeapDoubleNode<E2> root, int size) {
-			iter = new NodeIterator<E2>(root, size);
+		public FibonacciHeapDoubleIterator(FibonacciHeapDoubleNode<E2> root) {
+			iter = new NodeIterator<E2>(root);
 		}
 		
 		@Override
@@ -162,13 +282,13 @@ final class FibonacciHeapDoubleNode<E> {
 		}
 	}
 	
-	static class NodeIterator<E2> implements Iterator<FibonacciHeapDoubleNode<E2>> {
+	static final class NodeIterator<E2> implements Iterator<FibonacciHeapDoubleNode<E2>> {
 		
 		private final Deque<FibonacciHeapDoubleNode<E2>> stack;
 		
-		public NodeIterator(FibonacciHeapDoubleNode<E2> root, int size) {
-			stack = new ArrayDeque<FibonacciHeapDoubleNode<E2>>(size);
-			if (size > 0) {
+		public NodeIterator(FibonacciHeapDoubleNode<E2> root) {
+			stack = new ArrayDeque<FibonacciHeapDoubleNode<E2>>();
+			if (root != null) {
 				stack.push(root);
 				for (FibonacciHeapDoubleNode<E2> next = root.right; next != root; next = next.right) {
 					stack.push(next);

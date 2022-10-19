@@ -96,7 +96,7 @@ public class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueueDoubl
 	private int size;
 	private FibonacciHeapDoubleNode<E> min;
 	
-	private final FibonacciHeapDoubleConsolidator<E> consolidator;
+	private final FibonacciHeapDoubleNode.Consolidator<E> consolidator;
 	
 	/* 
 	 * PRIVATE: Use factory methods for creation.
@@ -116,7 +116,7 @@ public class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueueDoubl
 		this.compare = compare;
 		extreme = compare.comesBefore(0, 1) ? java.lang.Double.POSITIVE_INFINITY : java.lang.Double.NEGATIVE_INFINITY;
 		
-		consolidator = new FibonacciHeapDoubleConsolidator<E>(compare);
+		consolidator = new FibonacciHeapDoubleNode.Consolidator<E>(compare);
 	}
 	
 	/* 
@@ -341,7 +341,7 @@ public class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueueDoubl
 	
 	@Override
 	public final Iterator<PriorityQueueNode.Double<E>> iterator() {
-		return new FibonacciHeapDoubleNode.FibonacciHeapDoubleIterator<E>(min, size);
+		return new FibonacciHeapDoubleNode.FibonacciHeapDoubleIterator<E>(min);
 	}
 	
 	/**
@@ -413,13 +413,7 @@ public class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueueDoubl
 			return pair;
 		} else if (size > 1) {
 			FibonacciHeapDoubleNode<E> z = min;
-			if (z.child != null) {
-				z.child.clearParentReferences();
-				z.child.insertListInto(min);
-			}
-			min = min.right;
-			z.left.right = min;
-			min.left  = z.left;
+			min = min.removeSelf();
 			min = consolidator.consolidate(min, size);
 			size--;
 			return z.e;
@@ -537,14 +531,7 @@ public class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueueDoubl
 	 * package access to enable sublcass overriding with simple index check/
 	 */
 	FibonacciHeapDoubleNode<E> find(Object element) {
-		FibonacciHeapDoubleNode.NodeIterator<E> iter = new FibonacciHeapDoubleNode.NodeIterator<E>(min, size);
-		while (iter.hasNext()) {
-			FibonacciHeapDoubleNode<E> n  = iter.next();
-			if (n.e.element.equals(element)) {
-				return n;
-			}
-		}
-		return null;
+		return min == null ? null : min.find(element);
 	}
 	
 	void record(E element, FibonacciHeapDoubleNode<E> node) {}
@@ -625,6 +612,6 @@ public class SimpleFibonacciHeapDouble<E> implements MergeablePriorityQueueDoubl
 	}
 	
 	FibonacciHeapDoubleNode.NodeIterator<E> nodeIterator() {
-		return new FibonacciHeapDoubleNode.NodeIterator<E>(min, size);
+		return new FibonacciHeapDoubleNode.NodeIterator<E>(min);
 	}
 }
