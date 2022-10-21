@@ -132,18 +132,18 @@ implements <a href="MergeablePriorityQueueDouble.html" title="interface in org.c
  <ul>
  <li><b>O(1):</b> <a href="#add(E,double)"><code>add(Object, double)</code></a>, <a href="#add(org.cicirello.ds.PriorityQueueNode.Double)"><code>add(PriorityQueueNode.Double)</code></a>, 
      <a href="#createMaxHeap()"><code>createMaxHeap()</code></a>, 
-     <a href="#createMinHeap()"><code>createMinHeap()</code></a>, <a href="PriorityQueueDouble.html#element()"><code>PriorityQueueDouble.element()</code></a>, <a href="#isEmpty()"><code>isEmpty()</code></a>, <a href="#iterator()"><code>iterator()</code></a>,
+     <a href="#createMinHeap()"><code>createMinHeap()</code></a>, <a href="PriorityQueueDouble.html#element()"><code>PriorityQueueDouble.element()</code></a>, <a href="PriorityQueueDouble.html#isEmpty()"><code>PriorityQueueDouble.isEmpty()</code></a>, <a href="PriorityQueueDouble.html#iterator()"><code>PriorityQueueDouble.iterator()</code></a>,
      <a href="#merge(org.cicirello.ds.SimpleFibonacciHeapDouble)"><code>merge(SimpleFibonacciHeapDouble)</code></a>, <a href="#offer(E,double)"><code>offer(E, double)</code></a>, <a href="#offer(org.cicirello.ds.PriorityQueueNode.Double)"><code>offer(PriorityQueueNode.Double)</code></a>,
-     <a href="#peek()"><code>peek()</code></a>, <a href="#peekElement()"><code>peekElement()</code></a>, <a href="#peekPriority()"><code>peekPriority()</code></a>,
-     <a href="#size()"><code>size()</code></a></li>
- <li><b>O(lg n):</b> <a href="#poll()"><code>poll()</code></a>, <a href="#pollElement()"><code>pollElement()</code></a>, <a href="PriorityQueueDouble.html#pollThenAdd(E,double)"><code>PriorityQueueDouble.pollThenAdd(Object, double)</code></a>, 
+     <a href="PriorityQueueDouble.html#peek()"><code>PriorityQueueDouble.peek()</code></a>, <a href="PriorityQueueDouble.html#peekElement()"><code>PriorityQueueDouble.peekElement()</code></a>, <a href="PriorityQueueDouble.html#peekPriority()"><code>PriorityQueueDouble.peekPriority()</code></a>,
+     <a href="PriorityQueueDouble.html#size()"><code>PriorityQueueDouble.size()</code></a></li>
+ <li><b>O(lg n):</b> <a href="PriorityQueueDouble.html#poll()"><code>PriorityQueueDouble.poll()</code></a>, <a href="PriorityQueueDouble.html#pollElement()"><code>PriorityQueueDouble.pollElement()</code></a>, <a href="PriorityQueueDouble.html#pollThenAdd(E,double)"><code>PriorityQueueDouble.pollThenAdd(Object, double)</code></a>, 
       <a href="PriorityQueueDouble.html#pollThenAdd(org.cicirello.ds.PriorityQueueNode.Double)"><code>PriorityQueueDouble.pollThenAdd(PriorityQueueNode.Double)</code></a>, <a href="PriorityQueueDouble.html#remove()"><code>PriorityQueueDouble.remove()</code></a>,
       <a href="PriorityQueueDouble.html#removeElement()"><code>PriorityQueueDouble.removeElement()</code></a></li> 
  <li><b>O(m):</b> <a href="PriorityQueueDouble.html#addAll(java.util.Collection)"><code>PriorityQueueDouble.addAll(Collection)</code></a>,  
      <a href="#createMaxHeap(java.util.Collection)"><code>createMaxHeap(Collection)</code></a>, <a href="#createMinHeap(java.util.Collection)"><code>createMinHeap(Collection)</code></a></li>
- <li><b>O(n):</b> <a href="#change(E,double)"><code>change(E, double)</code></a>, <a href="#clear()"><code>clear()</code></a>, <a href="#contains(java.lang.Object)"><code>contains(java.lang.Object)</code></a>, <a href="#copy()"><code>copy()</code></a>, <a href="#demote(E,double)"><code>demote(E, double)</code></a>, <a href="#equals(java.lang.Object)"><code>equals(java.lang.Object)</code></a>, 
-     <a href="#hashCode()"><code>hashCode()</code></a>, <a href="#peekPriority(E)"><code>peekPriority(E)</code></a>, <a href="#promote(E,double)"><code>promote(E, double)</code></a>, <a href="#remove(java.lang.Object)"><code>remove(Object)</code></a>, 
-     <a href="#toArray()"><code>toArray()</code></a>, <a href="#toArray(T%5B%5D)"><code>toArray(Object[])</code></a></li>
+ <li><b>O(n):</b> <a href="#change(E,double)"><code>change(E, double)</code></a>, <a href="PriorityQueueDouble.html#clear()"><code>PriorityQueueDouble.clear()</code></a>, <a href="#contains(java.lang.Object)"><code>contains(java.lang.Object)</code></a>, <a href="#copy()"><code>copy()</code></a>, <a href="#demote(E,double)"><code>demote(E, double)</code></a>, <a href="#equals(java.lang.Object)"><code>equals(java.lang.Object)</code></a>, 
+     <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html#hashCode()" title="class or interface in java.util" class="external-link"><code>Collection.hashCode()</code></a>, <a href="PriorityQueueDouble.html#peekPriority(E)"><code>PriorityQueueDouble.peekPriority(Object)</code></a>, <a href="#promote(E,double)"><code>promote(E, double)</code></a>, <a href="PriorityQueueDouble.html#remove(java.lang.Object)"><code>PriorityQueueDouble.remove(Object)</code></a>, 
+     <a href="PriorityQueueDouble.html#toArray()"><code>PriorityQueueDouble.toArray()</code></a>, <a href="PriorityQueueDouble.html#toArray(T%5B%5D)"><code>PriorityQueueDouble.toArray(Object[])</code></a></li>
  <li><b>O(n + m):</b> <a href="#containsAll(java.util.Collection)"><code>containsAll(Collection)</code></a>, <a href="#removeAll(java.util.Collection)"><code>removeAll(Collection)</code></a>, <a href="#retainAll(java.util.Collection)"><code>retainAll(Collection)</code></a></li>
  </ul></div>
 </section>
@@ -355,13 +355,13 @@ implements <a href="MergeablePriorityQueueDouble.html" title="interface in org.c
 <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-java.util.Collection">Methods inherited from interface&nbsp;java.util.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a></h3>
-<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html#parallelStream()" title="class or interface in java.util" class="external-link">parallelStream</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html#removeIf(java.util.function.Predicate)" title="class or interface in java.util" class="external-link">removeIf</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html#spliterator()" title="class or interface in java.util" class="external-link">spliterator</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html#stream()" title="class or interface in java.util" class="external-link">stream</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html#toArray(java.util.function.IntFunction)" title="class or interface in java.util" class="external-link">toArray</a></code></div>
+<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html#hashCode()" title="class or interface in java.util" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html#parallelStream()" title="class or interface in java.util" class="external-link">parallelStream</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html#removeIf(java.util.function.Predicate)" title="class or interface in java.util" class="external-link">removeIf</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html#spliterator()" title="class or interface in java.util" class="external-link">spliterator</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html#stream()" title="class or interface in java.util" class="external-link">stream</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html#toArray(java.util.function.IntFunction)" title="class or interface in java.util" class="external-link">toArray</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-java.lang.Iterable">Methods inherited from interface&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html#forEach(java.util.function.Consumer)" title="class or interface in java.lang" class="external-link">forEach</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-org.cicirello.ds.PriorityQueueDouble">Methods inherited from interface&nbsp;org.cicirello.ds.<a href="PriorityQueueDouble.html" title="interface in org.cicirello.ds">PriorityQueueDouble</a></h3>
-<code><a href="PriorityQueueDouble.html#addAll(java.util.Collection)">addAll</a>, <a href="PriorityQueueDouble.html#element()">element</a>, <a href="PriorityQueueDouble.html#pollThenAdd(E,double)">pollThenAdd</a>, <a href="PriorityQueueDouble.html#pollThenAdd(org.cicirello.ds.PriorityQueueNode.Double)">pollThenAdd</a>, <a href="PriorityQueueDouble.html#remove()">remove</a>, <a href="PriorityQueueDouble.html#removeElement()">removeElement</a></code></div>
+<code><a href="PriorityQueueDouble.html#addAll(java.util.Collection)">addAll</a>, <a href="PriorityQueueDouble.html#clear()">clear</a>, <a href="PriorityQueueDouble.html#element()">element</a>, <a href="PriorityQueueDouble.html#isEmpty()">isEmpty</a>, <a href="PriorityQueueDouble.html#iterator()">iterator</a>, <a href="PriorityQueueDouble.html#peek()">peek</a>, <a href="PriorityQueueDouble.html#peekElement()">peekElement</a>, <a href="PriorityQueueDouble.html#peekPriority()">peekPriority</a>, <a href="PriorityQueueDouble.html#peekPriority(E)">peekPriority</a>, <a href="PriorityQueueDouble.html#poll()">poll</a>, <a href="PriorityQueueDouble.html#pollElement()">pollElement</a>, <a href="PriorityQueueDouble.html#pollThenAdd(E,double)">pollThenAdd</a>, <a href="PriorityQueueDouble.html#pollThenAdd(org.cicirello.ds.PriorityQueueNode.Double)">pollThenAdd</a>, <a href="PriorityQueueDouble.html#remove()">remove</a>, <a href="PriorityQueueDouble.html#remove(java.lang.Object)">remove</a>, <a href="PriorityQueueDouble.html#removeElement()">removeElement</a>, <a href="PriorityQueueDouble.html#size()">size</a>, <a href="PriorityQueueDouble.html#toArray()">toArray</a>, <a href="PriorityQueueDouble.html#toArray(T%5B%5D)">toArray</a></code></div>
 </section>
 </li>
 </ul>
@@ -519,20 +519,6 @@ implements <a href="MergeablePriorityQueueDouble.html" title="interface in org.c
 </section>
 </li>
 <li>
-<section class="detail" id="clear()">
-<h3>clear</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">clear</span>()</div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="PriorityQueueDouble.html#clear()">PriorityQueueDouble</a></code></span></div>
-<div class="block">Clears the priority queue, removing all elements.</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html#clear()" title="class or interface in java.util" class="external-link">clear</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&gt;</code></dd>
-<dt>Specified by:</dt>
-<dd><code><a href="PriorityQueueDouble.html#clear()">clear</a></code>&nbsp;in interface&nbsp;<code><a href="PriorityQueueDouble.html" title="interface in org.cicirello.ds">PriorityQueueDouble</a>&lt;<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&gt;</code></dd>
-</dl>
-</section>
-</li>
-<li>
 <section class="detail" id="contains(java.lang.Object)">
 <h3>contains</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">contains</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;o)</span></div>
@@ -613,64 +599,11 @@ implements <a href="MergeablePriorityQueueDouble.html" title="interface in org.c
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html#equals(java.lang.Object)" title="class or interface in java.util" class="external-link">equals</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&gt;</code></dd>
-<dt>Overrides:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>other</code> - The other SimpleFibonacciHeapDouble.</dd>
 <dt>Returns:</dt>
 <dd>true if and only if this and other contain the same (element, priority)
  pairs, with the same priority order.</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="hashCode()">
-<h3>hashCode</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">hashCode</span>()</div>
-<div class="block">Computes a hashCode.</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html#hashCode()" title="class or interface in java.util" class="external-link">hashCode</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&gt;</code></dd>
-<dt>Overrides:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></dd>
-<dt>Returns:</dt>
-<dd>a hashCode</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="isEmpty()">
-<h3>isEmpty</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isEmpty</span>()</div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="PriorityQueueDouble.html#isEmpty()">PriorityQueueDouble</a></code></span></div>
-<div class="block">Checks if the priority queue is empty.</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html#isEmpty()" title="class or interface in java.util" class="external-link">isEmpty</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&gt;</code></dd>
-<dt>Specified by:</dt>
-<dd><code><a href="PriorityQueueDouble.html#isEmpty()">isEmpty</a></code>&nbsp;in interface&nbsp;<code><a href="PriorityQueueDouble.html" title="interface in org.cicirello.ds">PriorityQueueDouble</a>&lt;<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&gt;</code></dd>
-<dt>Returns:</dt>
-<dd>true if and only if it is empty</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="iterator()">
-<h3>iterator</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Iterator.html" title="class or interface in java.util" class="external-link">Iterator</a>&lt;<a href="PriorityQueueNode.Double.html" title="class in org.cicirello.ds">PriorityQueueNode.Double</a>&lt;<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&gt;&gt;</span>&nbsp;<span class="element-name">iterator</span>()</div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="PriorityQueueDouble.html#iterator()">PriorityQueueDouble</a></code></span></div>
-<div class="block">Returns an iterator over the (element, priority) pairs in a
- mostly arbitrary order (i.e., you must not assume any particular
- order).</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html#iterator()" title="class or interface in java.util" class="external-link">iterator</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&gt;</code></dd>
-<dt>Specified by:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html#iterator()" title="class or interface in java.lang" class="external-link">iterator</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&gt;</code></dd>
-<dt>Specified by:</dt>
-<dd><code><a href="PriorityQueueDouble.html#iterator()">iterator</a></code>&nbsp;in interface&nbsp;<code><a href="PriorityQueueDouble.html" title="interface in org.cicirello.ds">PriorityQueueDouble</a>&lt;<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&gt;</code></dd>
-<dt>Returns:</dt>
-<dd>an iterator over the (element, priority) pairs</dd>
 </dl>
 </section>
 </li>
@@ -738,103 +671,6 @@ implements <a href="MergeablePriorityQueueDouble.html" title="interface in org.c
 </section>
 </li>
 <li>
-<section class="detail" id="peekElement()">
-<h3>peekElement</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a></span>&nbsp;<span class="element-name">peekElement</span>()</div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="PriorityQueueDouble.html#peekElement()">PriorityQueueDouble</a></code></span></div>
-<div class="block">Gets the next element in priority order from this priority queue,
- without removing it.</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="PriorityQueueDouble.html#peekElement()">peekElement</a></code>&nbsp;in interface&nbsp;<code><a href="PriorityQueueDouble.html" title="interface in org.cicirello.ds">PriorityQueueDouble</a>&lt;<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&gt;</code></dd>
-<dt>Returns:</dt>
-<dd>the next element in priority order, or null if empty.</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="peek()">
-<h3>peek</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="PriorityQueueNode.Double.html" title="class in org.cicirello.ds">PriorityQueueNode.Double</a>&lt;<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&gt;</span>&nbsp;<span class="element-name">peek</span>()</div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="PriorityQueueDouble.html#peek()">PriorityQueueDouble</a></code></span></div>
-<div class="block">Gets the next (element, priority) pair in priority order from this priority queue,
- without removing it.</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="PriorityQueueDouble.html#peek()">peek</a></code>&nbsp;in interface&nbsp;<code><a href="PriorityQueueDouble.html" title="interface in org.cicirello.ds">PriorityQueueDouble</a>&lt;<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&gt;</code></dd>
-<dt>Specified by:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Queue.html#peek()" title="class or interface in java.util" class="external-link">peek</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Queue.html" title="class or interface in java.util" class="external-link">Queue</a>&lt;<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&gt;</code></dd>
-<dt>Returns:</dt>
-<dd>the next (element, priority) pair in priority order, or null if empty.</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="peekPriority()">
-<h3>peekPriority</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">peekPriority</span>()</div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="PriorityQueueDouble.html#peekPriority()">PriorityQueueDouble</a></code></span></div>
-<div class="block">Gets the priority of the next element in priority order in the priority queue.</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="PriorityQueueDouble.html#peekPriority()">peekPriority</a></code>&nbsp;in interface&nbsp;<code><a href="PriorityQueueDouble.html" title="interface in org.cicirello.ds">PriorityQueueDouble</a>&lt;<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&gt;</code></dd>
-<dt>Returns:</dt>
-<dd>the priority of the next element in priority order.</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="peekPriority(E)">
-<h3 id="peekPriority(java.lang.Object)">peekPriority</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">peekPriority</span><wbr><span class="parameters">(<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&nbsp;element)</span></div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="PriorityQueueDouble.html#peekPriority(E)">PriorityQueueDouble</a></code></span></div>
-<div class="block"><p>Gets the priority of a specified element if it is present in the priority queue.
- This interface does not define the behavior when the element is not present.
- Implementations may define the behavior when the element is not present.</p>
-
- <p>For those implementations that allow duplicate elements, it returns the priority
- of any one of them, without defining which is chosen.</p></div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="PriorityQueueDouble.html#peekPriority(E)">peekPriority</a></code>&nbsp;in interface&nbsp;<code><a href="PriorityQueueDouble.html" title="interface in org.cicirello.ds">PriorityQueueDouble</a>&lt;<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&gt;</code></dd>
-<dt>Parameters:</dt>
-<dd><code>element</code> - The element whose priority is returned.</dd>
-<dt>Returns:</dt>
-<dd>the priority of a specified element.</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="pollElement()">
-<h3>pollElement</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a></span>&nbsp;<span class="element-name">pollElement</span>()</div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="PriorityQueueDouble.html#pollElement()">PriorityQueueDouble</a></code></span></div>
-<div class="block">Removes and returns the next element in priority order from this priority queue.</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="PriorityQueueDouble.html#pollElement()">pollElement</a></code>&nbsp;in interface&nbsp;<code><a href="PriorityQueueDouble.html" title="interface in org.cicirello.ds">PriorityQueueDouble</a>&lt;<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&gt;</code></dd>
-<dt>Returns:</dt>
-<dd>the next element in priority order, or null if empty.</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="poll()">
-<h3>poll</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="PriorityQueueNode.Double.html" title="class in org.cicirello.ds">PriorityQueueNode.Double</a>&lt;<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&gt;</span>&nbsp;<span class="element-name">poll</span>()</div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="PriorityQueueDouble.html#poll()">PriorityQueueDouble</a></code></span></div>
-<div class="block">Removes and returns the next (element, priority) pair in priority order from this priority queue.</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="PriorityQueueDouble.html#poll()">poll</a></code>&nbsp;in interface&nbsp;<code><a href="PriorityQueueDouble.html" title="interface in org.cicirello.ds">PriorityQueueDouble</a>&lt;<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&gt;</code></dd>
-<dt>Specified by:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Queue.html#poll()" title="class or interface in java.util" class="external-link">poll</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Queue.html" title="class or interface in java.util" class="external-link">Queue</a>&lt;<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&gt;</code></dd>
-<dt>Returns:</dt>
-<dd>the next (element, priority) pair in priority order, or null if empty.</dd>
-</dl>
-</section>
-</li>
-<li>
 <section class="detail" id="promote(E,double)">
 <h3 id="promote(java.lang.Object,double)">promote</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">promote</span><wbr><span class="parameters">(<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&nbsp;element,
@@ -858,32 +694,6 @@ implements <a href="MergeablePriorityQueueDouble.html" title="interface in org.c
 <dt>Returns:</dt>
 <dd>true if and only if the priority queue changed
  as a consequence of this method call.</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="remove(java.lang.Object)">
-<h3>remove</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">remove</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;o)</span></div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="PriorityQueueDouble.html#remove(java.lang.Object)">PriorityQueueDouble</a></code></span></div>
-<div class="block"><p>Removes from this priority queue the (element, priority) pair, if present, 
- for a specified element or element from a specified (element, priority) pair.</p>
-
- <p>For those implementations that allow duplicate elements,
- this method removes only one element, without
- defining which is chosen when such duplicates exist.</p></div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html#remove(java.lang.Object)" title="class or interface in java.util" class="external-link">remove</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&gt;</code></dd>
-<dt>Specified by:</dt>
-<dd><code><a href="PriorityQueueDouble.html#remove(java.lang.Object)">remove</a></code>&nbsp;in interface&nbsp;<code><a href="PriorityQueueDouble.html" title="interface in org.cicirello.ds">PriorityQueueDouble</a>&lt;<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&gt;</code></dd>
-<dt>Parameters:</dt>
-<dd><code>o</code> - An element or (element, priority) pair, such that element designates
- the desired pair to remove (note that if you pass an (element, priority) pair,
- only the element must match to cause removal.</dd>
-<dt>Returns:</dt>
-<dd>true if and only if an (element, priority) pair was removed as a result
- of this method call.</dd>
 </dl>
 </section>
 </li>
@@ -934,6 +744,194 @@ implements <a href="MergeablePriorityQueueDouble.html" title="interface in org.c
 </section>
 </li>
 <li>
+<section class="detail" id="clear()">
+<h3>clear</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">clear</span>()</div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="PriorityQueueDouble.html#clear()">PriorityQueueDouble</a></code></span></div>
+<div class="block">Clears the priority queue, removing all elements.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html#clear()" title="class or interface in java.util" class="external-link">clear</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;E&gt;</code></dd>
+<dt>Specified by:</dt>
+<dd><code><a href="PriorityQueueDouble.html#clear()">clear</a></code>&nbsp;in interface&nbsp;<code><a href="PriorityQueueDouble.html" title="interface in org.cicirello.ds">PriorityQueueDouble</a>&lt;E&gt;</code></dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="hashCode()">
+<h3>hashCode</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">hashCode</span>()</div>
+<div class="block">Computes a hashCode.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html#hashCode()" title="class or interface in java.util" class="external-link">hashCode</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;E&gt;</code></dd>
+<dt>Overrides:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></dd>
+<dt>Returns:</dt>
+<dd>a hashCode</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="isEmpty()">
+<h3>isEmpty</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isEmpty</span>()</div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="PriorityQueueDouble.html#isEmpty()">PriorityQueueDouble</a></code></span></div>
+<div class="block">Checks if the priority queue is empty.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html#isEmpty()" title="class or interface in java.util" class="external-link">isEmpty</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;E&gt;</code></dd>
+<dt>Specified by:</dt>
+<dd><code><a href="PriorityQueueDouble.html#isEmpty()">isEmpty</a></code>&nbsp;in interface&nbsp;<code><a href="PriorityQueueDouble.html" title="interface in org.cicirello.ds">PriorityQueueDouble</a>&lt;E&gt;</code></dd>
+<dt>Returns:</dt>
+<dd>true if and only if it is empty</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="iterator()">
+<h3>iterator</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Iterator.html" title="class or interface in java.util" class="external-link">Iterator</a>&lt;<a href="PriorityQueueNode.Double.html" title="class in org.cicirello.ds">PriorityQueueNode.Double</a>&lt;<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&gt;&gt;</span>&nbsp;<span class="element-name">iterator</span>()</div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="PriorityQueueDouble.html#iterator()">PriorityQueueDouble</a></code></span></div>
+<div class="block">Returns an iterator over the (element, priority) pairs in a
+ mostly arbitrary order (i.e., you must not assume any particular
+ order).</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html#iterator()" title="class or interface in java.util" class="external-link">iterator</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;E&gt;</code></dd>
+<dt>Specified by:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html#iterator()" title="class or interface in java.lang" class="external-link">iterator</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;E&gt;</code></dd>
+<dt>Specified by:</dt>
+<dd><code><a href="PriorityQueueDouble.html#iterator()">iterator</a></code>&nbsp;in interface&nbsp;<code><a href="PriorityQueueDouble.html" title="interface in org.cicirello.ds">PriorityQueueDouble</a>&lt;E&gt;</code></dd>
+<dt>Returns:</dt>
+<dd>an iterator over the (element, priority) pairs</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="peekElement()">
+<h3>peekElement</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a></span>&nbsp;<span class="element-name">peekElement</span>()</div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="PriorityQueueDouble.html#peekElement()">PriorityQueueDouble</a></code></span></div>
+<div class="block">Gets the next element in priority order from this priority queue,
+ without removing it.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="PriorityQueueDouble.html#peekElement()">peekElement</a></code>&nbsp;in interface&nbsp;<code><a href="PriorityQueueDouble.html" title="interface in org.cicirello.ds">PriorityQueueDouble</a>&lt;E&gt;</code></dd>
+<dt>Returns:</dt>
+<dd>the next element in priority order, or null if empty.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="peek()">
+<h3>peek</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="PriorityQueueNode.Double.html" title="class in org.cicirello.ds">PriorityQueueNode.Double</a>&lt;<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&gt;</span>&nbsp;<span class="element-name">peek</span>()</div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="PriorityQueueDouble.html#peek()">PriorityQueueDouble</a></code></span></div>
+<div class="block">Gets the next (element, priority) pair in priority order from this priority queue,
+ without removing it.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="PriorityQueueDouble.html#peek()">peek</a></code>&nbsp;in interface&nbsp;<code><a href="PriorityQueueDouble.html" title="interface in org.cicirello.ds">PriorityQueueDouble</a>&lt;E&gt;</code></dd>
+<dt>Specified by:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Queue.html#peek()" title="class or interface in java.util" class="external-link">peek</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Queue.html" title="class or interface in java.util" class="external-link">Queue</a>&lt;E&gt;</code></dd>
+<dt>Returns:</dt>
+<dd>the next (element, priority) pair in priority order, or null if empty.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="peekPriority()">
+<h3>peekPriority</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">peekPriority</span>()</div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="PriorityQueueDouble.html#peekPriority()">PriorityQueueDouble</a></code></span></div>
+<div class="block">Gets the priority of the next element in priority order in the priority queue.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="PriorityQueueDouble.html#peekPriority()">peekPriority</a></code>&nbsp;in interface&nbsp;<code><a href="PriorityQueueDouble.html" title="interface in org.cicirello.ds">PriorityQueueDouble</a>&lt;E&gt;</code></dd>
+<dt>Returns:</dt>
+<dd>the priority of the next element in priority order.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="peekPriority(E)">
+<h3 id="peekPriority(java.lang.Object)">peekPriority</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">peekPriority</span><wbr><span class="parameters">(<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&nbsp;element)</span></div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="PriorityQueueDouble.html#peekPriority(E)">PriorityQueueDouble</a></code></span></div>
+<div class="block"><p>Gets the priority of a specified element if it is present in the priority queue.
+ This interface does not define the behavior when the element is not present.
+ Implementations may define the behavior when the element is not present.</p>
+
+ <p>For those implementations that allow duplicate elements, it returns the priority
+ of any one of them, without defining which is chosen.</p></div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="PriorityQueueDouble.html#peekPriority(E)">peekPriority</a></code>&nbsp;in interface&nbsp;<code><a href="PriorityQueueDouble.html" title="interface in org.cicirello.ds">PriorityQueueDouble</a>&lt;E&gt;</code></dd>
+<dt>Parameters:</dt>
+<dd><code>element</code> - The element whose priority is returned.</dd>
+<dt>Returns:</dt>
+<dd>the priority of a specified element.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="pollElement()">
+<h3>pollElement</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a></span>&nbsp;<span class="element-name">pollElement</span>()</div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="PriorityQueueDouble.html#pollElement()">PriorityQueueDouble</a></code></span></div>
+<div class="block">Removes and returns the next element in priority order from this priority queue.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="PriorityQueueDouble.html#pollElement()">pollElement</a></code>&nbsp;in interface&nbsp;<code><a href="PriorityQueueDouble.html" title="interface in org.cicirello.ds">PriorityQueueDouble</a>&lt;E&gt;</code></dd>
+<dt>Returns:</dt>
+<dd>the next element in priority order, or null if empty.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="poll()">
+<h3>poll</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="PriorityQueueNode.Double.html" title="class in org.cicirello.ds">PriorityQueueNode.Double</a>&lt;<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&gt;</span>&nbsp;<span class="element-name">poll</span>()</div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="PriorityQueueDouble.html#poll()">PriorityQueueDouble</a></code></span></div>
+<div class="block">Removes and returns the next (element, priority) pair in priority order from this priority queue.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="PriorityQueueDouble.html#poll()">poll</a></code>&nbsp;in interface&nbsp;<code><a href="PriorityQueueDouble.html" title="interface in org.cicirello.ds">PriorityQueueDouble</a>&lt;E&gt;</code></dd>
+<dt>Specified by:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Queue.html#poll()" title="class or interface in java.util" class="external-link">poll</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Queue.html" title="class or interface in java.util" class="external-link">Queue</a>&lt;E&gt;</code></dd>
+<dt>Returns:</dt>
+<dd>the next (element, priority) pair in priority order, or null if empty.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="remove(java.lang.Object)">
+<h3>remove</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">remove</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;o)</span></div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="PriorityQueueDouble.html#remove(java.lang.Object)">PriorityQueueDouble</a></code></span></div>
+<div class="block"><p>Removes from this priority queue the (element, priority) pair, if present, 
+ for a specified element or element from a specified (element, priority) pair.</p>
+
+ <p>For those implementations that allow duplicate elements,
+ this method removes only one element, without
+ defining which is chosen when such duplicates exist.</p></div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html#remove(java.lang.Object)" title="class or interface in java.util" class="external-link">remove</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;E&gt;</code></dd>
+<dt>Specified by:</dt>
+<dd><code><a href="PriorityQueueDouble.html#remove(java.lang.Object)">remove</a></code>&nbsp;in interface&nbsp;<code><a href="PriorityQueueDouble.html" title="interface in org.cicirello.ds">PriorityQueueDouble</a>&lt;E&gt;</code></dd>
+<dt>Parameters:</dt>
+<dd><code>o</code> - An element or (element, priority) pair, such that element designates
+ the desired pair to remove (note that if you pass an (element, priority) pair,
+ only the element must match to cause removal.</dd>
+<dt>Returns:</dt>
+<dd>true if and only if an (element, priority) pair was removed as a result
+ of this method call.</dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="size()">
 <h3>size</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">size</span>()</div>
@@ -942,9 +940,9 @@ implements <a href="MergeablePriorityQueueDouble.html" title="interface in org.c
  number of (element, value) pairs that it contains.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html#size()" title="class or interface in java.util" class="external-link">size</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&gt;</code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html#size()" title="class or interface in java.util" class="external-link">size</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;E&gt;</code></dd>
 <dt>Specified by:</dt>
-<dd><code><a href="PriorityQueueDouble.html#size()">size</a></code>&nbsp;in interface&nbsp;<code><a href="PriorityQueueDouble.html" title="interface in org.cicirello.ds">PriorityQueueDouble</a>&lt;<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&gt;</code></dd>
+<dd><code><a href="PriorityQueueDouble.html#size()">size</a></code>&nbsp;in interface&nbsp;<code><a href="PriorityQueueDouble.html" title="interface in org.cicirello.ds">PriorityQueueDouble</a>&lt;E&gt;</code></dd>
 <dt>Returns:</dt>
 <dd>the current size of the priority queue.</dd>
 </dl>
@@ -962,9 +960,9 @@ implements <a href="MergeablePriorityQueueDouble.html" title="interface in org.c
  array that is returned is equal to the current <a href="PriorityQueueDouble.html#size()"><code>PriorityQueueDouble.size()</code></a> of the priority queue.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html#toArray()" title="class or interface in java.util" class="external-link">toArray</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&gt;</code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html#toArray()" title="class or interface in java.util" class="external-link">toArray</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;E&gt;</code></dd>
 <dt>Specified by:</dt>
-<dd><code><a href="PriorityQueueDouble.html#toArray()">toArray</a></code>&nbsp;in interface&nbsp;<code><a href="PriorityQueueDouble.html" title="interface in org.cicirello.ds">PriorityQueueDouble</a>&lt;<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&gt;</code></dd>
+<dd><code><a href="PriorityQueueDouble.html#toArray()">toArray</a></code>&nbsp;in interface&nbsp;<code><a href="PriorityQueueDouble.html" title="interface in org.cicirello.ds">PriorityQueueDouble</a>&lt;E&gt;</code></dd>
 <dt>Returns:</dt>
 <dd>an array, whose runtime component type is Object, containing all of the 
  (element, priority) pairs currently in the priority queue.</dd>
@@ -983,9 +981,9 @@ implements <a href="MergeablePriorityQueueDouble.html" title="interface in org.c
  than the current size() of the priority queue, the first extra cell is set to null.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html#toArray(T%5B%5D)" title="class or interface in java.util" class="external-link">toArray</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&gt;</code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html#toArray(T%5B%5D)" title="class or interface in java.util" class="external-link">toArray</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;E&gt;</code></dd>
 <dt>Specified by:</dt>
-<dd><code><a href="PriorityQueueDouble.html#toArray(T%5B%5D)">toArray</a></code>&nbsp;in interface&nbsp;<code><a href="PriorityQueueDouble.html" title="interface in org.cicirello.ds">PriorityQueueDouble</a>&lt;<a href="SimpleFibonacciHeapDouble.html" title="type parameter in SimpleFibonacciHeapDouble">E</a>&gt;</code></dd>
+<dd><code><a href="PriorityQueueDouble.html#toArray(T%5B%5D)">toArray</a></code>&nbsp;in interface&nbsp;<code><a href="PriorityQueueDouble.html" title="interface in org.cicirello.ds">PriorityQueueDouble</a>&lt;E&gt;</code></dd>
 <dt>Type Parameters:</dt>
 <dd><code>T</code> - The component type of the array to contain the (element, priority) pairs</dd>
 <dt>Parameters:</dt>
