@@ -35,7 +35,7 @@ import java.util.Iterator;
  */
 abstract class AbstractFibonacciHeapDouble<E> implements MergeablePriorityQueueDouble<E, SimpleFibonacciHeapDouble<E>> {
 	
-	final PriorityComparator compare;
+	private final PriorityComparator compare;
 	private final double extreme;
 	
 	private int size;
@@ -71,6 +71,16 @@ abstract class AbstractFibonacciHeapDouble<E> implements MergeablePriorityQueueD
 		// of entire fibonacci heap (impossible to have references to Nodes
 		// external from this class.
 		min = null;
+	}
+	
+	@Override
+	public final boolean demote(E element, double priority) {
+		FibonacciHeapDoubleNode<E> node = find(element);
+		if (node != null && compare.comesBefore(node.e.value, priority)) {
+			internalDemote(node, priority);
+			return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -171,6 +181,16 @@ abstract class AbstractFibonacciHeapDouble<E> implements MergeablePriorityQueueD
 			return z.e;
 		}
 		return null;
+	}
+	
+	@Override
+	public final boolean promote(E element, double priority) {
+		FibonacciHeapDoubleNode<E> node = find(element);
+		if (node != null && compare.comesBefore(priority, node.e.value)) {
+			internalPromote(node, priority);
+			return true;
+		}
+		return false;
 	}
 	
 	@Override

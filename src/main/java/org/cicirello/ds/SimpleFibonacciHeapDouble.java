@@ -244,16 +244,6 @@ public class SimpleFibonacciHeapDouble<E> extends AbstractFibonacciHeapDouble<E>
 		return true;
 	}
 	
-	@Override
-	public final boolean demote(E element, double priority) {
-		FibonacciHeapDoubleNode<E> node = find(element);
-		if (node != null && compare.comesBefore(node.e.value, priority)) {
-			internalDemote(node, priority);
-			return true;
-		}
-		return false;
-	}
-	
 	/**
 	 * Checks if this SimpleFibonacciHeapDouble contains the same (element, priority)
 	 * pairs as another SimpleFibonacciHeapDouble, including the specific structure
@@ -290,16 +280,6 @@ public class SimpleFibonacciHeapDouble<E> extends AbstractFibonacciHeapDouble<E>
 	public boolean offer(PriorityQueueNode.Double<E> pair) {
 		internalOffer(pair.copy());
 		return true;
-	}
-	
-	@Override
-	public final boolean promote(E element, double priority) {
-		FibonacciHeapDoubleNode<E> node = find(element);
-		if (node != null && compare.comesBefore(priority, node.e.value)) {
-			internalPromote(node, priority);
-			return true;
-		}
-		return false;
 	}
 	
 	/**
