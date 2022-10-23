@@ -26,39 +26,39 @@ import java.lang.reflect.Array;
 import java.util.Iterator;
 
 /**
- * Package access abstract base class for Fibonacci heaps with double-valued priorities.
+ * Package access abstract base class for Fibonacci heaps with int-valued priorities.
  *
  * @param <E> The type of object contained within.
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-abstract class AbstractFibonacciHeapDouble<E> implements MergeablePriorityQueueDouble<E, SimpleFibonacciHeapDouble<E>> {
+abstract class AbstractFibonacciHeap<E> implements MergeablePriorityQueue<E, SimpleFibonacciHeap<E>> {
 	
 	private final PriorityComparator compare;
-	private final double extreme;
+	private final int extreme;
 	
 	private int size;
-	private FibonacciHeapDoubleNode<E> min;
+	private FibonacciHeapNode<E> min;
 	
-	private final FibonacciHeapDoubleNode.Consolidator<E> consolidator;
+	private final FibonacciHeapNode.Consolidator<E> consolidator;
 	
 	/* 
 	 * package private for use by subclass: Use factory methods for creation otherwise.
 	 *
-	 * Initializes an empty AbstractFibonacciHeapDouble.
+	 * Initializes an empty AbstractFibonacciHeap.
 	 */
-	AbstractFibonacciHeapDouble(PriorityComparator compare) {
+	AbstractFibonacciHeap(PriorityComparator compare) {
 		this.compare = compare;
-		extreme = compare.comesBefore(0, 1) ? java.lang.Double.POSITIVE_INFINITY : java.lang.Double.NEGATIVE_INFINITY;
+		extreme = compare.comesBefore(0, 1) ? java.lang.Integer.MAX_VALUE : java.lang.Integer.MIN_VALUE;
 		
-		consolidator = new FibonacciHeapDoubleNode.Consolidator<E>(compare);
+		consolidator = new FibonacciHeapNode.Consolidator<E>(compare);
 	}
 	
 	/*
 	 * package private copy constructor to support the copy() method, including in subclass.
 	 */
-	AbstractFibonacciHeapDouble(AbstractFibonacciHeapDouble<E> other) {
+	AbstractFibonacciHeap(AbstractFibonacciHeap<E> other) {
 		this(other.compare);
 		size = other.size;
 		min = other.min != null ? other.min.copy() : null;
@@ -74,8 +74,8 @@ abstract class AbstractFibonacciHeapDouble<E> implements MergeablePriorityQueueD
 	}
 	
 	@Override
-	public final boolean demote(E element, double priority) {
-		FibonacciHeapDoubleNode<E> node = find(element);
+	public final boolean demote(E element, int priority) {
+		FibonacciHeapNode<E> node = find(element);
 		if (node != null && compare.comesBefore(node.e.value, priority)) {
 			internalDemote(node, priority);
 			return true;
@@ -96,13 +96,13 @@ abstract class AbstractFibonacciHeapDouble<E> implements MergeablePriorityQueueD
 	@Override
 	public boolean equals(Object other) {
 		if (other == null) return false;
-		if (other instanceof AbstractFibonacciHeapDouble) {
+		if (other instanceof AbstractFibonacciHeap) {
 			@SuppressWarnings("unchecked")
-			AbstractFibonacciHeapDouble<E> casted = (AbstractFibonacciHeapDouble<E>)other;
+			AbstractFibonacciHeap<E> casted = (AbstractFibonacciHeap<E>)other;
 			if (size != casted.size) return false;
 			if (compare.comesBefore(0, 1) != casted.compare.comesBefore(0, 1)) return false;
-			Iterator<PriorityQueueNode.Double<E>> iter = iterator();
-			Iterator<PriorityQueueNode.Double<E>> otherIter = casted.iterator();
+			Iterator<PriorityQueueNode.Integer<E>> iter = iterator();
+			Iterator<PriorityQueueNode.Integer<E>> otherIter = casted.iterator();
 			while (iter.hasNext()) {
 				if (!iter.next().equals(otherIter.next())) {
 					return false;
@@ -122,8 +122,8 @@ abstract class AbstractFibonacciHeapDouble<E> implements MergeablePriorityQueueD
 	@Override
 	public int hashCode() {
 		int h = 0;
-		for (PriorityQueueNode.Double<E> e : this) {
-			h = 31 * h + java.lang.Double.hashCode(e.value);
+		for (PriorityQueueNode.Integer<E> e : this) {
+			h = 31 * h + java.lang.Integer.hashCode(e.value);
 			h = 31 * h + e.element.hashCode();
 		}
 		return h;
@@ -135,8 +135,8 @@ abstract class AbstractFibonacciHeapDouble<E> implements MergeablePriorityQueueD
 	}
 	
 	@Override
-	public final Iterator<PriorityQueueNode.Double<E>> iterator() {
-		return new FibonacciHeapDoubleNode.FibonacciHeapDoubleIterator<E>(min);
+	public final Iterator<PriorityQueueNode.Integer<E>> iterator() {
+		return new FibonacciHeapNode.FibonacciHeapIterator<E>(min);
 	}
 	
 	@Override
@@ -145,36 +145,36 @@ abstract class AbstractFibonacciHeapDouble<E> implements MergeablePriorityQueueD
 	}
 	
 	@Override
-	public final PriorityQueueNode.Double<E> peek() {
+	public final PriorityQueueNode.Integer<E> peek() {
 		return min != null ? min.e : null;
 	}
 	
 	@Override
-	public final double peekPriority() {
+	public final int peekPriority() {
 		return min != null ? min.e.value : extreme;
 	}
 	
 	@Override
-	public final double peekPriority(E element) {
-		FibonacciHeapDoubleNode<E> node = find(element);
+	public final int peekPriority(E element) {
+		FibonacciHeapNode<E> node = find(element);
 		return node != null ? node.e.value : extreme;
 	}
 	
 	@Override
 	public final E pollElement() {
-		PriorityQueueNode.Double<E> min = poll();
+		PriorityQueueNode.Integer<E> min = poll();
 		return min != null ? min.element : null;
 	}
 	
 	@Override
-	public PriorityQueueNode.Double<E> poll() {
+	public PriorityQueueNode.Integer<E> poll() {
 		if (size == 1) {
-			PriorityQueueNode.Double<E> pair = min.e;
+			PriorityQueueNode.Integer<E> pair = min.e;
 			min = null;
 			size = 0;
 			return pair;
 		} else if (size > 1) {
-			FibonacciHeapDoubleNode<E> z = min;
+			FibonacciHeapNode<E> z = min;
 			min = min.removeSelf();
 			min = consolidator.consolidate(min, size);
 			size--;
@@ -184,8 +184,8 @@ abstract class AbstractFibonacciHeapDouble<E> implements MergeablePriorityQueueD
 	}
 	
 	@Override
-	public final boolean promote(E element, double priority) {
-		FibonacciHeapDoubleNode<E> node = find(element);
+	public final boolean promote(E element, int priority) {
+		FibonacciHeapNode<E> node = find(element);
 		if (node != null && compare.comesBefore(priority, node.e.value)) {
 			internalPromote(node, priority);
 			return true;
@@ -195,9 +195,9 @@ abstract class AbstractFibonacciHeapDouble<E> implements MergeablePriorityQueueD
 	
 	@Override
 	public final boolean remove(Object o) {
-		FibonacciHeapDoubleNode<E> node = null;
-		if (o instanceof PriorityQueueNode.Double) {
-			PriorityQueueNode.Double pair = (PriorityQueueNode.Double)o;
+		FibonacciHeapNode<E> node = null;
+		if (o instanceof PriorityQueueNode.Integer) {
+			PriorityQueueNode.Integer pair = (PriorityQueueNode.Integer)o;
 			node = find(pair.element);
 		} else {
 			node = find(o);
@@ -219,7 +219,7 @@ abstract class AbstractFibonacciHeapDouble<E> implements MergeablePriorityQueueD
 	public final Object[] toArray() {
 		Object[] array = new Object[size];
 		int i = 0;
-		for (PriorityQueueNode.Double<E> e : this) {
+		for (PriorityQueueNode.Integer<E> e : this) {
 			array[i] = e;
 			i++;
 		}
@@ -239,7 +239,7 @@ abstract class AbstractFibonacciHeapDouble<E> implements MergeablePriorityQueueD
 		@SuppressWarnings("unchecked")
 		T[] result = array.length >= size ? array : (T[])Array.newInstance(array.getClass().getComponentType(), size);
 		int i = 0;
-		for (PriorityQueueNode.Double<E> e : this) {
+		for (PriorityQueueNode.Integer<E> e : this) {
 			@SuppressWarnings("unchecked")
 			T nextElement = (T)e;
 			result[i] = nextElement;
@@ -254,7 +254,7 @@ abstract class AbstractFibonacciHeapDouble<E> implements MergeablePriorityQueueD
 	/*
 	 * package access to enable sublcass overriding with simple index check/
 	 */
-	FibonacciHeapDoubleNode<E> find(Object element) {
+	FibonacciHeapNode<E> find(Object element) {
 		return min == null ? null : min.find(element);
 	}
 	
@@ -262,13 +262,13 @@ abstract class AbstractFibonacciHeapDouble<E> implements MergeablePriorityQueueD
 	 * used internally: doesn't check if already contains element.
 	 * package access to enable subclass overriding.
 	 */
-	FibonacciHeapDoubleNode<E> internalOffer(PriorityQueueNode.Double<E> pair) {
+	FibonacciHeapNode<E> internalOffer(PriorityQueueNode.Integer<E> pair) {
 		if (min == null) {
-			min = new FibonacciHeapDoubleNode<E>(pair);
+			min = new FibonacciHeapNode<E>(pair);
 			size = 1;
 			return min;
 		} else {
-			FibonacciHeapDoubleNode<E> added = new FibonacciHeapDoubleNode<E>(pair, min);
+			FibonacciHeapNode<E> added = new FibonacciHeapNode<E>(pair, min);
 			if (compare.comesBefore(pair.value, min.e.value)) {
 				min = added;
 			}
@@ -277,11 +277,11 @@ abstract class AbstractFibonacciHeapDouble<E> implements MergeablePriorityQueueD
 		}
 	}
 	
-	final void internalPromote(FibonacciHeapDoubleNode<E> x, double priority) {
+	final void internalPromote(FibonacciHeapNode<E> x, int priority) {
 		// only called if priority decreased for a minheap (increased for a maxheap)
 		// so no checks needed here.
 		x.e.value = priority;
-		FibonacciHeapDoubleNode<E> y = x.parent();
+		FibonacciHeapNode<E> y = x.parent();
 		if (y != null && compare.comesBefore(priority, y.e.value)) {
 			x.cut(y, min);
 			y.cascadingCut(min);			
@@ -291,7 +291,7 @@ abstract class AbstractFibonacciHeapDouble<E> implements MergeablePriorityQueueD
 		}
 	}
 	
-	final boolean internalMerge(AbstractFibonacciHeapDouble<E> other) {
+	final boolean internalMerge(AbstractFibonacciHeap<E> other) {
 		if (compare.comesBefore(0,1) != other.compare.comesBefore(0,1)) {
 			throw new IllegalArgumentException("this and other follow different priority-order");
 		}
@@ -307,7 +307,7 @@ abstract class AbstractFibonacciHeapDouble<E> implements MergeablePriorityQueueD
 		return false;
 	}
 	
-	final void internalDemote(FibonacciHeapDoubleNode<E> x, double priority) {
+	final void internalDemote(FibonacciHeapNode<E> x, int priority) {
 		// only called if priority increased for a minheap (decreased for a maxheap)
 		// so no checks needed here.
 		
@@ -320,7 +320,7 @@ abstract class AbstractFibonacciHeapDouble<E> implements MergeablePriorityQueueD
 		internalOffer(x.e);
 	}
 	
-	final boolean internalChange(FibonacciHeapDoubleNode<E> node, double priority) {
+	final boolean internalChange(FibonacciHeapNode<E> node, int priority) {
 		if (compare.comesBefore(priority, node.e.value)) {
 			internalPromote(node, priority);
 			return true;
@@ -331,12 +331,12 @@ abstract class AbstractFibonacciHeapDouble<E> implements MergeablePriorityQueueD
 		return false;
 	}
 	
-	final FibonacciHeapDoubleNode.NodeIterator<E> nodeIterator() {
-		return new FibonacciHeapDoubleNode.NodeIterator<E>(min);
+	final FibonacciHeapNode.NodeIterator<E> nodeIterator() {
+		return new FibonacciHeapNode.NodeIterator<E>(min);
 	}
 	
 	@FunctionalInterface
 	static interface PriorityComparator {
-		boolean comesBefore(double p1, double p2);
+		boolean comesBefore(int p1, int p2);
 	}
 }
