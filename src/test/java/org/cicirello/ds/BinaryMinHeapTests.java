@@ -35,6 +35,21 @@ public class BinaryMinHeapTests extends SharedTestHelpersMinHeaps {
 	}
 	
 	@Test
+	public void testDefaultMinHeap() {
+		defaultMinHeap();
+	}
+	
+	@Test
+	public void testDefaultReverseMinHeap() {
+		defaultReverseMinHeap();
+	}
+	
+	@Test
+	public void testDefaultArbitraryMinHeap() {
+		defaultArbitraryMinHeap();
+	}
+	
+	@Test
 	public void testElementPollThenAddMinHeap() {
 		elementPollThenAddMinHeap();
 	}

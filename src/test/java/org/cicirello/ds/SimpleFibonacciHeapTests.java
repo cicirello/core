@@ -480,50 +480,6 @@ public class SimpleFibonacciHeapTests {
 	// MIN HEAP TESTS
 	
 	@Test
-	public void testDefaultMinHeap() {
-		int n = 31;
-		String[] elements = createStrings(n);
-		int[] priorities = createPriorities(elements);
-		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
-		SimpleFibonacciHeap<String> pq = SimpleFibonacciHeap.createMinHeap();
-		assertEquals(0, pq.size());
-		assertTrue(pq.isEmpty());
-		assertNull(pq.peekElement());
-		assertNull(pq.peek());
-		assertEquals(Integer.MAX_VALUE, pq.peekPriority());
-		for (int i = 0; i < n; i++) {
-			assertTrue(pq.offer(pairs[i]));
-			assertEquals(i+1, pq.size());
-			assertFalse(pq.isEmpty());
-			assertEquals("A", pq.peekElement());
-			assertEquals(pairs[0], pq.peek());
-			assertEquals((int)'A', pq.peekPriority());
-		}
-		for (int i = 0; i < n; i++) {
-			assertTrue(pq.contains(elements[i]));
-			assertTrue(pq.contains(pairs[i]));
-			assertTrue(pq.offer(pairs[i]));
-			assertEquals(n+i+1, pq.size());
-			assertEquals("A", pq.peekElement());
-			assertEquals(pairs[0], pq.peek());
-			assertEquals((int)'A', pq.peekPriority());
-		}
-		for (int i = 0; i < n; i++) {
-			assertEquals(priorities[i], pq.peekPriority(elements[i]));
-		}
-		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
-		for (int i = 0; i < n; i++) {
-			assertEquals(pairs[i], pq.poll());
-			assertTrue(pq.contains(pairs[i].element));
-			assertEquals(2*n-1-2*i, pq.size());
-			assertEquals(pairs[i], pq.poll());
-			assertFalse(pq.contains(pairs[i].element));
-			assertEquals(2*(n-1-i), pq.size());
-		}
-		assertNull(pq.poll());
-	}
-	
-	@Test
 	public void testMinHeapAdd() {
 		int n = 31;
 		String[] elements = createStrings(n);
@@ -567,91 +523,7 @@ public class SimpleFibonacciHeapTests {
 		assertNull(pq.poll());
 	}
 	
-	@Test
-	public void testDefaultMinHeapReverse() {
-		int n = 31;
-		String[] elements = createStringsRev(n);
-		int[] priorities = createPriorities(elements);
-		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
-		SimpleFibonacciHeap<String> pq = SimpleFibonacciHeap.createMinHeap();
-		assertEquals(0, pq.size());
-		assertTrue(pq.isEmpty());
-		assertNull(pq.peekElement());
-		assertNull(pq.peek());
-		assertEquals(Integer.MAX_VALUE, pq.peekPriority());
-		for (int i = 0; i < n; i++) {
-			assertTrue(pq.offer(pairs[i]));
-			assertEquals(i+1, pq.size());
-			assertFalse(pq.isEmpty());
-			assertEquals(elements[i], pq.peekElement());
-			assertEquals(pairs[i], pq.peek());
-			assertEquals((int)elements[i].charAt(0), pq.peekPriority());
-		}
-		for (int i = 0; i < n; i++) {
-			assertTrue(pq.contains(elements[i]));
-			assertTrue(pq.contains(pairs[i]));
-			assertTrue(pq.offer(pairs[i]));
-			assertEquals(n+i+1, pq.size());
-			assertEquals("A", pq.peekElement());
-			assertEquals(pairs[n-1], pq.peek());
-			assertEquals((int)'A', pq.peekPriority());
-		}
-		for (int i = 0; i < n; i++) {
-			assertEquals(priorities[i], pq.peekPriority(elements[i]));
-		}
-		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
-		for (int i = 0; i < n; i++) {
-			assertEquals(pairs[n-1-i], pq.poll());
-			assertTrue(pq.contains(elements[n-1-i]));
-			assertEquals(2*n-1-2*i, pq.size());
-			assertEquals(pairs[n-1-i], pq.poll());
-			assertFalse(pq.contains(elements[n-1-i]));
-			assertEquals(2*(n-1-i), pq.size());
-		}
-		assertNull(pq.poll());
-	}
 	
-	@Test
-	public void testDefaultMinHeapArbitrary() {
-		int n = 31;
-		String[] elements = createStringsArbitrary(n);
-		int[] priorities = createPriorities(elements);
-		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
-		SimpleFibonacciHeap<String> pq = SimpleFibonacciHeap.createMinHeap();
-		assertEquals(0, pq.size());
-		assertTrue(pq.isEmpty());
-		assertNull(pq.peekElement());
-		assertNull(pq.peek());
-		assertEquals(Integer.MAX_VALUE, pq.peekPriority());
-		for (int i = 0; i < n; i++) {
-			assertTrue(pq.offer(pairs[i]));
-			assertEquals(i+1, pq.size());
-			assertFalse(pq.isEmpty());
-		}
-		for (int i = 0; i < n; i++) {
-			assertTrue(pq.contains(elements[i]));
-			assertTrue(pq.contains(pairs[i]));
-			assertTrue(pq.offer(pairs[i]));
-			assertEquals(n+i+1, pq.size());
-			assertEquals("A", pq.peekElement());
-			assertEquals(new PriorityQueueNode.Integer<String>("A",(int)'A'), pq.peek());
-			assertEquals((int)'A', pq.peekPriority());
-		}
-		for (int i = 0; i < n; i++) {
-			assertEquals(priorities[i], pq.peekPriority(elements[i]));
-		}
-		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
-		for (int i = 0; i < n; i++) {
-			String expected = ""+((char)('A'+i));
-			assertEquals(new PriorityQueueNode.Integer<String>(expected, (int)('A'+i)), pq.poll());
-			assertTrue(pq.contains(expected));
-			assertEquals(2*n-1-2*i, pq.size());
-			assertEquals(new PriorityQueueNode.Integer<String>(expected, (int)('A'+i)), pq.poll());
-			assertFalse(pq.contains(expected));
-			assertEquals(2*(n-1-i), pq.size());
-		}
-		assertNull(pq.poll());
-	}
 	
 	@Test
 	public void testListMinHeap() {

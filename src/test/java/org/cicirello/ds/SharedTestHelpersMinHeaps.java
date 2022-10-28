@@ -27,6 +27,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.function.Supplier;
 import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.SplittableRandom;
 
 /**
  * Test case functionality shared by the various heap classes, binary heaps, fibonacci heaps,
@@ -682,6 +684,252 @@ public abstract class SharedTestHelpersMinHeaps {
 		}
 	}
 	
+	final void defaultMinHeap() {
+		int n = 31;
+		String[] elements = createStrings(n);
+		int[] priorities = createPriorities(elements);
+		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
+		PriorityQueue<String> pq = factory.get();
+		assertEquals(0, pq.size());
+		assertTrue(pq.isEmpty());
+		assertNull(pq.peekElement());
+		assertNull(pq.peek());
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority());
+		for (int i = 0; i < n; i++) {
+			assertTrue(pq.offer(pairs[i]));
+			assertEquals(i+1, pq.size());
+			assertFalse(pq.isEmpty());
+			assertEquals("A", pq.peekElement());
+			assertEquals(pairs[0], pq.peek());
+			assertEquals((int)'A', pq.peekPriority());
+		}
+		for (int i = 0; i < n; i++) {
+			assertTrue(pq.contains(elements[i]));
+			assertTrue(pq.contains(pairs[i]));
+			assertFalse(pq.offer(pairs[i]));
+			assertFalse(pq.offer(pairs[i].element, pairs[i].value));
+			assertEquals(n, pq.size());
+			assertEquals("A", pq.peekElement());
+			assertEquals(pairs[0], pq.peek());
+			assertEquals((int)'A', pq.peekPriority());
+		}
+		for (int i = 0; i < n; i++) {
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
+		}
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
+		for (int i = 0; i < n; i++) {
+			assertEquals(pairs[i], pq.poll());
+			assertFalse(pq.contains(pairs[i].element));
+			assertEquals(n-1-i, pq.size());
+		}
+		assertNull(pq.poll());
+	}
+	
+	final void defaultDuplicatesAllowedMinHeap() {
+		int n = 31;
+		String[] elements = createStrings(n);
+		int[] priorities = createPriorities(elements);
+		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
+		PriorityQueue<String> pq = factory.get();
+		assertEquals(0, pq.size());
+		assertTrue(pq.isEmpty());
+		assertNull(pq.peekElement());
+		assertNull(pq.peek());
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority());
+		for (int i = 0; i < n; i++) {
+			assertTrue(pq.offer(pairs[i]));
+			assertEquals(i+1, pq.size());
+			assertFalse(pq.isEmpty());
+			assertEquals("A", pq.peekElement());
+			assertEquals(pairs[0], pq.peek());
+			assertEquals((int)'A', pq.peekPriority());
+		}
+		for (int i = 0; i < n; i++) {
+			assertTrue(pq.contains(elements[i]));
+			assertTrue(pq.contains(pairs[i]));
+			assertTrue(pq.offer(pairs[i]));
+			assertEquals(n+i+1, pq.size());
+			assertEquals("A", pq.peekElement());
+			assertEquals(pairs[0], pq.peek());
+			assertEquals((int)'A', pq.peekPriority());
+		}
+		for (int i = 0; i < n; i++) {
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
+		}
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
+		for (int i = 0; i < n; i++) {
+			assertEquals(pairs[i], pq.poll());
+			assertTrue(pq.contains(pairs[i].element));
+			assertEquals(2*n-1-2*i, pq.size());
+			assertEquals(pairs[i], pq.poll());
+			assertFalse(pq.contains(pairs[i].element));
+			assertEquals(2*(n-1-i), pq.size());
+		}
+		assertNull(pq.poll());
+	}
+	
+	final void defaultReverseMinHeap() {
+		int n = 31;
+		String[] elements = createStringsRev(n);
+		int[] priorities = createPriorities(elements);
+		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
+		PriorityQueue<String> pq = factory.get();
+		assertEquals(0, pq.size());
+		assertTrue(pq.isEmpty());
+		assertNull(pq.peekElement());
+		assertNull(pq.peek());
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority());
+		for (int i = 0; i < n; i++) {
+			assertTrue(pq.offer(pairs[i]));
+			assertEquals(i+1, pq.size());
+			assertFalse(pq.isEmpty());
+			assertEquals(elements[i], pq.peekElement());
+			assertEquals(pairs[i], pq.peek());
+			assertEquals((int)elements[i].charAt(0), pq.peekPriority());
+		}
+		for (int i = 0; i < n; i++) {
+			assertTrue(pq.contains(elements[i]));
+			assertTrue(pq.contains(pairs[i]));
+			assertFalse(pq.offer(pairs[i]));
+			assertEquals(n, pq.size());
+			assertEquals("A", pq.peekElement());
+			assertEquals(pairs[n-1], pq.peek());
+			assertEquals((int)'A', pq.peekPriority());
+		}
+		for (int i = 0; i < n; i++) {
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
+		}
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
+		for (int i = 0; i < n; i++) {
+			assertEquals(pairs[n-1-i], pq.poll());
+			assertFalse(pq.contains(elements[n-1-i]));
+			assertEquals(n-1-i, pq.size());
+		}
+		assertNull(pq.poll());
+	}
+	
+	final void defaultReverseDuplicatesAllowedMinHeap() {
+		int n = 31;
+		String[] elements = createStringsRev(n);
+		int[] priorities = createPriorities(elements);
+		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
+		PriorityQueue<String> pq = factory.get();
+		assertEquals(0, pq.size());
+		assertTrue(pq.isEmpty());
+		assertNull(pq.peekElement());
+		assertNull(pq.peek());
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority());
+		for (int i = 0; i < n; i++) {
+			assertTrue(pq.offer(pairs[i]));
+			assertEquals(i+1, pq.size());
+			assertFalse(pq.isEmpty());
+			assertEquals(elements[i], pq.peekElement());
+			assertEquals(pairs[i], pq.peek());
+			assertEquals((int)elements[i].charAt(0), pq.peekPriority());
+		}
+		for (int i = 0; i < n; i++) {
+			assertTrue(pq.contains(elements[i]));
+			assertTrue(pq.contains(pairs[i]));
+			assertTrue(pq.offer(pairs[i]));
+			assertEquals(n+i+1, pq.size());
+			assertEquals("A", pq.peekElement());
+			assertEquals(pairs[n-1], pq.peek());
+			assertEquals((int)'A', pq.peekPriority());
+		}
+		for (int i = 0; i < n; i++) {
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
+		}
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
+		for (int i = 0; i < n; i++) {
+			assertEquals(pairs[n-1-i], pq.poll());
+			assertTrue(pq.contains(elements[n-1-i]));
+			assertEquals(2*n-1-2*i, pq.size());
+			assertEquals(pairs[n-1-i], pq.poll());
+			assertFalse(pq.contains(elements[n-1-i]));
+			assertEquals(2*(n-1-i), pq.size());
+		}
+		assertNull(pq.poll());
+	}
+	
+	final void defaultArbitraryMinHeap() {
+		int n = 31;
+		String[] elements = createStringsArbitrary(n);
+		int[] priorities = createPriorities(elements);
+		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
+		PriorityQueue<String> pq = factory.get();
+		assertEquals(0, pq.size());
+		assertTrue(pq.isEmpty());
+		assertNull(pq.peekElement());
+		assertNull(pq.peek());
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority());
+		for (int i = 0; i < n; i++) {
+			assertTrue(pq.offer(pairs[i]));
+			assertEquals(i+1, pq.size());
+			assertFalse(pq.isEmpty());
+		}
+		for (int i = 0; i < n; i++) {
+			assertTrue(pq.contains(elements[i]));
+			assertTrue(pq.contains(pairs[i]));
+			assertFalse(pq.offer(pairs[i]));
+			assertEquals(n, pq.size());
+			assertEquals("A", pq.peekElement());
+			assertEquals(new PriorityQueueNode.Integer<String>("A",(int)'A'), pq.peek());
+			assertEquals((int)'A', pq.peekPriority());
+		}
+		for (int i = 0; i < n; i++) {
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
+		}
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
+		for (int i = 0; i < n; i++) {
+			String expected = ""+((char)('A'+i));
+			assertEquals(new PriorityQueueNode.Integer<String>(expected, (int)('A'+i)), pq.poll());
+			assertFalse(pq.contains(expected));
+			assertEquals(n-1-i, pq.size());
+		}
+		assertNull(pq.poll());
+	}
+	
+	final void defaultArbitraryDuplicatesAllowedMinHeap() {
+		int n = 31;
+		String[] elements = createStringsArbitrary(n);
+		int[] priorities = createPriorities(elements);
+		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
+		PriorityQueue<String> pq = factory.get();
+		assertEquals(0, pq.size());
+		assertTrue(pq.isEmpty());
+		assertNull(pq.peekElement());
+		assertNull(pq.peek());
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority());
+		for (int i = 0; i < n; i++) {
+			assertTrue(pq.offer(pairs[i]));
+			assertEquals(i+1, pq.size());
+			assertFalse(pq.isEmpty());
+		}
+		for (int i = 0; i < n; i++) {
+			assertTrue(pq.contains(elements[i]));
+			assertTrue(pq.contains(pairs[i]));
+			assertTrue(pq.offer(pairs[i]));
+			assertEquals(n+i+1, pq.size());
+			assertEquals("A", pq.peekElement());
+			assertEquals(new PriorityQueueNode.Integer<String>("A",(int)'A'), pq.peek());
+			assertEquals((int)'A', pq.peekPriority());
+		}
+		for (int i = 0; i < n; i++) {
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
+		}
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
+		for (int i = 0; i < n; i++) {
+			String expected = ""+((char)('A'+i));
+			assertEquals(new PriorityQueueNode.Integer<String>(expected, (int)('A'+i)), pq.poll());
+			assertTrue(pq.contains(expected));
+			assertEquals(2*n-1-2*i, pq.size());
+			assertEquals(new PriorityQueueNode.Integer<String>(expected, (int)('A'+i)), pq.poll());
+			assertFalse(pq.contains(expected));
+			assertEquals(2*(n-1-i), pq.size());
+		}
+		assertNull(pq.poll());
+	}
+	
 	private void populate(PriorityQueue<String> pq, String[] elements, int[] priorities, int n) {
 		for (int j = 0; j < n; j++) {
 			pq.offer(elements[j], priorities[j]);
@@ -702,5 +950,50 @@ public abstract class SharedTestHelpersMinHeaps {
 			priorities[i] = 2 + 2*i;
 		}
 		return priorities;
+	}
+	
+	private int[] createPriorities(String[] elements) {
+		int[] p = new int[elements.length];
+		for (int i = 0; i < elements.length; i++) {
+			p[i] = (int)elements[i].charAt(0);
+		}
+		return p;
+	}
+	
+	private PriorityQueueNode.Integer<String>[] createPairs(String[] elements, int[] priorities) {
+		@SuppressWarnings("unchecked")
+		PriorityQueueNode.Integer<String>[] pairs = (PriorityQueueNode.Integer<String>[])new PriorityQueueNode.Integer[elements.length];
+		for (int i = 0; i < pairs.length; i++) {
+			pairs[i] = new PriorityQueueNode.Integer<String>(elements[i], priorities[i]);
+		}
+		return pairs;
+	}
+	
+	private String[] createStringsRev(int n) {
+		String[] s = new String[n];
+		for (int i = 0; i < n; i++) {
+			s[n-1-i] = ((char)('A'+i)) + "";
+		}
+		return s;
+	}
+	
+	private String[] createStringsArbitrary(int n) {
+		ArrayList<String> list = new ArrayList<String>(n);
+		for (int i = 0; i < n; i++) {
+			list.add(((char)('A'+i)) + "");
+		}
+		shuffle(list, new SplittableRandom(42));
+		return list.toArray(new String[n]);
+	}
+	
+	private void shuffle(ArrayList<String> list, SplittableRandom r) {
+		for (int i = list.size()-1; i > 0; i--) {
+			int j = r.nextInt(i+1);
+			if (i!=j) {
+				String temp = list.get(i);
+				list.set(i, list.get(j));
+				list.set(j, temp);
+			}
+		}
 	}
 }
