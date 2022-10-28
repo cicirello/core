@@ -31,9 +31,15 @@ import java.util.function.Supplier;
  * Test case functionality shared by the various heap classes, binary heaps, fibonacci heaps,
  * specifically for the min heap cases.
  */
-public class SharedTestHelpersMinHeaps {
+public abstract class SharedTestHelpersMinHeaps {
 	
-	final void elementPollThenAddMinHeap(Supplier<PriorityQueue<String>> factory) {
+	private final Supplier<PriorityQueue<String>> factory;
+	
+	SharedTestHelpersMinHeaps(Supplier<PriorityQueue<String>> factory) {
+		this.factory = factory;
+	}
+	
+	final void elementPollThenAddMinHeap() {
 		int n = 7;
 		String[] elements = createStrings(n);
 		int[] priorities = createPriorities(n);
@@ -74,7 +80,7 @@ public class SharedTestHelpersMinHeaps {
 		pq.offer("QQQ", 1);
 	}
 	
-	final void pollThenAddMinHeap(Supplier<PriorityQueue<String>> factory) {
+	final void pollThenAddMinHeap() {
 		int n = 7;
 		String[] elements = createStrings(n);
 		int[] priorities = createPriorities(n);
@@ -114,7 +120,7 @@ public class SharedTestHelpersMinHeaps {
 		pq.offer("QQQ", 1);
 	}
 	
-	final void removeViaElementMinHeap(Supplier<PriorityQueue<String>> factory) {
+	final void removeViaElementMinHeap() {
 		int n = 15;
 		String[] elements = createStrings(n);
 		int[] priorities = createPriorities(n);
@@ -137,7 +143,7 @@ public class SharedTestHelpersMinHeaps {
 		}
 	}
 	
-	final void removeViaPairMinHeap(Supplier<PriorityQueue<String>> factory) {
+	final void removeViaPairMinHeap() {
 		int n = 15;
 		String[] elements = createStrings(n);
 		int[] priorities = createPriorities(n);
@@ -161,7 +167,7 @@ public class SharedTestHelpersMinHeaps {
 		}
 	}
 	
-	final void removeOneLeftMinHeap(Supplier<PriorityQueue<String>> factory) {
+	final void removeOneLeftMinHeap() {
 		int n = 15;
 		String[] elements = createStrings(n);
 		int[] priorities = createPriorities(n);
@@ -174,7 +180,7 @@ public class SharedTestHelpersMinHeaps {
 		assertEquals(0, pq.size());
 	}
 	
-	final void removeOneLeftViaPairMinHeap(Supplier<PriorityQueue<String>> factory) {
+	final void removeOneLeftViaPairMinHeap() {
 		int n = 15;
 		String[] elements = createStrings(n);
 		int[] priorities = createPriorities(n);
@@ -188,7 +194,7 @@ public class SharedTestHelpersMinHeaps {
 		assertEquals(0, pq.size());
 	}
 	
-	final void removeSamePriorityMinHeap(Supplier<PriorityQueue<String>> factory) {
+	final void removeSamePriorityMinHeap() {
 		int n = 15;
 		String[] elements = createStrings(n);
 		for (int i = 0; i < n; i++) {
@@ -211,7 +217,7 @@ public class SharedTestHelpersMinHeaps {
 		}
 	}
 	
-	final void removeSamePriorityViaPairMinHeap(Supplier<PriorityQueue<String>> factory) {
+	final void removeSamePriorityViaPairMinHeap() {
 		int n = 15;
 		String[] elements = createStrings(n);
 		for (int i = 0; i < n; i++) {
@@ -235,7 +241,7 @@ public class SharedTestHelpersMinHeaps {
 		}
 	}
 	
-	final void removePercolationMinHeap(Supplier<PriorityQueue<String>> factory) {
+	final void removePercolationMinHeap() {
 		int[] p = {0, 3, 1, 7, 4, 5, 2};
 		int n = p.length;
 		String[] elements = createStrings(n);
@@ -250,7 +256,7 @@ public class SharedTestHelpersMinHeaps {
 		assertEquals(0, pq.size());
 	}
 	
-	final void removePercolationViaPairMinHeap(Supplier<PriorityQueue<String>> factory) {
+	final void removePercolationViaPairMinHeap() {
 		int[] p = {0, 3, 1, 7, 4, 5, 2};
 		int n = p.length;
 		String[] elements = createStrings(n);
@@ -266,7 +272,7 @@ public class SharedTestHelpersMinHeaps {
 		assertEquals(0, pq.size());
 	}
 	
-	final void changeToFrontMinHeap(Supplier<PriorityQueue<String>> factory) {
+	final void changeToFrontMinHeap() {
 		int n = 15;
 		String[] elements = createStrings(n);
 		int[] priorities = createPriorities(n);
@@ -286,7 +292,7 @@ public class SharedTestHelpersMinHeaps {
 		}
 	}
 	
-	final void changeToBackMinHeap(Supplier<PriorityQueue<String>> factory) {
+	final void changeToBackMinHeap() {
 		int n = 15;
 		String[] elements = createStrings(n);
 		int[] priorities = createPriorities(n);
@@ -306,7 +312,7 @@ public class SharedTestHelpersMinHeaps {
 		}
 	}
 	
-	final void changeToInteriorMinHeap(Supplier<PriorityQueue<String>> factory) {
+	final void changeToInteriorMinHeap() {
 		int n = 15;
 		String[] elements = createStrings(n);
 		int[] priorities = createPriorities(n);
@@ -339,7 +345,7 @@ public class SharedTestHelpersMinHeaps {
 		}
 	}
 	
-	final void changeEqualMinHeap(Supplier<PriorityQueue<String>> factory) {
+	final void changeEqualMinHeap() {
 		int n = 15;
 		String[] elements = createStrings(n);
 		int[] priorities = createPriorities(n);
@@ -356,7 +362,7 @@ public class SharedTestHelpersMinHeaps {
 		}
 	}
 	
-	final void changeNewElementMinHeap(Supplier<PriorityQueue<String>> factory) {
+	final void changeNewElementMinHeap() {
 		int n = 15;
 		String[] elements = createStrings(n);
 		int[] priorities = createPriorities(n);
@@ -385,7 +391,7 @@ public class SharedTestHelpersMinHeaps {
 		}
 	}
 	
-	final void promoteDemoteToFrontMinHeap(Supplier<PriorityQueue<String>> factory) {
+	final void promoteDemoteToFrontMinHeap() {
 		int n = 15;
 		String[] elements = createStrings(n);
 		int[] priorities = createPriorities(n);
@@ -405,7 +411,7 @@ public class SharedTestHelpersMinHeaps {
 		}
 	}
 	
-	final void promoteDemoteToBackMinHeap(Supplier<PriorityQueue<String>> factory) {
+	final void promoteDemoteToBackMinHeap() {
 		int n = 15;
 		String[] elements = createStrings(n);
 		int[] priorities = createPriorities(n);
@@ -425,7 +431,7 @@ public class SharedTestHelpersMinHeaps {
 		}
 	}
 	
-	final void promoteDemoteToInteriorMinHeap(Supplier<PriorityQueue<String>> factory) {
+	final void promoteDemoteToInteriorMinHeap() {
 		int n = 15;
 		String[] elements = createStrings(n);
 		int[] priorities = createPriorities(n);
@@ -462,7 +468,7 @@ public class SharedTestHelpersMinHeaps {
 		}
 	}
 	
-	final void promoteDemoteEqualMinHeap(Supplier<PriorityQueue<String>> factory) {
+	final void promoteDemoteEqualMinHeap() {
 		int n = 15;
 		String[] elements = createStrings(n);
 		int[] priorities = createPriorities(n);
@@ -481,7 +487,7 @@ public class SharedTestHelpersMinHeaps {
 		}
 	}
 	
-	final void promoteDemoteNewElementMinHeap(Supplier<PriorityQueue<String>> factory) {
+	final void promoteDemoteNewElementMinHeap() {
 		int n = 15;
 		String[] elements = createStrings(n);
 		int[] priorities = createPriorities(n);

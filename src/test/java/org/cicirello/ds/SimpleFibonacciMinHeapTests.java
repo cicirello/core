@@ -30,103 +30,107 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class SimpleFibonacciMinHeapTests extends SharedTestHelpersMinHeaps {
 	
+	public SimpleFibonacciMinHeapTests() {
+		super(SimpleFibonacciHeap::createMinHeap);
+	}
+	
 	@Test
 	public void testElementPollThenAddMinHeap() {
-		elementPollThenAddMinHeap(SimpleFibonacciHeap::createMinHeap);
+		elementPollThenAddMinHeap();
 	}
 	
 	@Test
 	public void testPollThenAddMinHeap() {
-		pollThenAddMinHeap(SimpleFibonacciHeap::createMinHeap);
+		pollThenAddMinHeap();
 	}
 	
 	@Test
 	public void testRemoveViaElementMinHeap() {
-		removeViaElementMinHeap(SimpleFibonacciHeap::createMinHeap);
+		removeViaElementMinHeap();
 	}
 	
 	@Test
 	public void testRemoveViaPairMinHeap() {
-		removeViaPairMinHeap(SimpleFibonacciHeap::createMinHeap);
+		removeViaPairMinHeap();
 	}
 	
 	@Test
 	public void testRemoveOneLeftMinHeap() {
-		removeOneLeftMinHeap(SimpleFibonacciHeap::createMinHeap);
+		removeOneLeftMinHeap();
 	}
 	
 	@Test
 	public void testRemoveOneLeftViaPairMinHeap() {
-		removeOneLeftViaPairMinHeap(SimpleFibonacciHeap::createMinHeap);
+		removeOneLeftViaPairMinHeap();
 	}
 	
 	@Test
 	public void testRemoveSamePriorityMinHeap() {
-		removeSamePriorityMinHeap(SimpleFibonacciHeap::createMinHeap);
+		removeSamePriorityMinHeap();
 	}
 	
 	@Test
 	public void testRemoveSamePriorityViaPairMinHeap() {
-		removeSamePriorityViaPairMinHeap(SimpleFibonacciHeap::createMinHeap);
+		removeSamePriorityViaPairMinHeap();
 	}
 	
 	@Test
 	public void testRemovePercolationMinHeap() {
-		removePercolationMinHeap(SimpleFibonacciHeap::createMinHeap);
+		removePercolationMinHeap();
 	}
 	
 	@Test
 	public void testRemovePercolationViaPairMinHeap() {
-		removePercolationViaPairMinHeap(SimpleFibonacciHeap::createMinHeap);
+		removePercolationViaPairMinHeap();
 	}
 	
 	@Test
 	public void testChangeToFrontMinHeap() {
-		changeToFrontMinHeap(SimpleFibonacciHeap::createMinHeap);
+		changeToFrontMinHeap();
 	}
 	
 	@Test
 	public void testChangeToBackMinHeap() {
-		changeToBackMinHeap(SimpleFibonacciHeap::createMinHeap);
+		changeToBackMinHeap();
 	}
 	
 	@Test
 	public void testChangeToInteriorMinHeap() {
-		changeToInteriorMinHeap(SimpleFibonacciHeap::createMinHeap);
+		changeToInteriorMinHeap();
 	}
 	
 	@Test
 	public void testChangeEqualMinHeap() {
-		changeEqualMinHeap(SimpleFibonacciHeap::createMinHeap);
+		changeEqualMinHeap();
 	}
 	
 	@Test
 	public void testChangeNewElementMinHeap() {
-		changeNewElementMinHeap(SimpleFibonacciHeap::createMinHeap);
+		changeNewElementMinHeap();
 	}
 	
 	@Test
 	public void testPromoteDemoteToFrontMinHeap() {
-		promoteDemoteToFrontMinHeap(SimpleFibonacciHeap::createMinHeap);
+		promoteDemoteToFrontMinHeap();
 	}
 	
 	@Test
 	public void testPromoteDemoteToBackMinHeap() {
-		promoteDemoteToBackMinHeap(SimpleFibonacciHeap::createMinHeap);
+		promoteDemoteToBackMinHeap();
 	}
 	
 	@Test
 	public void testPromoteDemoteToInteriorMinHeap() {
-		promoteDemoteToInteriorMinHeap(SimpleFibonacciHeap::createMinHeap);
+		promoteDemoteToInteriorMinHeap();
 	}
 	
 	@Test
 	public void testPromoteDemoteEqualMinHeap() {
-		promoteDemoteEqualMinHeap(SimpleFibonacciHeap::createMinHeap);
+		promoteDemoteEqualMinHeap();
 	}
 	
 	@Test
 	public void testPromoteDemoteNewElementMinHeap() {
-		promoteDemoteNewElementMinHeap(SimpleFibonacciHeap::createMinHeap);
+		promoteDemoteNewElementMinHeap();
 	}
 }

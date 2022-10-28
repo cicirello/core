@@ -30,103 +30,107 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class SimpleBinaryMinHeapTests extends SharedTestHelpersMinHeaps {
 	
+	public SimpleBinaryMinHeapTests() {
+		super(SimpleBinaryHeap::createMinHeap);
+	}
+	
 	@Test
 	public void testElementPollThenAddMinHeap() {
-		elementPollThenAddMinHeap(SimpleBinaryHeap::createMinHeap);
+		elementPollThenAddMinHeap();
 	}
 	
 	@Test
 	public void testPollThenAddMinHeap() {
-		pollThenAddMinHeap(SimpleBinaryHeap::createMinHeap);
+		pollThenAddMinHeap();
 	}
 	
 	@Test
 	public void testRemoveViaElementMinHeap() {
-		removeViaElementMinHeap(SimpleBinaryHeap::createMinHeap);
+		removeViaElementMinHeap();
 	}
 	
 	@Test
 	public void testRemoveViaPairMinHeap() {
-		removeViaPairMinHeap(SimpleBinaryHeap::createMinHeap);
+		removeViaPairMinHeap();
 	}
 	
 	@Test
 	public void testRemoveOneLeftMinHeap() {
-		removeOneLeftMinHeap(SimpleBinaryHeap::createMinHeap);
+		removeOneLeftMinHeap();
 	}
 	
 	@Test
 	public void testRemoveOneLeftViaPairMinHeap() {
-		removeOneLeftViaPairMinHeap(SimpleBinaryHeap::createMinHeap);
+		removeOneLeftViaPairMinHeap();
 	}
 	
 	@Test
 	public void testRemoveSamePriorityMinHeap() {
-		removeSamePriorityMinHeap(SimpleBinaryHeap::createMinHeap);
+		removeSamePriorityMinHeap();
 	}
 	
 	@Test
 	public void testRemoveSamePriorityViaPairMinHeap() {
-		removeSamePriorityViaPairMinHeap(SimpleBinaryHeap::createMinHeap);
+		removeSamePriorityViaPairMinHeap();
 	}
 	
 	@Test
 	public void testRemovePercolationMinHeap() {
-		removePercolationMinHeap(SimpleBinaryHeap::createMinHeap);
+		removePercolationMinHeap();
 	}
 	
 	@Test
 	public void testRemovePercolationViaPairMinHeap() {
-		removePercolationViaPairMinHeap(SimpleBinaryHeap::createMinHeap);
+		removePercolationViaPairMinHeap();
 	}
 	
 	@Test
 	public void testChangeToFrontMinHeap() {
-		changeToFrontMinHeap(SimpleBinaryHeap::createMinHeap);
+		changeToFrontMinHeap();
 	}
 	
 	@Test
 	public void testChangeToBackMinHeap() {
-		changeToBackMinHeap(SimpleBinaryHeap::createMinHeap);
+		changeToBackMinHeap();
 	}
 	
 	@Test
 	public void testChangeToInteriorMinHeap() {
-		changeToInteriorMinHeap(SimpleBinaryHeap::createMinHeap);
+		changeToInteriorMinHeap();
 	}
 	
 	@Test
 	public void testChangeEqualMinHeap() {
-		changeEqualMinHeap(SimpleBinaryHeap::createMinHeap);
+		changeEqualMinHeap();
 	}
 	
 	@Test
 	public void testChangeNewElementMinHeap() {
-		changeNewElementMinHeap(SimpleBinaryHeap::createMinHeap);
+		changeNewElementMinHeap();
 	}
 	
 	@Test
 	public void testPromoteDemoteToFrontMinHeap() {
-		promoteDemoteToFrontMinHeap(SimpleBinaryHeap::createMinHeap);
+		promoteDemoteToFrontMinHeap();
 	}
 	
 	@Test
 	public void testPromoteDemoteToBackMinHeap() {
-		promoteDemoteToBackMinHeap(SimpleBinaryHeap::createMinHeap);
+		promoteDemoteToBackMinHeap();
 	}
 	
 	@Test
 	public void testPromoteDemoteToInteriorMinHeap() {
-		promoteDemoteToInteriorMinHeap(SimpleBinaryHeap::createMinHeap);
+		promoteDemoteToInteriorMinHeap();
 	}
 	
 	@Test
 	public void testPromoteDemoteEqualMinHeap() {
-		promoteDemoteEqualMinHeap(SimpleBinaryHeap::createMinHeap);
+		promoteDemoteEqualMinHeap();
 	}
 	
 	@Test
 	public void testPromoteDemoteNewElementMinHeap() {
-		promoteDemoteNewElementMinHeap(SimpleBinaryHeap::createMinHeap);
+		promoteDemoteNewElementMinHeap();
 	}
 }
