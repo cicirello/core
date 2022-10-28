@@ -35,6 +35,21 @@ public class BinaryMaxHeapTests extends SharedTestHelpersMaxHeaps {
 	}
 	
 	@Test
+	public void testDefaultMaxHeap() {
+		defaultMaxHeap();
+	}
+	
+	@Test
+	public void testDefaultReverseMaxHeap() {
+		defaultReverseMaxHeap();
+	}
+	
+	@Test
+	public void testDefaultArbitraryMaxHeap() {
+		defaultArbitraryMaxHeap();
+	}
+	
+	@Test
 	public void testRemoveViaElementMaxHeap() {
 		removeViaElementMaxHeap();
 	}
