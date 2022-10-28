@@ -110,6 +110,21 @@ public class SimpleFibonacciMinHeapTests extends SharedTestHelpersMinHeaps {
 	}
 	
 	@Test
+	public void testChangeNotLowerParentMinHeap() {
+		changeNotLowerParentMinHeap();
+	}
+	
+	@Test
+	public void testChangeCascadingCutMinHeap() {
+		changeCascadingCutMinHeap();
+	}
+	
+	@Test
+	public void testChangeMultiLevelMinHeap() {
+		changeMultiLevelMinHeap();
+	}
+	
+	@Test
 	public void testPromoteDemoteToFrontMinHeap() {
 		promoteDemoteToFrontMinHeap();
 	}

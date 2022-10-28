@@ -26,6 +26,7 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.function.Supplier;
+import java.util.Arrays;
 
 /**
  * Test case functionality shared by the various heap classes, binary heaps, fibonacci heaps,
@@ -388,6 +389,180 @@ public abstract class SharedTestHelpersMinHeaps {
 				}
 			}
 			assertTrue(pq.isEmpty());
+		}
+	}
+	
+	final void changeNotLowerParentMinHeap() {
+		int n = 15;
+		String[] elements = createStrings(n);
+		int[] priorities = createPriorities(n);
+		// change not lower than parent (in a fib heap)
+		for (int i = 0; i < n; i++) {
+			PriorityQueue<String> pq = factory.get();
+			populate(pq, elements, priorities, n);
+			String minElement = pq.pollElement();
+			if (!minElement.equals(elements[i])) {
+				assertTrue(pq.change(elements[i], priorities[i]-1));
+				assertEquals(priorities[i]-1, pq.peekPriority(elements[i]));
+			}
+			for (int j = 0; j < n; j++) {
+				if (!minElement.equals(elements[j])) {
+					assertEquals(elements[j], pq.pollElement());
+				}
+			}
+			assertTrue(pq.isEmpty());
+		}
+	}
+	
+	final void changeCascadingCutMinHeap() {
+		// This is primarily a special case for fibonacci heaps, but
+		// use for all heap classes.
+		int[] priorities = { 1, 5, 2, 11, 4, 13, 17, 15, 8, 31, 40, 37, 14, 100, 50, 70, 30, 45, 60, 0, 33, 99, 16, 97};
+		int[] orderedIndexes = {};
+		int n = priorities.length;
+		String[] elements = createStrings(n);
+		for (int i = 0; i < n; i++) {
+			for (int k = 0; k < n; k++) {
+				if (i!= k) {
+					PriorityQueue<String> pq = factory.get();
+					for (int j = 0; j < n/3; j++) {
+						pq.offer(elements[j], priorities[j]);
+					}
+					String e1 = pq.pollElement();
+					int index = Arrays.binarySearch(elements, e1);
+					if (index == i || index == k) {
+						continue;
+					}
+					assertEquals("A", e1);
+					assertEquals(n/3-1, pq.size());
+					for (int j = n/3; j < 2*n/3; j++) {
+						pq.offer(elements[j], priorities[j]);
+					}
+					String e2 = pq.pollElement();
+					index = Arrays.binarySearch(elements, e2);
+					if (index == i || index == k) {
+						continue;
+					}
+					assertEquals("C", e2);
+					assertEquals(2*n/3-2, pq.size());
+					for (int j = 2*n/3; j < n; j++) {
+						pq.offer(elements[j], priorities[j]);
+					}
+					String e3 = pq.pollElement();
+					index = Arrays.binarySearch(elements, e3);
+					if (index == i || index == k) {
+						continue;
+					}
+					int p3 = priorities[Arrays.binarySearch(elements, e3)];
+					assertEquals("T", e3);
+					assertEquals(n-3, pq.size());
+					if (!e1.equals(elements[i]) && !e2.equals(elements[i]) && !e3.equals(elements[i])) {
+						assertTrue(pq.change(elements[i], -1));
+						assertEquals(-1, pq.peekPriority(elements[i]));
+						assertEquals(n-3, pq.size());
+					}
+					if (!e1.equals(elements[k]) && !e2.equals(elements[k]) && !e3.equals(elements[k])) {
+						assertTrue(pq.change(elements[k], -2));
+						assertEquals(-2, pq.peekPriority(elements[k]));
+						assertEquals(n-3, pq.size());
+					}
+					int lastP = -1000;
+					int count = 0;
+					while (!pq.isEmpty()) {
+						PriorityQueueNode.Integer<String> e = pq.poll();
+						String msg = "count,e,p,i,k="+count+","+e.element+","+e.value+","+i+","+k;
+						assertTrue(e.value >= lastP, msg);
+						lastP = e.value;
+						int j = Arrays.binarySearch(elements, e.element);
+						if (j != i && j != k) {
+							assertEquals(priorities[j], e.value);
+						} else if (j == i) {
+							assertEquals(-1, e.value);
+						} else if (j == k) {
+							assertEquals(-2, e.value);
+						}
+						count++;
+						assertEquals(n-3-count, pq.size());
+					}
+					assertEquals(n-3, count);
+				}
+			}
+		}
+	}
+	
+	final void changeMultiLevelMinHeap() {
+		// This is primarily a special case for fibonacci heaps, but
+		// use for all heap classes.
+		int[] priorities = { 1, 5, 2, 11, 4, 13, 17, 15, 8, 31, 40, 37, 14, 100, 50, 70, 30, 45, 60, 0, 33, 99, 16, 97};
+		int[] orderedIndexes = {};
+		int n = priorities.length;
+		String[] elements = createStrings(n);
+		for (int i = 0; i < n; i++) {
+			for (int k = 0; k < n; k++) {
+				if (i!= k) {
+					PriorityQueue<String> pq = factory.get();
+					for (int j = 0; j < n/3; j++) {
+						pq.offer(elements[j], priorities[j]);
+					}
+					String e1 = pq.pollElement();
+					int index = Arrays.binarySearch(elements, e1);
+					if (index == i || index == k) {
+						continue;
+					}
+					assertEquals("A", e1);
+					assertEquals(n/3-1, pq.size());
+					for (int j = n/3; j < 2*n/3; j++) {
+						pq.offer(elements[j], priorities[j]);
+					}
+					String e2 = pq.pollElement();
+					index = Arrays.binarySearch(elements, e2);
+					if (index == i || index == k) {
+						continue;
+					}
+					assertEquals("C", e2);
+					assertEquals(2*n/3-2, pq.size());
+					for (int j = 2*n/3; j < n; j++) {
+						pq.offer(elements[j], priorities[j]);
+					}
+					String e3 = pq.pollElement();
+					index = Arrays.binarySearch(elements, e3);
+					if (index == i || index == k) {
+						continue;
+					}
+					int p3 = priorities[Arrays.binarySearch(elements, e3)];
+					assertEquals("T", e3);
+					assertEquals(n-3, pq.size());
+					if (!e1.equals(elements[i]) && !e2.equals(elements[i]) && !e3.equals(elements[i])) {
+						assertTrue(pq.change(elements[i], 95));
+						assertEquals(95, pq.peekPriority(elements[i]));
+						assertEquals(n-3, pq.size());
+					}
+					if (!e1.equals(elements[k]) && !e2.equals(elements[k]) && !e3.equals(elements[k])) {
+						assertTrue(pq.change(elements[k], 102));
+						assertEquals(102, pq.peekPriority(elements[k]));
+						assertEquals(n-3, pq.size());
+					}
+					int lastP = -1000;
+					int count = 0;
+					while (!pq.isEmpty()) {
+						PriorityQueueNode.Integer<String> e = pq.poll();
+						String msg = "count,e,p,i,k="+count+","+e.element+","+e.value+","+i+","+k;
+						assertTrue(e.value >= lastP, msg);
+						lastP = e.value;
+						int j = Arrays.binarySearch(elements, e.element);
+						if (j != i && j != k) {
+							assertEquals(priorities[j], e.value);
+						} else if (j == i) {
+							assertEquals(95, e.value);
+						} else if (j == k) {
+							assertEquals(102, e.value);
+						}
+						count++;
+						assertEquals(n-3-count, pq.size());
+					}
+					assertEquals(n-3, count);
+				}
+			}
 		}
 	}
 	
