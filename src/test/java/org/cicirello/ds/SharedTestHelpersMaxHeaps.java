@@ -377,7 +377,6 @@ public abstract class SharedTestHelpersMaxHeaps extends SharedTestHelpersHeaps {
 					if (index == i || index == k) {
 						continue;
 					}
-					int p3 = priorities[Arrays.binarySearch(elements, e3)];
 					assertEquals("T", e3);
 					assertEquals(n-3, pq.size());
 					if (!e1.equals(elements[i]) && !e2.equals(elements[i]) && !e3.equals(elements[i])) {
@@ -453,7 +452,6 @@ public abstract class SharedTestHelpersMaxHeaps extends SharedTestHelpersHeaps {
 					if (index == i || index == k) {
 						continue;
 					}
-					int p3 = priorities[Arrays.binarySearch(elements, e3)];
 					assertEquals("T", e3);
 					assertEquals(n-3, pq.size());
 					if (!e1.equals(elements[i]) && !e2.equals(elements[i]) && !e3.equals(elements[i])) {
@@ -649,7 +647,7 @@ public abstract class SharedTestHelpersMaxHeaps extends SharedTestHelpersHeaps {
 	
 	final void defaultReverseMaxHeap() {
 		int n = 31;
-		String[] elements = createStringsRevMaxCase(n);
+		String[] elements = createStringsRev(n);
 		int[] priorities = createPriorities(elements);
 		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
 		PriorityQueue<String> pq = factory.get();
@@ -689,7 +687,7 @@ public abstract class SharedTestHelpersMaxHeaps extends SharedTestHelpersHeaps {
 	
 	final void defaultArbitraryMaxHeap() {
 		int n = 31;
-		String[] elements = createStringsArbitraryMaxCase(n);
+		String[] elements = createStringsArbitrary(n);
 		int[] priorities = createPriorities(elements);
 		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
 		PriorityQueue<String> pq = factory.get();
@@ -770,7 +768,7 @@ public abstract class SharedTestHelpersMaxHeaps extends SharedTestHelpersHeaps {
 	
 	final void defaultReverseDuplicatesAllowedMaxHeap() {
 		int n = 31;
-		String[] elements = createStringsRevMaxCase(n);
+		String[] elements = createStringsRev(n);
 		int[] priorities = createPriorities(elements);
 		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
 		PriorityQueue<String> pq = factory.get();
@@ -813,7 +811,7 @@ public abstract class SharedTestHelpersMaxHeaps extends SharedTestHelpersHeaps {
 	
 	final void defaultArbitraryDuplicatesAllowedMaxHeap() {
 		int n = 31;
-		String[] elements = createStringsArbitraryMaxCase(n);
+		String[] elements = createStringsArbitrary(n);
 		int[] priorities = createPriorities(elements);
 		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
 		PriorityQueue<String> pq = factory.get();

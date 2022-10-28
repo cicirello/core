@@ -58,6 +58,23 @@ public abstract class SharedTestHelpersHeaps {
 		return s;
 	}
 	
+	final String[] createStringsRev(int n) {
+		String[] s = new String[n];
+		for (int i = 0; i < n; i++) {
+			s[n-1-i] = ((char)('A'+ADJUST*i)) + "";
+		}
+		return s;
+	}
+	
+	final String[] createStringsArbitrary(int n) {
+		ArrayList<String> list = new ArrayList<String>(n);
+		for (int i = 0; i < n; i++) {
+			list.add(((char)('A'+ADJUST*i)) + "");
+		}
+		shuffle(list, new SplittableRandom(42));
+		return list.toArray(new String[n]);
+	}
+	
 	final int[] createPriorities(String[] elements) {
 		int[] p = new int[elements.length];
 		for (int i = 0; i < elements.length; i++) {
@@ -86,43 +103,7 @@ public abstract class SharedTestHelpersHeaps {
 		}
 	}
 	
-	// MIN CASE
-	
-	final String[] createStringsRev(int n) {
-		String[] s = new String[n];
-		for (int i = 0; i < n; i++) {
-			s[n-1-i] = ((char)('A'+i)) + "";
-		}
-		return s;
-	}
-	
-	final String[] createStringsArbitrary(int n) {
-		ArrayList<String> list = new ArrayList<String>(n);
-		for (int i = 0; i < n; i++) {
-			list.add(((char)('A'+i)) + "");
-		}
-		shuffle(list, new SplittableRandom(42));
-		return list.toArray(new String[n]);
-	}
-	
 	// MAX CASE
-	
-	final String[] createStringsRevMaxCase(int n) {
-		String[] s = new String[n];
-		for (int i = 0; i < n; i++) {
-			s[n-1-i] = ((char)('A'-i)) + "";
-		}
-		return s;
-	}
-	
-	final String[] createStringsArbitraryMaxCase(int n) {
-		ArrayList<String> list = new ArrayList<String>(n);
-		for (int i = 0; i < n; i++) {
-			list.add(((char)('A'-i)) + "");
-		}
-		shuffle(list, new SplittableRandom(42));
-		return list.toArray(new String[n]);
-	}
 	
 	final String[] createStringsMaxCase(int n) {
 		String[] s = new String[n];
