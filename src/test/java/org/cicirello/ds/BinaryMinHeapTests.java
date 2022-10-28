@@ -65,6 +65,11 @@ public class BinaryMinHeapTests extends SharedTestHelpersMinHeaps {
 	}
 	
 	@Test
+	public void testFromListEmptyMinHeap() {
+		listEmptyExceptionMinHeap();
+	}
+	
+	@Test
 	public void testElementPollThenAddMinHeap() {
 		elementPollThenAddMinHeap();
 	}

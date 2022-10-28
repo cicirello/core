@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SimpleBinaryMaxHeapTests extends SharedTestHelpersMaxHeaps {
 	
 	public SimpleBinaryMaxHeapTests() {
-		super(SimpleBinaryHeap::createMaxHeap);
+		super(SimpleBinaryHeap::createMaxHeap, SimpleBinaryHeap::createMaxHeap);
 	}
 	
 	@Test
@@ -47,6 +47,26 @@ public class SimpleBinaryMaxHeapTests extends SharedTestHelpersMaxHeaps {
 	@Test
 	public void testDefaultArbitraryMaxHeap() {
 		defaultArbitraryDuplicatesAllowedMaxHeap();
+	}
+	
+	@Test
+	public void testFromListMaxHeap() {
+		listDuplicatesAllowedMaxHeap();
+	}
+	
+	@Test
+	public void testFromListReverseMaxHeap() {
+		listReverseDuplicatesAllowedMaxHeap();
+	}
+	
+	@Test
+	public void testFromListArbitraryMaxHeap() {
+		listArbitraryDuplicatesAllowedMaxHeap();
+	}
+	
+	@Test
+	public void testFromListEmptyMaxHeap() {
+		listEmptyExceptionMaxHeap();
 	}
 	
 	@Test

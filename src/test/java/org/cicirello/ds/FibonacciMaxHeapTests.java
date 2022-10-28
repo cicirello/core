@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class FibonacciMaxHeapTests extends SharedTestHelpersMaxHeaps {
 	
 	public FibonacciMaxHeapTests() {
-		super(FibonacciHeap::createMaxHeap);
+		super(FibonacciHeap::createMaxHeap, FibonacciHeap::createMaxHeap);
 	}
 	
 	@Test
@@ -47,6 +47,26 @@ public class FibonacciMaxHeapTests extends SharedTestHelpersMaxHeaps {
 	@Test
 	public void testDefaultArbitraryMaxHeap() {
 		defaultArbitraryMaxHeap();
+	}
+	
+	@Test
+	public void testFromListMaxHeap() {
+		listMaxHeap();
+	}
+	
+	@Test
+	public void testFromListReverseMaxHeap() {
+		listReverseMaxHeap();
+	}
+	
+	@Test
+	public void testFromListArbitraryMaxHeap() {
+		listArbitraryMaxHeap();
+	}
+	
+	@Test
+	public void testFromListEmptyMaxHeap() {
+		listEmptyMaxHeap();
 	}
 	
 	@Test

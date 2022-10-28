@@ -1025,6 +1025,13 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
 		assertTrue(pq.isEmpty());
 	}
 	
+	final void listEmptyExceptionMinHeap() {
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> fromListFactory.apply(new ArrayList<PriorityQueueNode.Integer<String>>())
+		);
+	}
+	
 	final void listDuplicatesAllowedMinHeap() {
 		int n = 31;
 		String[] elements = createStrings(n);
