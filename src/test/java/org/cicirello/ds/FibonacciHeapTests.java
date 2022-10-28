@@ -739,14 +739,6 @@ public class FibonacciHeapTests {
 		return s;
 	}
 	
-	private String[] createStringsMaxCase(int n) {
-		String[] s = new String[n];
-		for (int i = 0; i < n; i++) {
-			s[i] = ((char)('A'-i)) + "";
-		}
-		return s;
-	}
-	
 	private int[] createPriorities(String[] elements) {
 		int[] p = new int[elements.length];
 		for (int i = 0; i < elements.length; i++) {
@@ -755,35 +747,10 @@ public class FibonacciHeapTests {
 		return p;
 	}
 	
-	private String[] createStringsRev(int n) {
-		String[] s = new String[n];
-		for (int i = 0; i < n; i++) {
-			s[n-1-i] = ((char)('A'+i)) + "";
-		}
-		return s;
-	}
-	
-	private String[] createStringsRevMaxCase(int n) {
-		String[] s = new String[n];
-		for (int i = 0; i < n; i++) {
-			s[n-1-i] = ((char)('A'-i)) + "";
-		}
-		return s;
-	}
-	
 	private String[] createStringsArbitrary(int n) {
 		ArrayList<String> list = new ArrayList<String>(n);
 		for (int i = 0; i < n; i++) {
 			list.add(((char)('A'+i)) + "");
-		}
-		shuffle(list, new SplittableRandom(42));
-		return list.toArray(new String[n]);
-	}
-	
-	private String[] createStringsArbitraryMaxCase(int n) {
-		ArrayList<String> list = new ArrayList<String>(n);
-		for (int i = 0; i < n; i++) {
-			list.add(((char)('A'-i)) + "");
 		}
 		shuffle(list, new SplittableRandom(42));
 		return list.toArray(new String[n]);
