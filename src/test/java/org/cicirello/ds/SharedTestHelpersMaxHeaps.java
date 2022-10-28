@@ -36,11 +36,12 @@ import java.util.SplittableRandom;
  * includes more extensive tests. This class essentially validates that max heap order is
  * used. Other functionality doesn't need additional testing in both min and max cases.
  */
-public abstract class SharedTestHelpersMaxHeaps {
+public abstract class SharedTestHelpersMaxHeaps extends SharedTestHelpersHeaps {
 	
 	private final Supplier<PriorityQueue<String>> factory;
 	
 	SharedTestHelpersMaxHeaps(Supplier<PriorityQueue<String>> factory) {
+		super(false);
 		this.factory = factory;
 	}
 	
@@ -892,80 +893,5 @@ public abstract class SharedTestHelpersMaxHeaps {
 			assertEquals(2*n-2-2*i, pq.size());
 		}
 		assertNull(pq.poll());
-	}
-	
-	private void populate(PriorityQueue<String> pq, String[] elements, int[] priorities, int n) {
-		for (int j = 0; j < n; j++) {
-			pq.offer(elements[j], priorities[j]);
-		}
-	}
-	
-	private String[] createStrings(int n) {
-		String[] s = new String[n];
-		for (int i = 0; i < n; i++) {
-			s[i] = ((char)('A'+i)) + "";
-		}
-		return s;
-	}
-	
-	private int[] createPriorities(int n) {
-		int[] priorities = new int[n];
-		for (int i = 0; i < n; i++) {
-			priorities[i] = -(2 + 2*i);
-		}
-		return priorities;
-	}
-	
-	private int[] createPriorities(String[] elements) {
-		int[] p = new int[elements.length];
-		for (int i = 0; i < elements.length; i++) {
-			p[i] = (int)elements[i].charAt(0);
-		}
-		return p;
-	}
-	
-	private String[] createStringsRevMaxCase(int n) {
-		String[] s = new String[n];
-		for (int i = 0; i < n; i++) {
-			s[n-1-i] = ((char)('A'-i)) + "";
-		}
-		return s;
-	}
-	
-	private String[] createStringsArbitraryMaxCase(int n) {
-		ArrayList<String> list = new ArrayList<String>(n);
-		for (int i = 0; i < n; i++) {
-			list.add(((char)('A'-i)) + "");
-		}
-		shuffle(list, new SplittableRandom(42));
-		return list.toArray(new String[n]);
-	}
-	
-	private String[] createStringsMaxCase(int n) {
-		String[] s = new String[n];
-		for (int i = 0; i < n; i++) {
-			s[i] = ((char)('A'-i)) + "";
-		}
-		return s;
-	}
-	
-	private PriorityQueueNode.Integer<String>[] createPairs(String[] elements, int[] priorities) {
-		@SuppressWarnings("unchecked")
-		PriorityQueueNode.Integer<String>[] pairs = (PriorityQueueNode.Integer<String>[])new PriorityQueueNode.Integer[elements.length];
-		for (int i = 0; i < pairs.length; i++) {
-			pairs[i] = new PriorityQueueNode.Integer<String>(elements[i], priorities[i]);
-		}
-		return pairs;
-	}
-	
-	private void shuffle(ArrayList<String> list, SplittableRandom r) {
-		for (int i = list.size()-1; i > 0; i--) {
-			int j = r.nextInt(i+1);
-			if (i!=j) {
-				String temp = list.get(i);
-				list.set(i, list.get(j));
-				list.set(j, temp);
-			}
-		}
 	}
 }
