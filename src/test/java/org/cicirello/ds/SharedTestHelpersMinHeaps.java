@@ -930,6 +930,49 @@ public abstract class SharedTestHelpersMinHeaps {
 		assertNull(pq.poll());
 	}
 	
+	final void addSimpleMinHeap() {
+		int n = 31;
+		String[] elements = createStrings(n);
+		int[] priorities = createPriorities(elements);
+		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
+		PriorityQueue<String> pq = factory.get();
+		assertEquals(0, pq.size());
+		assertTrue(pq.isEmpty());
+		assertNull(pq.peekElement());
+		assertNull(pq.peek());
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority());
+		for (int i = 0; i < n; i++) {
+			assertTrue(pq.add(pairs[i]));
+			assertEquals(i+1, pq.size());
+			assertFalse(pq.isEmpty());
+			assertEquals("A", pq.peekElement());
+			assertEquals(pairs[0], pq.peek());
+			assertEquals((int)'A', pq.peekPriority());
+		}
+		for (int i = 0; i < n; i++) {
+			assertTrue(pq.contains(elements[i]));
+			assertTrue(pq.contains(pairs[i]));
+			assertTrue(pq.add(pairs[i]));
+			assertEquals(n+i+1, pq.size());
+			assertEquals("A", pq.peekElement());
+			assertEquals(pairs[0], pq.peek());
+			assertEquals((int)'A', pq.peekPriority());
+		}
+		for (int i = 0; i < n; i++) {
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
+		}
+		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
+		for (int i = 0; i < n; i++) {
+			assertEquals(pairs[i], pq.poll());
+			assertTrue(pq.contains(pairs[i].element));
+			assertEquals(2*n-1-2*i, pq.size());
+			assertEquals(pairs[i], pq.poll());
+			assertFalse(pq.contains(pairs[i].element));
+			assertEquals(2*(n-1-i), pq.size());
+		}
+		assertNull(pq.poll());
+	}
+	
 	private void populate(PriorityQueue<String> pq, String[] elements, int[] priorities, int n) {
 		for (int j = 0; j < n; j++) {
 			pq.offer(elements[j], priorities[j]);

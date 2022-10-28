@@ -163,4 +163,9 @@ public class SimpleBinaryMinHeapTests extends SharedTestHelpersMinHeaps {
 	public void testPromoteDemoteNewElementMinHeap() {
 		promoteDemoteNewElementMinHeap();
 	}
+	
+	@Test
+	public void testAddSimpleMinHeap() {
+		addSimpleMinHeap();
+	}
 }
