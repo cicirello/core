@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SimpleFibonacciMinHeapTests extends SharedTestHelpersMinHeaps {
 	
 	public SimpleFibonacciMinHeapTests() {
-		super(SimpleFibonacciHeap::createMinHeap);
+		super(SimpleFibonacciHeap::createMinHeap, SimpleFibonacciHeap::createMinHeap);
 	}
 	
 	@Test
@@ -47,6 +47,26 @@ public class SimpleFibonacciMinHeapTests extends SharedTestHelpersMinHeaps {
 	@Test
 	public void testDefaultArbitraryMinHeap() {
 		defaultArbitraryDuplicatesAllowedMinHeap();
+	}
+	
+	@Test
+	public void testFromListMinHeap() {
+		listDuplicatesAllowedMinHeap();
+	}
+	
+	@Test
+	public void testFromListReverseMinHeap() {
+		listReverseDuplicatesAllowedMinHeap();
+	}
+	
+	@Test
+	public void testFromListArbitraryMinHeap() {
+		listArbitraryDuplicatesAllowedMinHeap();
+	}
+	
+	@Test
+	public void testFromListEmptyMinHeap() {
+		listEmptyMinHeap();
 	}
 	
 	@Test

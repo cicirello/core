@@ -550,122 +550,15 @@ public class BinaryHeapTests {
 		);
 	}
 	
-	// MIN HEAP TESTS
-	
 	@Test
-	public void testListMinHeap() {
-		int n = 31;
-		String[] elements = createStrings(n);
-		int[] priorities = createPriorities(elements);
-		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
-		ArrayList<PriorityQueueNode.Integer<String>> list = new ArrayList<PriorityQueueNode.Integer<String>>();
-		for (PriorityQueueNode.Integer<String> next : pairs) {
-			list.add(next);
-		}
-		BinaryHeap<String> pq = BinaryHeap.createMinHeap(list);
-		assertEquals(n, pq.size());
-		assertFalse(pq.isEmpty());
-		for (int i = 0; i < n; i++) {
-			assertTrue(pq.contains(elements[i]));
-			assertTrue(pq.contains(pairs[i]));
-			assertFalse(pq.offer(pairs[i]));
-			assertEquals(n, pq.size());
-			assertEquals("A", pq.peekElement());
-			assertEquals(pairs[0], pq.peek());
-			assertEquals((int)'A', pq.peekPriority());
-		}
-		for (int i = 0; i < n; i++) {
-			assertEquals(priorities[i], pq.peekPriority(elements[i]));
-		}
-		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
-		for (int i = 0; i < n; i++) {
-			assertEquals(pairs[i], pq.poll());
-			assertFalse(pq.contains(pairs[i].element));
-			assertEquals(n-1-i, pq.size());
-		}
-		assertNull(pq.poll());
-		
+	public void testExceptionForEmptyList() {
 		IllegalArgumentException thrown = assertThrows( 
 			IllegalArgumentException.class,
 			() -> BinaryHeap.createMinHeap(new ArrayList<PriorityQueueNode.Integer<String>>())
 		);
-		final ArrayList<PriorityQueueNode.Integer<String>> list2 = new ArrayList<PriorityQueueNode.Integer<String>>();
-		list2.add(pairs[0]);
-		list2.add(pairs[0]);
-		thrown = assertThrows( 
-			IllegalArgumentException.class,
-			() -> BinaryHeap.createMinHeap(list2)
-		);
 	}
 	
-	@Test
-	public void testListMinHeapReverse() {
-		int n = 31;
-		String[] elements = createStringsRev(n);
-		int[] priorities = createPriorities(elements);
-		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
-		ArrayList<PriorityQueueNode.Integer<String>> list = new ArrayList<PriorityQueueNode.Integer<String>>();
-		for (PriorityQueueNode.Integer<String> next : pairs) {
-			list.add(next);
-		}
-		BinaryHeap<String> pq = BinaryHeap.createMinHeap(list);
-		assertEquals(n, pq.size());
-		assertFalse(pq.isEmpty());
-		for (int i = 0; i < n; i++) {
-			assertTrue(pq.contains(elements[i]));
-			assertTrue(pq.contains(pairs[i]));
-			assertFalse(pq.offer(pairs[i]));
-			assertEquals(n, pq.size());
-			assertEquals("A", pq.peekElement());
-			assertEquals(pairs[n-1], pq.peek());
-			assertEquals((int)'A', pq.peekPriority());
-		}
-		for (int i = 0; i < n; i++) {
-			assertEquals(priorities[i], pq.peekPriority(elements[i]));
-		}
-		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
-		for (int i = 0; i < n; i++) {
-			assertEquals(pairs[n-1-i], pq.poll());
-			assertFalse(pq.contains(elements[n-1-i]));
-			assertEquals(n-1-i, pq.size());
-		}
-		assertNull(pq.poll());
-	}
-	
-	@Test
-	public void testListMinHeapArbitrary() {
-		int n = 31;
-		String[] elements = createStringsArbitrary(n);
-		int[] priorities = createPriorities(elements);
-		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
-		ArrayList<PriorityQueueNode.Integer<String>> list = new ArrayList<PriorityQueueNode.Integer<String>>();
-		for (PriorityQueueNode.Integer<String> next : pairs) {
-			list.add(next);
-		}
-		BinaryHeap<String> pq = BinaryHeap.createMinHeap(list);
-		assertEquals(n, pq.size());
-		assertFalse(pq.isEmpty());
-		for (int i = 0; i < n; i++) {
-			assertTrue(pq.contains(elements[i]));
-			assertTrue(pq.contains(pairs[i]));
-			assertFalse(pq.offer(pairs[i]));
-			assertEquals(n, pq.size());
-			assertEquals("A", pq.peekElement());
-			assertEquals(new PriorityQueueNode.Integer<String>("A",(int)'A'), pq.peek());
-			assertEquals((int)'A', pq.peekPriority());
-		}
-		for (int i = 0; i < n; i++) {
-			assertEquals(priorities[i], pq.peekPriority(elements[i]));
-		}
-		assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
-		for (int i = 0; i < n; i++) {
-			String expected = ""+((char)('A'+i));
-			assertEquals(new PriorityQueueNode.Integer<String>(expected, (int)('A'+i)), pq.poll());
-			assertFalse(pq.contains(expected));
-			assertEquals(n-1-i, pq.size());
-		}
-		assertNull(pq.poll());
-	}
+	// MIN HEAP TESTS
 	
 	@Test
 	public void testMinHeap() {

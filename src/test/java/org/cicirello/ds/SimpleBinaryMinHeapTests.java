@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SimpleBinaryMinHeapTests extends SharedTestHelpersMinHeaps {
 	
 	public SimpleBinaryMinHeapTests() {
-		super(SimpleBinaryHeap::createMinHeap);
+		super(SimpleBinaryHeap::createMinHeap, SimpleBinaryHeap::createMinHeap);
 	}
 	
 	@Test
@@ -47,6 +47,21 @@ public class SimpleBinaryMinHeapTests extends SharedTestHelpersMinHeaps {
 	@Test
 	public void testDefaultArbitraryMinHeap() {
 		defaultArbitraryDuplicatesAllowedMinHeap();
+	}
+	
+	@Test
+	public void testFromListMinHeap() {
+		listDuplicatesAllowedMinHeap();
+	}
+	
+	@Test
+	public void testFromListReverseMinHeap() {
+		listReverseDuplicatesAllowedMinHeap();
+	}
+	
+	@Test
+	public void testFromListArbitraryMinHeap() {
+		listArbitraryDuplicatesAllowedMinHeap();
 	}
 	
 	@Test
