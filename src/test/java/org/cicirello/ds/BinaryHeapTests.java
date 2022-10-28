@@ -506,463 +506,51 @@ public class BinaryHeapTests {
 		assertNotEquals(pq3, "hello");
 	}
 	
+	@Test
+	public void testExceptionForAddingDuplicate() {
+		int n = 7;
+		String[] elements = createStrings(n);
+		int[] priorities = new int[n];
+		for (int i = 0; i < n; i++) {
+			priorities[i] = 2*i+2;
+		}
+		BinaryHeap<String> pq = BinaryHeap.createMinHeap();
+		for (int j = 0; j < n; j++) {
+			pq.offer(elements[j], priorities[j]);
+		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> pq.add(elements[n/2], 3)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> pq.pollThenAdd(elements[n/2], 3)
+		);
+	}
+	
+	@Test
+	public void testExceptionForAddingDuplicatePair() {
+		int n = 7;
+		String[] elements = createStrings(n);
+		int[] priorities = new int[n];
+		for (int i = 0; i < n; i++) {
+			priorities[i] = 2*i+2;
+		}
+		BinaryHeap<String> pq = BinaryHeap.createMinHeap();
+		for (int j = 0; j < n; j++) {
+			pq.offer(elements[j], priorities[j]);
+		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> pq.add(new PriorityQueueNode.Integer<String>(elements[n/2], 3))
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> pq.pollThenAdd(new PriorityQueueNode.Integer<String>(elements[n/2], 3))
+		);
+	}
+	
 	// MIN HEAP TESTS
-	
-	@Test
-	public void testElementPollThenAddMinHeap() {
-		int n = 7;
-		String[] elements = createStrings(n);
-		int[] priorities = new int[n];
-		for (int i = 0; i < n; i++) {
-			priorities[i] = 2*i+2;
-		}
-		BinaryHeap<String> pq = BinaryHeap.createMinHeap();
-		for (int j = 0; j < n; j++) {
-			pq.offer(elements[j], priorities[j]);
-		}
-		// At front
-		String s = pq.pollThenAdd("ZZZ", 1);
-		assertEquals(n, pq.size());
-		assertTrue(pq.contains("ZZZ"));
-		assertEquals(1, pq.peekPriority("ZZZ"));
-		assertEquals(elements[0], s);
-		assertEquals("ZZZ", pq.pollElement());
-		s = pq.pollThenAdd("YYY", 7);
-		assertEquals(n-1, pq.size());
-		assertTrue(pq.contains("YYY"));
-		assertEquals(7, pq.peekPriority("YYY"));
-		assertEquals(elements[1], s);
-		assertEquals(elements[2], pq.pollElement());
-		assertEquals("YYY", pq.pollElement());
-		for (int i = 3; i < n; i++) {
-			assertEquals(elements[i], pq.pollElement());
-		}
-		assertEquals(0, pq.size());
-		s = pq.pollThenAdd("XXX", 9);
-		assertNull(s);
-		assertEquals(1, pq.size());
-		assertTrue(pq.contains("XXX"));
-		assertEquals(9, pq.peekPriority("XXX"));
-		assertEquals(9, pq.peekPriority());
-		assertEquals("XXX", pq.peekElement());
-		s = pq.pollThenAdd("XXX", 3);
-		assertEquals("XXX", s);
-		assertEquals(1, pq.size());
-		assertTrue(pq.contains("XXX"));
-		assertEquals(3, pq.peekPriority("XXX"));
-		assertEquals(3, pq.peekPriority());
-		assertEquals("XXX", pq.peekElement());
-		pq.offer("QQQ", 1);
-		IllegalArgumentException thrown = assertThrows( 
-			IllegalArgumentException.class,
-			() -> pq.pollThenAdd("XXX", 3)
-		);
-	}
-	
-	@Test
-	public void testPollThenAddMinHeap() {
-		int n = 7;
-		String[] elements = createStrings(n);
-		int[] priorities = new int[n];
-		for (int i = 0; i < n; i++) {
-			priorities[i] = 2*i+2;
-		}
-		BinaryHeap<String> pq = BinaryHeap.createMinHeap();
-		for (int j = 0; j < n; j++) {
-			pq.offer(elements[j], priorities[j]);
-		}
-		// At front
-		String s = pq.pollThenAdd(new PriorityQueueNode.Integer<String>("ZZZ", 1)).getElement();
-		assertEquals(n, pq.size());
-		assertTrue(pq.contains("ZZZ"));
-		assertEquals(1, pq.peekPriority("ZZZ"));
-		assertEquals(elements[0], s);
-		assertEquals("ZZZ", pq.pollElement());
-		s = pq.pollThenAdd(new PriorityQueueNode.Integer<String>("YYY", 7)).getElement();
-		assertEquals(n-1, pq.size());
-		assertTrue(pq.contains("YYY"));
-		assertEquals(7, pq.peekPriority("YYY"));
-		assertEquals(elements[1], s);
-		assertEquals(elements[2], pq.pollElement());
-		assertEquals("YYY", pq.pollElement());
-		for (int i = 3; i < n; i++) {
-			assertEquals(elements[i], pq.pollElement());
-		}
-		assertEquals(0, pq.size());
-		assertNull(pq.pollThenAdd(new PriorityQueueNode.Integer<String>("XXX", 9)));
-		assertEquals(1, pq.size());
-		assertTrue(pq.contains("XXX"));
-		assertEquals(9, pq.peekPriority("XXX"));
-		assertEquals(9, pq.peekPriority());
-		assertEquals("XXX", pq.peekElement());
-		s = pq.pollThenAdd(new PriorityQueueNode.Integer<String>("XXX", 3)).getElement();
-		assertEquals("XXX", s);
-		assertEquals(1, pq.size());
-		assertTrue(pq.contains("XXX"));
-		assertEquals(3, pq.peekPriority("XXX"));
-		assertEquals(3, pq.peekPriority());
-		assertEquals("XXX", pq.peekElement());
-		pq.offer("QQQ", 1);
-		IllegalArgumentException thrown = assertThrows( 
-			IllegalArgumentException.class,
-			() -> pq.pollThenAdd(new PriorityQueueNode.Integer<String>("XXX", 3))
-		);
-	}
-	
-	@Test
-	public void testRemoveMinHeap() {
-		int n = 15;
-		String[] elements = createStrings(n);
-		int[] priorities = new int[n];
-		for (int i = 0; i < n; i++) {
-			priorities[i] = 2 + 2*i;
-		}
-		// Via element
-		for (int i = 0; i < n; i++) {
-			BinaryHeap<String> pq = BinaryHeap.createMinHeap();
-			for (int j = 0; j < n; j++) {
-				pq.offer(elements[j], priorities[j]);
-			}
-			assertTrue(pq.remove(elements[i]));
-			assertFalse(pq.contains(elements[i]));
-			assertEquals(n-1, pq.size());
-			assertFalse(pq.remove(elements[i]));
-			assertEquals(n-1, pq.size());
-			for (int j = 0; j < n; j++) {
-				if (i!=j) {
-					assertEquals(elements[j], pq.pollElement());
-				}
-			}
-			assertTrue(pq.isEmpty());
-			assertEquals(0, pq.size());
-		}
-		// one element left
-		{
-			BinaryHeap<String> pq = BinaryHeap.createMinHeap();
-			pq.offer(elements[0], priorities[0]);
-			assertTrue(pq.remove(elements[0]));
-			assertFalse(pq.contains(elements[0]));
-			assertEquals(0, pq.size());
-			assertFalse(pq.remove(elements[0]));
-			assertEquals(0, pq.size());
-		}
-		// Same priorities: no percolation needed
-		for (int i = 0; i < n; i++) {
-			BinaryHeap<String> pq = BinaryHeap.createMinHeap();
-			for (int j = 0; j < n; j++) {
-				pq.offer(elements[j], 42);
-			}
-			assertTrue(pq.remove(elements[i]));
-			assertFalse(pq.contains(elements[i]));
-			assertEquals(n-1, pq.size());
-			assertFalse(pq.remove(elements[i]));
-			assertEquals(n-1, pq.size());
-			for (int j = 0; j < n; j++) {
-				if (i!=j) {
-					assertNotEquals(elements[i], pq.pollElement());
-				}
-			}
-			assertTrue(pq.isEmpty());
-			assertEquals(0, pq.size());
-		}
-		// Percolate Up
-		{
-			BinaryHeap<String> pq = BinaryHeap.createMinHeap();
-			int[] p = {0, 3, 1, 7, 4, 5, 2};
-			for (int i = 0; i < p.length; i++) {
-				pq.offer(elements[i], p[i]);
-			}
-			assertTrue(pq.remove(elements[3]));
-			int[] expectedIndexOrder = {0, 2, 6, 1, 4, 5};
-			for (int i = 0; i < expectedIndexOrder.length; i++) {
-				assertEquals(elements[expectedIndexOrder[i]], pq.pollElement());
-			}
-			assertTrue(pq.isEmpty());
-			assertEquals(0, pq.size());
-		}
-		// VIA PAIR
-		for (int i = 0; i < n; i++) {
-			BinaryHeap<String> pq = BinaryHeap.createMinHeap();
-			for (int j = 0; j < n; j++) {
-				pq.offer(elements[j], priorities[j]);
-			}
-			PriorityQueueNode.Integer<String> pair = new PriorityQueueNode.Integer<String>(elements[i], priorities[i]);
-			assertTrue(pq.remove(pair));
-			assertFalse(pq.contains(pair));
-			assertEquals(n-1, pq.size());
-			assertFalse(pq.remove(pair));
-			assertEquals(n-1, pq.size());
-			for (int j = 0; j < n; j++) {
-				if (i!=j) {
-					assertEquals(elements[j], pq.pollElement());
-				}
-			}
-			assertTrue(pq.isEmpty());
-			assertEquals(0, pq.size());
-		}
-		// one element left via pair
-		{
-			BinaryHeap<String> pq = BinaryHeap.createMinHeap();
-			pq.offer(elements[0], priorities[0]);
-			PriorityQueueNode.Integer<String> pair = new PriorityQueueNode.Integer<String>(elements[0], priorities[0]);
-			assertTrue(pq.remove(pair));
-			assertFalse(pq.contains(pair));
-			assertEquals(0, pq.size());
-			assertFalse(pq.remove(pair));
-			assertEquals(0, pq.size());
-		}
-		// Via pair: Same priorities: no percolation needed
-		for (int i = 0; i < n; i++) {
-			BinaryHeap<String> pq = BinaryHeap.createMinHeap();
-			for (int j = 0; j < n; j++) {
-				pq.offer(elements[j], 42);
-			}
-			PriorityQueueNode.Integer<String> pair = new PriorityQueueNode.Integer<String>(elements[i], 42);
-			assertTrue(pq.remove(pair));
-			assertFalse(pq.contains(pair));
-			assertEquals(n-1, pq.size());
-			assertFalse(pq.remove(pair));
-			assertEquals(n-1, pq.size());
-			for (int j = 0; j < n; j++) {
-				if (i!=j) {
-					assertNotEquals(elements[i], pq.pollElement());
-				}
-			}
-			assertTrue(pq.isEmpty());
-			assertEquals(0, pq.size());
-		}
-		// Percolate Up Via Pair
-		{
-			BinaryHeap<String> pq = BinaryHeap.createMinHeap();
-			int[] p = {0, 3, 1, 7, 4, 5, 2};
-			for (int i = 0; i < p.length; i++) {
-				pq.offer(elements[i], p[i]);
-			}
-			PriorityQueueNode.Integer<String> pair = new PriorityQueueNode.Integer<String>(elements[3], p[3]);
-			assertTrue(pq.remove(pair));
-			int[] expectedIndexOrder = {0, 2, 6, 1, 4, 5};
-			for (int i = 0; i < expectedIndexOrder.length; i++) {
-				assertEquals(elements[expectedIndexOrder[i]], pq.pollElement());
-			}
-			assertTrue(pq.isEmpty());
-			assertEquals(0, pq.size());
-		}
-	}
-	
-	@Test
-	public void testChangePriorityMinHeap() {
-		int n = 15;
-		String[] elements = createStrings(n);
-		int[] priorities = new int[n];
-		for (int i = 0; i < n; i++) {
-			priorities[i] = 2 + 2*i;
-		}
-		// to front tests
-		for (int i = 0; i < n; i++) {
-			BinaryHeap<String> pq = BinaryHeap.createMinHeap();
-			for (int j = 0; j < n; j++) {
-				pq.offer(elements[j], priorities[j]);
-			}
-			assertTrue(pq.change(elements[i], 1));
-			assertEquals(1, pq.peekPriority(elements[i]));
-			assertEquals(elements[i], pq.pollElement());
-			for (int j = 0; j < n; j++) {
-				if (i!=j) {
-					assertEquals(elements[j], pq.pollElement());
-				}
-			}
-			assertTrue(pq.isEmpty());
-		}
-		// to back tests
-		for (int i = 0; i < n; i++) {
-			BinaryHeap<String> pq = BinaryHeap.createMinHeap();
-			for (int j = 0; j < n; j++) {
-				pq.offer(elements[j], priorities[j]);
-			}
-			assertTrue(pq.change(elements[i], 100));
-			assertEquals(100, pq.peekPriority(elements[i]));
-			for (int j = 0; j < n; j++) {
-				if (i!=j) {
-					assertEquals(elements[j], pq.pollElement());
-				}
-			}
-			assertEquals(elements[i], pq.pollElement());
-			assertTrue(pq.isEmpty());
-		}
-		// to interior tests
-		int maxP = 2*(n-1) + 2;
-		for (int p = 3; p <= maxP; p += 2) {
-			for (int i = 0; i < n; i++) {
-				BinaryHeap<String> pq = BinaryHeap.createMinHeap();
-				for (int j = 0; j < n; j++) {
-					pq.offer(elements[j], priorities[j]);
-				}
-				assertTrue(pq.change(elements[i], p));
-				assertEquals(p, pq.peekPriority(elements[i]));
-				int j = 0;
-				for (; j < n; j++) {
-					if (i != j) {
-						if (priorities[j] < p) {
-							assertEquals(elements[j], pq.pollElement(), "p,i,j="+p+","+i+","+j);
-						} else {
-							break;
-						}
-					}
-				}
-				assertEquals(elements[i], pq.pollElement(), "p,i,j="+p+","+i+","+j);
-				for (; j < n; j++) {
-					if (i!=j && priorities[j] > p) {
-						assertEquals(elements[j], pq.pollElement());
-					}
-				}
-				assertTrue(pq.isEmpty());
-			}
-		}
-		// equal change test
-		for (int i = 0; i < n; i++) {
-			BinaryHeap<String> pq = BinaryHeap.createMinHeap();
-			for (int j = 0; j < n; j++) {
-				pq.offer(elements[j], priorities[j]);
-			}
-			assertFalse(pq.change(elements[i], priorities[i]));
-			assertEquals(priorities[i], pq.peekPriority(elements[i]));
-			for (int j = 0; j < n; j++) {
-				assertEquals(elements[j], pq.pollElement());
-			}
-			assertTrue(pq.isEmpty());
-		}
-		// new element test
-		maxP = 2*(n-1) + 3;
-		for (int p = 1; p <= maxP; p += 2) {
-			BinaryHeap<String> pq = BinaryHeap.createMinHeap();
-			for (int j = 0; j < n; j++) {
-				pq.offer(elements[j], priorities[j]);
-			}
-			assertTrue(pq.change("YYY", p));
-			assertEquals(p, pq.peekPriority("YYY"));
-			int j = 0;
-			for (; j < n; j++) {
-				if (priorities[j] < p) {
-					assertEquals(elements[j], pq.pollElement());
-				} else {
-					break;
-				}
-			}
-			assertEquals("YYY", pq.pollElement());
-			for (; j < n; j++) {
-				if (priorities[j] > p) {
-					assertEquals(elements[j], pq.pollElement());
-				}
-			}
-			assertTrue(pq.isEmpty());
-		}
-	}
-	
-	@Test
-	public void testPromoteDemoteMinHeap() {
-		int n = 15;
-		String[] elements = createStrings(n);
-		int[] priorities = new int[n];
-		for (int i = 0; i < n; i++) {
-			priorities[i] = 2 + 2*i;
-		}
-		// to front tests
-		for (int i = 0; i < n; i++) {
-			BinaryHeap<String> pq = BinaryHeap.createMinHeap();
-			for (int j = 0; j < n; j++) {
-				pq.offer(elements[j], priorities[j]);
-			}
-			assertTrue(pq.promote(elements[i], 1));
-			assertEquals(1, pq.peekPriority(elements[i]));
-			assertEquals(elements[i], pq.pollElement());
-			for (int j = 0; j < n; j++) {
-				if (i!=j) {
-					assertEquals(elements[j], pq.pollElement());
-				}
-			}
-			assertTrue(pq.isEmpty());
-		}
-		// to back tests
-		for (int i = 0; i < n; i++) {
-			BinaryHeap<String> pq = BinaryHeap.createMinHeap();
-			for (int j = 0; j < n; j++) {
-				pq.offer(elements[j], priorities[j]);
-			}
-			assertTrue(pq.demote(elements[i], 100));
-			assertEquals(100, pq.peekPriority(elements[i]));
-			for (int j = 0; j < n; j++) {
-				if (i!=j) {
-					assertEquals(elements[j], pq.pollElement());
-				}
-			}
-			assertEquals(elements[i], pq.pollElement());
-			assertTrue(pq.isEmpty());
-		}
-		// to interior tests
-		int maxP = 2*(n-1) + 2;
-		for (int p = 3; p <= maxP; p += 2) {
-			for (int i = 0; i < n; i++) {
-				BinaryHeap<String> pq = BinaryHeap.createMinHeap();
-				for (int j = 0; j < n; j++) {
-					pq.offer(elements[j], priorities[j]);
-				}
-				if (p < priorities[i]) {
-					assertTrue(pq.promote(elements[i], p));
-				} else {
-					assertTrue(pq.demote(elements[i], p));
-				}
-				assertEquals(p, pq.peekPriority(elements[i]));
-				int j = 0;
-				for (; j < n; j++) {
-					if (i != j) {
-						if (priorities[j] < p) {
-							assertEquals(elements[j], pq.pollElement(), "p,i,j="+p+","+i+","+j);
-						} else {
-							break;
-						}
-					}
-				}
-				assertEquals(elements[i], pq.pollElement(), "p,i,j="+p+","+i+","+j);
-				for (; j < n; j++) {
-					if (i!=j && priorities[j] > p) {
-						assertEquals(elements[j], pq.pollElement());
-					}
-				}
-				assertTrue(pq.isEmpty());
-			}
-		}
-		// equal change test
-		for (int i = 0; i < n; i++) {
-			BinaryHeap<String> pq = BinaryHeap.createMinHeap();
-			for (int j = 0; j < n; j++) {
-				pq.offer(elements[j], priorities[j]);
-			}
-			assertFalse(pq.promote(elements[i], priorities[i]));
-			assertEquals(priorities[i], pq.peekPriority(elements[i]));
-			assertFalse(pq.demote(elements[i], priorities[i]));
-			assertEquals(priorities[i], pq.peekPriority(elements[i]));
-			for (int j = 0; j < n; j++) {
-				assertEquals(elements[j], pq.pollElement());
-			}
-			assertTrue(pq.isEmpty());
-		}
-		// new element test
-		maxP = 2*(n-1) + 3;
-		for (int p = 1; p <= maxP; p += 2) {
-			BinaryHeap<String> pq = BinaryHeap.createMinHeap();
-			for (int j = 0; j < n; j++) {
-				pq.offer(elements[j], priorities[j]);
-			}
-			assertFalse(pq.promote("YYY", p));
-			assertFalse(pq.contains("YYY"));
-			assertFalse(pq.demote("YYY", p));
-			assertFalse(pq.contains("YYY"));
-			for (int j = 0; j < n; j++) {
-				assertEquals(elements[j], pq.pollElement());
-			}
-			assertTrue(pq.isEmpty());
-		}
-	}
 	
 	@Test
 	public void testDefaultMinHeap() {
