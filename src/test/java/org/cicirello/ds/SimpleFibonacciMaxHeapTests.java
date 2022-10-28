@@ -153,4 +153,9 @@ public class SimpleFibonacciMaxHeapTests extends SharedTestHelpersMaxHeaps {
 	public void testPromoteDemoteNewElementMaxHeap() {
 		promoteDemoteNewElementMaxHeap();
 	}
+	
+	@Test
+	public void testAddSimpleMaxHeap() {
+		addSimpleMaxHeap();
+	}
 }
