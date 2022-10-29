@@ -178,4 +178,24 @@ public class SimpleBinaryMaxHeapTests extends SharedTestHelpersMaxHeaps {
 	public void testAddSimpleMaxHeap() {
 		addSimpleMaxHeap();
 	}
+	
+	@Test
+	public void testOfferSeparateMaxHeap() {
+		offerSeparateDuplicatesAllowedMaxHeap();
+	}
+	
+	@Test
+	public void testOfferSeparateReverseMaxHeap() {
+		offerSeparateReverseDuplicatesAllowedMaxHeap();
+	}
+	
+	@Test
+	public void testOfferSeparateArbitraryMaxHeap() {
+		offerSeparateArbitraryDuplicatesAllowedMaxHeap();
+	}
+	
+	@Test
+	public void testAddSeparateMaxHeap() {
+		addSeparateDuplicatesAllowedMaxHeap();
+	}
 }

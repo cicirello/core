@@ -173,4 +173,24 @@ public class BinaryMaxHeapTests extends SharedTestHelpersMaxHeaps {
 	public void testPromoteDemoteNewElementMaxHeap() {
 		promoteDemoteNewElementMaxHeap();
 	}
+	
+	@Test
+	public void testOfferSeparateMaxHeap() {
+		offerSeparateMaxHeap();
+	}
+	
+	@Test
+	public void testOfferSeparateReverseMaxHeap() {
+		offerSeparateReverseMaxHeap();
+	}
+	
+	@Test
+	public void testOfferSeparateArbitraryMaxHeap() {
+		offerSeparateArbitraryMaxHeap();
+	}
+	
+	@Test
+	public void testAddSeparateMaxHeap() {
+		addSeparateMaxHeap();
+	}
 }
