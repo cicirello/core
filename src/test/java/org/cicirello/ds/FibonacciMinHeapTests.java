@@ -183,4 +183,24 @@ public class FibonacciMinHeapTests extends SharedTestHelpersMinHeaps {
 	public void testPromoteDemoteNewElementMinHeap() {
 		promoteDemoteNewElementMinHeap();
 	}
+	
+	@Test
+	public void testOfferSeparateMinHeap() {
+		offerSeparateMinHeap();
+	}
+	
+	@Test
+	public void testOfferSeparateReverseMinHeap() {
+		offerSeparateReverseMinHeap();
+	}
+	
+	@Test
+	public void testOfferSeparateArbitraryMinHeap() {
+		offerSeparateArbitraryMinHeap();
+	}
+	
+	@Test
+	public void testAddSeparateMinHeap() {
+		addSeparateMinHeap();
+	}
 }

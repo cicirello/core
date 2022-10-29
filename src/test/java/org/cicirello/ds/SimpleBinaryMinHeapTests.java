@@ -188,4 +188,24 @@ public class SimpleBinaryMinHeapTests extends SharedTestHelpersMinHeaps {
 	public void testAddSimpleMinHeap() {
 		addSimpleMinHeap();
 	}
+	
+	@Test
+	public void testOfferSeparateMinHeap() {
+		offerSeparateDuplicatesAllowedMinHeap();
+	}
+	
+	@Test
+	public void testOfferSeparateReverseMinHeap() {
+		offerSeparateReverseDuplicatesAllowedMinHeap();
+	}
+	
+	@Test
+	public void testOfferSeparateArbitraryMinHeap() {
+		offerSeparateArbitraryDuplicatesAllowedMinHeap();
+	}
+	
+	@Test
+	public void testAddSeparateMinHeap() {
+		addSeparateDuplicatesAllowedMinHeap();
+	}
 }
