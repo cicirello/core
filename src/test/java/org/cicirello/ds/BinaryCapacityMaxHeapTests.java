@@ -50,26 +50,6 @@ public class BinaryCapacityMaxHeapTests extends SharedTestHelpersMaxHeaps {
 	}
 	
 	@Test
-	public void testFromListMaxHeap() {
-		listMaxHeap();
-	}
-	
-	@Test
-	public void testFromListReverseMaxHeap() {
-		listReverseMaxHeap();
-	}
-	
-	@Test
-	public void testFromListArbitraryMaxHeap() {
-		listArbitraryMaxHeap();
-	}
-	
-	@Test
-	public void testFromListEmptyMaxHeap() {
-		listEmptyExceptionMaxHeap();
-	}
-	
-	@Test
 	public void testRemoveViaElementMaxHeap() {
 		removeViaElementMaxHeap();
 	}

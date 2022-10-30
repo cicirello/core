@@ -50,26 +50,6 @@ public class SimpleBinaryCapacityMinHeapTests extends SharedTestHelpersMinHeaps 
 	}
 	
 	@Test
-	public void testFromListMinHeap() {
-		listDuplicatesAllowedMinHeap();
-	}
-	
-	@Test
-	public void testFromListReverseMinHeap() {
-		listReverseDuplicatesAllowedMinHeap();
-	}
-	
-	@Test
-	public void testFromListArbitraryMinHeap() {
-		listArbitraryDuplicatesAllowedMinHeap();
-	}
-	
-	@Test
-	public void testFromListEmptyMinHeap() {
-		listEmptyExceptionMinHeap();
-	}
-	
-	@Test
 	public void testElementPollThenAddMinHeap() {
 		elementPollThenAddMinHeap();
 	}

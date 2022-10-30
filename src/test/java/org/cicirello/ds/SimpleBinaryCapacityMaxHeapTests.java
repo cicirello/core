@@ -48,27 +48,7 @@ public class SimpleBinaryCapacityMaxHeapTests extends SharedTestHelpersMaxHeaps 
 	public void testDefaultArbitraryMaxHeap() {
 		defaultArbitraryDuplicatesAllowedMaxHeap();
 	}
-	
-	@Test
-	public void testFromListMaxHeap() {
-		listDuplicatesAllowedMaxHeap();
-	}
-	
-	@Test
-	public void testFromListReverseMaxHeap() {
-		listReverseDuplicatesAllowedMaxHeap();
-	}
-	
-	@Test
-	public void testFromListArbitraryMaxHeap() {
-		listArbitraryDuplicatesAllowedMaxHeap();
-	}
-	
-	@Test
-	public void testFromListEmptyMaxHeap() {
-		listEmptyExceptionMaxHeap();
-	}
-	
+		
 	@Test
 	public void testRemoveViaElementMaxHeap() {
 		removeViaElementMaxHeap();
