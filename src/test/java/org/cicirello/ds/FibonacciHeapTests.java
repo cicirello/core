@@ -34,24 +34,17 @@ import java.util.SplittableRandom;
 /**
  * JUnit tests for the FibonacciHeap class.
  */
-public class FibonacciHeapTests {
+public class FibonacciHeapTests extends SharedTestCommonHelpersHeaps {
+	
+	public FibonacciHeapTests() {
+		super(FibonacciHeap::createMinHeap);
+	}
 	
 	// TESTS THAT ARE NEITHER STRICTLY MIN HEAP TESTS NOW MAX HEAP TESTS
 	
 	@Test
 	public void testContainsAll() {
-		String[] elements = {"A", "B", "C", "D"};
-		int[] priorities = { 8, 6, 4, 2 };
-		FibonacciHeap<String> pq = FibonacciHeap.createMinHeap();
-		ArrayList<PriorityQueueNode.Integer<String>> list = new ArrayList<PriorityQueueNode.Integer<String>>();
-		for (int i = 0; i < elements.length; i++) {
-			list.add(new PriorityQueueNode.Integer<String>(elements[i], priorities[i]));
-		}
-		for (int i = 0; i < elements.length; i++) {
-			assertFalse(pq.containsAll(list));
-			assertTrue(pq.add(elements[i], priorities[i]));
-		}
-		assertTrue(pq.containsAll(list));
+		containsAll();
 	}
 	
 	@Test
@@ -729,50 +722,5 @@ public class FibonacciHeapTests {
 			IllegalArgumentException.class,
 			() -> pq.pollThenAdd(new PriorityQueueNode.Integer<String>(elements[n/2], 3))
 		);
-	}
-	
-	private String[] createStrings(int n) {
-		String[] s = new String[n];
-		for (int i = 0; i < n; i++) {
-			s[i] = ((char)('A'+i)) + "";
-		}
-		return s;
-	}
-	
-	private int[] createPriorities(String[] elements) {
-		int[] p = new int[elements.length];
-		for (int i = 0; i < elements.length; i++) {
-			p[i] = (int)elements[i].charAt(0);
-		}
-		return p;
-	}
-	
-	private String[] createStringsArbitrary(int n) {
-		ArrayList<String> list = new ArrayList<String>(n);
-		for (int i = 0; i < n; i++) {
-			list.add(((char)('A'+i)) + "");
-		}
-		shuffle(list, new SplittableRandom(42));
-		return list.toArray(new String[n]);
-	}
-	
-	private void shuffle(ArrayList<String> list, SplittableRandom r) {
-		for (int i = list.size()-1; i > 0; i--) {
-			int j = r.nextInt(i+1);
-			if (i!=j) {
-				String temp = list.get(i);
-				list.set(i, list.get(j));
-				list.set(j, temp);
-			}
-		}
-	}
-	
-	private PriorityQueueNode.Integer<String>[] createPairs(String[] elements, int[] priorities) {
-		@SuppressWarnings("unchecked")
-		PriorityQueueNode.Integer<String>[] pairs = (PriorityQueueNode.Integer<String>[])new PriorityQueueNode.Integer[elements.length];
-		for (int i = 0; i < pairs.length; i++) {
-			pairs[i] = new PriorityQueueNode.Integer<String>(elements[i], priorities[i]);
-		}
-		return pairs;
 	}
 }

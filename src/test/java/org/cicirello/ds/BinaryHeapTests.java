@@ -33,9 +33,18 @@ import java.util.NoSuchElementException;
 /**
  * JUnit tests for the BinaryHeap class.
  */
-public class BinaryHeapTests {
+public class BinaryHeapTests extends SharedTestCommonHelpersHeaps {
+	
+	public BinaryHeapTests() {
+		super(BinaryHeap::createMinHeap);
+	}
 	
 	// TESTS THAT ARE NEITHER STRICTLY MIN HEAP TESTS NOW MAX HEAP TESTS
+	
+	@Test
+	public void testContainsAll() {
+		containsAll();
+	}
 	
 	@Test
 	public void testMerge() {
@@ -560,72 +569,5 @@ public class BinaryHeapTests {
 			IllegalArgumentException.class,
 			() -> BinaryHeap.createMaxHeap(0)
 		);
-	}
-	
-	private String[] createStrings(int n) {
-		String[] s = new String[n];
-		for (int i = 0; i < n; i++) {
-			s[i] = ((char)('A'+i)) + "";
-		}
-		return s;
-	}
-	
-	private String[] createStringsMaxCase(int n) {
-		String[] s = new String[n];
-		for (int i = 0; i < n; i++) {
-			s[i] = ((char)('A'-i)) + "";
-		}
-		return s;
-	}
-	
-	private int[] createPriorities(String[] elements) {
-		int[] p = new int[elements.length];
-		for (int i = 0; i < elements.length; i++) {
-			p[i] = (int)elements[i].charAt(0);
-		}
-		return p;
-	}
-	
-	private String[] createStringsRev(int n) {
-		String[] s = new String[n];
-		for (int i = 0; i < n; i++) {
-			s[n-1-i] = ((char)('A'+i)) + "";
-		}
-		return s;
-	}
-	
-	private String[] createStringsRevMaxCase(int n) {
-		String[] s = new String[n];
-		for (int i = 0; i < n; i++) {
-			s[n-1-i] = ((char)('A'-i)) + "";
-		}
-		return s;
-	}
-	
-	private String[] createStringsArbitrary(int n) {
-		ArrayList<String> list = new ArrayList<String>(n);
-		for (int i = 0; i < n; i++) {
-			list.add(((char)('A'+i)) + "");
-		}
-		Collections.shuffle(list);
-		return list.toArray(new String[n]);
-	}
-	
-	private String[] createStringsArbitraryMaxCase(int n) {
-		ArrayList<String> list = new ArrayList<String>(n);
-		for (int i = 0; i < n; i++) {
-			list.add(((char)('A'-i)) + "");
-		}
-		Collections.shuffle(list);
-		return list.toArray(new String[n]);
-	}
-	
-	private PriorityQueueNode.Integer<String>[] createPairs(String[] elements, int[] priorities) {
-		@SuppressWarnings("unchecked")
-		PriorityQueueNode.Integer<String>[] pairs = (PriorityQueueNode.Integer<String>[])new PriorityQueueNode.Integer[elements.length];
-		for (int i = 0; i < pairs.length; i++) {
-			pairs[i] = new PriorityQueueNode.Integer<String>(elements[i], priorities[i]);
-		}
-		return pairs;
 	}
 }

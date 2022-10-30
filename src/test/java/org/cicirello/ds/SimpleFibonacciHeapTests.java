@@ -33,24 +33,17 @@ import java.util.NoSuchElementException;
 /**
  * JUnit tests for the SimpleFibonacciHeap class.
  */
-public class SimpleFibonacciHeapTests {
+public class SimpleFibonacciHeapTests extends SharedTestCommonHelpersHeaps {
+	
+	public SimpleFibonacciHeapTests() {
+		super(SimpleFibonacciHeap::createMinHeap);
+	}
 	
 	// TESTS THAT ARE NEITHER STRICTLY MIN HEAP TESTS NOW MAX HEAP TESTS
 	
 	@Test
 	public void testContainsAll() {
-		String[] elements = {"A", "B", "C", "D"};
-		int[] priorities = { 8, 6, 4, 2 };
-		SimpleFibonacciHeap<String> pq = SimpleFibonacciHeap.createMinHeap();
-		ArrayList<PriorityQueueNode.Integer<String>> list = new ArrayList<PriorityQueueNode.Integer<String>>();
-		for (int i = 0; i < elements.length; i++) {
-			list.add(new PriorityQueueNode.Integer<String>(elements[i], priorities[i]));
-		}
-		for (int i = 0; i < elements.length; i++) {
-			assertFalse(pq.containsAll(list));
-			assertTrue(pq.add(elements[i], priorities[i]));
-		}
-		assertTrue(pq.containsAll(list));
+		containsAll();
 	}
 	
 	@Test
@@ -475,72 +468,5 @@ public class SimpleFibonacciHeapTests {
 		assertNotEquals(pq3, null);
 		assertNotEquals(pq1, "hello");
 		assertNotEquals(pq3, "hello");
-	}
-	
-	private String[] createStrings(int n) {
-		String[] s = new String[n];
-		for (int i = 0; i < n; i++) {
-			s[i] = ((char)('A'+i)) + "";
-		}
-		return s;
-	}
-	
-	private String[] createStringsMaxCase(int n) {
-		String[] s = new String[n];
-		for (int i = 0; i < n; i++) {
-			s[i] = ((char)('A'-i)) + "";
-		}
-		return s;
-	}
-	
-	private int[] createPriorities(String[] elements) {
-		int[] p = new int[elements.length];
-		for (int i = 0; i < elements.length; i++) {
-			p[i] = (int)elements[i].charAt(0);
-		}
-		return p;
-	}
-	
-	private String[] createStringsRev(int n) {
-		String[] s = new String[n];
-		for (int i = 0; i < n; i++) {
-			s[n-1-i] = ((char)('A'+i)) + "";
-		}
-		return s;
-	}
-	
-	private String[] createStringsRevMaxCase(int n) {
-		String[] s = new String[n];
-		for (int i = 0; i < n; i++) {
-			s[n-1-i] = ((char)('A'-i)) + "";
-		}
-		return s;
-	}
-	
-	private String[] createStringsArbitrary(int n) {
-		ArrayList<String> list = new ArrayList<String>(n);
-		for (int i = 0; i < n; i++) {
-			list.add(((char)('A'+i)) + "");
-		}
-		Collections.shuffle(list);
-		return list.toArray(new String[n]);
-	}
-	
-	private String[] createStringsArbitraryMaxCase(int n) {
-		ArrayList<String> list = new ArrayList<String>(n);
-		for (int i = 0; i < n; i++) {
-			list.add(((char)('A'-i)) + "");
-		}
-		Collections.shuffle(list);
-		return list.toArray(new String[n]);
-	}
-	
-	private PriorityQueueNode.Integer<String>[] createPairs(String[] elements, int[] priorities) {
-		@SuppressWarnings("unchecked")
-		PriorityQueueNode.Integer<String>[] pairs = (PriorityQueueNode.Integer<String>[])new PriorityQueueNode.Integer[elements.length];
-		for (int i = 0; i < pairs.length; i++) {
-			pairs[i] = new PriorityQueueNode.Integer<String>(elements[i], priorities[i]);
-		}
-		return pairs;
 	}
 }
