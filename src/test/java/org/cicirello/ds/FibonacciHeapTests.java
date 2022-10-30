@@ -49,18 +49,250 @@ public class FibonacciHeapTests extends SharedTestCommonHelpersHeaps {
 	
 	@Test
 	public void testContainsAllElements() {
-		String[] elements = {"A", "B", "C", "D"};
-		int[] priorities = { 8, 6, 4, 2 };
+		containsAllElements();
+	}
+	
+	@Test
+	public void testRetainAll() {
+		retainAll();
+	}
+	
+	@Test
+	public void testRemoveAll() {
+		removeAll();
+	}
+	
+	@Test
+	public void testIterator() {
+		iterator();
+	}
+	
+	@Test
+	public void testIteratorWithChildren() {
+		iteratorWithChildren();
+	}
+	
+	@Test
+	public void testToArray() {
+		int n = 4;
+		String[] elements = createStrings(n);
+		int[] priorities = createPriorities(elements);
+		for (int m = 0; m <= n; m++) {
+			FibonacciHeap<String> pq = FibonacciHeap.createMinHeap();
+			for (int j = 0; j < m; j++) {
+				pq.offer(elements[j], priorities[j]);
+			}
+			Object[] array = pq.toArray();
+			assertEquals(m, array.length);
+			int j = 0;
+			for (PriorityQueueNode.Integer<String> e : pq) {
+				assertEquals(e, (PriorityQueueNode.Integer)array[j]);
+				j++;
+			}
+			assertEquals(m, j);
+		}
+	}
+	
+	@Test
+	public void testToArrayExistingArray() {
+		int n = 4;
+		String[] elements = createStrings(n);
+		int[] priorities = createPriorities(elements);
+		for (int m = 0; m <= n; m++) {
+			FibonacciHeap<String> pq = FibonacciHeap.createMinHeap();
+			for (int j = 0; j < m; j++) {
+				pq.offer(elements[j], priorities[j]);
+			}
+			PriorityQueueNode.Integer[] a1 = new PriorityQueueNode.Integer[n];
+			PriorityQueueNode.Integer[] a2 = pq.toArray(a1);
+			assertTrue(a1 == a2);
+			int j = 0;
+			for (PriorityQueueNode.Integer<String> e : pq) {
+				assertEquals(e, a2[j]);
+				j++;
+			}
+			assertEquals(m, j);
+			if (m<n) {
+				assertNull(a2[j]);
+			}
+		}
 		FibonacciHeap<String> pq = FibonacciHeap.createMinHeap();
-		ArrayList<String> list = new ArrayList<String>();
-		for (int i = 0; i < elements.length; i++) {
-			list.add(elements[i]);
+		for (int j = 0; j < n; j++) {
+			pq.offer(elements[j], priorities[j]);
 		}
-		for (int i = 0; i < elements.length; i++) {
-			assertFalse(pq.containsAll(list));
-			assertTrue(pq.add(elements[i], priorities[i]));
+		PriorityQueueNode.Integer[] a1 = new PriorityQueueNode.Integer[n-1];
+		PriorityQueueNode.Integer[] a2 = pq.toArray(a1);
+		assertTrue(a1 != a2);
+		assertEquals(n, a2.length);
+		int j = 0;
+		for (PriorityQueueNode.Integer<String> e : pq) {
+			assertEquals(e, a2[j]);
+			j++;
 		}
-		assertTrue(pq.containsAll(list));
+		assertEquals(n, j);
+	}
+		
+	@Test
+	public void testClear() {
+		int n = 11;
+		String[] elements = createStrings(n);
+		int[] priorities = createPriorities(elements);
+		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
+		ArrayList<PriorityQueueNode.Integer<String>> list = new ArrayList<PriorityQueueNode.Integer<String>>();
+		for (PriorityQueueNode.Integer<String> next : pairs) {
+			list.add(next);
+		}
+		FibonacciHeap<String> pq = FibonacciHeap.createMinHeap(list);
+		assertEquals(n, pq.size());
+		pq.clear();
+		assertEquals(0, pq.size());
+		for (int i = 0; i < n; i++) {
+			assertFalse(pq.contains(pairs[i].element));
+		}
+	}
+	
+	@Test
+	public void testCopy() {
+		int n = 24;
+		String[] elements = createStringsArbitrary(n);
+		int[] priorities = createPriorities(elements);
+		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
+		ArrayList<PriorityQueueNode.Integer<String>> list1 = new ArrayList<PriorityQueueNode.Integer<String>>();
+		ArrayList<PriorityQueueNode.Integer<String>> list2 = new ArrayList<PriorityQueueNode.Integer<String>>();
+		ArrayList<PriorityQueueNode.Integer<String>> list3 = new ArrayList<PriorityQueueNode.Integer<String>>();
+		ArrayList<PriorityQueueNode.Integer<String>> list4 = new ArrayList<PriorityQueueNode.Integer<String>>();
+		FibonacciHeap<String> pq5 = FibonacciHeap.createMinHeap();
+		FibonacciHeap<String> pq6 = FibonacciHeap.createMaxHeap();
+		int iter = 0;
+		for (PriorityQueueNode.Integer<String> next : pairs) {
+			list1.add(next);
+			list2.add(next);
+			iter++;
+			pq5.offer(next);
+			pq6.offer(next);
+			if (iter % 8 == 0) {
+				pq5.poll();
+				pq6.poll();
+			}
+		}
+		for (int i = 0; i < n; i++) {
+			list3.add(new PriorityQueueNode.Integer<String>(elements[i], 42));
+			list4.add(new PriorityQueueNode.Integer<String>(elements[i], 42));
+		}
+		FibonacciHeap<String> pq1 = FibonacciHeap.createMinHeap(list1);
+		FibonacciHeap<String> pq2 = FibonacciHeap.createMaxHeap(list2);
+		FibonacciHeap<String> pq3 = FibonacciHeap.createMinHeap(list3);
+		FibonacciHeap<String> pq4 = FibonacciHeap.createMaxHeap(list4);
+		FibonacciHeap<String> copy1 = pq1.copy();
+		FibonacciHeap<String> copy2 = pq2.copy();
+		FibonacciHeap<String> copy3 = pq3.copy();
+		FibonacciHeap<String> copy4 = pq4.copy();
+		FibonacciHeap<String> copy5 = pq5.copy();
+		FibonacciHeap<String> copy6 = pq6.copy();
+		assertEquals(pq1, copy1);
+		assertEquals(pq2, copy2);
+		assertEquals(pq3, copy3);
+		assertEquals(pq4, copy4);
+		assertEquals(pq5, copy5);
+		assertEquals(pq6, copy6);
+		assertTrue(pq1 != copy1);
+		assertTrue(pq2 != copy2);
+		assertTrue(pq3 != copy3);
+		assertTrue(pq4 != copy4);
+		assertTrue(pq5 != copy5);
+		assertTrue(pq6 != copy6);
+		assertNotEquals(pq2, copy1);
+		assertNotEquals(pq3, copy1);
+		assertNotEquals(pq4, copy1);
+		assertNotEquals(pq1, copy2);
+		assertNotEquals(pq3, copy2);
+		assertNotEquals(pq4, copy2);
+		assertNotEquals(pq1, copy3);
+		assertNotEquals(pq2, copy3);
+		assertNotEquals(pq4, copy3);
+		assertNotEquals(pq1, copy4);
+		assertNotEquals(pq2, copy4);
+		assertNotEquals(pq3, copy4);
+		assertNotEquals(pq6, copy5);
+		assertNotEquals(pq5, copy6);
+	}
+	
+	@Test
+	public void testCopyEmptyHeap() {
+		FibonacciHeap<String> pqEmptyMin = FibonacciHeap.createMinHeap();
+		FibonacciHeap<String> pqEmptyMax = FibonacciHeap.createMaxHeap();
+		FibonacciHeap<String> pqEmptyMinCopy = pqEmptyMin.copy();
+		FibonacciHeap<String> pqEmptyMaxCopy = pqEmptyMax.copy();
+		assertEquals(pqEmptyMin, pqEmptyMinCopy);
+		assertEquals(pqEmptyMax, pqEmptyMaxCopy);
+		assertNotEquals(pqEmptyMin, pqEmptyMaxCopy);
+		assertNotEquals(pqEmptyMax, pqEmptyMinCopy);
+		assertTrue(pqEmptyMin != pqEmptyMinCopy);
+		assertTrue(pqEmptyMax != pqEmptyMaxCopy);
+		assertEquals(0, pqEmptyMinCopy.size());
+		assertEquals(0, pqEmptyMaxCopy.size());
+		assertEquals(0, pqEmptyMin.size());
+		assertEquals(0, pqEmptyMax.size());
+		assertTrue(pqEmptyMinCopy.isEmpty());
+		assertTrue(pqEmptyMaxCopy.isEmpty());
+		assertTrue(pqEmptyMin.isEmpty());
+		assertTrue(pqEmptyMax.isEmpty());
+	}
+	
+	@Test
+	public void testEqualsAndHashCode() {
+		int n = 11;
+		String[] elements = createStrings(n);
+		int[] priorities = createPriorities(elements);
+		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
+		ArrayList<PriorityQueueNode.Integer<String>> list1 = new ArrayList<PriorityQueueNode.Integer<String>>();
+		ArrayList<PriorityQueueNode.Integer<String>> list2 = new ArrayList<PriorityQueueNode.Integer<String>>();
+		ArrayList<PriorityQueueNode.Integer<String>> list3 = new ArrayList<PriorityQueueNode.Integer<String>>();
+		ArrayList<PriorityQueueNode.Integer<String>> list4 = new ArrayList<PriorityQueueNode.Integer<String>>();
+		for (PriorityQueueNode.Integer<String> next : pairs) {
+			list1.add(next);
+			list2.add(next);
+			list3.add(next);
+			list4.add(next);
+		}
+		FibonacciHeap<String> pq1 = FibonacciHeap.createMinHeap(list1);
+		FibonacciHeap<String> pq2 = FibonacciHeap.createMinHeap(list2);
+		FibonacciHeap<String> pq3 = FibonacciHeap.createMaxHeap(list3);
+		FibonacciHeap<String> pq4 = FibonacciHeap.createMaxHeap(list4);
+		SimpleFibonacciHeap<String> pqSimple = SimpleFibonacciHeap.createMinHeap(list1);
+		assertNotEquals(pq1, pqSimple);
+		assertEquals(pq1, pq2);
+		assertEquals(pq1.hashCode(), pq2.hashCode());
+		assertEquals(pq3, pq4);
+		assertEquals(pq3.hashCode(), pq4.hashCode());
+		assertNotEquals(pq1, pq3);
+		assertNotEquals(pq1.hashCode(), pq3.hashCode());
+		pq2.offer(""+((char)0), 0);
+		assertNotEquals(pq1, pq2);
+		assertNotEquals(pq1.hashCode(), pq2.hashCode());
+		pq1.offer(""+((char)0), 1);
+		assertNotEquals(pq1, pq2);
+		assertNotEquals(pq1.hashCode(), pq2.hashCode());
+		pq1.clear();
+		pq2.clear();
+		pq3.clear();
+		pq4.clear();
+		for (int i = 0; i < n; i++) {
+			pq1.offer(""+((char)('A'+i)), 42);
+			pq3.offer(""+((char)('A'+i)), 42);
+			pq2.offer(""+((char)('A'+(n-1)-i)), 42);
+			pq4.offer(""+((char)('A'+(n-1)-i)), 42);
+		}
+		assertNotEquals(pq1, pq3);
+		assertNotEquals(pq3, pq1);
+		assertNotEquals(pq3, pq4);
+		assertNotEquals(pq1, pq2);
+		assertNotEquals(pq1.hashCode(), pq2.hashCode());
+		assertNotEquals(pq3.hashCode(), pq4.hashCode());
+		assertNotEquals(pq1, null);
+		assertNotEquals(pq3, null);
+		assertNotEquals(pq1, "hello");
+		assertNotEquals(pq3, "hello");
 	}
 	
 	@Test
@@ -285,399 +517,6 @@ public class FibonacciHeapTests extends SharedTestCommonHelpersHeaps {
 			IllegalArgumentException.class,
 			() -> pq1.merge(SimpleFibonacciHeap.createMaxHeap())
 		);
-	}
-	
-	@Test
-	public void testRetainAll() {
-		String[] elements = {"A", "B", "C", "D"};
-		int[] priorities = { 8, 6, 4, 2 };
-		final FibonacciHeap<String> pq = FibonacciHeap.createMinHeap();
-		for (int i = 0; i < elements.length; i++) {
-			assertTrue(pq.offer(elements[i], priorities[i]));
-		}
-		assertEquals(elements.length, pq.size());
-		String[] retain = {"E", "A", "F", "C"};
-		ArrayList<Object> keepThese = new ArrayList<Object>();
-		keepThese.add(elements[0]);
-		keepThese.add(elements[1]);
-		keepThese.add(elements[2]);
-		keepThese.add(elements[3]);
-		assertFalse(pq.retainAll(keepThese));
-		assertEquals(elements.length, pq.size());
-		
-		keepThese.clear();
-		keepThese.add(retain[0]);
-		keepThese.add(retain[1]);
-		keepThese.add(new PriorityQueueNode.Integer<String>(retain[2], 5));
-		keepThese.add(new PriorityQueueNode.Integer<String>(retain[3], 15));
-		assertTrue(pq.retainAll(keepThese));
-		assertEquals(elements.length-2, pq.size());
-		assertTrue(pq.contains(elements[0]));
-		assertTrue(pq.contains(elements[2]));
-		assertFalse(pq.contains(elements[1]));
-		assertFalse(pq.contains(elements[3]));
-		assertFalse(pq.retainAll(keepThese));
-		
-		keepThese.clear();
-		keepThese.add(retain[1]);
-		keepThese.add(retain[3]);
-		assertFalse(pq.retainAll(keepThese));
-		
-		keepThese.clear();
-		keepThese.add(retain[0]);
-		keepThese.add(retain[2]);
-		assertTrue(pq.retainAll(keepThese));
-		assertEquals(0, pq.size());
-	}
-	
-	@Test
-	public void testRemoveAll() {
-		String[] elements = {"A", "B", "C", "D"};
-		int[] priorities = { 8, 6, 4, 2 };
-		final FibonacciHeap<String> pq = FibonacciHeap.createMinHeap();
-		ArrayList<PriorityQueueNode.Integer<String>> list = new ArrayList<PriorityQueueNode.Integer<String>>();
-		for (int i = 0; i < elements.length; i++) {
-			list.add(new PriorityQueueNode.Integer<String>(elements[i], priorities[i]));
-		}
-		assertTrue(pq.addAll(list));
-		assertEquals(elements.length, pq.size());
-		assertTrue(pq.removeAll(list));
-		assertEquals(0, pq.size());
-		for (String e : elements) {
-			assertFalse(pq.contains(e));
-		}
-		assertTrue(pq.addAll(list));
-		assertEquals(elements.length, pq.size());
-		list.remove(list.size()-1);
-		assertTrue(pq.removeAll(list));
-		assertEquals(1, pq.size());
-		for (int i = 0; i < elements.length-1; i++) {
-			String e = elements[i];
-			assertFalse(pq.contains(e));
-		}
-		assertTrue(pq.contains(elements[elements.length-1]));
-		
-		list.clear();
-		ArrayList<String> list2 = new ArrayList<String>();
-		ArrayList<String> list3 = new ArrayList<String>();
-		for (int i = 0; i < elements.length; i++) {
-			list2.add(elements[i]);
-			list3.add(elements[i]);
-			list.add(new PriorityQueueNode.Integer<String>(elements[i], priorities[i]));
-		}
-		pq.clear();
-		assertTrue(pq.addAll(list));
-		assertEquals(elements.length, pq.size());
-		assertTrue(pq.removeAll(list2));
-		assertEquals(0, pq.size());
-		assertTrue(pq.addAll(list));
-		assertEquals(elements.length, pq.size());
-		list2.remove(list.size()-1);
-		assertTrue(pq.removeAll(list2));
-		assertEquals(1, pq.size());
-		assertFalse(pq.removeAll(list2));
-		assertEquals(1, pq.size());
-		assertTrue(pq.contains(elements[elements.length-1]));
-		for (int i = 0; i < elements.length-1; i++) {
-			String e = elements[i];
-			assertFalse(pq.contains(e));
-		}
-		
-		pq.clear();
-		assertTrue(pq.addAll(list));
-		assertEquals(elements.length, pq.size());
-		list3.remove(0);
-		assertTrue(pq.removeAll(list3));
-		assertEquals(1, pq.size());
-		assertFalse(pq.removeAll(list3));
-		assertEquals(1, pq.size());
-		assertTrue(pq.contains(elements[0]));
-		for (int i = 1; i < elements.length; i++) {
-			String e = elements[i];
-			assertFalse(pq.contains(e));
-		}
-	}
-	
-	@Test
-	public void testIterator() {
-		int n = 4;
-		String[] elements = createStrings(n);
-		int[] priorities = createPriorities(elements);
-		for (int m = 0; m < n; m++) {
-			FibonacciHeap<String> pq = FibonacciHeap.createMinHeap();
-			for (int j = 0; j < m; j++) {
-				pq.offer(elements[j], priorities[j]);
-			}
-			int count = 0;
-			for (PriorityQueueNode.Integer<String> e : pq) {
-				count++;
-			}
-			assertEquals(m, count);
-			count = 0;
-			final Iterator<PriorityQueueNode.Integer<String>> iter = pq.iterator();
-			while (iter.hasNext()) {
-				PriorityQueueNode.Integer<String> e = iter.next();
-				count++;
-			}
-			assertEquals(m, count);
-			NoSuchElementException thrown = assertThrows( 
-				NoSuchElementException.class,
-				() -> iter.next()
-			);
-		}
-	}
-	
-	@Test
-	public void testIteratorWithChildren() {
-		int n = 8;
-		String[] elements = createStrings(n);
-		int[] priorities = createPriorities(elements);
-		for (int m = 0; m < n; m++) {
-			FibonacciHeap<String> pq = FibonacciHeap.createMinHeap();
-			for (int j = 0; j < m; j++) {
-				pq.offer(elements[j], priorities[j]);
-			}
-			String minElement = pq.pollElement();
-			int count = 0;
-			for (PriorityQueueNode.Integer<String> e : pq) {
-				count++;
-			}
-			assertEquals(m > 0 ? m-1 : 0, count);
-			count = 0;
-			final Iterator<PriorityQueueNode.Integer<String>> iter = pq.iterator();
-			while (iter.hasNext()) {
-				PriorityQueueNode.Integer<String> e = iter.next();
-				count++;
-			}
-			assertEquals(m > 0 ? m-1 : 0, count);
-			NoSuchElementException thrown = assertThrows( 
-				NoSuchElementException.class,
-				() -> iter.next()
-			);
-		}
-	}
-	
-	@Test
-	public void testToArray() {
-		int n = 4;
-		String[] elements = createStrings(n);
-		int[] priorities = createPriorities(elements);
-		for (int m = 0; m <= n; m++) {
-			FibonacciHeap<String> pq = FibonacciHeap.createMinHeap();
-			for (int j = 0; j < m; j++) {
-				pq.offer(elements[j], priorities[j]);
-			}
-			Object[] array = pq.toArray();
-			assertEquals(m, array.length);
-			int j = 0;
-			for (PriorityQueueNode.Integer<String> e : pq) {
-				assertEquals(e, (PriorityQueueNode.Integer)array[j]);
-				j++;
-			}
-			assertEquals(m, j);
-		}
-	}
-	
-	@Test
-	public void testToArrayExistingArray() {
-		int n = 4;
-		String[] elements = createStrings(n);
-		int[] priorities = createPriorities(elements);
-		for (int m = 0; m <= n; m++) {
-			FibonacciHeap<String> pq = FibonacciHeap.createMinHeap();
-			for (int j = 0; j < m; j++) {
-				pq.offer(elements[j], priorities[j]);
-			}
-			PriorityQueueNode.Integer[] a1 = new PriorityQueueNode.Integer[n];
-			PriorityQueueNode.Integer[] a2 = pq.toArray(a1);
-			assertTrue(a1 == a2);
-			int j = 0;
-			for (PriorityQueueNode.Integer<String> e : pq) {
-				assertEquals(e, a2[j]);
-				j++;
-			}
-			assertEquals(m, j);
-			if (m<n) {
-				assertNull(a2[j]);
-			}
-		}
-		FibonacciHeap<String> pq = FibonacciHeap.createMinHeap();
-		for (int j = 0; j < n; j++) {
-			pq.offer(elements[j], priorities[j]);
-		}
-		PriorityQueueNode.Integer[] a1 = new PriorityQueueNode.Integer[n-1];
-		PriorityQueueNode.Integer[] a2 = pq.toArray(a1);
-		assertTrue(a1 != a2);
-		assertEquals(n, a2.length);
-		int j = 0;
-		for (PriorityQueueNode.Integer<String> e : pq) {
-			assertEquals(e, a2[j]);
-			j++;
-		}
-		assertEquals(n, j);
-	}
-		
-	@Test
-	public void testClear() {
-		int n = 11;
-		String[] elements = createStrings(n);
-		int[] priorities = createPriorities(elements);
-		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
-		ArrayList<PriorityQueueNode.Integer<String>> list = new ArrayList<PriorityQueueNode.Integer<String>>();
-		for (PriorityQueueNode.Integer<String> next : pairs) {
-			list.add(next);
-		}
-		FibonacciHeap<String> pq = FibonacciHeap.createMinHeap(list);
-		assertEquals(n, pq.size());
-		pq.clear();
-		assertEquals(0, pq.size());
-		for (int i = 0; i < n; i++) {
-			assertFalse(pq.contains(pairs[i].element));
-		}
-	}
-	
-	@Test
-	public void testCopy() {
-		int n = 24;
-		String[] elements = createStringsArbitrary(n);
-		int[] priorities = createPriorities(elements);
-		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
-		ArrayList<PriorityQueueNode.Integer<String>> list1 = new ArrayList<PriorityQueueNode.Integer<String>>();
-		ArrayList<PriorityQueueNode.Integer<String>> list2 = new ArrayList<PriorityQueueNode.Integer<String>>();
-		ArrayList<PriorityQueueNode.Integer<String>> list3 = new ArrayList<PriorityQueueNode.Integer<String>>();
-		ArrayList<PriorityQueueNode.Integer<String>> list4 = new ArrayList<PriorityQueueNode.Integer<String>>();
-		FibonacciHeap<String> pq5 = FibonacciHeap.createMinHeap();
-		FibonacciHeap<String> pq6 = FibonacciHeap.createMaxHeap();
-		int iter = 0;
-		for (PriorityQueueNode.Integer<String> next : pairs) {
-			list1.add(next);
-			list2.add(next);
-			iter++;
-			pq5.offer(next);
-			pq6.offer(next);
-			if (iter % 8 == 0) {
-				pq5.poll();
-				pq6.poll();
-			}
-		}
-		for (int i = 0; i < n; i++) {
-			list3.add(new PriorityQueueNode.Integer<String>(elements[i], 42));
-			list4.add(new PriorityQueueNode.Integer<String>(elements[i], 42));
-		}
-		FibonacciHeap<String> pq1 = FibonacciHeap.createMinHeap(list1);
-		FibonacciHeap<String> pq2 = FibonacciHeap.createMaxHeap(list2);
-		FibonacciHeap<String> pq3 = FibonacciHeap.createMinHeap(list3);
-		FibonacciHeap<String> pq4 = FibonacciHeap.createMaxHeap(list4);
-		FibonacciHeap<String> copy1 = pq1.copy();
-		FibonacciHeap<String> copy2 = pq2.copy();
-		FibonacciHeap<String> copy3 = pq3.copy();
-		FibonacciHeap<String> copy4 = pq4.copy();
-		FibonacciHeap<String> copy5 = pq5.copy();
-		FibonacciHeap<String> copy6 = pq6.copy();
-		assertEquals(pq1, copy1);
-		assertEquals(pq2, copy2);
-		assertEquals(pq3, copy3);
-		assertEquals(pq4, copy4);
-		assertEquals(pq5, copy5);
-		assertEquals(pq6, copy6);
-		assertTrue(pq1 != copy1);
-		assertTrue(pq2 != copy2);
-		assertTrue(pq3 != copy3);
-		assertTrue(pq4 != copy4);
-		assertTrue(pq5 != copy5);
-		assertTrue(pq6 != copy6);
-		assertNotEquals(pq2, copy1);
-		assertNotEquals(pq3, copy1);
-		assertNotEquals(pq4, copy1);
-		assertNotEquals(pq1, copy2);
-		assertNotEquals(pq3, copy2);
-		assertNotEquals(pq4, copy2);
-		assertNotEquals(pq1, copy3);
-		assertNotEquals(pq2, copy3);
-		assertNotEquals(pq4, copy3);
-		assertNotEquals(pq1, copy4);
-		assertNotEquals(pq2, copy4);
-		assertNotEquals(pq3, copy4);
-		assertNotEquals(pq6, copy5);
-		assertNotEquals(pq5, copy6);
-	}
-	
-	@Test
-	public void testCopyEmptyHeap() {
-		FibonacciHeap<String> pqEmptyMin = FibonacciHeap.createMinHeap();
-		FibonacciHeap<String> pqEmptyMax = FibonacciHeap.createMaxHeap();
-		FibonacciHeap<String> pqEmptyMinCopy = pqEmptyMin.copy();
-		FibonacciHeap<String> pqEmptyMaxCopy = pqEmptyMax.copy();
-		assertEquals(pqEmptyMin, pqEmptyMinCopy);
-		assertEquals(pqEmptyMax, pqEmptyMaxCopy);
-		assertNotEquals(pqEmptyMin, pqEmptyMaxCopy);
-		assertNotEquals(pqEmptyMax, pqEmptyMinCopy);
-		assertTrue(pqEmptyMin != pqEmptyMinCopy);
-		assertTrue(pqEmptyMax != pqEmptyMaxCopy);
-		assertEquals(0, pqEmptyMinCopy.size());
-		assertEquals(0, pqEmptyMaxCopy.size());
-		assertEquals(0, pqEmptyMin.size());
-		assertEquals(0, pqEmptyMax.size());
-		assertTrue(pqEmptyMinCopy.isEmpty());
-		assertTrue(pqEmptyMaxCopy.isEmpty());
-		assertTrue(pqEmptyMin.isEmpty());
-		assertTrue(pqEmptyMax.isEmpty());
-	}
-	
-	@Test
-	public void testEqualsAndHashCode() {
-		int n = 11;
-		String[] elements = createStrings(n);
-		int[] priorities = createPriorities(elements);
-		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
-		ArrayList<PriorityQueueNode.Integer<String>> list1 = new ArrayList<PriorityQueueNode.Integer<String>>();
-		ArrayList<PriorityQueueNode.Integer<String>> list2 = new ArrayList<PriorityQueueNode.Integer<String>>();
-		ArrayList<PriorityQueueNode.Integer<String>> list3 = new ArrayList<PriorityQueueNode.Integer<String>>();
-		ArrayList<PriorityQueueNode.Integer<String>> list4 = new ArrayList<PriorityQueueNode.Integer<String>>();
-		for (PriorityQueueNode.Integer<String> next : pairs) {
-			list1.add(next);
-			list2.add(next);
-			list3.add(next);
-			list4.add(next);
-		}
-		FibonacciHeap<String> pq1 = FibonacciHeap.createMinHeap(list1);
-		FibonacciHeap<String> pq2 = FibonacciHeap.createMinHeap(list2);
-		FibonacciHeap<String> pq3 = FibonacciHeap.createMaxHeap(list3);
-		FibonacciHeap<String> pq4 = FibonacciHeap.createMaxHeap(list4);
-		SimpleFibonacciHeap<String> pqSimple = SimpleFibonacciHeap.createMinHeap(list1);
-		assertNotEquals(pq1, pqSimple);
-		assertEquals(pq1, pq2);
-		assertEquals(pq1.hashCode(), pq2.hashCode());
-		assertEquals(pq3, pq4);
-		assertEquals(pq3.hashCode(), pq4.hashCode());
-		assertNotEquals(pq1, pq3);
-		assertNotEquals(pq1.hashCode(), pq3.hashCode());
-		pq2.offer(""+((char)0), 0);
-		assertNotEquals(pq1, pq2);
-		assertNotEquals(pq1.hashCode(), pq2.hashCode());
-		pq1.offer(""+((char)0), 1);
-		assertNotEquals(pq1, pq2);
-		assertNotEquals(pq1.hashCode(), pq2.hashCode());
-		pq1.clear();
-		pq2.clear();
-		pq3.clear();
-		pq4.clear();
-		for (int i = 0; i < n; i++) {
-			pq1.offer(""+((char)('A'+i)), 42);
-			pq3.offer(""+((char)('A'+i)), 42);
-			pq2.offer(""+((char)('A'+(n-1)-i)), 42);
-			pq4.offer(""+((char)('A'+(n-1)-i)), 42);
-		}
-		assertNotEquals(pq1, pq3);
-		assertNotEquals(pq3, pq1);
-		assertNotEquals(pq3, pq4);
-		assertNotEquals(pq1, pq2);
-		assertNotEquals(pq1.hashCode(), pq2.hashCode());
-		assertNotEquals(pq3.hashCode(), pq4.hashCode());
-		assertNotEquals(pq1, null);
-		assertNotEquals(pq3, null);
-		assertNotEquals(pq1, "hello");
-		assertNotEquals(pq3, "hello");
 	}
 	
 	@Test
