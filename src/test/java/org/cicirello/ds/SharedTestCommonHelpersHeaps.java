@@ -26,7 +26,9 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.function.Supplier;
+import java.util.function.Function;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -36,10 +38,12 @@ import java.util.NoSuchElementException;
 public abstract class SharedTestCommonHelpersHeaps extends SharedTestHelpersHeaps {
 	
 	private final Supplier<PriorityQueue<String>> minFactory;
+	private final Function<Collection<PriorityQueueNode.Integer<String>>, PriorityQueue<String>> fromListMinFactory;
 	
-	SharedTestCommonHelpersHeaps(Supplier<PriorityQueue<String>> minFactory) {
+	SharedTestCommonHelpersHeaps(Supplier<PriorityQueue<String>> minFactory, Function<Collection<PriorityQueueNode.Integer<String>>, PriorityQueue<String>> fromListMinFactory) {
 		super(true);
 		this.minFactory = minFactory;
+		this.fromListMinFactory = fromListMinFactory;
 	}
 	
 	final void containsAll() {
@@ -236,5 +240,63 @@ public abstract class SharedTestCommonHelpersHeaps extends SharedTestHelpersHeap
 				() -> iter.next()
 			);
 		}
+	}
+	
+	final void toArray() {
+		int n = 4;
+		String[] elements = createStrings(n);
+		int[] priorities = createPriorities(elements);
+		for (int m = 0; m <= n; m++) {
+			PriorityQueue<String> pq = minFactory.get();
+			for (int j = 0; j < m; j++) {
+				pq.offer(elements[j], priorities[j]);
+			}
+			Object[] array = pq.toArray();
+			assertEquals(m, array.length);
+			int j = 0;
+			for (PriorityQueueNode.Integer<String> e : pq) {
+				assertEquals(e, (PriorityQueueNode.Integer)array[j]);
+				j++;
+			}
+			assertEquals(m, j);
+		}
+	}
+	
+	final void toArrayExistingArray() {
+		int n = 4;
+		String[] elements = createStrings(n);
+		int[] priorities = createPriorities(elements);
+		for (int m = 0; m <= n; m++) {
+			PriorityQueue<String> pq = minFactory.get();
+			for (int j = 0; j < m; j++) {
+				pq.offer(elements[j], priorities[j]);
+			}
+			PriorityQueueNode.Integer[] a1 = new PriorityQueueNode.Integer[n];
+			PriorityQueueNode.Integer[] a2 = pq.toArray(a1);
+			assertTrue(a1 == a2);
+			int j = 0;
+			for (PriorityQueueNode.Integer<String> e : pq) {
+				assertEquals(e, a2[j]);
+				j++;
+			}
+			assertEquals(m, j);
+			if (m<n) {
+				assertNull(a2[j]);
+			}
+		}
+		PriorityQueue<String> pq = minFactory.get();
+		for (int j = 0; j < n; j++) {
+			pq.offer(elements[j], priorities[j]);
+		}
+		PriorityQueueNode.Integer[] a1 = new PriorityQueueNode.Integer[n-1];
+		PriorityQueueNode.Integer[] a2 = pq.toArray(a1);
+		assertTrue(a1 != a2);
+		assertEquals(n, a2.length);
+		int j = 0;
+		for (PriorityQueueNode.Integer<String> e : pq) {
+			assertEquals(e, a2[j]);
+			j++;
+		}
+		assertEquals(n, j);
 	}
 }

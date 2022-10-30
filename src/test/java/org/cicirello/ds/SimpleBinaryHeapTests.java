@@ -36,7 +36,7 @@ import java.util.NoSuchElementException;
 public class SimpleBinaryHeapTests extends SharedTestCommonHelpersHeaps {
 	
 	public SimpleBinaryHeapTests() {
-		super(SimpleBinaryHeap::createMinHeap);
+		super(SimpleBinaryHeap::createMinHeap, SimpleBinaryHeap::createMinHeap);
 	}
 	
 	// TESTS THAT ARE NEITHER STRICTLY MIN HEAP TESTS NOW MAX HEAP TESTS
@@ -73,155 +73,14 @@ public class SimpleBinaryHeapTests extends SharedTestCommonHelpersHeaps {
 	
 	@Test
 	public void testToArray() {
-		int n = 4;
-		String[] elements = createStrings(n);
-		int[] priorities = createPriorities(elements);
-		for (int m = 0; m < n; m++) {
-			SimpleBinaryHeap<String> pq = SimpleBinaryHeap.createMinHeap();
-			for (int j = 0; j < m; j++) {
-				pq.offer(elements[j], priorities[j]);
-			}
-			Object[] array = pq.toArray();
-			assertEquals(m, array.length);
-			int j = 0;
-			for (PriorityQueueNode.Integer<String> e : pq) {
-				assertEquals(e, (PriorityQueueNode.Integer)array[j]);
-				j++;
-			}
-		}
+		toArray();
 	}
 	
 	@Test
 	public void testToArrayExistingArray() {
-		int n = 4;
-		String[] elements = createStrings(n);
-		int[] priorities = createPriorities(elements);
-		for (int m = 0; m <= n; m++) {
-			SimpleBinaryHeap<String> pq = SimpleBinaryHeap.createMinHeap();
-			for (int j = 0; j < m; j++) {
-				pq.offer(elements[j], priorities[j]);
-			}
-			PriorityQueueNode.Integer[] a1 = new PriorityQueueNode.Integer[n];
-			PriorityQueueNode.Integer[] a2 = pq.toArray(a1);
-			assertTrue(a1 == a2);
-			int j = 0;
-			for (PriorityQueueNode.Integer<String> e : pq) {
-				assertEquals(e, a2[j]);
-				j++;
-			}
-			assertEquals(m, j);
-			if (m<n) {
-				assertNull(a2[j]);
-			}
-		}
-		SimpleBinaryHeap<String> pq = SimpleBinaryHeap.createMinHeap();
-		for (int j = 0; j < n; j++) {
-			pq.offer(elements[j], priorities[j]);
-		}
-		PriorityQueueNode.Integer[] a1 = new PriorityQueueNode.Integer[n-1];
-		PriorityQueueNode.Integer[] a2 = pq.toArray(a1);
-		assertTrue(a1 != a2);
-		assertEquals(n, a2.length);
-		int j = 0;
-		for (PriorityQueueNode.Integer<String> e : pq) {
-			assertEquals(e, a2[j]);
-			j++;
-		}
-		assertEquals(n, j);
+		toArrayExistingArray();
 	}
 	
-	@Test
-	public void testMerge() {
-		int n = 24;
-		String[] elements1 = new String[n];
-		int[] priorities1 = new int[n];
-		String[] elements2 = new String[n];
-		int[] priorities2 = new int[n];
-		ArrayList<PriorityQueueNode.Integer<String>> list1 = new ArrayList<PriorityQueueNode.Integer<String>>();
-		ArrayList<PriorityQueueNode.Integer<String>> list2 = new ArrayList<PriorityQueueNode.Integer<String>>();
-		for (int i = 0; i < 2*n; i+=2) {
-			elements1[i/2] = "A" + i;
-			elements2[i/2] = "A" + (i+1);
-			priorities1[i/2] = i;
-			priorities2[i/2] = i+1;
-			list1.add(new PriorityQueueNode.Integer<String>(elements1[i/2], priorities1[i/2]));
-			list2.add(new PriorityQueueNode.Integer<String>(elements2[i/2], priorities2[i/2]));
-		}
-		final SimpleBinaryHeap<String> pq1 = SimpleBinaryHeap.createMinHeap(list1);
-		final SimpleBinaryHeap<String> pq2 = SimpleBinaryHeap.createMinHeap(list2);
-		assertFalse(pq1.merge(SimpleBinaryHeap.createMinHeap()));
-		assertTrue(pq1.merge(pq2));
-		assertEquals(4*n, pq1.capacity());
-		assertTrue(pq2.isEmpty());
-		assertEquals(0, pq2.size());
-		assertEquals(2*n, pq1.size());
-		for (int i = 0; i < n; i++) {
-			assertTrue(pq1.contains(elements1[i]));
-			assertTrue(pq1.contains(elements2[i]));
-			assertEquals(priorities1[i], pq1.peekPriority(elements1[i]));
-			assertEquals(priorities2[i], pq1.peekPriority(elements2[i]));
-		}
-		for (int i = 0; i < n; i++) {
-			assertEquals(list1.get(i), pq1.poll());
-			assertEquals(list2.get(i), pq1.poll());
-		}
-		assertTrue(pq1.isEmpty());
-		assertEquals(0, pq1.size());
-		
-		IllegalArgumentException thrown = assertThrows( 
-			IllegalArgumentException.class,
-			() -> pq1.merge(SimpleBinaryHeap.createMaxHeap())
-		);
-	}
-	
-	@Test
-	public void testCapacity() {
-		SimpleBinaryHeap<String> pq = SimpleBinaryHeap.createMinHeap();
-		assertEquals(SimpleBinaryHeap.DEFAULT_INITIAL_CAPACITY, pq.capacity());
-		assertEquals(0, pq.size());
-		for (int i = 1; i <= 5; i++) {
-			pq = SimpleBinaryHeap.createMinHeap(i);
-			assertEquals(i, pq.capacity());
-			assertEquals(0, pq.size());
-		}
-		pq.ensureCapacity(100);
-		assertEquals(100, pq.capacity());
-		assertEquals(0, pq.size());
-		pq.ensureCapacity(50);
-		assertEquals(100, pq.capacity());
-		assertEquals(0, pq.size());
-		pq.trimToSize();
-		assertEquals(1, pq.capacity());
-		assertEquals(0, pq.size());
-		int n = 11;
-		String[] elements = createStrings(n);
-		int[] priorities = createPriorities(elements);
-		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
-		ArrayList<PriorityQueueNode.Integer<String>> list = new ArrayList<PriorityQueueNode.Integer<String>>();
-		for (PriorityQueueNode.Integer<String> next : pairs) {
-			list.add(next);
-		}
-		pq = SimpleBinaryHeap.createMinHeap(list);
-		assertEquals(n, pq.capacity());
-		assertEquals(n, pq.size());
-		pq.trimToSize();
-		assertEquals(n, pq.capacity());
-		assertEquals(n, pq.size());
-		pq.ensureCapacity(55);
-		assertEquals(55, pq.capacity());
-		assertEquals(n, pq.size());
-		pq.trimToSize();
-		assertEquals(n, pq.capacity());
-		assertEquals(n, pq.size());
-		for (int i = 0; i < n; i++) {
-			assertEquals(pairs[i], pq.poll());
-			assertFalse(pq.contains(pairs[i].element));
-			assertEquals(n-1-i, pq.size());
-		}
-		assertNull(pq.poll());
-		assertEquals(n, pq.capacity());
-		assertEquals(0, pq.size());
-	}
 	
 	@Test
 	public void testClear() {
@@ -393,6 +252,100 @@ public class SimpleBinaryHeapTests extends SharedTestCommonHelpersHeaps {
 			assertEquals(priorities2[i], pq.peekPriority(elements2[i]));
 		}
 	}
+	
+	@Test
+	public void testMerge() {
+		int n = 24;
+		String[] elements1 = new String[n];
+		int[] priorities1 = new int[n];
+		String[] elements2 = new String[n];
+		int[] priorities2 = new int[n];
+		ArrayList<PriorityQueueNode.Integer<String>> list1 = new ArrayList<PriorityQueueNode.Integer<String>>();
+		ArrayList<PriorityQueueNode.Integer<String>> list2 = new ArrayList<PriorityQueueNode.Integer<String>>();
+		for (int i = 0; i < 2*n; i+=2) {
+			elements1[i/2] = "A" + i;
+			elements2[i/2] = "A" + (i+1);
+			priorities1[i/2] = i;
+			priorities2[i/2] = i+1;
+			list1.add(new PriorityQueueNode.Integer<String>(elements1[i/2], priorities1[i/2]));
+			list2.add(new PriorityQueueNode.Integer<String>(elements2[i/2], priorities2[i/2]));
+		}
+		final SimpleBinaryHeap<String> pq1 = SimpleBinaryHeap.createMinHeap(list1);
+		final SimpleBinaryHeap<String> pq2 = SimpleBinaryHeap.createMinHeap(list2);
+		assertFalse(pq1.merge(SimpleBinaryHeap.createMinHeap()));
+		assertTrue(pq1.merge(pq2));
+		assertEquals(4*n, pq1.capacity());
+		assertTrue(pq2.isEmpty());
+		assertEquals(0, pq2.size());
+		assertEquals(2*n, pq1.size());
+		for (int i = 0; i < n; i++) {
+			assertTrue(pq1.contains(elements1[i]));
+			assertTrue(pq1.contains(elements2[i]));
+			assertEquals(priorities1[i], pq1.peekPriority(elements1[i]));
+			assertEquals(priorities2[i], pq1.peekPriority(elements2[i]));
+		}
+		for (int i = 0; i < n; i++) {
+			assertEquals(list1.get(i), pq1.poll());
+			assertEquals(list2.get(i), pq1.poll());
+		}
+		assertTrue(pq1.isEmpty());
+		assertEquals(0, pq1.size());
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> pq1.merge(SimpleBinaryHeap.createMaxHeap())
+		);
+	}
+	
+	@Test
+	public void testCapacity() {
+		SimpleBinaryHeap<String> pq = SimpleBinaryHeap.createMinHeap();
+		assertEquals(SimpleBinaryHeap.DEFAULT_INITIAL_CAPACITY, pq.capacity());
+		assertEquals(0, pq.size());
+		for (int i = 1; i <= 5; i++) {
+			pq = SimpleBinaryHeap.createMinHeap(i);
+			assertEquals(i, pq.capacity());
+			assertEquals(0, pq.size());
+		}
+		pq.ensureCapacity(100);
+		assertEquals(100, pq.capacity());
+		assertEquals(0, pq.size());
+		pq.ensureCapacity(50);
+		assertEquals(100, pq.capacity());
+		assertEquals(0, pq.size());
+		pq.trimToSize();
+		assertEquals(1, pq.capacity());
+		assertEquals(0, pq.size());
+		int n = 11;
+		String[] elements = createStrings(n);
+		int[] priorities = createPriorities(elements);
+		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
+		ArrayList<PriorityQueueNode.Integer<String>> list = new ArrayList<PriorityQueueNode.Integer<String>>();
+		for (PriorityQueueNode.Integer<String> next : pairs) {
+			list.add(next);
+		}
+		pq = SimpleBinaryHeap.createMinHeap(list);
+		assertEquals(n, pq.capacity());
+		assertEquals(n, pq.size());
+		pq.trimToSize();
+		assertEquals(n, pq.capacity());
+		assertEquals(n, pq.size());
+		pq.ensureCapacity(55);
+		assertEquals(55, pq.capacity());
+		assertEquals(n, pq.size());
+		pq.trimToSize();
+		assertEquals(n, pq.capacity());
+		assertEquals(n, pq.size());
+		for (int i = 0; i < n; i++) {
+			assertEquals(pairs[i], pq.poll());
+			assertFalse(pq.contains(pairs[i].element));
+			assertEquals(n-1-i, pq.size());
+		}
+		assertNull(pq.poll());
+		assertEquals(n, pq.capacity());
+		assertEquals(0, pq.size());
+	}
+	
 	
 	
 	@Test

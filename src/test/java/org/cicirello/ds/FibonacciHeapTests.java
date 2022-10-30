@@ -37,7 +37,7 @@ import java.util.SplittableRandom;
 public class FibonacciHeapTests extends SharedTestCommonHelpersHeaps {
 	
 	public FibonacciHeapTests() {
-		super(FibonacciHeap::createMinHeap);
+		super(FibonacciHeap::createMinHeap, FibonacciHeap::createMinHeap);
 	}
 	
 	// TESTS THAT ARE NEITHER STRICTLY MIN HEAP TESTS NOW MAX HEAP TESTS
@@ -74,62 +74,12 @@ public class FibonacciHeapTests extends SharedTestCommonHelpersHeaps {
 	
 	@Test
 	public void testToArray() {
-		int n = 4;
-		String[] elements = createStrings(n);
-		int[] priorities = createPriorities(elements);
-		for (int m = 0; m <= n; m++) {
-			FibonacciHeap<String> pq = FibonacciHeap.createMinHeap();
-			for (int j = 0; j < m; j++) {
-				pq.offer(elements[j], priorities[j]);
-			}
-			Object[] array = pq.toArray();
-			assertEquals(m, array.length);
-			int j = 0;
-			for (PriorityQueueNode.Integer<String> e : pq) {
-				assertEquals(e, (PriorityQueueNode.Integer)array[j]);
-				j++;
-			}
-			assertEquals(m, j);
-		}
+		toArray();
 	}
 	
 	@Test
 	public void testToArrayExistingArray() {
-		int n = 4;
-		String[] elements = createStrings(n);
-		int[] priorities = createPriorities(elements);
-		for (int m = 0; m <= n; m++) {
-			FibonacciHeap<String> pq = FibonacciHeap.createMinHeap();
-			for (int j = 0; j < m; j++) {
-				pq.offer(elements[j], priorities[j]);
-			}
-			PriorityQueueNode.Integer[] a1 = new PriorityQueueNode.Integer[n];
-			PriorityQueueNode.Integer[] a2 = pq.toArray(a1);
-			assertTrue(a1 == a2);
-			int j = 0;
-			for (PriorityQueueNode.Integer<String> e : pq) {
-				assertEquals(e, a2[j]);
-				j++;
-			}
-			assertEquals(m, j);
-			if (m<n) {
-				assertNull(a2[j]);
-			}
-		}
-		FibonacciHeap<String> pq = FibonacciHeap.createMinHeap();
-		for (int j = 0; j < n; j++) {
-			pq.offer(elements[j], priorities[j]);
-		}
-		PriorityQueueNode.Integer[] a1 = new PriorityQueueNode.Integer[n-1];
-		PriorityQueueNode.Integer[] a2 = pq.toArray(a1);
-		assertTrue(a1 != a2);
-		assertEquals(n, a2.length);
-		int j = 0;
-		for (PriorityQueueNode.Integer<String> e : pq) {
-			assertEquals(e, a2[j]);
-			j++;
-		}
-		assertEquals(n, j);
+		toArrayExistingArray();
 	}
 		
 	@Test
