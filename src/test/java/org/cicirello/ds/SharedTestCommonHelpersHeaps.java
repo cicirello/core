@@ -38,12 +38,16 @@ import java.util.NoSuchElementException;
 public abstract class SharedTestCommonHelpersHeaps extends SharedTestHelpersHeaps {
 	
 	private final Supplier<PriorityQueue<String>> minFactory;
+	private final Supplier<PriorityQueue<String>> maxFactory;
 	private final Function<Collection<PriorityQueueNode.Integer<String>>, PriorityQueue<String>> fromListMinFactory;
+	private final Function<Collection<PriorityQueueNode.Integer<String>>, PriorityQueue<String>> fromListMaxFactory;
 	
-	SharedTestCommonHelpersHeaps(Supplier<PriorityQueue<String>> minFactory, Function<Collection<PriorityQueueNode.Integer<String>>, PriorityQueue<String>> fromListMinFactory) {
+	SharedTestCommonHelpersHeaps(Supplier<PriorityQueue<String>> minFactory, Supplier<PriorityQueue<String>> maxFactory, Function<Collection<PriorityQueueNode.Integer<String>>, PriorityQueue<String>> fromListMinFactory, Function<Collection<PriorityQueueNode.Integer<String>>, PriorityQueue<String>> fromListMaxFactory) {
 		super(true);
 		this.minFactory = minFactory;
+		this.maxFactory = maxFactory;
 		this.fromListMinFactory = fromListMinFactory;
+		this.fromListMaxFactory = fromListMaxFactory;
 	}
 	
 	final void containsAll() {
@@ -298,5 +302,23 @@ public abstract class SharedTestCommonHelpersHeaps extends SharedTestHelpersHeap
 			j++;
 		}
 		assertEquals(n, j);
+	}
+	
+	final void clear() {
+		int n = 11;
+		String[] elements = createStrings(n);
+		int[] priorities = createPriorities(elements);
+		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
+		ArrayList<PriorityQueueNode.Integer<String>> list = new ArrayList<PriorityQueueNode.Integer<String>>();
+		for (PriorityQueueNode.Integer<String> next : pairs) {
+			list.add(next);
+		}
+		PriorityQueue<String> pq = fromListMinFactory.apply(list);
+		assertEquals(n, pq.size());
+		pq.clear();
+		assertEquals(0, pq.size());
+		for (int i = 0; i < n; i++) {
+			assertFalse(pq.contains(pairs[i].element));
+		}
 	}
 }

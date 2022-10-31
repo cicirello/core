@@ -36,7 +36,7 @@ import java.util.NoSuchElementException;
 public class BinaryHeapTests extends SharedTestCommonHelpersHeaps {
 	
 	public BinaryHeapTests() {
-		super(BinaryHeap::createMinHeap, BinaryHeap::createMinHeap);
+		super(BinaryHeap::createMinHeap, BinaryHeap::createMaxHeap, BinaryHeap::createMinHeap, BinaryHeap::createMaxHeap);
 	}
 	
 	// TESTS THAT ARE NEITHER STRICTLY MIN HEAP TESTS NOW MAX HEAP TESTS
@@ -81,25 +81,9 @@ public class BinaryHeapTests extends SharedTestCommonHelpersHeaps {
 		toArrayExistingArray();
 	}
 	
-	
-	
 	@Test
 	public void testClear() {
-		int n = 11;
-		String[] elements = createStrings(n);
-		int[] priorities = createPriorities(elements);
-		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
-		ArrayList<PriorityQueueNode.Integer<String>> list = new ArrayList<PriorityQueueNode.Integer<String>>();
-		for (PriorityQueueNode.Integer<String> next : pairs) {
-			list.add(next);
-		}
-		BinaryHeap<String> pq = BinaryHeap.createMinHeap(list);
-		assertEquals(n, pq.size());
-		pq.clear();
-		assertEquals(0, pq.size());
-		for (int i = 0; i < n; i++) {
-			assertFalse(pq.contains(pairs[i].element));
-		}
+		clear();
 	}
 	
 	@Test

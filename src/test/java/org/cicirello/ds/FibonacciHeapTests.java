@@ -37,7 +37,7 @@ import java.util.SplittableRandom;
 public class FibonacciHeapTests extends SharedTestCommonHelpersHeaps {
 	
 	public FibonacciHeapTests() {
-		super(FibonacciHeap::createMinHeap, FibonacciHeap::createMinHeap);
+		super(FibonacciHeap::createMinHeap, FibonacciHeap::createMaxHeap, FibonacciHeap::createMinHeap, FibonacciHeap::createMaxHeap);
 	}
 	
 	// TESTS THAT ARE NEITHER STRICTLY MIN HEAP TESTS NOW MAX HEAP TESTS
@@ -84,21 +84,7 @@ public class FibonacciHeapTests extends SharedTestCommonHelpersHeaps {
 		
 	@Test
 	public void testClear() {
-		int n = 11;
-		String[] elements = createStrings(n);
-		int[] priorities = createPriorities(elements);
-		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
-		ArrayList<PriorityQueueNode.Integer<String>> list = new ArrayList<PriorityQueueNode.Integer<String>>();
-		for (PriorityQueueNode.Integer<String> next : pairs) {
-			list.add(next);
-		}
-		FibonacciHeap<String> pq = FibonacciHeap.createMinHeap(list);
-		assertEquals(n, pq.size());
-		pq.clear();
-		assertEquals(0, pq.size());
-		for (int i = 0; i < n; i++) {
-			assertFalse(pq.contains(pairs[i].element));
-		}
+		clear();
 	}
 	
 	@Test
