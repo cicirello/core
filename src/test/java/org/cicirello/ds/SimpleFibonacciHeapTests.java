@@ -88,50 +88,17 @@ public class SimpleFibonacciHeapTests extends SharedTestCommonHelpersHeaps {
 	
 	@Test
 	public void testCopy() {
-		int n = 11;
-		String[] elements = createStrings(n);
-		int[] priorities = createPriorities(elements);
-		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
-		ArrayList<PriorityQueueNode.Integer<String>> list1 = new ArrayList<PriorityQueueNode.Integer<String>>();
-		ArrayList<PriorityQueueNode.Integer<String>> list2 = new ArrayList<PriorityQueueNode.Integer<String>>();
-		ArrayList<PriorityQueueNode.Integer<String>> list3 = new ArrayList<PriorityQueueNode.Integer<String>>();
-		ArrayList<PriorityQueueNode.Integer<String>> list4 = new ArrayList<PriorityQueueNode.Integer<String>>();
-		for (PriorityQueueNode.Integer<String> next : pairs) {
-			list1.add(next);
-			list2.add(next);
-		}
-		for (int i = 0; i < n; i++) {
-			list3.add(new PriorityQueueNode.Integer<String>(elements[i], 42));
-			list4.add(new PriorityQueueNode.Integer<String>(elements[i], 42));
-		}
-		SimpleFibonacciHeap<String> pq1 = SimpleFibonacciHeap.createMinHeap(list1);
-		SimpleFibonacciHeap<String> pq2 = SimpleFibonacciHeap.createMaxHeap(list2);
-		SimpleFibonacciHeap<String> pq3 = SimpleFibonacciHeap.createMinHeap(list3);
-		SimpleFibonacciHeap<String> pq4 = SimpleFibonacciHeap.createMaxHeap(list4);
-		SimpleFibonacciHeap<String> copy1 = pq1.copy();
-		SimpleFibonacciHeap<String> copy2 = pq2.copy();
-		SimpleFibonacciHeap<String> copy3 = pq3.copy();
-		SimpleFibonacciHeap<String> copy4 = pq4.copy();
-		assertEquals(pq1, copy1);
-		assertEquals(pq2, copy2);
-		assertEquals(pq3, copy3);
-		assertEquals(pq4, copy4);
-		assertTrue(pq1 != copy1);
-		assertTrue(pq2 != copy2);
-		assertTrue(pq3 != copy3);
-		assertTrue(pq4 != copy4);
-		assertNotEquals(pq2, copy1);
-		assertNotEquals(pq3, copy1);
-		assertNotEquals(pq4, copy1);
-		assertNotEquals(pq1, copy2);
-		assertNotEquals(pq3, copy2);
-		assertNotEquals(pq4, copy2);
-		assertNotEquals(pq1, copy3);
-		assertNotEquals(pq2, copy3);
-		assertNotEquals(pq4, copy3);
-		assertNotEquals(pq1, copy4);
-		assertNotEquals(pq2, copy4);
-		assertNotEquals(pq3, copy4);
+		copy();
+	}
+	
+	@Test
+	public void testCopyEmptyHeap() {
+		copyEmptyHeap();
+	}
+	
+	@Test
+	public void testAddAll() {
+		addAll();
 	}
 	
 	@Test
@@ -230,50 +197,4 @@ public class SimpleFibonacciHeapTests extends SharedTestCommonHelpersHeaps {
 			() -> pq1.merge(SimpleFibonacciHeap.createMaxHeap())
 		);
 	}
-	
-	@Test
-	public void testAddAll() {
-		String[] elements = {"A", "B", "C", "D"};
-		int[] priorities = { 8, 6, 4, 2 };
-		final SimpleFibonacciHeap<String> pq = SimpleFibonacciHeap.createMinHeap();
-		ArrayList<PriorityQueueNode.Integer<String>> list = new ArrayList<PriorityQueueNode.Integer<String>>();
-		for (int i = 0; i < elements.length; i++) {
-			list.add(new PriorityQueueNode.Integer<String>(elements[i], priorities[i]));
-		}
-		assertTrue(pq.addAll(list));
-		assertEquals(elements.length, pq.size());
-		for (int i = 0; i < elements.length; i++) {
-			assertTrue(pq.contains(elements[i]));
-			assertEquals(priorities[i], pq.peekPriority(elements[i]));
-		}
-		
-		String[] elements2 = {"E", "F", "G", "H", "I"};
-		int[] priorities2 = { 7, 3, 1, 5, 9 };
-		ArrayList<PriorityQueueNode.Integer<String>> list2 = new ArrayList<PriorityQueueNode.Integer<String>>();
-		for (int i = 0; i < elements2.length; i++) {
-			list2.add(new PriorityQueueNode.Integer<String>(elements2[i], priorities2[i]));
-		}
-		assertTrue(pq.addAll(list2));
-		assertEquals(elements.length + elements2.length, pq.size());
-		for (int i = 0; i < elements.length; i++) {
-			assertTrue(pq.contains(elements[i]));
-			assertEquals(priorities[i], pq.peekPriority(elements[i]));
-		}
-		for (int i = 0; i < elements2.length; i++) {
-			assertTrue(pq.contains(elements2[i]));
-			assertEquals(priorities2[i], pq.peekPriority(elements2[i]));
-		}
-		
-		assertFalse(pq.addAll(new ArrayList<PriorityQueueNode.Integer<String>>()));
-		assertEquals(elements.length + elements2.length, pq.size());
-		for (int i = 0; i < elements.length; i++) {
-			assertTrue(pq.contains(elements[i]));
-			assertEquals(priorities[i], pq.peekPriority(elements[i]));
-		}
-		for (int i = 0; i < elements2.length; i++) {
-			assertTrue(pq.contains(elements2[i]));
-			assertEquals(priorities2[i], pq.peekPriority(elements2[i]));
-		}
-	}
-	
 }

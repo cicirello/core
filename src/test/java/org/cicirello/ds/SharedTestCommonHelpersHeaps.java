@@ -32,6 +32,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import org.cicirello.util.Copyable;
+
 /**
  * Common functionality for test cases for the various heap classes.
  */
@@ -319,6 +321,144 @@ public abstract class SharedTestCommonHelpersHeaps extends SharedTestHelpersHeap
 		assertEquals(0, pq.size());
 		for (int i = 0; i < n; i++) {
 			assertFalse(pq.contains(pairs[i].element));
+		}
+	}
+	
+	final void copy() {
+		int n = 24;
+		String[] elements = createStringsArbitrary(n);
+		int[] priorities = createPriorities(elements);
+		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
+		ArrayList<PriorityQueueNode.Integer<String>> list1 = new ArrayList<PriorityQueueNode.Integer<String>>();
+		ArrayList<PriorityQueueNode.Integer<String>> list2 = new ArrayList<PriorityQueueNode.Integer<String>>();
+		ArrayList<PriorityQueueNode.Integer<String>> list3 = new ArrayList<PriorityQueueNode.Integer<String>>();
+		ArrayList<PriorityQueueNode.Integer<String>> list4 = new ArrayList<PriorityQueueNode.Integer<String>>();
+		PriorityQueue<String> pq5 = minFactory.get();
+		PriorityQueue<String> pq6 = maxFactory.get();
+		int iter = 0;
+		for (PriorityQueueNode.Integer<String> next : pairs) {
+			list1.add(next);
+			list2.add(next);
+			iter++;
+			pq5.offer(next);
+			pq6.offer(next);
+			if (iter % 8 == 0) {
+				pq5.poll();
+				pq6.poll();
+			}
+		}
+		for (int i = 0; i < n; i++) {
+			list3.add(new PriorityQueueNode.Integer<String>(elements[i], 42));
+			list4.add(new PriorityQueueNode.Integer<String>(elements[i], 42));
+		}
+		PriorityQueue<String> pq1 = fromListMinFactory.apply(list1);
+		PriorityQueue<String> pq2 = fromListMaxFactory.apply(list2);
+		PriorityQueue<String> pq3 = fromListMinFactory.apply(list3);
+		PriorityQueue<String> pq4 = fromListMaxFactory.apply(list4);
+		@SuppressWarnings("unchecked")
+		PriorityQueue<String> copy1 = (PriorityQueue<String>)((Copyable)pq1).copy();
+		@SuppressWarnings("unchecked")
+		PriorityQueue<String> copy2 = (PriorityQueue<String>)((Copyable)pq2).copy();
+		@SuppressWarnings("unchecked")
+		PriorityQueue<String> copy3 = (PriorityQueue<String>)((Copyable)pq3).copy();
+		@SuppressWarnings("unchecked")
+		PriorityQueue<String> copy4 = (PriorityQueue<String>)((Copyable)pq4).copy();
+		@SuppressWarnings("unchecked")
+		PriorityQueue<String> copy5 = (PriorityQueue<String>)((Copyable)pq5).copy();
+		@SuppressWarnings("unchecked")
+		PriorityQueue<String> copy6 = (PriorityQueue<String>)((Copyable)pq6).copy();
+		assertEquals(pq1, copy1);
+		assertEquals(pq2, copy2);
+		assertEquals(pq3, copy3);
+		assertEquals(pq4, copy4);
+		assertEquals(pq5, copy5);
+		assertEquals(pq6, copy6);
+		assertTrue(pq1 != copy1);
+		assertTrue(pq2 != copy2);
+		assertTrue(pq3 != copy3);
+		assertTrue(pq4 != copy4);
+		assertTrue(pq5 != copy5);
+		assertTrue(pq6 != copy6);
+		assertNotEquals(pq2, copy1);
+		assertNotEquals(pq3, copy1);
+		assertNotEquals(pq4, copy1);
+		assertNotEquals(pq1, copy2);
+		assertNotEquals(pq3, copy2);
+		assertNotEquals(pq4, copy2);
+		assertNotEquals(pq1, copy3);
+		assertNotEquals(pq2, copy3);
+		assertNotEquals(pq4, copy3);
+		assertNotEquals(pq1, copy4);
+		assertNotEquals(pq2, copy4);
+		assertNotEquals(pq3, copy4);
+		assertNotEquals(pq6, copy5);
+		assertNotEquals(pq5, copy6);
+	}
+	
+	final void copyEmptyHeap() {
+		PriorityQueue<String> pqEmptyMin = minFactory.get();
+		PriorityQueue<String> pqEmptyMax = maxFactory.get();
+		@SuppressWarnings("unchecked")
+		PriorityQueue<String> pqEmptyMinCopy = (PriorityQueue<String>)((Copyable)pqEmptyMin).copy();
+		@SuppressWarnings("unchecked")
+		PriorityQueue<String> pqEmptyMaxCopy = (PriorityQueue<String>)((Copyable)pqEmptyMax).copy();
+		assertEquals(pqEmptyMin, pqEmptyMinCopy);
+		assertEquals(pqEmptyMax, pqEmptyMaxCopy);
+		assertNotEquals(pqEmptyMin, pqEmptyMaxCopy);
+		assertNotEquals(pqEmptyMax, pqEmptyMinCopy);
+		assertTrue(pqEmptyMin != pqEmptyMinCopy);
+		assertTrue(pqEmptyMax != pqEmptyMaxCopy);
+		assertEquals(0, pqEmptyMinCopy.size());
+		assertEquals(0, pqEmptyMaxCopy.size());
+		assertEquals(0, pqEmptyMin.size());
+		assertEquals(0, pqEmptyMax.size());
+		assertTrue(pqEmptyMinCopy.isEmpty());
+		assertTrue(pqEmptyMaxCopy.isEmpty());
+		assertTrue(pqEmptyMin.isEmpty());
+		assertTrue(pqEmptyMax.isEmpty());
+	}
+	
+	final void addAll() {
+		String[] elements = {"A", "B", "C", "D"};
+		int[] priorities = { 8, 6, 4, 2 };
+		PriorityQueue<String> pq = minFactory.get();
+		ArrayList<PriorityQueueNode.Integer<String>> list = new ArrayList<PriorityQueueNode.Integer<String>>();
+		for (int i = 0; i < elements.length; i++) {
+			list.add(new PriorityQueueNode.Integer<String>(elements[i], priorities[i]));
+		}
+		assertTrue(pq.addAll(list));
+		assertEquals(elements.length, pq.size());
+		for (int i = 0; i < elements.length; i++) {
+			assertTrue(pq.contains(elements[i]));
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
+		}
+		
+		String[] elements2 = {"E", "F", "G", "H", "I"};
+		int[] priorities2 = { 7, 3, 1, 5, 9 };
+		ArrayList<PriorityQueueNode.Integer<String>> list2 = new ArrayList<PriorityQueueNode.Integer<String>>();
+		for (int i = 0; i < elements2.length; i++) {
+			list2.add(new PriorityQueueNode.Integer<String>(elements2[i], priorities2[i]));
+		}
+		assertTrue(pq.addAll(list2));
+		assertEquals(elements.length + elements2.length, pq.size());
+		for (int i = 0; i < elements.length; i++) {
+			assertTrue(pq.contains(elements[i]));
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
+		}
+		for (int i = 0; i < elements2.length; i++) {
+			assertTrue(pq.contains(elements2[i]));
+			assertEquals(priorities2[i], pq.peekPriority(elements2[i]));
+		}
+		
+		assertFalse(pq.addAll(new ArrayList<PriorityQueueNode.Integer<String>>()));
+		assertEquals(elements.length + elements2.length, pq.size());
+		for (int i = 0; i < elements.length; i++) {
+			assertTrue(pq.contains(elements[i]));
+			assertEquals(priorities[i], pq.peekPriority(elements[i]));
+		}
+		for (int i = 0; i < elements2.length; i++) {
+			assertTrue(pq.contains(elements2[i]));
+			assertEquals(priorities2[i], pq.peekPriority(elements2[i]));
 		}
 	}
 }

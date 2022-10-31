@@ -88,50 +88,17 @@ public class SimpleBinaryHeapTests extends SharedTestCommonHelpersHeaps {
 	
 	@Test
 	public void testCopy() {
-		int n = 11;
-		String[] elements = createStrings(n);
-		int[] priorities = createPriorities(elements);
-		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
-		ArrayList<PriorityQueueNode.Integer<String>> list1 = new ArrayList<PriorityQueueNode.Integer<String>>();
-		ArrayList<PriorityQueueNode.Integer<String>> list2 = new ArrayList<PriorityQueueNode.Integer<String>>();
-		ArrayList<PriorityQueueNode.Integer<String>> list3 = new ArrayList<PriorityQueueNode.Integer<String>>();
-		ArrayList<PriorityQueueNode.Integer<String>> list4 = new ArrayList<PriorityQueueNode.Integer<String>>();
-		for (PriorityQueueNode.Integer<String> next : pairs) {
-			list1.add(next);
-			list2.add(next);
-		}
-		for (int i = 0; i < n; i++) {
-			list3.add(new PriorityQueueNode.Integer<String>(elements[i], 42));
-			list4.add(new PriorityQueueNode.Integer<String>(elements[i], 42));
-		}
-		SimpleBinaryHeap<String> pq1 = SimpleBinaryHeap.createMinHeap(list1);
-		SimpleBinaryHeap<String> pq2 = SimpleBinaryHeap.createMaxHeap(list2);
-		SimpleBinaryHeap<String> pq3 = SimpleBinaryHeap.createMinHeap(list3);
-		SimpleBinaryHeap<String> pq4 = SimpleBinaryHeap.createMaxHeap(list4);
-		SimpleBinaryHeap<String> copy1 = pq1.copy();
-		SimpleBinaryHeap<String> copy2 = pq2.copy();
-		SimpleBinaryHeap<String> copy3 = pq3.copy();
-		SimpleBinaryHeap<String> copy4 = pq4.copy();
-		assertEquals(pq1, copy1);
-		assertEquals(pq2, copy2);
-		assertEquals(pq3, copy3);
-		assertEquals(pq4, copy4);
-		assertTrue(pq1 != copy1);
-		assertTrue(pq2 != copy2);
-		assertTrue(pq3 != copy3);
-		assertTrue(pq4 != copy4);
-		assertNotEquals(pq2, copy1);
-		assertNotEquals(pq3, copy1);
-		assertNotEquals(pq4, copy1);
-		assertNotEquals(pq1, copy2);
-		assertNotEquals(pq3, copy2);
-		assertNotEquals(pq4, copy2);
-		assertNotEquals(pq1, copy3);
-		assertNotEquals(pq2, copy3);
-		assertNotEquals(pq4, copy3);
-		assertNotEquals(pq1, copy4);
-		assertNotEquals(pq2, copy4);
-		assertNotEquals(pq3, copy4);
+		copy();
+	}
+	
+	@Test
+	public void testCopyEmptyHeap() {
+		copyEmptyHeap();
+	}
+	
+	@Test
+	public void testAddAll() {
+		addAll();
 	}
 	
 	@Test
@@ -189,7 +156,7 @@ public class SimpleBinaryHeapTests extends SharedTestCommonHelpersHeaps {
 	}
 	
 	@Test
-	public void testAddAll() {
+	public void testAddAllCapacity() {
 		String[] elements = {"A", "B", "C", "D"};
 		int[] priorities = { 8, 6, 4, 2 };
 		final int INITIAL_CAPACITY = 6;

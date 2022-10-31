@@ -89,90 +89,17 @@ public class FibonacciHeapTests extends SharedTestCommonHelpersHeaps {
 	
 	@Test
 	public void testCopy() {
-		int n = 24;
-		String[] elements = createStringsArbitrary(n);
-		int[] priorities = createPriorities(elements);
-		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
-		ArrayList<PriorityQueueNode.Integer<String>> list1 = new ArrayList<PriorityQueueNode.Integer<String>>();
-		ArrayList<PriorityQueueNode.Integer<String>> list2 = new ArrayList<PriorityQueueNode.Integer<String>>();
-		ArrayList<PriorityQueueNode.Integer<String>> list3 = new ArrayList<PriorityQueueNode.Integer<String>>();
-		ArrayList<PriorityQueueNode.Integer<String>> list4 = new ArrayList<PriorityQueueNode.Integer<String>>();
-		FibonacciHeap<String> pq5 = FibonacciHeap.createMinHeap();
-		FibonacciHeap<String> pq6 = FibonacciHeap.createMaxHeap();
-		int iter = 0;
-		for (PriorityQueueNode.Integer<String> next : pairs) {
-			list1.add(next);
-			list2.add(next);
-			iter++;
-			pq5.offer(next);
-			pq6.offer(next);
-			if (iter % 8 == 0) {
-				pq5.poll();
-				pq6.poll();
-			}
-		}
-		for (int i = 0; i < n; i++) {
-			list3.add(new PriorityQueueNode.Integer<String>(elements[i], 42));
-			list4.add(new PriorityQueueNode.Integer<String>(elements[i], 42));
-		}
-		FibonacciHeap<String> pq1 = FibonacciHeap.createMinHeap(list1);
-		FibonacciHeap<String> pq2 = FibonacciHeap.createMaxHeap(list2);
-		FibonacciHeap<String> pq3 = FibonacciHeap.createMinHeap(list3);
-		FibonacciHeap<String> pq4 = FibonacciHeap.createMaxHeap(list4);
-		FibonacciHeap<String> copy1 = pq1.copy();
-		FibonacciHeap<String> copy2 = pq2.copy();
-		FibonacciHeap<String> copy3 = pq3.copy();
-		FibonacciHeap<String> copy4 = pq4.copy();
-		FibonacciHeap<String> copy5 = pq5.copy();
-		FibonacciHeap<String> copy6 = pq6.copy();
-		assertEquals(pq1, copy1);
-		assertEquals(pq2, copy2);
-		assertEquals(pq3, copy3);
-		assertEquals(pq4, copy4);
-		assertEquals(pq5, copy5);
-		assertEquals(pq6, copy6);
-		assertTrue(pq1 != copy1);
-		assertTrue(pq2 != copy2);
-		assertTrue(pq3 != copy3);
-		assertTrue(pq4 != copy4);
-		assertTrue(pq5 != copy5);
-		assertTrue(pq6 != copy6);
-		assertNotEquals(pq2, copy1);
-		assertNotEquals(pq3, copy1);
-		assertNotEquals(pq4, copy1);
-		assertNotEquals(pq1, copy2);
-		assertNotEquals(pq3, copy2);
-		assertNotEquals(pq4, copy2);
-		assertNotEquals(pq1, copy3);
-		assertNotEquals(pq2, copy3);
-		assertNotEquals(pq4, copy3);
-		assertNotEquals(pq1, copy4);
-		assertNotEquals(pq2, copy4);
-		assertNotEquals(pq3, copy4);
-		assertNotEquals(pq6, copy5);
-		assertNotEquals(pq5, copy6);
+		copy();
 	}
 	
 	@Test
 	public void testCopyEmptyHeap() {
-		FibonacciHeap<String> pqEmptyMin = FibonacciHeap.createMinHeap();
-		FibonacciHeap<String> pqEmptyMax = FibonacciHeap.createMaxHeap();
-		FibonacciHeap<String> pqEmptyMinCopy = pqEmptyMin.copy();
-		FibonacciHeap<String> pqEmptyMaxCopy = pqEmptyMax.copy();
-		assertEquals(pqEmptyMin, pqEmptyMinCopy);
-		assertEquals(pqEmptyMax, pqEmptyMaxCopy);
-		assertNotEquals(pqEmptyMin, pqEmptyMaxCopy);
-		assertNotEquals(pqEmptyMax, pqEmptyMinCopy);
-		assertTrue(pqEmptyMin != pqEmptyMinCopy);
-		assertTrue(pqEmptyMax != pqEmptyMaxCopy);
-		assertEquals(0, pqEmptyMinCopy.size());
-		assertEquals(0, pqEmptyMaxCopy.size());
-		assertEquals(0, pqEmptyMin.size());
-		assertEquals(0, pqEmptyMax.size());
-		assertTrue(pqEmptyMinCopy.isEmpty());
-		assertTrue(pqEmptyMaxCopy.isEmpty());
-		assertTrue(pqEmptyMin.isEmpty());
-		assertTrue(pqEmptyMax.isEmpty());
+		copyEmptyHeap();
+	}
+	
+	@Test
+	public void testAddAll() {
+		addAll();
 	}
 	
 	@Test
