@@ -103,56 +103,7 @@ public class SimpleFibonacciHeapTests extends SharedTestCommonHelpersHeaps {
 	
 	@Test
 	public void testEqualsAndHashCode() {
-		int n = 11;
-		String[] elements = createStrings(n);
-		int[] priorities = createPriorities(elements);
-		PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
-		ArrayList<PriorityQueueNode.Integer<String>> list1 = new ArrayList<PriorityQueueNode.Integer<String>>();
-		ArrayList<PriorityQueueNode.Integer<String>> list2 = new ArrayList<PriorityQueueNode.Integer<String>>();
-		ArrayList<PriorityQueueNode.Integer<String>> list3 = new ArrayList<PriorityQueueNode.Integer<String>>();
-		ArrayList<PriorityQueueNode.Integer<String>> list4 = new ArrayList<PriorityQueueNode.Integer<String>>();
-		for (PriorityQueueNode.Integer<String> next : pairs) {
-			list1.add(next);
-			list2.add(next);
-			list3.add(next);
-			list4.add(next);
-		}
-		SimpleFibonacciHeap<String> pq1 = SimpleFibonacciHeap.createMinHeap(list1);
-		SimpleFibonacciHeap<String> pq2 = SimpleFibonacciHeap.createMinHeap(list2);
-		SimpleFibonacciHeap<String> pq3 = SimpleFibonacciHeap.createMaxHeap(list3);
-		SimpleFibonacciHeap<String> pq4 = SimpleFibonacciHeap.createMaxHeap(list4);
-		assertEquals(pq1, pq2);
-		assertEquals(pq1.hashCode(), pq2.hashCode());
-		assertEquals(pq3, pq4);
-		assertEquals(pq3.hashCode(), pq4.hashCode());
-		assertNotEquals(pq1, pq3);
-		assertNotEquals(pq1.hashCode(), pq3.hashCode());
-		pq2.offer(""+((char)0), 0);
-		assertNotEquals(pq1, pq2);
-		assertNotEquals(pq1.hashCode(), pq2.hashCode());
-		pq1.offer(""+((char)0), 1);
-		assertNotEquals(pq1, pq2);
-		assertNotEquals(pq1.hashCode(), pq2.hashCode());
-		pq1.clear();
-		pq2.clear();
-		pq3.clear();
-		pq4.clear();
-		for (int i = 0; i < n; i++) {
-			pq1.offer(""+((char)('A'+i)), 42);
-			pq3.offer(""+((char)('A'+i)), 42);
-			pq2.offer(""+((char)('A'+(n-1)-i)), 42);
-			pq4.offer(""+((char)('A'+(n-1)-i)), 42);
-		}
-		assertNotEquals(pq1, pq3);
-		assertNotEquals(pq3, pq1);
-		assertNotEquals(pq3, pq4);
-		assertNotEquals(pq1, pq2);
-		assertNotEquals(pq1.hashCode(), pq2.hashCode());
-		assertNotEquals(pq3.hashCode(), pq4.hashCode());
-		assertNotEquals(pq1, null);
-		assertNotEquals(pq3, null);
-		assertNotEquals(pq1, "hello");
-		assertNotEquals(pq3, "hello");
+		equalsAndHashCode(FibonacciHeap::createMinHeap);
 	}
 	
 	@Test

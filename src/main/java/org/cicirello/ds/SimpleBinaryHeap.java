@@ -391,7 +391,6 @@ public final class SimpleBinaryHeap<E> implements MergeablePriorityQueue<E, Simp
 	 */
 	@Override
 	public boolean equals(Object other) {
-		if (other == null) return false;
 		if (other instanceof SimpleBinaryHeap) {
 			@SuppressWarnings("unchecked")
 			SimpleBinaryHeap<E> casted = (SimpleBinaryHeap<E>)other;

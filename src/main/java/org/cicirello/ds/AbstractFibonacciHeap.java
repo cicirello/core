@@ -84,7 +84,8 @@ abstract class AbstractFibonacciHeap<E> implements MergeablePriorityQueue<E, Sim
 	}
 	
 	/**
-	 * Checks if this contains the same (element, priority)
+	 * Checks if this heap is the same as another, including the same class, and
+	 * that they contain the same (element, priority)
 	 * pairs as another, including the specific structure
 	 * the heap, as well as that the priority order is the same.
 	 *
@@ -95,7 +96,6 @@ abstract class AbstractFibonacciHeap<E> implements MergeablePriorityQueue<E, Sim
 	 */
 	@Override
 	public boolean equals(Object other) {
-		if (other == null) return false;
 		if (other instanceof AbstractFibonacciHeap) {
 			@SuppressWarnings("unchecked")
 			AbstractFibonacciHeap<E> casted = (AbstractFibonacciHeap<E>)other;
@@ -108,7 +108,7 @@ abstract class AbstractFibonacciHeap<E> implements MergeablePriorityQueue<E, Sim
 					return false;
 				}
 			}
-			return true;
+			return getClass() == other.getClass();
 		} else {
 			return false;
 		}
