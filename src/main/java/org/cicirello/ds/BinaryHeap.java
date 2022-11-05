@@ -377,7 +377,6 @@ public final class BinaryHeap<E> implements MergeablePriorityQueue<E, BinaryHeap
 	 */
 	@Override
 	public boolean equals(Object other) {
-		if (other == null) return false;
 		if (other instanceof BinaryHeap) {
 			@SuppressWarnings("unchecked")
 			BinaryHeap<E> casted = (BinaryHeap<E>)other;
