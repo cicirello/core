@@ -249,8 +249,6 @@ public class SimpleBinaryHeapTests extends SharedTestCommonHelpersHeaps {
 		assertEquals(0, pq.size());
 	}
 	
-	
-	
 	@Test
 	public void testExceptionsCapacityZero() {
 		IllegalArgumentException thrown = assertThrows( 

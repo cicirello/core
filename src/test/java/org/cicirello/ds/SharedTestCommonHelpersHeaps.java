@@ -516,4 +516,46 @@ public abstract class SharedTestCommonHelpersHeaps extends SharedTestHelpersHeap
 		assertNotEquals(pq1, "hello");
 		assertNotEquals(pq3, "hello");
 	}
+	
+	final void exceptionForAddingDuplicate() {
+		int n = 7;
+		String[] elements = createStrings(n);
+		int[] priorities = new int[n];
+		for (int i = 0; i < n; i++) {
+			priorities[i] = 2*i+2;
+		}
+		PriorityQueue<String> pq = minFactory.get();
+		for (int j = 0; j < n; j++) {
+			pq.offer(elements[j], priorities[j]);
+		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> pq.add(elements[n/2], 3)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> pq.pollThenAdd(elements[n/2], 3)
+		);
+	}
+	
+	final void exceptionForAddingDuplicatePair() {
+		int n = 7;
+		String[] elements = createStrings(n);
+		int[] priorities = new int[n];
+		for (int i = 0; i < n; i++) {
+			priorities[i] = 2*i+2;
+		}
+		PriorityQueue<String> pq = minFactory.get();
+		for (int j = 0; j < n; j++) {
+			pq.offer(elements[j], priorities[j]);
+		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> pq.add(new PriorityQueueNode.Integer<String>(elements[n/2], 3))
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> pq.pollThenAdd(new PriorityQueueNode.Integer<String>(elements[n/2], 3))
+		);
+	}
 }

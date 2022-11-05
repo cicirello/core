@@ -108,6 +108,16 @@ public class FibonacciHeapTests extends SharedTestCommonHelpersHeaps {
 	}
 	
 	@Test
+	public void testExceptionForAddingDuplicate() {
+		exceptionForAddingDuplicate();
+	}
+	
+	@Test
+	public void testExceptionForAddingDuplicatePair() {
+		exceptionForAddingDuplicatePair();
+	}
+	
+	@Test
 	public void testMerge() {
 		int n = 24;
 		String[] elements1 = new String[n];
@@ -328,50 +338,6 @@ public class FibonacciHeapTests extends SharedTestCommonHelpersHeaps {
 		IllegalArgumentException thrown = assertThrows( 
 			IllegalArgumentException.class,
 			() -> pq1.merge(SimpleFibonacciHeap.createMaxHeap())
-		);
-	}
-	
-	@Test
-	public void testExceptionForAddingDuplicate() {
-		int n = 7;
-		String[] elements = createStrings(n);
-		int[] priorities = new int[n];
-		for (int i = 0; i < n; i++) {
-			priorities[i] = 2*i+2;
-		}
-		FibonacciHeap<String> pq = FibonacciHeap.createMinHeap();
-		for (int j = 0; j < n; j++) {
-			pq.offer(elements[j], priorities[j]);
-		}
-		IllegalArgumentException thrown = assertThrows( 
-			IllegalArgumentException.class,
-			() -> pq.add(elements[n/2], 3)
-		);
-		thrown = assertThrows( 
-			IllegalArgumentException.class,
-			() -> pq.pollThenAdd(elements[n/2], 3)
-		);
-	}
-	
-	@Test
-	public void testExceptionForAddingDuplicatePair() {
-		int n = 7;
-		String[] elements = createStrings(n);
-		int[] priorities = new int[n];
-		for (int i = 0; i < n; i++) {
-			priorities[i] = 2*i+2;
-		}
-		FibonacciHeap<String> pq = FibonacciHeap.createMinHeap();
-		for (int j = 0; j < n; j++) {
-			pq.offer(elements[j], priorities[j]);
-		}
-		IllegalArgumentException thrown = assertThrows( 
-			IllegalArgumentException.class,
-			() -> pq.add(new PriorityQueueNode.Integer<String>(elements[n/2], 3))
-		);
-		thrown = assertThrows( 
-			IllegalArgumentException.class,
-			() -> pq.pollThenAdd(new PriorityQueueNode.Integer<String>(elements[n/2], 3))
 		);
 	}
 }
