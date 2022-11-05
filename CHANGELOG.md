@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 * Refactored SimpleFibonacciHeap to reduce cyclomatic complexity, among other maintainability improvements.
 * Additional refactoring of SimpleFibonacciHeapDouble for further improvements over 2.4.1.
+* Refactred equals method in the SimpleFibonacciHeap, FibonacciHeap, SimpleBinaryHeap, BinaryHeap classes.
 * Refactored test cases for SimpleFibonacciHeap, FibonacciHeap, SimpleBinaryHeap, BinaryHeap.
 
 ### Deprecated
