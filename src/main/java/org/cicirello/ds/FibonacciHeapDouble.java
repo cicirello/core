@@ -274,21 +274,6 @@ public final class FibonacciHeapDouble<E> extends SimpleFibonacciHeapDouble<E> {
 	}
 	
 	/**
-	 * Checks if this FibonacciHeapDouble contains the same (element, priority)
-	 * pairs as another FibonacciHeapDouble, including the specific structure
-	 * the FibonacciHeapDouble, as well as that the priority order is the same.
-	 *
-	 * @param other The other FibonacciHeapDouble.
-	 *
-	 * @return true if and only if this and other contain the same (element, priority)
-	 * pairs, with the same priority order.
-	 */
-	@Override
-	public boolean equals(Object other) {
-		return super.equals(other) && other instanceof FibonacciHeapDouble;
-	}
-	
-	/**
 	 * {@inheritDoc}
 	 *
 	 * @throws IllegalArgumentException if this and other have different priority-order (e.g., one is a 

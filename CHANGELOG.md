@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2022-11-05
+## [Unreleased] - 2022-11-07
 
 ### Added
 
@@ -12,7 +12,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Refactored SimpleFibonacciHeap to reduce cyclomatic complexity, among other maintainability improvements.
 * Additional refactoring of SimpleFibonacciHeapDouble for further improvements over 2.4.1.
 * Refactored equals method in the SimpleFibonacciHeap, FibonacciHeap, SimpleBinaryHeap, BinaryHeap classes.
+* Refactored equals method in the SimpleFibonacciHeapDouble, FibonacciHeapDouble, SimpleBinaryHeapDouble, BinaryHeapDouble classes.
 * Refactored test cases for SimpleFibonacciHeap, FibonacciHeap, SimpleBinaryHeap, BinaryHeap.
+* Refactored test cases for SimpleFibonacciHeapDouble, FibonacciHeapDouble, SimpleBinaryHeapDouble, BinaryHeapDouble.
 
 ### Deprecated
 
