@@ -378,7 +378,6 @@ public final class BinaryHeapDouble<E> implements MergeablePriorityQueueDouble<E
 	 */
 	@Override
 	public boolean equals(Object other) {
-		if (other == null) return false;
 		if (other instanceof BinaryHeapDouble) {
 			@SuppressWarnings("unchecked")
 			BinaryHeapDouble<E> casted = (BinaryHeapDouble<E>)other;

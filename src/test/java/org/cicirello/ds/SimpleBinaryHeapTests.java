@@ -25,10 +25,7 @@ package org.cicirello.ds;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Collections;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 /**
  * JUnit tests for the SimpleBinaryHeap class.

@@ -84,7 +84,8 @@ abstract class AbstractFibonacciHeapDouble<E> implements MergeablePriorityQueueD
 	}
 	
 	/**
-	 * Checks if this contains the same (element, priority)
+	 * Checks if this heap is the same as another, including the same class, and
+	 * that they contain the same (element, priority)
 	 * pairs as another, including the specific structure
 	 * the heap, as well as that the priority order is the same.
 	 *
@@ -95,7 +96,6 @@ abstract class AbstractFibonacciHeapDouble<E> implements MergeablePriorityQueueD
 	 */
 	@Override
 	public boolean equals(Object other) {
-		if (other == null) return false;
 		if (other instanceof AbstractFibonacciHeapDouble) {
 			@SuppressWarnings("unchecked")
 			AbstractFibonacciHeapDouble<E> casted = (AbstractFibonacciHeapDouble<E>)other;
@@ -108,7 +108,7 @@ abstract class AbstractFibonacciHeapDouble<E> implements MergeablePriorityQueueD
 					return false;
 				}
 			}
-			return true;
+			return getClass() == other.getClass();
 		} else {
 			return false;
 		}
