@@ -9,6 +9,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 ### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### CI/CD
+
+### Other
+
+
+## [2.4.2] - 2022-11-11
+
+### Changed
 * Refactored SimpleFibonacciHeap to reduce cyclomatic complexity, among other maintainability improvements.
 * Additional refactoring of SimpleFibonacciHeapDouble for further improvements over 2.4.1.
 * Refactored equals method in the SimpleFibonacciHeap, FibonacciHeap, SimpleBinaryHeap, BinaryHeap classes.
@@ -18,14 +33,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Refactored test cases for SimpleFibonacciHeapDouble, FibonacciHeapDouble, SimpleBinaryHeapDouble, BinaryHeapDouble.
 * Refactored test cases for IntFibonacciHeapDouble, IntBinaryHeapDouble.
 * Refactored test cases for IntFibonacciHeap, IntBinaryHeap.
-
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### CI/CD
 
 ### Other
 * Configured [refactor-first-maven-plugin](https://github.com/jimbethancourt/RefactorFirst) in the library's pom.xml.
