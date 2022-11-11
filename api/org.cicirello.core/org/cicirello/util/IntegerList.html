@@ -90,8 +90,7 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">IntegerList</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="Copyable.html" title="interface in org.cicirello.util">Copyable</a>&lt;<a href="IntegerList.html" title="class in org.cicirello.util">IntegerList</a>&gt;</span></div>
-<div class="block">This class is an implementation of a partially-filled array of 
- primitive int values.</div>
+<div class="block">This class is an implementation of a partially-filled array of primitive int values.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -180,9 +179,8 @@ implements <a href="Copyable.html" title="interface in org.cicirello.util">Copya
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#equals(java.lang.Object)" class="member-name-link">equals</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;other)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Checks if this list is equal to another list, such that
- they are the same size, and contain all of the same elements
- in the same order.</div>
+<div class="block">Checks if this list is equal to another list, such that they are the same size, and contain all
+ of the same elements in the same order.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#get(int)" class="member-name-link">get</a><wbr>(int&nbsp;index)</code></div>
@@ -296,9 +294,9 @@ implements <a href="Copyable.html" title="interface in org.cicirello.util">Copya
 <section class="detail" id="&lt;init&gt;(int)">
 <h3>IntegerList</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">IntegerList</span><wbr><span class="parameters">(int&nbsp;initialCapacity)</span></div>
-<div class="block">Initializes an empty IntegerList, with a specified initial capacity. This may be useful
- if you anticipate adding a large number of elements as it can help minimize the number
- of array reallocations.</div>
+<div class="block">Initializes an empty IntegerList, with a specified initial capacity. This may be useful if you
+ anticipate adding a large number of elements as it can help minimize the number of array
+ reallocations.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>initialCapacity</code> - The initial capacity for the buffer array holding the contents.</dd>
@@ -314,8 +312,8 @@ implements <a href="Copyable.html" title="interface in org.cicirello.util">Copya
 <div class="block">Initializes an IntegerList from an array,</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>initialContents</code> - The initial contents of the list, which must contain at least one element.
-    This constructor clones this array so it is free of unintended side-effects.</dd>
+<dd><code>initialContents</code> - The initial contents of the list, which must contain at least one
+     element. This constructor clones this array so it is free of unintended side-effects.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if initialContents.length is less than one.</dd>
 </dl>
@@ -351,8 +349,8 @@ implements <a href="Copyable.html" title="interface in org.cicirello.util">Copya
 <dd><code>index</code> - The index for the insertion.</dd>
 <dd><code>element</code> - The value to add.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if the index is out of bounds, such that index is
- negative or index is greater than size().</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if the index is out of bounds, such that index is negative or
+     index is greater than size().</dd>
 </dl>
 </section>
 </li>
@@ -394,9 +392,9 @@ implements <a href="Copyable.html" title="interface in org.cicirello.util">Copya
 <section class="detail" id="ensureCapacity(int)">
 <h3>ensureCapacity</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">ensureCapacity</span><wbr><span class="parameters">(int&nbsp;minCapacity)</span></div>
-<div class="block">Increases capacity if necessary to achieve a specified minimum capacity.
- If increased, the new capacity may or may not exactly equal to requested
- minimum. The only guarantee is that it is at least as large as requested.</div>
+<div class="block">Increases capacity if necessary to achieve a specified minimum capacity. If increased, the new
+ capacity may or may not exactly equal to requested minimum. The only guarantee is that it is at
+ least as large as requested.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>minCapacity</code> - The minimum capacity for the list.</dd>
@@ -414,8 +412,8 @@ implements <a href="Copyable.html" title="interface in org.cicirello.util">Copya
 <dt>Returns:</dt>
 <dd>The element at the specified index.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if the index is out of bounds, such that index is
- negative or index is greater than or equal to size().</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if the index is out of bounds, such that index is negative or
+     index is greater than or equal to size().</dd>
 </dl>
 </section>
 </li>
@@ -428,8 +426,8 @@ implements <a href="Copyable.html" title="interface in org.cicirello.util">Copya
 <dt>Parameters:</dt>
 <dd><code>element</code> - The element searched for.</dd>
 <dt>Returns:</dt>
-<dd>The index of the first occurrence of the element in the list from the
- left, or -1 if the element doesn't exist.</dd>
+<dd>The index of the first occurrence of the element in the list from the left, or -1 if
+     the element doesn't exist.</dd>
 </dl>
 </section>
 </li>
@@ -453,8 +451,8 @@ implements <a href="Copyable.html" title="interface in org.cicirello.util">Copya
 <dt>Parameters:</dt>
 <dd><code>element</code> - The element searched for.</dd>
 <dt>Returns:</dt>
-<dd>The index of the last occurrence of the element in the list,
- or -1 if the element doesn't exist.</dd>
+<dd>The index of the last occurrence of the element in the list, or -1 if the element
+     doesn't exist.</dd>
 </dl>
 </section>
 </li>
@@ -469,8 +467,8 @@ implements <a href="Copyable.html" title="interface in org.cicirello.util">Copya
 <dt>Returns:</dt>
 <dd>The element that was removed.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if the index is out of bounds, such that index is
- negative or index is greater than or equal to size().</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if the index is out of bounds, such that index is negative or
+     index is greater than or equal to size().</dd>
 </dl>
 </section>
 </li>
@@ -485,8 +483,8 @@ implements <a href="Copyable.html" title="interface in org.cicirello.util">Copya
 <dd><code>index</code> - The index.</dd>
 <dd><code>element</code> - The new element to set at that index.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if the index is out of bounds, such that index is
- negative or index is greater than or equal to size().</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if the index is out of bounds, such that index is negative or
+     index is greater than or equal to size().</dd>
 </dl>
 </section>
 </li>
@@ -512,9 +510,9 @@ implements <a href="Copyable.html" title="interface in org.cicirello.util">Copya
 <section class="detail" id="toArray()">
 <h3>toArray</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int[]</span>&nbsp;<span class="element-name">toArray</span>()</div>
-<div class="block">Returns an array containing all of the element from the list. This method
- constructs a new array with length equal to the current size() of the list.
- This method does not expose the encapsulated array.</div>
+<div class="block">Returns an array containing all of the element from the list. This method constructs a new
+ array with length equal to the current size() of the list. This method does not expose the
+ encapsulated array.</div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>An array containing all of the elements currently in the list.</dd>
@@ -525,27 +523,24 @@ implements <a href="Copyable.html" title="interface in org.cicirello.util">Copya
 <section class="detail" id="trimToSize()">
 <h3>trimToSize</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">trimToSize</span>()</div>
-<div class="block">Reduces the capacity of the list to the current value of size(). However, if size() is
- 0, this method will trim the list capacity to 1. If you don't anticipate adding additional
- elements to the list, and if your application is memory constrained, then this method
- can save memory.</div>
+<div class="block">Reduces the capacity of the list to the current value of size(). However, if size() is 0, this
+ method will trim the list capacity to 1. If you don't anticipate adding additional elements to
+ the list, and if your application is memory constrained, then this method can save memory.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="equals(java.lang.Object)">
 <h3>equals</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">equals</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;other)</span></div>
-<div class="block">Checks if this list is equal to another list, such that
- they are the same size, and contain all of the same elements
- in the same order.</div>
+<div class="block">Checks if this list is equal to another list, such that they are the same size, and contain all
+ of the same elements in the same order.</div>
 <dl class="notes">
 <dt>Overrides:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>other</code> - The other list</dd>
 <dt>Returns:</dt>
-<dd>true If the lists are the same size and contain the same
- elements in the same order.</dd>
+<dd>true If the lists are the same size and contain the same elements in the same order.</dd>
 </dl>
 </section>
 </li>

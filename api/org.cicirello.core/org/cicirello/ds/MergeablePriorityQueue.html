@@ -95,8 +95,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">MergeablePriorityQueue&lt;E,<wbr>T extends MergeablePriorityQueue&lt;E,<wbr>T&gt;&gt;</span><span class="extends-implements">
 extends <a href="PriorityQueue.html" title="interface in org.cicirello.ds">PriorityQueue</a>&lt;E&gt;</span></div>
-<div class="block"><p>A MergeablePriorityQueue is a PriorityQueue that includes a merge
- method.</p></div>
+<div class="block">A MergeablePriorityQueue is a PriorityQueue that includes a merge method.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -143,15 +142,16 @@ extends <a href="PriorityQueue.html" title="interface in org.cicirello.ds">Prior
 <section class="detail" id="merge(T)">
 <h3 id="merge(org.cicirello.ds.MergeablePriorityQueue)">merge</h3>
 <div class="member-signature"><span class="return-type">boolean</span>&nbsp;<span class="element-name">merge</span><wbr><span class="parameters">(<a href="MergeablePriorityQueue.html" title="type parameter in MergeablePriorityQueue">T</a>&nbsp;other)</span></div>
-<div class="block"><p>Merges another priority queue into this one, adding all of its (element, priority) pairs.
- This is a destructive operation with no guarantees to the state of the other priority queue
- upon completion. Additionally, <b>some</b> implementations of this method may assume that <code>other</code> and <code>this</code>
- do not share any elements, and the priority queue may become unstable if they do. The priority order
- of both priority queues must be the same (e.g., both minheaps or both maxheaps).</p></div>
+<div class="block">Merges another priority queue into this one, adding all of its (element, priority) pairs. This
+ is a destructive operation with no guarantees to the state of the other priority queue upon
+ completion. Additionally, <b>some</b> implementations of this method may assume that <code>
+ other</code> and <code>this</code> do not share any elements, and the priority queue may become
+ unstable if they do. The priority order of both priority queues must be the same (e.g., both
+ minheaps or both maxheaps).</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>other</code> - The priority queue that you want to merge into <code>this</code>. Implementations
- need not make any guarantees as to the state of <code>other</code> upon completion.</dd>
+     need not make any guarantees as to the state of <code>other</code> upon completion.</dd>
 <dt>Returns:</dt>
 <dd>true if and only if this priority queue changed as a result of the merge</dd>
 </dl>

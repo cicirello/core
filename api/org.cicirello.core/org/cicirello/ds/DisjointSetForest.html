@@ -89,19 +89,18 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">DisjointSetForest&lt;T&gt;</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
-<div class="block"><p>Represents disjoint sets of objects with a disjoint set forest. This class assumes
- that the objects in the sets are of a class that has appropriately implemented the
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link"><code>Object.equals(java.lang.Object)</code></a> and <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link"><code>Object.hashCode()</code></a> methods. If you rely on the default
- implementations of those methods from the <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link"><code>Object</code></a> class, then the disjoint set
- forest will treat two different objects containing same data as different objects (i.e.,
- the default behavior of equals and hashCode when not overridden). 
- Each object when first added to the DisjointSetForest is initially in a set by itself.
- The class provides methods for combining sets and checking if elements are in the same 
- set, or in any set. It does not support splitting a set. It is implemented as Disjoint 
- Set Forests are described by Cormen, Leiserson, Rivest, and Stein describe in <i>Introduction 
- to Algorithms</i>, including the use of the union by rank heuristic and path compression.</p>
+<div class="block">Represents disjoint sets of objects with a disjoint set forest. This class assumes that the
+ objects in the sets are of a class that has appropriately implemented the <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link"><code>Object.equals(java.lang.Object)</code></a>
+ and <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link"><code>Object.hashCode()</code></a> methods. If you rely on the default implementations of those methods
+ from the <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link"><code>Object</code></a> class, then the disjoint set forest will treat two different objects
+ containing same data as different objects (i.e., the default behavior of equals and hashCode when
+ not overridden). Each object when first added to the DisjointSetForest is initially in a set by
+ itself. The class provides methods for combining sets and checking if elements are in the same
+ set, or in any set. It does not support splitting a set. It is implemented as Disjoint Set
+ Forests are described by Cormen, Leiserson, Rivest, and Stein describe in <i>Introduction to
+ Algorithms</i>, including the use of the union by rank heuristic and path compression.
 
- <p>For disjoint sets of integers, see the <a href="DisjointIntegerSetForest.html" title="class in org.cicirello.ds"><code>DisjointIntegerSetForest</code></a> class.</p></div>
+ <p>For disjoint sets of integers, see the <a href="DisjointIntegerSetForest.html" title="class in org.cicirello.ds"><code>DisjointIntegerSetForest</code></a> class.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -161,8 +160,8 @@ loadScripts(document, 'script');</script>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#union(T,T)" class="member-name-link">union</a><wbr>(<a href="DisjointSetForest.html" title="type parameter in DisjointSetForest">T</a>&nbsp;element1,
  <a href="DisjointSetForest.html" title="type parameter in DisjointSetForest">T</a>&nbsp;element2)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Merges two sets into one, where the sets are chosen by specifying
- a representative member of each.</div>
+<div class="block">Merges two sets into one, where the sets are chosen by specifying a representative member of
+ each.</div>
 </div>
 </div>
 </div>
@@ -213,9 +212,8 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="findSet(T)">
 <h3 id="findSet(java.lang.Object)">findSet</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">findSet</span><wbr><span class="parameters">(<a href="DisjointSetForest.html" title="type parameter in DisjointSetForest">T</a>&nbsp;element)</span></div>
-<div class="block">Finds the id of the set currently containing the element.
- Calls to this method also apply path compression to make subsequent
- calls faster.</div>
+<div class="block">Finds the id of the set currently containing the element. Calls to this method also apply path
+ compression to make subsequent calls faster.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>element</code> - The element whose set is sought.</dd>
@@ -233,8 +231,8 @@ loadScripts(document, 'script');</script>
 <div class="block">Adds a new set to the disjoint set forest containing only the new element.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>element</code> - The new element to add to the disjoint set forest, which must
- not already exist within the DisjointSetForest.</dd>
+<dd><code>element</code> - The new element to add to the disjoint set forest, which must not already exist
+     within the DisjointSetForest.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if element already exists in the DisjointSetForest.</dd>
 </dl>
@@ -251,8 +249,8 @@ loadScripts(document, 'script');</script>
 <dd><code>element1</code> - The first element.</dd>
 <dd><code>element2</code> - The second element.</dd>
 <dt>Returns:</dt>
-<dd>true if and only if element1 and element2 are elements in the same set
- of the disjoint set forest.</dd>
+<dd>true if and only if element1 and element2 are elements in the same set of the disjoint
+     set forest.</dd>
 </dl>
 </section>
 </li>
@@ -272,19 +270,18 @@ loadScripts(document, 'script');</script>
 <h3 id="union(java.lang.Object,java.lang.Object)">union</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">union</span><wbr><span class="parameters">(<a href="DisjointSetForest.html" title="type parameter in DisjointSetForest">T</a>&nbsp;element1,
  <a href="DisjointSetForest.html" title="type parameter in DisjointSetForest">T</a>&nbsp;element2)</span></div>
-<div class="block">Merges two sets into one, where the sets are chosen by specifying
- a representative member of each. If the two elements are already in
- the same set, then no merger takes place.
- Calls to this method also apply path compression while finding the sets
- containing each of the elements, and the union itself uses the union by rank
- heuristic. The combination of these two should improve cost of subsequent operations.</div>
+<div class="block">Merges two sets into one, where the sets are chosen by specifying a representative member of
+ each. If the two elements are already in the same set, then no merger takes place. Calls to
+ this method also apply path compression while finding the sets containing each of the elements,
+ and the union itself uses the union by rank heuristic. The combination of these two should
+ improve cost of subsequent operations.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>element1</code> - A representative member of one of the sets.</dd>
 <dd><code>element2</code> - A representative member of the other set.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if either of the elements doesn't exist in the 
- DisjointSetForest.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if either of the elements doesn't exist in the
+     DisjointSetForest.</dd>
 </dl>
 </section>
 </li>

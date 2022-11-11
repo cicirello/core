@@ -90,50 +90,42 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">IntBinaryHeapDouble</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="IntPriorityQueueDouble.html" title="interface in org.cicirello.ds">IntPriorityQueueDouble</a>, <a href="../util/Copyable.html" title="interface in org.cicirello.util">Copyable</a>&lt;<a href="IntBinaryHeapDouble.html" title="class in org.cicirello.ds">IntBinaryHeapDouble</a>&gt;</span></div>
-<div class="block"><p>An implementation of a Binary Heap of
- (element, priority) pairs, such that the elements are distinct integers
- in the interval [0, n), and with priority values of type double.</p> 
+<div class="block">An implementation of a Binary Heap of (element, priority) pairs, such that the elements are
+ distinct integers in the interval [0, n), and with priority values of type double.
 
- <p><b>Priority order:</b>
- IntBinaryHeapDouble instances are created via factory methods with names beginning
- with <code>create</code>. The priority order depends upon the factory method
- used to create the IntBinaryHeapDouble. Methods named <code>createMinHeap</code> produce
- a min heap with priority order minimum-priority-first-out. Methods named 
- <code>createMaxHeap</code> produce a max heap with priority order 
- maximum-priority-first-out.</p>
+ <p><b>Priority order:</b> IntBinaryHeapDouble instances are created via factory methods with
+ names beginning with <code>create</code>. The priority order depends upon the factory method used
+ to create the IntBinaryHeapDouble. Methods named <code>createMinHeap</code> produce a min heap
+ with priority order minimum-priority-first-out. Methods named <code>createMaxHeap</code> produce
+ a max heap with priority order maximum-priority-first-out.
 
- <p><b>Creating instances:</b> To create an instance, use one of the factory
- methods. In this example an IntBinaryHeapDouble with an element domain of [0,100)
- is created:</p>
+ <p><b>Creating instances:</b> To create an instance, use one of the factory methods. In this
+ example an IntBinaryHeapDouble with an element domain of [0,100) is created:
+
  <pre><code>
  IntBinaryHeapDouble&lt;String&gt; pq = IntBinaryHeapDouble.createMinHeap(100);
  </code></pre>
- <p>In the above example, the element domain is [0,100) and the IntBinaryHeapDouble
- is initially empty.</p>
 
- <p><b>Purpose:</b> The purpose of such an IntBinaryHeapDouble is to support
- implementations of algorithms that require such a specialized case.
- For example, some graph algorithms such as Dijkstra's algorithm for 
- single-source shortest paths, and Prim's algorithm for minimum spanning
- tree, rely on a priority queue of the vertex ids, which are usually
- ints in some finite range. Although such applications could use the
- classes that instead implement the <a href="PriorityQueueDouble.html" title="interface in org.cicirello.ds"><code>PriorityQueueDouble</code></a> interface,
- using Java's wrapper type <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link"><code>Integer</code></a>, the classes that implement
- <a href="IntPriorityQueueDouble.html" title="interface in org.cicirello.ds"><code>IntPriorityQueueDouble</code></a> that specialize the element type to int
- are optimized for this special case.</p>
+ <p>In the above example, the element domain is [0,100) and the IntBinaryHeapDouble is initially
+ empty.
 
- <p>For a more general purpose binary heap, see the <a href="BinaryHeapDouble.html" title="class in org.cicirello.ds"><code>BinaryHeapDouble</code></a>
- class.</p>
+ <p><b>Purpose:</b> The purpose of such an IntBinaryHeapDouble is to support implementations of
+ algorithms that require such a specialized case. For example, some graph algorithms such as
+ Dijkstra's algorithm for single-source shortest paths, and Prim's algorithm for minimum spanning
+ tree, rely on a priority queue of the vertex ids, which are usually ints in some finite range.
+ Although such applications could use the classes that instead implement the <a href="PriorityQueueDouble.html" title="interface in org.cicirello.ds"><code>PriorityQueueDouble</code></a> interface, using Java's wrapper type <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link"><code>Integer</code></a>, the classes that
+ implement <a href="IntPriorityQueueDouble.html" title="interface in org.cicirello.ds"><code>IntPriorityQueueDouble</code></a> that specialize the element type to int are optimized
+ for this special case.
 
- <p><b>Method runtimes:</b> The asymptotic runtime of the methods of
- this class are as follows (where n is the current size of the heap):</p>
+ <p>For a more general purpose binary heap, see the <a href="BinaryHeapDouble.html" title="class in org.cicirello.ds"><code>BinaryHeapDouble</code></a> class.
+
+ <p><b>Method runtimes:</b> The asymptotic runtime of the methods of this class are as follows
+ (where n is the current size of the heap):
+
  <ul>
- <li><b>O(1):</b> <a href="#contains(int)"><code>contains(int)</code></a>, <a href="#createMaxHeap(int)"><code>createMaxHeap(int)</code></a>, 
-     <a href="#createMinHeap(int)"><code>createMinHeap(int)</code></a>, <a href="#domain()"><code>domain()</code></a>, <a href="#isEmpty()"><code>isEmpty()</code></a>,
-     <a href="#peek()"><code>peek()</code></a>, <a href="#peekPriority()"><code>peekPriority()</code></a>, <a href="#peekPriority(int)"><code>peekPriority(int)</code></a>, <a href="#size()"><code>size()</code></a></li>
- <li><b>O(lg n):</b> <a href="#change(int,double)"><code>change(int,double)</code></a>, <a href="#demote(int,double)"><code>demote(int,double)</code></a>, <a href="#offer(int,double)"><code>offer(int, double)</code></a>, 
-     <a href="#poll()"><code>poll()</code></a>, <a href="#promote(int,double)"><code>promote(int,double)</code></a></li>
- <li><b>O(n):</b> <a href="#clear()"><code>clear()</code></a>, <a href="#copy()"><code>copy()</code></a></li>
+   <li><b>O(1):</b> <a href="#contains(int)"><code>contains(int)</code></a>, <a href="#createMaxHeap(int)"><code>createMaxHeap(int)</code></a>, <a href="#createMinHeap(int)"><code>createMinHeap(int)</code></a>, <a href="#domain()"><code>domain()</code></a>, <a href="#isEmpty()"><code>isEmpty()</code></a>, <a href="#peek()"><code>peek()</code></a>, <a href="#peekPriority()"><code>peekPriority()</code></a>, <a href="#peekPriority(int)"><code>peekPriority(int)</code></a>, <a href="#size()"><code>size()</code></a>
+   <li><b>O(lg n):</b> <a href="#change(int,double)"><code>change(int,double)</code></a>, <a href="#demote(int,double)"><code>demote(int,double)</code></a>, <a href="#offer(int,double)"><code>offer(int, double)</code></a>, <a href="#poll()"><code>poll()</code></a>, <a href="#promote(int,double)"><code>promote(int,double)</code></a>
+   <li><b>O(n):</b> <a href="#clear()"><code>clear()</code></a>, <a href="#copy()"><code>copy()</code></a>
  </ul></div>
 </section>
 <section class="summary">
@@ -153,9 +145,8 @@ implements <a href="IntPriorityQueueDouble.html" title="interface in org.cicirel
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#change(int,double)" class="member-name-link">change</a><wbr>(int&nbsp;element,
  double&nbsp;priority)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Changes the priority of an element if the element is
- present in the IntPriorityQueueDouble, and otherwise adds the
- (element, priority) pair to the IntPriorityQueueDouble.</div>
+<div class="block">Changes the priority of an element if the element is present in the IntPriorityQueueDouble, and
+ otherwise adds the (element, priority) pair to the IntPriorityQueueDouble.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#clear()" class="member-name-link">clear</a>()</code></div>
@@ -175,21 +166,21 @@ implements <a href="IntPriorityQueueDouble.html" title="interface in org.cicirel
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="IntBinaryHeapDouble.html" title="class in org.cicirello.ds">IntBinaryHeapDouble</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createMaxHeap(int)" class="member-name-link">createMaxHeap</a><wbr>(int&nbsp;n)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">Initializes an empty max-heap of (int, priority) pairs,
- such that the domain of the elements are the integers in [0, n).</div>
+<div class="block">Initializes an empty max-heap of (int, priority) pairs, such that the domain of the elements
+ are the integers in [0, n).</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="IntBinaryHeapDouble.html" title="class in org.cicirello.ds">IntBinaryHeapDouble</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createMinHeap(int)" class="member-name-link">createMinHeap</a><wbr>(int&nbsp;n)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">Initializes an empty min-heap of (int, priority) pairs,
- such that the domain of the elements are the integers in [0, n).</div>
+<div class="block">Initializes an empty min-heap of (int, priority) pairs, such that the domain of the elements
+ are the integers in [0, n).</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#demote(int,double)" class="member-name-link">demote</a><wbr>(int&nbsp;element,
  double&nbsp;priority)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Demotes an element relative to priority order if the element is
- present in the IntPriorityQueueDouble.</div>
+<div class="block">Demotes an element relative to priority order if the element is present in the
+ IntPriorityQueueDouble.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#domain()" class="member-name-link">domain</a>()</code></div>
@@ -211,8 +202,7 @@ implements <a href="IntPriorityQueueDouble.html" title="interface in org.cicirel
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#peek()" class="member-name-link">peek</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets the next element in priority order from this IntPriorityQueueDouble,
- without removing it.</div>
+<div class="block">Gets the next element in priority order from this IntPriorityQueueDouble, without removing it.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#peekPriority()" class="member-name-link">peekPriority</a>()</code></div>
@@ -233,14 +223,14 @@ implements <a href="IntPriorityQueueDouble.html" title="interface in org.cicirel
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#promote(int,double)" class="member-name-link">promote</a><wbr>(int&nbsp;element,
  double&nbsp;priority)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Promotes an element relative to priority order if the element is
- present in the IntPriorityQueueDouble.</div>
+<div class="block">Promotes an element relative to priority order if the element is present in the
+ IntPriorityQueueDouble.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#size()" class="member-name-link">size</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets the current size of the IntPriorityQueueDouble, which is the
- number of (element, priority) pairs that it contains.</div>
+<div class="block">Gets the current size of the IntPriorityQueueDouble, which is the number of (element, priority)
+ pairs that it contains.</div>
 </div>
 </div>
 </div>
@@ -278,9 +268,8 @@ implements <a href="IntPriorityQueueDouble.html" title="interface in org.cicirel
 <h3>change</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">change</span><wbr><span class="parameters">(int&nbsp;element,
  double&nbsp;priority)</span></div>
-<div class="block">Changes the priority of an element if the element is
- present in the IntPriorityQueueDouble, and otherwise adds the
- (element, priority) pair to the IntPriorityQueueDouble.</div>
+<div class="block">Changes the priority of an element if the element is present in the IntPriorityQueueDouble, and
+ otherwise adds the (element, priority) pair to the IntPriorityQueueDouble.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="IntPriorityQueueDouble.html#change(int,double)">change</a></code>&nbsp;in interface&nbsp;<code><a href="IntPriorityQueueDouble.html" title="interface in org.cicirello.ds">IntPriorityQueueDouble</a></code></dd>
@@ -288,11 +277,11 @@ implements <a href="IntPriorityQueueDouble.html" title="interface in org.cicirel
 <dd><code>element</code> - The element whose priority is to change.</dd>
 <dd><code>priority</code> - Its new priority.</dd>
 <dt>Returns:</dt>
-<dd>true if and only if the IntPriorityQueueDouble changed
- as a consequence of this method call.</dd>
+<dd>true if and only if the IntPriorityQueueDouble changed as a consequence of this method
+     call.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if element is negative, or if element is greater than
-     or equal to the domain n.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if element is negative, or if element is greater than or
+     equal to the domain n.</dd>
 </dl>
 </section>
 </li>
@@ -319,11 +308,10 @@ implements <a href="IntPriorityQueueDouble.html" title="interface in org.cicirel
 <dt>Parameters:</dt>
 <dd><code>element</code> - The element to check for containment.</dd>
 <dt>Returns:</dt>
-<dd>true if and only if there exists an (element, priority) pair
- for the specified element.</dd>
+<dd>true if and only if there exists an (element, priority) pair for the specified element.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if element is negative, or if element is greater than
-     or equal to the domain n.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if element is negative, or if element is greater than or
+     equal to the domain n.</dd>
 </dl>
 </section>
 </li>
@@ -331,8 +319,8 @@ implements <a href="IntPriorityQueueDouble.html" title="interface in org.cicirel
 <section class="detail" id="createMaxHeap(int)">
 <h3>createMaxHeap</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="IntBinaryHeapDouble.html" title="class in org.cicirello.ds">IntBinaryHeapDouble</a></span>&nbsp;<span class="element-name">createMaxHeap</span><wbr><span class="parameters">(int&nbsp;n)</span></div>
-<div class="block">Initializes an empty max-heap of (int, priority) pairs,
- such that the domain of the elements are the integers in [0, n).</div>
+<div class="block">Initializes an empty max-heap of (int, priority) pairs, such that the domain of the elements
+ are the integers in [0, n).</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The size of the domain of the elements of the max-heap.</dd>
@@ -345,8 +333,8 @@ implements <a href="IntPriorityQueueDouble.html" title="interface in org.cicirel
 <section class="detail" id="createMinHeap(int)">
 <h3>createMinHeap</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="IntBinaryHeapDouble.html" title="class in org.cicirello.ds">IntBinaryHeapDouble</a></span>&nbsp;<span class="element-name">createMinHeap</span><wbr><span class="parameters">(int&nbsp;n)</span></div>
-<div class="block">Initializes an empty min-heap of (int, priority) pairs,
- such that the domain of the elements are the integers in [0, n).</div>
+<div class="block">Initializes an empty min-heap of (int, priority) pairs, such that the domain of the elements
+ are the integers in [0, n).</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The size of the domain of the elements of the min-heap.</dd>
@@ -360,11 +348,11 @@ implements <a href="IntPriorityQueueDouble.html" title="interface in org.cicirel
 <h3>demote</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">demote</span><wbr><span class="parameters">(int&nbsp;element,
  double&nbsp;priority)</span></div>
-<div class="block">Demotes an element relative to priority order if the element is
- present in the IntPriorityQueueDouble. For a min-heap, demotion means
- increasing the element's priority, while for a max-heap, demotion
- means decreasing its priority. If the element is not in the IntPriorityQueueDouble,
- or if its new priority is not a demotion, then this method does nothing.</div>
+<div class="block">Demotes an element relative to priority order if the element is present in the
+ IntPriorityQueueDouble. For a min-heap, demotion means increasing the element's priority, while
+ for a max-heap, demotion means decreasing its priority. If the element is not in the
+ IntPriorityQueueDouble, or if its new priority is not a demotion, then this method does
+ nothing.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="IntPriorityQueueDouble.html#demote(int,double)">demote</a></code>&nbsp;in interface&nbsp;<code><a href="IntPriorityQueueDouble.html" title="interface in org.cicirello.ds">IntPriorityQueueDouble</a></code></dd>
@@ -372,11 +360,11 @@ implements <a href="IntPriorityQueueDouble.html" title="interface in org.cicirel
 <dd><code>element</code> - The element whose priority is to change.</dd>
 <dd><code>priority</code> - Its new priority.</dd>
 <dt>Returns:</dt>
-<dd>true if and only if the IntPriorityQueueDouble changed
- as a consequence of this method call.</dd>
+<dd>true if and only if the IntPriorityQueueDouble changed as a consequence of this method
+     call.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if element is negative, or if element is greater than
-     or equal to the domain n.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if element is negative, or if element is greater than or
+     equal to the domain n.</dd>
 </dl>
 </section>
 </li>
@@ -385,9 +373,9 @@ implements <a href="IntPriorityQueueDouble.html" title="interface in org.cicirel
 <h3>domain</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">domain</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="IntPriorityQueueDouble.html#domain()">IntPriorityQueueDouble</a></code></span></div>
-<div class="block">Returns the domain of this IntPriorityQueueDouble. Note that the domain
- is not the same thing as the size. The domain defines the elements
- that are allowed in the IntPriorityQueueDouble, whether or not they actually appear within it.</div>
+<div class="block">Returns the domain of this IntPriorityQueueDouble. Note that the domain is not the same thing
+ as the size. The domain defines the elements that are allowed in the IntPriorityQueueDouble,
+ whether or not they actually appear within it.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="IntPriorityQueueDouble.html#domain()">domain</a></code>&nbsp;in interface&nbsp;<code><a href="IntPriorityQueueDouble.html" title="interface in org.cicirello.ds">IntPriorityQueueDouble</a></code></dd>
@@ -424,11 +412,11 @@ implements <a href="IntPriorityQueueDouble.html" title="interface in org.cicirel
 <dd><code>element</code> - The element.</dd>
 <dd><code>priority</code> - The priority of the element.</dd>
 <dt>Returns:</dt>
-<dd>true if the (element, priority) pair was added, and false if the
- IntPriorityQueueDouble already contained the element.</dd>
+<dd>true if the (element, priority) pair was added, and false if the IntPriorityQueueDouble
+     already contained the element.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if element is negative, or if element is greater than
-     or equal to the domain n.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if element is negative, or if element is greater than or
+     equal to the domain n.</dd>
 </dl>
 </section>
 </li>
@@ -437,8 +425,8 @@ implements <a href="IntPriorityQueueDouble.html" title="interface in org.cicirel
 <h3>peek</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">peek</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="IntPriorityQueueDouble.html#peek()">IntPriorityQueueDouble</a></code></span></div>
-<div class="block">Gets the next element in priority order from this IntPriorityQueueDouble,
- without removing it. Behavior is undefined if it is empty.</div>
+<div class="block">Gets the next element in priority order from this IntPriorityQueueDouble, without removing it.
+ Behavior is undefined if it is empty.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="IntPriorityQueueDouble.html#peek()">peek</a></code>&nbsp;in interface&nbsp;<code><a href="IntPriorityQueueDouble.html" title="interface in org.cicirello.ds">IntPriorityQueueDouble</a></code></dd>
@@ -452,8 +440,8 @@ implements <a href="IntPriorityQueueDouble.html" title="interface in org.cicirel
 <h3>peekPriority</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">peekPriority</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="IntPriorityQueueDouble.html#peekPriority()">IntPriorityQueueDouble</a></code></span></div>
-<div class="block">Gets the priority of the next element in priority order in the IntPriorityQueueDouble.
- Behavior is undefined if it is empty.</div>
+<div class="block">Gets the priority of the next element in priority order in the IntPriorityQueueDouble. Behavior
+ is undefined if it is empty.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="IntPriorityQueueDouble.html#peekPriority()">peekPriority</a></code>&nbsp;in interface&nbsp;<code><a href="IntPriorityQueueDouble.html" title="interface in org.cicirello.ds">IntPriorityQueueDouble</a></code></dd>
@@ -466,8 +454,8 @@ implements <a href="IntPriorityQueueDouble.html" title="interface in org.cicirel
 <section class="detail" id="peekPriority(int)">
 <h3>peekPriority</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">peekPriority</span><wbr><span class="parameters">(int&nbsp;element)</span></div>
-<div class="block">Gets the current priority of a specified element in the IntPriorityQueueDouble.
- Behavior is undefined if the IntPriorityQueueDouble doesn't contain the element.</div>
+<div class="block">Gets the current priority of a specified element in the IntPriorityQueueDouble. Behavior is
+ undefined if the IntPriorityQueueDouble doesn't contain the element.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="IntPriorityQueueDouble.html#peekPriority(int)">peekPriority</a></code>&nbsp;in interface&nbsp;<code><a href="IntPriorityQueueDouble.html" title="interface in org.cicirello.ds">IntPriorityQueueDouble</a></code></dd>
@@ -476,8 +464,8 @@ implements <a href="IntPriorityQueueDouble.html" title="interface in org.cicirel
 <dt>Returns:</dt>
 <dd>the current priority of element.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if element is negative, or if element is greater than
-     or equal to the domain n.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if element is negative, or if element is greater than or
+     equal to the domain n.</dd>
 </dl>
 </section>
 </li>
@@ -486,8 +474,8 @@ implements <a href="IntPriorityQueueDouble.html" title="interface in org.cicirel
 <h3>poll</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">poll</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="IntPriorityQueueDouble.html#poll()">IntPriorityQueueDouble</a></code></span></div>
-<div class="block">Gets and removes the next element in priority order from this IntPriorityQueueDouble.
- Behavior is undefined if it is empty.</div>
+<div class="block">Gets and removes the next element in priority order from this IntPriorityQueueDouble. Behavior
+ is undefined if it is empty.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="IntPriorityQueueDouble.html#poll()">poll</a></code>&nbsp;in interface&nbsp;<code><a href="IntPriorityQueueDouble.html" title="interface in org.cicirello.ds">IntPriorityQueueDouble</a></code></dd>
@@ -501,11 +489,11 @@ implements <a href="IntPriorityQueueDouble.html" title="interface in org.cicirel
 <h3>promote</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">promote</span><wbr><span class="parameters">(int&nbsp;element,
  double&nbsp;priority)</span></div>
-<div class="block">Promotes an element relative to priority order if the element is
- present in the IntPriorityQueueDouble. For a min-heap, promotion means
- decreasing the element's priority, while for a max-heap, promotion
- means increasing its priority. If the element is not in the IntPriorityQueueDouble,
- or if its new priority is not a promotion, then this method does nothing.</div>
+<div class="block">Promotes an element relative to priority order if the element is present in the
+ IntPriorityQueueDouble. For a min-heap, promotion means decreasing the element's priority,
+ while for a max-heap, promotion means increasing its priority. If the element is not in the
+ IntPriorityQueueDouble, or if its new priority is not a promotion, then this method does
+ nothing.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="IntPriorityQueueDouble.html#promote(int,double)">promote</a></code>&nbsp;in interface&nbsp;<code><a href="IntPriorityQueueDouble.html" title="interface in org.cicirello.ds">IntPriorityQueueDouble</a></code></dd>
@@ -513,11 +501,11 @@ implements <a href="IntPriorityQueueDouble.html" title="interface in org.cicirel
 <dd><code>element</code> - The element whose priority is to change.</dd>
 <dd><code>priority</code> - Its new priority.</dd>
 <dt>Returns:</dt>
-<dd>true if and only if the IntPriorityQueueDouble changed
- as a consequence of this method call.</dd>
+<dd>true if and only if the IntPriorityQueueDouble changed as a consequence of this method
+     call.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if element is negative, or if element is greater than
-     or equal to the domain n.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if element is negative, or if element is greater than or
+     equal to the domain n.</dd>
 </dl>
 </section>
 </li>
@@ -526,8 +514,8 @@ implements <a href="IntPriorityQueueDouble.html" title="interface in org.cicirel
 <h3>size</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">size</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="IntPriorityQueueDouble.html#size()">IntPriorityQueueDouble</a></code></span></div>
-<div class="block">Gets the current size of the IntPriorityQueueDouble, which is the
- number of (element, priority) pairs that it contains.</div>
+<div class="block">Gets the current size of the IntPriorityQueueDouble, which is the number of (element, priority)
+ pairs that it contains.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="IntPriorityQueueDouble.html#size()">size</a></code>&nbsp;in interface&nbsp;<code><a href="IntPriorityQueueDouble.html" title="interface in org.cicirello.ds">IntPriorityQueueDouble</a></code></dd>

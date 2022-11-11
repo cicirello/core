@@ -90,15 +90,14 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">DisjointIntegerSetForest</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="../util/Copyable.html" title="interface in org.cicirello.util">Copyable</a>&lt;<a href="DisjointIntegerSetForest.html" title="class in org.cicirello.ds">DisjointIntegerSetForest</a>&gt;</span></div>
-<div class="block"><p>Disjoint sets of integers from [0, n) implemented with a disjoint set forest.
- An instance of this class represents a set of disjoint sets of the n integers:
- {0, 1, ..., n-1}. Initially each integer is in a set by itself, and the class provides
- methods for combining sets and checking if elements are in the same set. It does not
- support splitting a set. It is implemented as Disjoint Set Forests are described by 
- Cormen, Leiserson, Rivest, and Stein describe in <i>Introduction to Algorithms</i>,
- including the use of the union by rank heuristic and path compression.</p>
+<div class="block">Disjoint sets of integers from [0, n) implemented with a disjoint set forest. An instance of this
+ class represents a set of disjoint sets of the n integers: {0, 1, ..., n-1}. Initially each
+ integer is in a set by itself, and the class provides methods for combining sets and checking if
+ elements are in the same set. It does not support splitting a set. It is implemented as Disjoint
+ Set Forests are described by Cormen, Leiserson, Rivest, and Stein describe in <i>Introduction to
+ Algorithms</i>, including the use of the union by rank heuristic and path compression.
 
- <p>For disjoint sets of objects, see the <a href="DisjointSetForest.html" title="class in org.cicirello.ds"><code>DisjointSetForest</code></a> class.</p></div>
+ <p>For disjoint sets of objects, see the <a href="DisjointSetForest.html" title="class in org.cicirello.ds"><code>DisjointSetForest</code></a> class.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -112,8 +111,8 @@ implements <a href="../util/Copyable.html" title="interface in org.cicirello.uti
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int)" class="member-name-link">DisjointIntegerSetForest</a><wbr>(int&nbsp;n)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Initializes a disjoint set forest containing the 
- integers from 0 through n-1, each initially in a set by itself.</div>
+<div class="block">Initializes a disjoint set forest containing the integers from 0 through n-1, each initially in
+ a set by itself.</div>
 </div>
 </div>
 </section>
@@ -158,15 +157,14 @@ implements <a href="../util/Copyable.html" title="interface in org.cicirello.uti
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#size()" class="member-name-link">size</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets the size of the DisjointIntegerSetForest in total number of
- elements.</div>
+<div class="block">Gets the size of the DisjointIntegerSetForest in total number of elements.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#union(int,int)" class="member-name-link">union</a><wbr>(int&nbsp;element1,
  int&nbsp;element2)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Merges two sets into one, where the sets are chosen by specifying
- a representative member of each.</div>
+<div class="block">Merges two sets into one, where the sets are chosen by specifying a representative member of
+ each.</div>
 </div>
 </div>
 </div>
@@ -189,8 +187,8 @@ implements <a href="../util/Copyable.html" title="interface in org.cicirello.uti
 <section class="detail" id="&lt;init&gt;(int)">
 <h3>DisjointIntegerSetForest</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">DisjointIntegerSetForest</span><wbr><span class="parameters">(int&nbsp;n)</span></div>
-<div class="block">Initializes a disjoint set forest containing the 
- integers from 0 through n-1, each initially in a set by itself.</div>
+<div class="block">Initializes a disjoint set forest containing the integers from 0 through n-1, each initially in
+ a set by itself.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The number of integers in the disjoint set forest.</dd>
@@ -223,18 +221,16 @@ implements <a href="../util/Copyable.html" title="interface in org.cicirello.uti
 <section class="detail" id="equals(java.lang.Object)">
 <h3>equals</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">equals</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;other)</span></div>
-<div class="block">Checks if this DisjointIntegerSetForest is equal to another. This
- test of equality is true if and only if the two DisjointIntegerSetForest
- are structurally the same (i.e., not just same set of disjoint sets, but
- also exact same internal structure).</div>
+<div class="block">Checks if this DisjointIntegerSetForest is equal to another. This test of equality is true if
+ and only if the two DisjointIntegerSetForest are structurally the same (i.e., not just same set
+ of disjoint sets, but also exact same internal structure).</div>
 <dl class="notes">
 <dt>Overrides:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>other</code> - The other DisjointIntegerSetForest.</dd>
 <dt>Returns:</dt>
-<dd>true if and only if two DisjointIntegerSetForest instances are
- structurally identical.</dd>
+<dd>true if and only if two DisjointIntegerSetForest instances are structurally identical.</dd>
 </dl>
 </section>
 </li>
@@ -255,18 +251,17 @@ implements <a href="../util/Copyable.html" title="interface in org.cicirello.uti
 <section class="detail" id="findSet(int)">
 <h3>findSet</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">findSet</span><wbr><span class="parameters">(int&nbsp;element)</span></div>
-<div class="block">Finds the id of the set currently containing the element.
- Calls to this method also apply path compression to make subsequent
- calls faster.</div>
+<div class="block">Finds the id of the set currently containing the element. Calls to this method also apply path
+ compression to make subsequent calls faster.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>element</code> - The element whose set is sought, which must be in [0,n).</dd>
 <dt>Returns:</dt>
-<dd>the id of the set that currently contains the element, where the id 
- is a representative member of that set.</dd>
+<dd>the id of the set that currently contains the element, where the id is a representative
+     member of that set.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ArrayIndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">ArrayIndexOutOfBoundsException</a></code> - if element is less than 0 or if
- element is greater than or equal to n.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ArrayIndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">ArrayIndexOutOfBoundsException</a></code> - if element is less than 0 or if element is greater than
+     or equal to n.</dd>
 </dl>
 </section>
 </li>
@@ -281,11 +276,11 @@ implements <a href="../util/Copyable.html" title="interface in org.cicirello.uti
 <dd><code>element1</code> - The first element, which must be in [0,n).</dd>
 <dd><code>element2</code> - The second element, which must be in [0,n).</dd>
 <dt>Returns:</dt>
-<dd>true if and only if element1 and element2 are elements in the same set
- of the disjoint set forest.</dd>
+<dd>true if and only if element1 and element2 are elements in the same set of the disjoint
+     set forest.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ArrayIndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">ArrayIndexOutOfBoundsException</a></code> - if element1 or element2 is less than 0 or if
- element1 or element2 is greater than or equal to n.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ArrayIndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">ArrayIndexOutOfBoundsException</a></code> - if element1 or element2 is less than 0 or if element1 or
+     element2 is greater than or equal to n.</dd>
 </dl>
 </section>
 </li>
@@ -293,8 +288,7 @@ implements <a href="../util/Copyable.html" title="interface in org.cicirello.uti
 <section class="detail" id="size()">
 <h3>size</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">size</span>()</div>
-<div class="block">Gets the size of the DisjointIntegerSetForest in total number of
- elements.</div>
+<div class="block">Gets the size of the DisjointIntegerSetForest in total number of elements.</div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>the number of elements in the DisjointIntegerSetForest</dd>
@@ -306,19 +300,18 @@ implements <a href="../util/Copyable.html" title="interface in org.cicirello.uti
 <h3>union</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">union</span><wbr><span class="parameters">(int&nbsp;element1,
  int&nbsp;element2)</span></div>
-<div class="block">Merges two sets into one, where the sets are chosen by specifying
- a representative member of each. If the two elements are already in
- the same set, then no merger takes place.
- Calls to this method also apply path compression while finding the sets
- containing each of the elements, and the union itself uses the union by rank
- heuristic. The combination of these two should improve cost of subsequent operations.</div>
+<div class="block">Merges two sets into one, where the sets are chosen by specifying a representative member of
+ each. If the two elements are already in the same set, then no merger takes place. Calls to
+ this method also apply path compression while finding the sets containing each of the elements,
+ and the union itself uses the union by rank heuristic. The combination of these two should
+ improve cost of subsequent operations.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>element1</code> - A representative member of one of the sets, which must be in [0,n).</dd>
 <dd><code>element2</code> - A representative member of the other set, which must be in [0,n).</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ArrayIndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">ArrayIndexOutOfBoundsException</a></code> - if either element1 or element2 is less than 0 or if
- element1 ot element2 is greater than or equal to n.</dd>
+     element1 ot element2 is greater than or equal to n.</dd>
 </dl>
 </section>
 </li>
