@@ -28,8 +28,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### CI/CD
 
 ### Other
-* Configured refactor-first-maven-plugin in the library's pom.xml.
+* Configured [refactor-first-maven-plugin](https://github.com/jimbethancourt/RefactorFirst) in the library's pom.xml.
 * Adopted [Google's Java style](https://google.github.io/styleguide/javaguide.html).
+* Configured [Spotify's fmt-maven-plugin](https://github.com/spotify/fmt-maven-plugin) in the library's pom.xml.
 
 
 ## [2.4.1] - 2022-10-21
