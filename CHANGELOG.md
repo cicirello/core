@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Additional refactoring of SimpleFibonacciHeapDouble for further improvements over 2.4.1.
 * Refactored equals method in the SimpleFibonacciHeap, FibonacciHeap, SimpleBinaryHeap, BinaryHeap classes.
 * Refactored equals method in the SimpleFibonacciHeapDouble, FibonacciHeapDouble, SimpleBinaryHeapDouble, BinaryHeapDouble classes.
+* Reformatted all code to follow [Google's Java style](https://google.github.io/styleguide/javaguide.html).
 * Refactored test cases for SimpleFibonacciHeap, FibonacciHeap, SimpleBinaryHeap, BinaryHeap.
 * Refactored test cases for SimpleFibonacciHeapDouble, FibonacciHeapDouble, SimpleBinaryHeapDouble, BinaryHeapDouble.
 * Refactored test cases for IntFibonacciHeapDouble, IntBinaryHeapDouble.
@@ -28,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Other
 * Configured refactor-first-maven-plugin in the library's pom.xml.
+* Adopted [Google's Java style](https://google.github.io/styleguide/javaguide.html).
 
 
 ## [2.4.1] - 2022-10-21
