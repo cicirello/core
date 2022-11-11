@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Refactored test cases for SimpleFibonacciHeap, FibonacciHeap, SimpleBinaryHeap, BinaryHeap.
 * Refactored test cases for SimpleFibonacciHeapDouble, FibonacciHeapDouble, SimpleBinaryHeapDouble, BinaryHeapDouble.
 * Refactored test cases for IntFibonacciHeapDouble, IntBinaryHeapDouble.
+* Refactored test cases for IntFibonacciHeap, IntBinaryHeap.
 
 ### Deprecated
 
