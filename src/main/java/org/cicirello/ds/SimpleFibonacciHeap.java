@@ -89,7 +89,7 @@ public class SimpleFibonacciHeap<E> extends AbstractFibonacciHeap<E>
    * Initializes an empty SimpleFibonacciHeap.
    */
   private SimpleFibonacciHeap() {
-    this((p1, p2) -> p1 < p2);
+    this(new MinOrder());
   }
 
   /*
@@ -97,7 +97,7 @@ public class SimpleFibonacciHeap<E> extends AbstractFibonacciHeap<E>
    *
    * Initializes an empty SimpleFibonacciHeap.
    */
-  SimpleFibonacciHeap(PriorityComparator compare) {
+  SimpleFibonacciHeap(Prioritizer compare) {
     super(compare);
   }
 
@@ -109,7 +109,7 @@ public class SimpleFibonacciHeap<E> extends AbstractFibonacciHeap<E>
    *
    */
   private SimpleFibonacciHeap(Collection<PriorityQueueNode.Integer<E>> initialElements) {
-    this(initialElements, (p1, p2) -> p1 < p2);
+    this(initialElements, new MinOrder());
   }
 
   /*
@@ -120,7 +120,7 @@ public class SimpleFibonacciHeap<E> extends AbstractFibonacciHeap<E>
    *
    */
   private SimpleFibonacciHeap(
-      Collection<PriorityQueueNode.Integer<E>> initialElements, PriorityComparator compare) {
+      Collection<PriorityQueueNode.Integer<E>> initialElements, Prioritizer compare) {
     this(compare);
     for (PriorityQueueNode.Integer<E> element : initialElements) {
       internalOffer(element.copy());
@@ -169,7 +169,7 @@ public class SimpleFibonacciHeap<E> extends AbstractFibonacciHeap<E>
    * @return an empty SimpleFibonacciHeap with a maximum-priority-first-out priority order
    */
   public static <E> SimpleFibonacciHeap<E> createMaxHeap() {
-    return new SimpleFibonacciHeap<E>((p1, p2) -> p1 > p2);
+    return new SimpleFibonacciHeap<E>(new MaxOrder());
   }
 
   /**
@@ -182,7 +182,7 @@ public class SimpleFibonacciHeap<E> extends AbstractFibonacciHeap<E>
    */
   public static <E> SimpleFibonacciHeap<E> createMaxHeap(
       Collection<PriorityQueueNode.Integer<E>> initialElements) {
-    return new SimpleFibonacciHeap<E>(initialElements, (p1, p2) -> p1 > p2);
+    return new SimpleFibonacciHeap<E>(initialElements, new MaxOrder());
   }
 
   @Override

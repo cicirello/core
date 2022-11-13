@@ -81,7 +81,7 @@ public final class SimpleBinaryHeap<E>
 
   private PriorityQueueNode.Integer<E>[] buffer;
   private int size;
-  private final PriorityComparator compare;
+  private final Prioritizer compare;
   private final int extreme;
 
   /** The default initial capacity. */
@@ -94,7 +94,7 @@ public final class SimpleBinaryHeap<E>
    * @param initialCapacity The initial capacity, which must be positive.
    */
   private SimpleBinaryHeap(int initialCapacity) {
-    this(initialCapacity, (p1, p2) -> p1 < p2);
+    this(initialCapacity, new MinOrder());
   }
 
   /* PRIVATE: Use factory methods for creation.
@@ -103,11 +103,10 @@ public final class SimpleBinaryHeap<E>
    *
    * @param initialCapacity The initial capacity, which must be positive.
    */
-  private SimpleBinaryHeap(int initialCapacity, PriorityComparator compare) {
+  private SimpleBinaryHeap(int initialCapacity, Prioritizer compare) {
     this.compare = compare;
     buffer = allocate(initialCapacity);
-    extreme =
-        compare.belongsAbove(0, 1) ? java.lang.Integer.MAX_VALUE : java.lang.Integer.MIN_VALUE;
+    extreme = compare.comesBefore(0, 1) ? java.lang.Integer.MAX_VALUE : java.lang.Integer.MIN_VALUE;
   }
 
   /* PRIVATE: Use factory methods for creation.
@@ -120,7 +119,7 @@ public final class SimpleBinaryHeap<E>
    * @throws IllegalArgumentException if initialElements is empty.
    */
   private SimpleBinaryHeap(Collection<PriorityQueueNode.Integer<E>> initialElements) {
-    this(initialElements, (p1, p2) -> p1 < p2);
+    this(initialElements, new MinOrder());
   }
 
   /* PRIVATE: Use factory methods for creation.
@@ -133,7 +132,7 @@ public final class SimpleBinaryHeap<E>
    * @throws IllegalArgumentException if initialElements is empty.
    */
   private SimpleBinaryHeap(
-      Collection<PriorityQueueNode.Integer<E>> initialElements, PriorityComparator compare) {
+      Collection<PriorityQueueNode.Integer<E>> initialElements, Prioritizer compare) {
     this(initialElements.size(), compare);
     for (PriorityQueueNode.Integer<E> element : initialElements) {
       buffer[size] = element.copy();
@@ -210,7 +209,7 @@ public final class SimpleBinaryHeap<E>
    * @return an empty SimpleBinaryHeap with a maximum-priority-first-out priority order
    */
   public static <E> SimpleBinaryHeap<E> createMaxHeap() {
-    return new SimpleBinaryHeap<E>(DEFAULT_INITIAL_CAPACITY, (p1, p2) -> p1 > p2);
+    return new SimpleBinaryHeap<E>(DEFAULT_INITIAL_CAPACITY, new MaxOrder());
   }
 
   /**
@@ -225,7 +224,7 @@ public final class SimpleBinaryHeap<E>
   public static <E> SimpleBinaryHeap<E> createMaxHeap(int initialCapacity) {
     if (initialCapacity <= 0)
       throw new IllegalArgumentException("Initial capacity must be positive.");
-    return new SimpleBinaryHeap<E>(initialCapacity, (p1, p2) -> p1 > p2);
+    return new SimpleBinaryHeap<E>(initialCapacity, new MaxOrder());
   }
 
   /**
@@ -243,7 +242,7 @@ public final class SimpleBinaryHeap<E>
     if (initialElements.size() < 1) {
       throw new IllegalArgumentException("initialElements is empty");
     }
-    return new SimpleBinaryHeap<E>(initialElements, (p1, p2) -> p1 > p2);
+    return new SimpleBinaryHeap<E>(initialElements, new MaxOrder());
   }
 
   @Override
@@ -286,11 +285,11 @@ public final class SimpleBinaryHeap<E>
   public final boolean change(E element, int priority) {
     int i = find(element);
     if (i >= 0) {
-      if (compare.belongsAbove(priority, buffer[i].value)) {
+      if (compare.comesBefore(priority, buffer[i].value)) {
         buffer[i].value = priority;
         percolateUp(i);
         return true;
-      } else if (compare.belongsAbove(buffer[i].value, priority)) {
+      } else if (compare.comesBefore(buffer[i].value, priority)) {
         buffer[i].value = priority;
         percolateDown(i);
         return true;
@@ -347,7 +346,7 @@ public final class SimpleBinaryHeap<E>
   public final boolean demote(E element, int priority) {
     int i = find(element);
     if (i >= 0) {
-      if (compare.belongsAbove(buffer[i].value, priority)) {
+      if (compare.comesBefore(buffer[i].value, priority)) {
         buffer[i].value = priority;
         percolateDown(i);
         return true;
@@ -383,7 +382,7 @@ public final class SimpleBinaryHeap<E>
       @SuppressWarnings("unchecked")
       SimpleBinaryHeap<E> casted = (SimpleBinaryHeap<E>) other;
       if (size != casted.size) return false;
-      if (compare.belongsAbove(0, 1) != casted.compare.belongsAbove(0, 1)) return false;
+      if (compare.comesBefore(0, 1) != casted.compare.comesBefore(0, 1)) return false;
       for (int i = 0; i < size; i++) {
         if (!buffer[i].element.equals(casted.buffer[i].element)) return false;
         if (casted.buffer[i].value != buffer[i].value) return false;
@@ -427,7 +426,7 @@ public final class SimpleBinaryHeap<E>
    */
   @Override
   public boolean merge(SimpleBinaryHeap<E> other) {
-    if (compare.belongsAbove(0, 1) != other.compare.belongsAbove(0, 1)) {
+    if (compare.comesBefore(0, 1) != other.compare.comesBefore(0, 1)) {
       throw new IllegalArgumentException("this and other follow different priority-order");
     }
     if (size + other.size() > buffer.length) {
@@ -529,7 +528,7 @@ public final class SimpleBinaryHeap<E>
   public final boolean promote(E element, int priority) {
     int i = find(element);
     if (i >= 0) {
-      if (compare.belongsAbove(priority, buffer[i].value)) {
+      if (compare.comesBefore(priority, buffer[i].value)) {
         buffer[i].value = priority;
         percolateUp(i);
         return true;
@@ -556,9 +555,9 @@ public final class SimpleBinaryHeap<E>
       buffer[i] = buffer[size];
       buffer[size] = null;
       // percolate in relevant direction
-      if (compare.belongsAbove(buffer[i].value, removedElementPriority)) {
+      if (compare.comesBefore(buffer[i].value, removedElementPriority)) {
         percolateUp(i);
-      } else if (compare.belongsAbove(removedElementPriority, buffer[i].value)) {
+      } else if (compare.comesBefore(removedElementPriority, buffer[i].value)) {
         percolateDown(i);
       }
     } else {
@@ -710,11 +709,11 @@ public final class SimpleBinaryHeap<E>
     int left;
     while ((left = (i << 1) + 1) < size) {
       int smallest = i;
-      if (compare.belongsAbove(buffer[left].value, buffer[i].value)) {
+      if (compare.comesBefore(buffer[left].value, buffer[i].value)) {
         smallest = left;
       }
       int right = left + 1;
-      if (right < size && compare.belongsAbove(buffer[right].value, buffer[smallest].value)) {
+      if (right < size && compare.comesBefore(buffer[right].value, buffer[smallest].value)) {
         smallest = right;
       }
       if (smallest != i) {
@@ -730,7 +729,7 @@ public final class SimpleBinaryHeap<E>
 
   private void percolateUp(int i) {
     int parent;
-    while (i > 0 && compare.belongsAbove(buffer[i].value, buffer[parent = (i - 1) >> 1].value)) {
+    while (i > 0 && compare.comesBefore(buffer[i].value, buffer[parent = (i - 1) >> 1].value)) {
       PriorityQueueNode.Integer<E> temp = buffer[i];
       buffer[i] = buffer[parent];
       buffer[parent] = temp;
@@ -770,11 +769,6 @@ public final class SimpleBinaryHeap<E>
     for (int i = (size >> 1) - 1; i >= 0; i--) {
       percolateDown(i);
     }
-  }
-
-  @FunctionalInterface
-  private static interface PriorityComparator {
-    boolean belongsAbove(int p1, int p2);
   }
 
   private class SimpleBinaryHeapIterator implements Iterator<PriorityQueueNode.Integer<E>> {
