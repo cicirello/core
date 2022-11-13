@@ -90,7 +90,7 @@ public final class FibonacciHeap<E> extends SimpleFibonacciHeap<E> {
    * Initializes an empty FibonacciHeap.
    */
   private FibonacciHeap() {
-    this((p1, p2) -> p1 < p2);
+    this(new MinOrder());
   }
 
   /*
@@ -98,7 +98,7 @@ public final class FibonacciHeap<E> extends SimpleFibonacciHeap<E> {
    *
    * Initializes an empty FibonacciHeap.
    */
-  private FibonacciHeap(PriorityComparator compare) {
+  private FibonacciHeap(Prioritizer compare) {
     super(compare);
     index = new HashMap<E, FibonacciHeapNode<E>>();
   }
@@ -112,7 +112,7 @@ public final class FibonacciHeap<E> extends SimpleFibonacciHeap<E> {
    * @throws IllegalArgumentException if more than one pair in initialElements contains the same element.
    */
   private FibonacciHeap(Collection<PriorityQueueNode.Integer<E>> initialElements) {
-    this(initialElements, (p1, p2) -> p1 < p2);
+    this(initialElements, new MinOrder());
   }
 
   /*
@@ -124,7 +124,7 @@ public final class FibonacciHeap<E> extends SimpleFibonacciHeap<E> {
    * @throws IllegalArgumentException if more than one pair in initialElements contains the same element.
    */
   private FibonacciHeap(
-      Collection<PriorityQueueNode.Integer<E>> initialElements, PriorityComparator compare) {
+      Collection<PriorityQueueNode.Integer<E>> initialElements, Prioritizer compare) {
     this(compare);
     for (PriorityQueueNode.Integer<E> element : initialElements) {
       if (!offer(element)) {
@@ -183,7 +183,7 @@ public final class FibonacciHeap<E> extends SimpleFibonacciHeap<E> {
    * @return an empty FibonacciHeap with a maximum-priority-first-out priority order
    */
   public static <E> FibonacciHeap<E> createMaxHeap() {
-    return new FibonacciHeap<E>((p1, p2) -> p1 > p2);
+    return new FibonacciHeap<E>(new MaxOrder());
   }
 
   /**
@@ -198,7 +198,7 @@ public final class FibonacciHeap<E> extends SimpleFibonacciHeap<E> {
    */
   public static <E> FibonacciHeap<E> createMaxHeap(
       Collection<PriorityQueueNode.Integer<E>> initialElements) {
-    return new FibonacciHeap<E>(initialElements, (p1, p2) -> p1 > p2);
+    return new FibonacciHeap<E>(initialElements, new MaxOrder());
   }
 
   @Override

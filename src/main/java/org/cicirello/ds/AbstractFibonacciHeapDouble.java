@@ -35,7 +35,7 @@ import java.util.Iterator;
 abstract class AbstractFibonacciHeapDouble<E>
     implements MergeablePriorityQueueDouble<E, SimpleFibonacciHeapDouble<E>> {
 
-  private final PriorityComparator compare;
+  private final Prioritizer compare;
   private final double extreme;
 
   private int size;
@@ -48,7 +48,7 @@ abstract class AbstractFibonacciHeapDouble<E>
    *
    * Initializes an empty AbstractFibonacciHeapDouble.
    */
-  AbstractFibonacciHeapDouble(PriorityComparator compare) {
+  AbstractFibonacciHeapDouble(Prioritizer compare) {
     this.compare = compare;
     extreme =
         compare.comesBefore(0, 1)
@@ -339,10 +339,5 @@ abstract class AbstractFibonacciHeapDouble<E>
 
   final FibonacciHeapDoubleNode.NodeIterator<E> nodeIterator() {
     return new FibonacciHeapDoubleNode.NodeIterator<E>(min);
-  }
-
-  @FunctionalInterface
-  static interface PriorityComparator {
-    boolean comesBefore(double p1, double p2);
   }
 }

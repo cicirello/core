@@ -186,9 +186,9 @@ final class FibonacciHeapDoubleNode<E> {
 
     private static final double INV_LOG_GOLDEN_RATIO = 2.0780869212350273;
 
-    private final AbstractFibonacciHeapDouble.PriorityComparator compare;
+    private final Prioritizer compare;
 
-    Consolidator(AbstractFibonacciHeapDouble.PriorityComparator compare) {
+    Consolidator(Prioritizer compare) {
       this.compare = compare;
       // length of array used by consolidate is initialized to 45 as follows:
       // 1) since size is an int, the implicit limit on capacity is Integer.MAX_VALUE.

@@ -89,7 +89,7 @@ public class SimpleFibonacciHeapDouble<E> extends AbstractFibonacciHeapDouble<E>
    * Initializes an empty SimpleFibonacciHeapDouble.
    */
   private SimpleFibonacciHeapDouble() {
-    this((p1, p2) -> p1 < p2);
+    this(new MinOrder());
   }
 
   /*
@@ -97,7 +97,7 @@ public class SimpleFibonacciHeapDouble<E> extends AbstractFibonacciHeapDouble<E>
    *
    * Initializes an empty SimpleFibonacciHeapDouble.
    */
-  SimpleFibonacciHeapDouble(PriorityComparator compare) {
+  SimpleFibonacciHeapDouble(Prioritizer compare) {
     super(compare);
   }
 
@@ -109,7 +109,7 @@ public class SimpleFibonacciHeapDouble<E> extends AbstractFibonacciHeapDouble<E>
    *
    */
   private SimpleFibonacciHeapDouble(Collection<PriorityQueueNode.Double<E>> initialElements) {
-    this(initialElements, (p1, p2) -> p1 < p2);
+    this(initialElements, new MinOrder());
   }
 
   /*
@@ -120,7 +120,7 @@ public class SimpleFibonacciHeapDouble<E> extends AbstractFibonacciHeapDouble<E>
    *
    */
   private SimpleFibonacciHeapDouble(
-      Collection<PriorityQueueNode.Double<E>> initialElements, PriorityComparator compare) {
+      Collection<PriorityQueueNode.Double<E>> initialElements, Prioritizer compare) {
     this(compare);
     for (PriorityQueueNode.Double<E> element : initialElements) {
       internalOffer(element.copy());
@@ -169,7 +169,7 @@ public class SimpleFibonacciHeapDouble<E> extends AbstractFibonacciHeapDouble<E>
    * @return an empty SimpleFibonacciHeapDouble with a maximum-priority-first-out priority order
    */
   public static <E> SimpleFibonacciHeapDouble<E> createMaxHeap() {
-    return new SimpleFibonacciHeapDouble<E>((p1, p2) -> p1 > p2);
+    return new SimpleFibonacciHeapDouble<E>(new MaxOrder());
   }
 
   /**
@@ -182,7 +182,7 @@ public class SimpleFibonacciHeapDouble<E> extends AbstractFibonacciHeapDouble<E>
    */
   public static <E> SimpleFibonacciHeapDouble<E> createMaxHeap(
       Collection<PriorityQueueNode.Double<E>> initialElements) {
-    return new SimpleFibonacciHeapDouble<E>(initialElements, (p1, p2) -> p1 > p2);
+    return new SimpleFibonacciHeapDouble<E>(initialElements, new MaxOrder());
   }
 
   @Override

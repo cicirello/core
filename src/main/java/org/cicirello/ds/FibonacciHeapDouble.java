@@ -90,7 +90,7 @@ public final class FibonacciHeapDouble<E> extends SimpleFibonacciHeapDouble<E> {
    * Initializes an empty FibonacciHeapDouble.
    */
   private FibonacciHeapDouble() {
-    this((p1, p2) -> p1 < p2);
+    this(new MinOrder());
   }
 
   /*
@@ -98,7 +98,7 @@ public final class FibonacciHeapDouble<E> extends SimpleFibonacciHeapDouble<E> {
    *
    * Initializes an empty FibonacciHeapDouble.
    */
-  private FibonacciHeapDouble(PriorityComparator compare) {
+  private FibonacciHeapDouble(Prioritizer compare) {
     super(compare);
     index = new HashMap<E, FibonacciHeapDoubleNode<E>>();
   }
@@ -112,7 +112,7 @@ public final class FibonacciHeapDouble<E> extends SimpleFibonacciHeapDouble<E> {
    * @throws IllegalArgumentException if more than one pair in initialElements contains the same element.
    */
   private FibonacciHeapDouble(Collection<PriorityQueueNode.Double<E>> initialElements) {
-    this(initialElements, (p1, p2) -> p1 < p2);
+    this(initialElements, new MinOrder());
   }
 
   /*
@@ -124,7 +124,7 @@ public final class FibonacciHeapDouble<E> extends SimpleFibonacciHeapDouble<E> {
    * @throws IllegalArgumentException if more than one pair in initialElements contains the same element.
    */
   private FibonacciHeapDouble(
-      Collection<PriorityQueueNode.Double<E>> initialElements, PriorityComparator compare) {
+      Collection<PriorityQueueNode.Double<E>> initialElements, Prioritizer compare) {
     this(compare);
     for (PriorityQueueNode.Double<E> element : initialElements) {
       if (!offer(element)) {
@@ -183,7 +183,7 @@ public final class FibonacciHeapDouble<E> extends SimpleFibonacciHeapDouble<E> {
    * @return an empty FibonacciHeapDouble with a maximum-priority-first-out priority order
    */
   public static <E> FibonacciHeapDouble<E> createMaxHeap() {
-    return new FibonacciHeapDouble<E>((p1, p2) -> p1 > p2);
+    return new FibonacciHeapDouble<E>(new MaxOrder());
   }
 
   /**
@@ -198,7 +198,7 @@ public final class FibonacciHeapDouble<E> extends SimpleFibonacciHeapDouble<E> {
    */
   public static <E> FibonacciHeapDouble<E> createMaxHeap(
       Collection<PriorityQueueNode.Double<E>> initialElements) {
-    return new FibonacciHeapDouble<E>(initialElements, (p1, p2) -> p1 > p2);
+    return new FibonacciHeapDouble<E>(initialElements, new MaxOrder());
   }
 
   @Override
