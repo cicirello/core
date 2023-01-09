@@ -339,7 +339,7 @@ public final class FibonacciHeapDouble<E>
   public int hashCode() {
     int h = 0;
     for (PriorityQueueNode.Double<E> e : this) {
-      h = 31 * h + java.lang.Double.hashCode(e.value);
+      h = 31 * h + Double.hashCode(e.value);
       h = 31 * h + e.element.hashCode();
     }
     return h;
