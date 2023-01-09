@@ -104,15 +104,6 @@ public final class FibonacciHeapDouble<E>
    *
    * Initializes an empty FibonacciHeapDouble.
    */
-  private FibonacciHeapDouble() {
-    this(new MinOrder());
-  }
-
-  /*
-   * PRIVATE: Use factory methods for creation.
-   *
-   * Initializes an empty FibonacciHeapDouble.
-   */
   private FibonacciHeapDouble(Prioritizer compare) {
     this.compare = compare;
     extreme = compare.comesBefore(0, 1) ? Double.POSITIVE_INFINITY : Double.NEGATIVE_INFINITY;
@@ -178,7 +169,7 @@ public final class FibonacciHeapDouble<E>
    * @return an empty FibonacciHeapDouble with a minimum-priority-first-out priority order
    */
   public static <E> FibonacciHeapDouble<E> createMinHeap() {
-    return new FibonacciHeapDouble<E>();
+    return new FibonacciHeapDouble<E>(new MinOrder());
   }
 
   /**
