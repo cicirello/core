@@ -624,7 +624,7 @@ public final class FibonacciHeapDouble<E>
   }
 
   private boolean from(ArrayList<PriorityQueueNode.Double<E>> keepList) {
-    if (keepList.size() < size()) {
+    if (keepList.size() < size) {
       clear();
       for (PriorityQueueNode.Double<E> e : keepList) {
         internalOffer(e);
