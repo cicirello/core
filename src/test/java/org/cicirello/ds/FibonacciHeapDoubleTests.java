@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2022 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2023 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -210,28 +210,6 @@ public class FibonacciHeapDoubleTests extends SharedTestCommonHelpersHeapsDouble
         pq2.poll();
       }
     }
-    assertFalse(pq1.merge(SimpleFibonacciHeapDouble.createMinHeap()));
-    assertTrue(pq1.merge(pq2));
-    assertTrue(pq2.isEmpty());
-    assertEquals(0, pq2.size());
-    assertEquals(2 * n, pq1.size());
-    for (int i = 0; i < n; i++) {
-      assertTrue(pq1.contains(elements1[i]));
-      assertTrue(pq1.contains(elements2[i]));
-      assertEquals(priorities1[i], pq1.peekPriority(elements1[i]));
-      assertEquals(priorities2[i], pq1.peekPriority(elements2[i]));
-    }
-    for (int i = 0; i < n; i++) {
-      assertEquals(list1.get(i), pq1.poll());
-      assertEquals(list2.get(i), pq1.poll());
-    }
-    assertTrue(pq1.isEmpty());
-    assertEquals(0, pq1.size());
-
-    IllegalArgumentException thrown =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> pq1.merge(SimpleFibonacciHeapDouble.createMaxHeap()));
   }
 
   @Test
@@ -329,27 +307,5 @@ public class FibonacciHeapDoubleTests extends SharedTestCommonHelpersHeapsDouble
         pq2.poll();
       }
     }
-    assertFalse(pq1.merge(SimpleFibonacciHeapDouble.createMinHeap()));
-    assertTrue(pq1.merge(pq2));
-    assertTrue(pq2.isEmpty());
-    assertEquals(0, pq2.size());
-    assertEquals(2 * n, pq1.size());
-    for (int i = 0; i < n; i++) {
-      assertTrue(pq1.contains(elements1[i]));
-      assertTrue(pq1.contains(elements2[i]));
-      assertEquals(priorities1[i], pq1.peekPriority(elements1[i]));
-      assertEquals(priorities2[i], pq1.peekPriority(elements2[i]));
-    }
-    for (int i = 0; i < n; i++) {
-      assertEquals(list1.get(i), pq1.poll());
-      assertEquals(list2.get(i), pq1.poll());
-    }
-    assertTrue(pq1.isEmpty());
-    assertEquals(0, pq1.size());
-
-    IllegalArgumentException thrown =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> pq1.merge(SimpleFibonacciHeapDouble.createMaxHeap()));
   }
 }
