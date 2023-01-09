@@ -120,18 +120,6 @@ public final class FibonacciHeapDouble<E>
    *
    * @throws IllegalArgumentException if more than one pair in initialElements contains the same element.
    */
-  private FibonacciHeapDouble(Collection<PriorityQueueNode.Double<E>> initialElements) {
-    this(initialElements, new MinOrder());
-  }
-
-  /*
-   * PRIVATE: Use factory methods for creation.
-   * Initializes a FibonacciHeapDouble from a collection of (element, priority) pairs.
-   *
-   * @param initialElements The initial collection of (element, priority) pairs.
-   *
-   * @throws IllegalArgumentException if more than one pair in initialElements contains the same element.
-   */
   private FibonacciHeapDouble(
       Collection<PriorityQueueNode.Double<E>> initialElements, Prioritizer compare) {
     this(compare);
@@ -184,7 +172,7 @@ public final class FibonacciHeapDouble<E>
    */
   public static <E> FibonacciHeapDouble<E> createMinHeap(
       Collection<PriorityQueueNode.Double<E>> initialElements) {
-    return new FibonacciHeapDouble<E>(initialElements);
+    return new FibonacciHeapDouble<E>(initialElements, new MinOrder());
   }
 
   /**
