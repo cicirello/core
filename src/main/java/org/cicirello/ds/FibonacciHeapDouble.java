@@ -474,7 +474,14 @@ public final class FibonacciHeapDouble<E>
         keepList.add(e);
       }
     }
-    return from(keepList);
+    if (keepList.size() < size) {
+      clear();
+      for (PriorityQueueNode.Double<E> e : keepList) {
+        internalOffer(e);
+      }
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -493,7 +500,14 @@ public final class FibonacciHeapDouble<E>
         keepList.add(e);
       }
     }
-    return from(keepList);
+    if (keepList.size() < size) {
+      clear();
+      for (PriorityQueueNode.Double<E> e : keepList) {
+        internalOffer(e);
+      }
+      return true;
+    }
+    return false;
   }
 
   @Override
@@ -596,16 +610,5 @@ public final class FibonacciHeapDouble<E>
       }
     }
     return set;
-  }
-
-  private boolean from(ArrayList<PriorityQueueNode.Double<E>> keepList) {
-    if (keepList.size() < size) {
-      clear();
-      for (PriorityQueueNode.Double<E> e : keepList) {
-        internalOffer(e);
-      }
-      return true;
-    }
-    return false;
   }
 }
