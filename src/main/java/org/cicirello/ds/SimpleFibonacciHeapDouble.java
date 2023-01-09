@@ -192,7 +192,7 @@ public final class SimpleFibonacciHeapDouble<E>
 
   @Override
   public boolean change(E element, double priority) {
-    FibonacciHeapDoubleNode<E> node = find(element);
+    FibonacciHeapDoubleNode<E> node = FibonacciHeapDoubleNode.find(min, element);
     if (node != null) {
       if (compare.comesBefore(priority, node.e.value)) {
         internalPromote(node, priority);
@@ -219,9 +219,9 @@ public final class SimpleFibonacciHeapDouble<E>
   public boolean contains(Object o) {
     if (o instanceof PriorityQueueNode.Double) {
       PriorityQueueNode.Double pair = (PriorityQueueNode.Double) o;
-      return find(pair.element) != null;
+      return FibonacciHeapDoubleNode.find(min, pair.element) != null;
     }
-    return find(o) != null;
+    return FibonacciHeapDoubleNode.find(min, o) != null;
   }
 
   /**
@@ -252,7 +252,7 @@ public final class SimpleFibonacciHeapDouble<E>
 
   @Override
   public boolean demote(E element, double priority) {
-    FibonacciHeapDoubleNode<E> node = find(element);
+    FibonacciHeapDoubleNode<E> node = FibonacciHeapDoubleNode.find(min, element);
     if (node != null && compare.comesBefore(node.e.value, priority)) {
       internalDemote(node, priority);
       return true;
@@ -365,7 +365,7 @@ public final class SimpleFibonacciHeapDouble<E>
 
   @Override
   public double peekPriority(E element) {
-    FibonacciHeapDoubleNode<E> node = find(element);
+    FibonacciHeapDoubleNode<E> node = FibonacciHeapDoubleNode.find(min, element);
     return node != null ? node.e.value : extreme;
   }
 
@@ -394,7 +394,7 @@ public final class SimpleFibonacciHeapDouble<E>
 
   @Override
   public boolean promote(E element, double priority) {
-    FibonacciHeapDoubleNode<E> node = find(element);
+    FibonacciHeapDoubleNode<E> node = FibonacciHeapDoubleNode.find(min, element);
     if (node != null && compare.comesBefore(priority, node.e.value)) {
       internalPromote(node, priority);
       return true;
@@ -407,9 +407,9 @@ public final class SimpleFibonacciHeapDouble<E>
     FibonacciHeapDoubleNode<E> node = null;
     if (o instanceof PriorityQueueNode.Double) {
       PriorityQueueNode.Double pair = (PriorityQueueNode.Double) o;
-      node = find(pair.element);
+      node = FibonacciHeapDoubleNode.find(min, pair.element);
     } else {
-      node = find(o);
+      node = FibonacciHeapDoubleNode.find(min, o);
     }
     if (node == null) {
       return false;
@@ -515,10 +515,6 @@ public final class SimpleFibonacciHeapDouble<E>
     return result;
   }
 
-  /*
-   * used internally: doesn't check if already contains element.
-   * package access to enable subclass overriding.
-   */
   private FibonacciHeapDoubleNode<E> internalOffer(PriorityQueueNode.Double<E> pair) {
     if (min == null) {
       min = new FibonacciHeapDoubleNode<E>(pair);
@@ -560,10 +556,6 @@ public final class SimpleFibonacciHeapDouble<E>
     // 3. reinsert with new priority
     x.e.value = priority;
     internalOffer(x.e);
-  }
-
-  private FibonacciHeapDoubleNode<E> find(Object element) {
-    return min == null ? null : min.find(element);
   }
 
   private HashSet<Object> toSet(Collection<?> c) {

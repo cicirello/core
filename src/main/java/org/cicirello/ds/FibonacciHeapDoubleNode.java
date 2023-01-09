@@ -165,6 +165,10 @@ final class FibonacciHeapDoubleNode<E> {
     return null;
   }
 
+  static <T> FibonacciHeapDoubleNode<T> find(FibonacciHeapDoubleNode<T> start, Object element) {
+    return start == null ? null : start.find(element);
+  }
+
   final FibonacciHeapDoubleNode<E> removeSelf() {
     // this assumes there is more than one node. don't call for single node
     if (child != null) {
