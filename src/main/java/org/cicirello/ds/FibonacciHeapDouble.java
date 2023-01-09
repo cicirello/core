@@ -553,6 +553,9 @@ public final class FibonacciHeapDouble<E>
     return result;
   }
 
+  /*
+   * used internally: doesn't check if already contains element.
+   */
   private FibonacciHeapDoubleNode<E> internalOffer(PriorityQueueNode.Double<E> pair) {
     FibonacciHeapDoubleNode<E> node = null;
     if (min == null) {
