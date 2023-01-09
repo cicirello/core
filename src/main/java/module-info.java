@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2022 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2023 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * Module org.cicirello.core is free software: you can
  * redistribute it and/or modify it under the terms of the GNU
@@ -24,7 +24,7 @@
  *
  * <h2>org.cicirello.core - A Java library of utilities and data structures</h2>
  *
- * <p>Copyright &copy; 2019-2022 <a href="https://www.cicirello.org/" target=_top>Vincent A.
+ * <p>Copyright &copy; 2019-2023 <a href="https://www.cicirello.org/" target=_top>Vincent A.
  * Cicirello</a>.
  *
  * <p><a href="https://search.maven.org/artifact/org.cicirello/core"><img
