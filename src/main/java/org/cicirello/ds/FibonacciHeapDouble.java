@@ -243,7 +243,14 @@ public final class FibonacciHeapDouble<E>
   public boolean change(E element, double priority) {
     FibonacciHeapDoubleNode<E> node = index.get(element);
     if (node != null) {
-      return internalChange(node, priority);
+      if (compare.comesBefore(priority, node.e.value)) {
+        internalPromote(node, priority);
+        return true;
+      } else if (compare.comesBefore(node.e.value, priority)) {
+        internalDemote(node, priority);
+        return true;
+      }
+      return false;
     }
     return offer(element, priority);
   }
@@ -597,17 +604,6 @@ public final class FibonacciHeapDouble<E>
     // 3. reinsert with new priority
     x.e.value = priority;
     internalOffer(x.e);
-  }
-
-  private boolean internalChange(FibonacciHeapDoubleNode<E> node, double priority) {
-    if (compare.comesBefore(priority, node.e.value)) {
-      internalPromote(node, priority);
-      return true;
-    } else if (compare.comesBefore(node.e.value, priority)) {
-      internalDemote(node, priority);
-      return true;
-    }
-    return false;
   }
 
   private HashSet<Object> toSet(Collection<?> c) {
