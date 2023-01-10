@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2022 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2023 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -22,6 +22,8 @@
 
 package org.cicirello.ds;
 
+import java.util.Collection;
+import java.util.HashSet;
 import org.cicirello.util.Copyable;
 
 /**
@@ -165,6 +167,22 @@ public abstract class PriorityQueueNode<E> {
     final void setPriority(int value) {
       this.value = value;
     }
+
+    /*
+     * package-private for use by priority queue classes only
+     */
+    static HashSet<Object> toSet(Collection<?> c) {
+      HashSet<Object> set = new HashSet<Object>();
+      for (Object o : c) {
+        if (o instanceof PriorityQueueNode.Integer) {
+          PriorityQueueNode.Integer pair = (PriorityQueueNode.Integer) o;
+          set.add(pair.element);
+        } else {
+          set.add(o);
+        }
+      }
+      return set;
+    }
   }
 
   /**
@@ -249,6 +267,22 @@ public abstract class PriorityQueueNode<E> {
      */
     final void setPriority(double value) {
       this.value = value;
+    }
+
+    /*
+     * package-private for use by priority queue classes only
+     */
+    static HashSet<Object> toSet(Collection<?> c) {
+      HashSet<Object> set = new HashSet<Object>();
+      for (Object o : c) {
+        if (o instanceof PriorityQueueNode.Double) {
+          PriorityQueueNode.Double pair = (PriorityQueueNode.Double) o;
+          set.add(pair.element);
+        } else {
+          set.add(o);
+        }
+      }
+      return set;
     }
   }
 }

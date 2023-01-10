@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2022 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2023 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -22,9 +22,11 @@
 
 package org.cicirello.ds;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import org.cicirello.util.Copyable;
 
 /**
@@ -79,18 +81,17 @@ import org.cicirello.util.Copyable;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class SimpleFibonacciHeapDouble<E> extends AbstractFibonacciHeapDouble<E>
+public final class SimpleFibonacciHeapDouble<E>
     implements MergeablePriorityQueueDouble<E, SimpleFibonacciHeapDouble<E>>,
         Copyable<SimpleFibonacciHeapDouble<E>> {
 
-  /*
-   * PRIVATE: Use factory methods for creation.
-   *
-   * Initializes an empty SimpleFibonacciHeapDouble.
-   */
-  private SimpleFibonacciHeapDouble() {
-    this(new MinOrder());
-  }
+  private final Prioritizer compare;
+  private final double extreme;
+
+  private int size;
+  private FibonacciHeapDoubleNode<E> min;
+
+  private final FibonacciHeapDoubleNode.Consolidator<E> consolidator;
 
   /*
    * package private for use by subclass: Use factory methods for creation otherwise.
@@ -98,18 +99,10 @@ public class SimpleFibonacciHeapDouble<E> extends AbstractFibonacciHeapDouble<E>
    * Initializes an empty SimpleFibonacciHeapDouble.
    */
   SimpleFibonacciHeapDouble(Prioritizer compare) {
-    super(compare);
-  }
+    this.compare = compare;
+    extreme = compare.comesBefore(0, 1) ? Double.POSITIVE_INFINITY : Double.NEGATIVE_INFINITY;
 
-  /*
-   * PRIVATE: Use factory methods for creation.
-   * Initializes a SimpleFibonacciHeapDouble from a collection of (element, priority) pairs.
-   *
-   * @param initialElements The initial collection of (element, priority) pairs.
-   *
-   */
-  private SimpleFibonacciHeapDouble(Collection<PriorityQueueNode.Double<E>> initialElements) {
-    this(initialElements, new MinOrder());
+    consolidator = new FibonacciHeapDoubleNode.Consolidator<E>(compare);
   }
 
   /*
@@ -131,7 +124,9 @@ public class SimpleFibonacciHeapDouble<E> extends AbstractFibonacciHeapDouble<E>
    * package private copy constructor to support the copy() method, including in subclass.
    */
   SimpleFibonacciHeapDouble(SimpleFibonacciHeapDouble<E> other) {
-    super(other);
+    this(other.compare);
+    size = other.size;
+    min = other.min != null ? other.min.copy() : null;
   }
 
   @Override
@@ -146,7 +141,7 @@ public class SimpleFibonacciHeapDouble<E> extends AbstractFibonacciHeapDouble<E>
    * @return an empty SimpleFibonacciHeapDouble with a minimum-priority-first-out priority order
    */
   public static <E> SimpleFibonacciHeapDouble<E> createMinHeap() {
-    return new SimpleFibonacciHeapDouble<E>();
+    return new SimpleFibonacciHeapDouble<E>(new MinOrder());
   }
 
   /**
@@ -159,7 +154,7 @@ public class SimpleFibonacciHeapDouble<E> extends AbstractFibonacciHeapDouble<E>
    */
   public static <E> SimpleFibonacciHeapDouble<E> createMinHeap(
       Collection<PriorityQueueNode.Double<E>> initialElements) {
-    return new SimpleFibonacciHeapDouble<E>(initialElements);
+    return new SimpleFibonacciHeapDouble<E>(initialElements, new MinOrder());
   }
 
   /**
@@ -186,31 +181,37 @@ public class SimpleFibonacciHeapDouble<E> extends AbstractFibonacciHeapDouble<E>
   }
 
   @Override
-  public boolean add(E element, double priority) {
-    return offer(element, priority);
-  }
-
-  @Override
-  public boolean add(PriorityQueueNode.Double<E> pair) {
-    return offer(pair);
-  }
-
-  @Override
-  public final boolean change(E element, double priority) {
-    FibonacciHeapDoubleNode<E> node = find(element);
+  public boolean change(E element, double priority) {
+    FibonacciHeapDoubleNode<E> node = FibonacciHeapDoubleNode.find(min, element);
     if (node != null) {
-      return internalChange(node, priority);
+      if (compare.comesBefore(priority, node.e.value)) {
+        internalPromote(node, priority);
+        return true;
+      } else if (compare.comesBefore(node.e.value, priority)) {
+        internalDemote(node, priority);
+        return true;
+      }
+      return false;
     }
     return offer(element, priority);
+  }
+
+  @Override
+  public void clear() {
+    size = 0;
+    // set min to null which should cause garbage collection
+    // of entire fibonacci heap (impossible to have references to Nodes
+    // external from this class.
+    min = null;
   }
 
   @Override
   public boolean contains(Object o) {
     if (o instanceof PriorityQueueNode.Double) {
       PriorityQueueNode.Double pair = (PriorityQueueNode.Double) o;
-      return find(pair.element) != null;
+      return FibonacciHeapDoubleNode.find(min, pair.element) != null;
     }
-    return find(o) != null;
+    return FibonacciHeapDoubleNode.find(min, o) != null;
   }
 
   /**
@@ -239,6 +240,69 @@ public class SimpleFibonacciHeapDouble<E> extends AbstractFibonacciHeapDouble<E>
     return true;
   }
 
+  @Override
+  public boolean demote(E element, double priority) {
+    FibonacciHeapDoubleNode<E> node = FibonacciHeapDoubleNode.find(min, element);
+    if (node != null && compare.comesBefore(node.e.value, priority)) {
+      internalDemote(node, priority);
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Checks if this heap is the same as another, including that they contain the same (element,
+   * priority) pairs as another, including the specific structure the heap, as well as that the
+   * priority order is the same.
+   *
+   * @param other The other heap.
+   * @return true if and only if this and other contain the same (element, priority) pairs, with the
+   *     same priority order.
+   */
+  @Override
+  public boolean equals(Object other) {
+    if (other instanceof SimpleFibonacciHeapDouble) {
+      @SuppressWarnings("unchecked")
+      SimpleFibonacciHeapDouble<E> casted = (SimpleFibonacciHeapDouble<E>) other;
+      if (size != casted.size) return false;
+      if (compare.comesBefore(0, 1) != casted.compare.comesBefore(0, 1)) return false;
+      Iterator<PriorityQueueNode.Double<E>> iter = iterator();
+      Iterator<PriorityQueueNode.Double<E>> otherIter = casted.iterator();
+      while (iter.hasNext()) {
+        if (!iter.next().equals(otherIter.next())) {
+          return false;
+        }
+      }
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Computes a hashCode.
+   *
+   * @return a hashCode
+   */
+  @Override
+  public int hashCode() {
+    int h = 0;
+    for (PriorityQueueNode.Double<E> e : this) {
+      h = 31 * h + Double.hashCode(e.value);
+      h = 31 * h + e.element.hashCode();
+    }
+    return h;
+  }
+
+  @Override
+  public boolean isEmpty() {
+    return size == 0;
+  }
+
+  @Override
+  public Iterator<PriorityQueueNode.Double<E>> iterator() {
+    return new FibonacciHeapDoubleNode.FibonacciHeapDoubleIterator<E>(min);
+  }
+
   /**
    * {@inheritDoc}
    *
@@ -247,7 +311,19 @@ public class SimpleFibonacciHeapDouble<E> extends AbstractFibonacciHeapDouble<E>
    */
   @Override
   public boolean merge(SimpleFibonacciHeapDouble<E> other) {
-    return internalMerge(other);
+    if (compare.comesBefore(0, 1) != other.compare.comesBefore(0, 1)) {
+      throw new IllegalArgumentException("this and other follow different priority-order");
+    }
+    if (other.size > 0) {
+      other.min.insertListInto(min);
+      if (compare.comesBefore(other.min.e.value, min.e.value)) {
+        min = other.min;
+      }
+      size += other.size;
+      other.clear();
+      return true;
+    }
+    return false;
   }
 
   @Override
@@ -262,6 +338,79 @@ public class SimpleFibonacciHeapDouble<E> extends AbstractFibonacciHeapDouble<E>
     return true;
   }
 
+  @Override
+  public E peekElement() {
+    return min != null ? min.e.element : null;
+  }
+
+  @Override
+  public PriorityQueueNode.Double<E> peek() {
+    return min != null ? min.e : null;
+  }
+
+  @Override
+  public double peekPriority() {
+    return min != null ? min.e.value : extreme;
+  }
+
+  @Override
+  public double peekPriority(E element) {
+    FibonacciHeapDoubleNode<E> node = FibonacciHeapDoubleNode.find(min, element);
+    return node != null ? node.e.value : extreme;
+  }
+
+  @Override
+  public E pollElement() {
+    PriorityQueueNode.Double<E> min = poll();
+    return min != null ? min.element : null;
+  }
+
+  @Override
+  public PriorityQueueNode.Double<E> poll() {
+    if (size == 1) {
+      PriorityQueueNode.Double<E> pair = min.e;
+      min = null;
+      size = 0;
+      return pair;
+    } else if (size > 1) {
+      FibonacciHeapDoubleNode<E> z = min;
+      min = min.removeSelf();
+      min = consolidator.consolidate(min, size);
+      size--;
+      return z.e;
+    }
+    return null;
+  }
+
+  @Override
+  public boolean promote(E element, double priority) {
+    FibonacciHeapDoubleNode<E> node = FibonacciHeapDoubleNode.find(min, element);
+    if (node != null && compare.comesBefore(priority, node.e.value)) {
+      internalPromote(node, priority);
+      return true;
+    }
+    return false;
+  }
+
+  @Override
+  public boolean remove(Object o) {
+    FibonacciHeapDoubleNode<E> node = null;
+    if (o instanceof PriorityQueueNode.Double) {
+      PriorityQueueNode.Double pair = (PriorityQueueNode.Double) o;
+      node = FibonacciHeapDoubleNode.find(min, pair.element);
+    } else {
+      node = FibonacciHeapDoubleNode.find(min, o);
+    }
+    if (node == null) {
+      return false;
+    }
+    internalPromote(
+        node,
+        compare.comesBefore(min.e.value - 1, min.e.value) ? min.e.value - 1 : min.e.value + 1);
+    poll();
+    return true;
+  }
+
   /**
    * {@inheritDoc}
    *
@@ -269,51 +418,15 @@ public class SimpleFibonacciHeapDouble<E> extends AbstractFibonacciHeapDouble<E>
    * of the Collection c. In general this is more efficient than calling remove repeatedly.
    */
   @Override
-  public final boolean removeAll(Collection<?> c) {
-    HashSet<Object> discardThese = toSet(c);
+  public boolean removeAll(Collection<?> c) {
+    HashSet<Object> discardThese = PriorityQueueNode.Double.toSet(c);
     ArrayList<PriorityQueueNode.Double<E>> keepList = new ArrayList<PriorityQueueNode.Double<E>>();
     for (PriorityQueueNode.Double<E> e : this) {
       if (!discardThese.contains(e.element)) {
         keepList.add(e);
       }
     }
-    return from(keepList);
-  }
-
-  /**
-   * {@inheritDoc}
-   *
-   * <p>The runtime of this method is O(n + m) where n is current size of the heap and m is the size
-   * of the Collection c. In general this is more efficient than calling remove repeatedly.
-   */
-  @Override
-  public final boolean retainAll(Collection<?> c) {
-    HashSet<Object> keepThese = toSet(c);
-    ArrayList<PriorityQueueNode.Double<E>> keepList =
-        new ArrayList<PriorityQueueNode.Double<E>>(keepThese.size());
-    for (PriorityQueueNode.Double<E> e : this) {
-      if (keepThese.contains(e.element)) {
-        keepList.add(e);
-      }
-    }
-    return from(keepList);
-  }
-
-  private HashSet<Object> toSet(Collection<?> c) {
-    HashSet<Object> set = new HashSet<Object>();
-    for (Object o : c) {
-      if (o instanceof PriorityQueueNode.Double) {
-        PriorityQueueNode.Double pair = (PriorityQueueNode.Double) o;
-        set.add(pair.element);
-      } else {
-        set.add(o);
-      }
-    }
-    return set;
-  }
-
-  private boolean from(ArrayList<PriorityQueueNode.Double<E>> keepList) {
-    if (keepList.size() < size()) {
+    if (keepList.size() < size) {
       clear();
       for (PriorityQueueNode.Double<E> e : keepList) {
         internalOffer(e);
@@ -321,5 +434,115 @@ public class SimpleFibonacciHeapDouble<E> extends AbstractFibonacciHeapDouble<E>
       return true;
     }
     return false;
+  }
+
+  /**
+   * {@inheritDoc}
+   *
+   * <p>The runtime of this method is O(n + m) where n is current size of the heap and m is the size
+   * of the Collection c. In general this is more efficient than calling remove repeatedly.
+   */
+  @Override
+  public boolean retainAll(Collection<?> c) {
+    HashSet<Object> keepThese = PriorityQueueNode.Double.toSet(c);
+    ArrayList<PriorityQueueNode.Double<E>> keepList =
+        new ArrayList<PriorityQueueNode.Double<E>>(keepThese.size());
+    for (PriorityQueueNode.Double<E> e : this) {
+      if (keepThese.contains(e.element)) {
+        keepList.add(e);
+      }
+    }
+    if (keepList.size() < size) {
+      clear();
+      for (PriorityQueueNode.Double<E> e : keepList) {
+        internalOffer(e);
+      }
+      return true;
+    }
+    return false;
+  }
+
+  @Override
+  public int size() {
+    return size;
+  }
+
+  @Override
+  public Object[] toArray() {
+    Object[] array = new Object[size];
+    int i = 0;
+    for (PriorityQueueNode.Double<E> e : this) {
+      array[i] = e;
+      i++;
+    }
+    return array;
+  }
+
+  /**
+   * {@inheritDoc}
+   *
+   * @throws ArrayStoreException if the runtime component type of array is not compatible with the
+   *     type of the (element, priority) pairs.
+   * @throws NullPointerException if array is null
+   */
+  @Override
+  public <T> T[] toArray(T[] array) {
+    @SuppressWarnings("unchecked")
+    T[] result =
+        array.length >= size
+            ? array
+            : (T[]) Array.newInstance(array.getClass().getComponentType(), size);
+    int i = 0;
+    for (PriorityQueueNode.Double<E> e : this) {
+      @SuppressWarnings("unchecked")
+      T nextElement = (T) e;
+      result[i] = nextElement;
+      i++;
+    }
+    if (result.length > size) {
+      result[size] = null;
+    }
+    return result;
+  }
+
+  private void internalOffer(PriorityQueueNode.Double<E> pair) {
+    if (min == null) {
+      min = new FibonacciHeapDoubleNode<E>(pair);
+      size = 1;
+    } else {
+      FibonacciHeapDoubleNode<E> added = new FibonacciHeapDoubleNode<E>(pair, min);
+      if (compare.comesBefore(pair.value, min.e.value)) {
+        min = added;
+      }
+      size++;
+    }
+  }
+
+  private void internalPromote(FibonacciHeapDoubleNode<E> x, double priority) {
+    // only called if priority decreased for a minheap (increased for a maxheap)
+    // so no checks needed here.
+    x.e.value = priority;
+    FibonacciHeapDoubleNode<E> y = x.parent();
+    if (y != null && compare.comesBefore(priority, y.e.value)) {
+      x.cut(y, min);
+      y.cascadingCut(min);
+    }
+    if (compare.comesBefore(priority, min.e.value)) {
+      min = x;
+    }
+  }
+
+  private void internalDemote(FibonacciHeapDoubleNode<E> x, double priority) {
+    // only called if priority increased for a minheap (decreased for a maxheap)
+    // so no checks needed here.
+
+    // 1. promote (opposite) to front
+    internalPromote(
+        x, compare.comesBefore(min.e.value - 1, min.e.value) ? min.e.value - 1 : min.e.value + 1);
+    // 2. poll() to remove
+    poll();
+    // 3. reinsert with new priority
+    x.e.value = priority;
+    internalOffer(x.e);
   }
 }

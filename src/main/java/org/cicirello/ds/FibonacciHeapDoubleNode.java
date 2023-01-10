@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2022 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2023 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -163,6 +163,10 @@ final class FibonacciHeapDoubleNode<E> {
       }
     }
     return null;
+  }
+
+  static <T> FibonacciHeapDoubleNode<T> find(FibonacciHeapDoubleNode<T> start, Object element) {
+    return start == null ? null : start.find(element);
   }
 
   final FibonacciHeapDoubleNode<E> removeSelf() {
