@@ -9,7 +9,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 ### Changed
-* Refactored all Fibonacci heap classes.
 
 ### Deprecated
 
@@ -20,6 +19,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### CI/CD
 
 ### Other
+
+
+## [2.4.4] - 2023-01-10
+
+### Changed
+* Refactored all Fibonacci heap classes.
 
 
 ## [2.4.3] - 2022-11-13
