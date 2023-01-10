@@ -181,16 +181,6 @@ public final class SimpleFibonacciHeapDouble<E>
   }
 
   @Override
-  public boolean add(E element, double priority) {
-    return offer(element, priority);
-  }
-
-  @Override
-  public boolean add(PriorityQueueNode.Double<E> pair) {
-    return offer(pair);
-  }
-
-  @Override
   public boolean change(E element, double priority) {
     FibonacciHeapDoubleNode<E> node = FibonacciHeapDoubleNode.find(min, element);
     if (node != null) {
@@ -429,15 +419,7 @@ public final class SimpleFibonacciHeapDouble<E>
    */
   @Override
   public boolean removeAll(Collection<?> c) {
-    HashSet<Object> discardThese = new HashSet<Object>();
-    for (Object o : c) {
-      if (o instanceof PriorityQueueNode.Double) {
-        PriorityQueueNode.Double pair = (PriorityQueueNode.Double) o;
-        discardThese.add(pair.element);
-      } else {
-        discardThese.add(o);
-      }
-    }
+    HashSet<Object> discardThese = PriorityQueueNode.Double.toSet(c);
     ArrayList<PriorityQueueNode.Double<E>> keepList = new ArrayList<PriorityQueueNode.Double<E>>();
     for (PriorityQueueNode.Double<E> e : this) {
       if (!discardThese.contains(e.element)) {
@@ -462,15 +444,7 @@ public final class SimpleFibonacciHeapDouble<E>
    */
   @Override
   public boolean retainAll(Collection<?> c) {
-    HashSet<Object> keepThese = new HashSet<Object>();
-    for (Object o : c) {
-      if (o instanceof PriorityQueueNode.Double) {
-        PriorityQueueNode.Double pair = (PriorityQueueNode.Double) o;
-        keepThese.add(pair.element);
-      } else {
-        keepThese.add(o);
-      }
-    }
+    HashSet<Object> keepThese = PriorityQueueNode.Double.toSet(c);
     ArrayList<PriorityQueueNode.Double<E>> keepList =
         new ArrayList<PriorityQueueNode.Double<E>>(keepThese.size());
     for (PriorityQueueNode.Double<E> e : this) {
