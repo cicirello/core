@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2022 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2023 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -52,11 +52,11 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
    *     distinctness.
    */
   default boolean add(E element, double priority) {
-    if (!offer(element, priority)) {
-      throw new IllegalArgumentException(
-          "already contains an (element, priority) pair with this element");
+    if (offer(element, priority)) {
+      return true;
     }
-    return true;
+    throw new IllegalArgumentException(
+        "already contains an (element, priority) pair with this element");
   }
 
   /**
@@ -74,11 +74,11 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
    */
   @Override
   default boolean add(PriorityQueueNode.Double<E> pair) {
-    if (!offer(pair)) {
-      throw new IllegalArgumentException(
-          "already contains an (element, priority) pair with this element");
+    if (offer(pair)) {
+      return true;
     }
-    return true;
+    throw new IllegalArgumentException(
+        "already contains an (element, priority) pair with this element");
   }
 
   /**

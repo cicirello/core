@@ -201,24 +201,6 @@ public final class FibonacciHeapDouble<E>
   }
 
   @Override
-  public boolean add(E element, double priority) {
-    if (index.containsKey(element)) {
-      throw new IllegalArgumentException(
-          "already contains an (element, priority) pair with this element");
-    }
-    return offer(element, priority);
-  }
-
-  @Override
-  public boolean add(PriorityQueueNode.Double<E> pair) {
-    if (index.containsKey(pair.element)) {
-      throw new IllegalArgumentException(
-          "already contains an (element, priority) pair with this element");
-    }
-    return offer(pair);
-  }
-
-  @Override
   public boolean change(E element, double priority) {
     FibonacciHeapDoubleNode<E> node = index.get(element);
     if (node != null) {
