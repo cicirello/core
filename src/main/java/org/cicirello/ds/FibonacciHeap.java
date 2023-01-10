@@ -448,7 +448,7 @@ public final class FibonacciHeap<E>
    */
   @Override
   public boolean removeAll(Collection<?> c) {
-    HashSet<Object> discardThese = toSet(c);
+    HashSet<Object> discardThese = PriorityQueueNode.Integer.toSet(c);
     ArrayList<PriorityQueueNode.Integer<E>> keepList =
         new ArrayList<PriorityQueueNode.Integer<E>>();
     for (PriorityQueueNode.Integer<E> e : this) {
@@ -474,7 +474,7 @@ public final class FibonacciHeap<E>
    */
   @Override
   public boolean retainAll(Collection<?> c) {
-    HashSet<Object> keepThese = toSet(c);
+    HashSet<Object> keepThese = PriorityQueueNode.Integer.toSet(c);
     ArrayList<PriorityQueueNode.Integer<E>> keepList =
         new ArrayList<PriorityQueueNode.Integer<E>>(keepThese.size());
     for (PriorityQueueNode.Integer<E> e : this) {
@@ -576,18 +576,5 @@ public final class FibonacciHeap<E>
     // 3. reinsert with new priority
     x.e.value = priority;
     internalOffer(x.e);
-  }
-
-  private HashSet<Object> toSet(Collection<?> c) {
-    HashSet<Object> set = new HashSet<Object>();
-    for (Object o : c) {
-      if (o instanceof PriorityQueueNode.Integer) {
-        PriorityQueueNode.Integer pair = (PriorityQueueNode.Integer) o;
-        set.add(pair.element);
-      } else {
-        set.add(o);
-      }
-    }
-    return set;
   }
 }

@@ -449,7 +449,7 @@ public final class FibonacciHeapDouble<E>
    */
   @Override
   public boolean removeAll(Collection<?> c) {
-    HashSet<Object> discardThese = toSet(c);
+    HashSet<Object> discardThese = PriorityQueueNode.Double.toSet(c);
     ArrayList<PriorityQueueNode.Double<E>> keepList = new ArrayList<PriorityQueueNode.Double<E>>();
     for (PriorityQueueNode.Double<E> e : this) {
       if (!discardThese.contains(e.element)) {
@@ -474,7 +474,7 @@ public final class FibonacciHeapDouble<E>
    */
   @Override
   public boolean retainAll(Collection<?> c) {
-    HashSet<Object> keepThese = toSet(c);
+    HashSet<Object> keepThese = PriorityQueueNode.Double.toSet(c);
     ArrayList<PriorityQueueNode.Double<E>> keepList =
         new ArrayList<PriorityQueueNode.Double<E>>(keepThese.size());
     for (PriorityQueueNode.Double<E> e : this) {
@@ -579,18 +579,5 @@ public final class FibonacciHeapDouble<E>
     // 3. reinsert with new priority
     x.e.value = priority;
     internalOffer(x.e);
-  }
-
-  private HashSet<Object> toSet(Collection<?> c) {
-    HashSet<Object> set = new HashSet<Object>();
-    for (Object o : c) {
-      if (o instanceof PriorityQueueNode.Double) {
-        PriorityQueueNode.Double pair = (PriorityQueueNode.Double) o;
-        set.add(pair.element);
-      } else {
-        set.add(o);
-      }
-    }
-    return set;
   }
 }
