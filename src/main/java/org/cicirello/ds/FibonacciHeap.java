@@ -553,22 +553,19 @@ public final class FibonacciHeap<E>
     return result;
   }
 
-  private FibonacciHeapNode<E> internalOffer(PriorityQueueNode.Integer<E> pair) {
-    FibonacciHeapNode<E> node = null;
+  private void internalOffer(PriorityQueueNode.Integer<E> pair) {
     if (min == null) {
       min = new FibonacciHeapNode<E>(pair);
       size = 1;
-      node = min;
+      index.put(pair.element, min);
     } else {
       FibonacciHeapNode<E> added = new FibonacciHeapNode<E>(pair, min);
       if (compare.comesBefore(pair.value, min.e.value)) {
         min = added;
       }
       size++;
-      node = added;
+      index.put(pair.element, added);
     }
-    index.put(pair.element, node);
-    return node;
   }
 
   private void internalPromote(FibonacciHeapNode<E> x, int priority) {

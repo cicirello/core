@@ -515,18 +515,16 @@ public final class SimpleFibonacciHeapDouble<E>
     return result;
   }
 
-  private FibonacciHeapDoubleNode<E> internalOffer(PriorityQueueNode.Double<E> pair) {
+  private void internalOffer(PriorityQueueNode.Double<E> pair) {
     if (min == null) {
       min = new FibonacciHeapDoubleNode<E>(pair);
       size = 1;
-      return min;
     } else {
       FibonacciHeapDoubleNode<E> added = new FibonacciHeapDoubleNode<E>(pair, min);
       if (compare.comesBefore(pair.value, min.e.value)) {
         min = added;
       }
       size++;
-      return added;
     }
   }
 

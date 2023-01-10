@@ -556,22 +556,19 @@ public final class FibonacciHeapDouble<E>
   /*
    * used internally: doesn't check if already contains element.
    */
-  private FibonacciHeapDoubleNode<E> internalOffer(PriorityQueueNode.Double<E> pair) {
-    FibonacciHeapDoubleNode<E> node = null;
+  private void internalOffer(PriorityQueueNode.Double<E> pair) {
     if (min == null) {
       min = new FibonacciHeapDoubleNode<E>(pair);
       size = 1;
-      node = min;
+      index.put(pair.element, min);
     } else {
       FibonacciHeapDoubleNode<E> added = new FibonacciHeapDoubleNode<E>(pair, min);
       if (compare.comesBefore(pair.value, min.e.value)) {
         min = added;
       }
       size++;
-      node = added;
+      index.put(pair.element, added);
     }
-    index.put(pair.element, node);
-    return node;
   }
 
   private void internalPromote(FibonacciHeapDoubleNode<E> x, double priority) {
