@@ -9,7 +9,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 ### Changed
-* Optimized buffer reallocation related in: IntegerList, DoubleList, BinaryHeap, BinaryHeapDouble, SimpleBinaryHeap, SimpleBinaryHeapDouble.
 
 ### Deprecated
 
@@ -20,6 +19,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### CI/CD
 
 ### Other
+
+
+## [2.4.5] - 2023-02-26
+
+### Changed
+* Optimized buffer reallocation and other related internal code in: IntegerList, DoubleList, BinaryHeap, BinaryHeapDouble, SimpleBinaryHeap, SimpleBinaryHeapDouble.
 
 
 ## [2.4.4] - 2023-01-10
