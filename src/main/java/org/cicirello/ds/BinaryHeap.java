@@ -23,6 +23,7 @@
 package org.cicirello.ds;
 
 import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -775,9 +776,7 @@ public final class BinaryHeap<E>
    * Used internally: ALERT that this will fail with exception if capacity < size ALERT.
    */
   private void internalAdjustCapacity(int capacity) {
-    PriorityQueueNode.Integer<E>[] temp = allocate(capacity);
-    System.arraycopy(buffer, 0, temp, 0, size);
-    buffer = temp;
+    buffer = Arrays.copyOfRange(buffer, 0, capacity);
   }
 
   /*
