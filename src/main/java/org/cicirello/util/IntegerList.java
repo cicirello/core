@@ -107,8 +107,8 @@ public final class IntegerList implements Copyable<IntegerList> {
     if (size >= list.length) {
       reallocate();
     }
-    if (index != size) {
-      System.arraycopy(list, index, list, index + 1, size - index);
+    for (int i = size; i > index; i--) {
+      list[i] = list[i - 1];
     }
     list[index] = element;
     size++;
@@ -219,8 +219,10 @@ public final class IntegerList implements Copyable<IntegerList> {
   public int remove(int index) {
     if (index < size) {
       int element = list[index];
-      System.arraycopy(list, index + 1, list, index, size - index - 1);
       size--;
+      for (int i = index; i < size; i++) {
+        list[i] = list[i + 1];
+      }
       return element;
     }
     throw new IndexOutOfBoundsException("index is out of bounds");
