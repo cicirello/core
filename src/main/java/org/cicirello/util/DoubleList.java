@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2022 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2023 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -107,8 +107,8 @@ public final class DoubleList implements Copyable<DoubleList> {
     if (size >= list.length) {
       reallocate();
     }
-    if (index != size) {
-      System.arraycopy(list, index, list, index + 1, size - index);
+    for (int i = size; i > index; i--) {
+      list[i] = list[i - 1];
     }
     list[index] = element;
     size++;
@@ -219,8 +219,10 @@ public final class DoubleList implements Copyable<DoubleList> {
   public double remove(int index) {
     if (index < size) {
       double element = list[index];
-      System.arraycopy(list, index + 1, list, index, size - index - 1);
       size--;
+      for (int i = index; i < size; i++) {
+        list[i] = list[i + 1];
+      }
       return element;
     }
     throw new IndexOutOfBoundsException("index is out of bounds");
@@ -264,9 +266,7 @@ public final class DoubleList implements Copyable<DoubleList> {
    * @return An array containing all of the elements currently in the list.
    */
   public double[] toArray() {
-    double[] result = new double[size];
-    System.arraycopy(list, 0, result, 0, size);
-    return result;
+    return Arrays.copyOfRange(list, 0, size);
   }
 
   /**
@@ -343,8 +343,6 @@ public final class DoubleList implements Copyable<DoubleList> {
   }
 
   private void reallocate(int capacity) {
-    double[] temp = new double[capacity];
-    System.arraycopy(list, 0, temp, 0, size);
-    list = temp;
+    list = Arrays.copyOfRange(list, 0, capacity);
   }
 }
