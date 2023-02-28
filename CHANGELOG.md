@@ -9,7 +9,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 ### Changed
-* Minor code improvements to add and remove methods of IntegerList and DoubleList.
 
 ### Deprecated
 
@@ -20,6 +19,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### CI/CD
 
 ### Other
+
+
+## [2.4.6] - 2023-02-28
+
+### Changed
+* Minor code improvements to add and remove methods of IntegerList and DoubleList.
 
 
 ## [2.4.5] - 2023-02-26
