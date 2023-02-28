@@ -107,9 +107,7 @@ public final class DoubleList implements Copyable<DoubleList> {
     if (size >= list.length) {
       reallocate();
     }
-    for (int i = size; i > index; i--) {
-      list[i] = list[i - 1];
-    }
+    System.arraycopy(list, index, list, index + 1, size - index);
     list[index] = element;
     size++;
   }
@@ -220,9 +218,7 @@ public final class DoubleList implements Copyable<DoubleList> {
     if (index < size) {
       double element = list[index];
       size--;
-      for (int i = index; i < size; i++) {
-        list[i] = list[i + 1];
-      }
+      System.arraycopy(list, index + 1, list, index, size - index);
       return element;
     }
     throw new IndexOutOfBoundsException("index is out of bounds");
