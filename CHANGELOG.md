@@ -7,8 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2023-04-21
 
 ### Added
-* DoubleArray
-* IntegerArray
 
 ### Changed
 
@@ -21,6 +19,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### CI/CD
 
 ### Other
+
+
+## [2.5.0] - 2023-04-21
+
+### Added
+* DoubleArray
+* IntegerArray
 
 
 ## [2.4.6] - 2023-02-28
