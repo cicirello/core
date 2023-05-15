@@ -27,7 +27,7 @@
  * <p>Copyright &copy; 2019-2023 <a href="https://www.cicirello.org/" target=_top>Vincent A.
  * Cicirello</a>.
  *
- * <p><a href="https://central.sonatype.com/search?namespace=org.cicirello&q=core"><img
+ * <p><a href="https://central.sonatype.com/artifact/org.cicirello/core/"><img
  * src="https://img.shields.io/maven-central/v/org.cicirello/core.svg?logo=apachemaven" alt="Maven
  * Central" height="20" width="153"></a> <a href="https://github.com/cicirello/core/releases"><img
  * src="https://img.shields.io/github/v/release/cicirello/core?logo=GitHub" alt="GitHub release
