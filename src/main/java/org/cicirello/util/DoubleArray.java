@@ -23,6 +23,7 @@
 package org.cicirello.util;
 
 import java.util.Arrays;
+import org.cicirello.util.internal.SuppressFBWarnings;
 
 /**
  * An object of this class wraps an array of primitive doubles in such a way as to provide some
@@ -65,6 +66,7 @@ public final class DoubleArray {
    *
    * @param array the array to wrap
    */
+  @SuppressFBWarnings(value = "EI_EXPOSE_REP")
   public DoubleArray(double[] array) {
     this.array = array;
   }
@@ -103,6 +105,7 @@ public final class DoubleArray {
    *
    * @return a reference to the wrapped array
    */
+  @SuppressFBWarnings(value = "EI_EXPOSE_REP")
   public double[] array() {
     return array;
   }
