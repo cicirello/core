@@ -1,0 +1,10 @@
+<FindBugsFilter>
+  <!-- exposed representation is deliberate and well-documented in these cases -->
+  <Match>
+    <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2" />
+	<Or>
+	  <Class name="org.cicirello.util.IntegerArray" />
+	  <Class name="org.cicirello.util.DoubleArray" />
+	</Or>
+  </Match>
+</FindBugsFilter>

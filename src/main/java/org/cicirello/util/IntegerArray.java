@@ -23,7 +23,6 @@
 package org.cicirello.util;
 
 import java.util.Arrays;
-import org.cicirello.util.internal.SuppressFBWarnings;
 
 /**
  * An object of this class wraps an array of primitive ints in such a way as to provide some
@@ -66,7 +65,6 @@ public final class IntegerArray {
    *
    * @param array the array to wrap
    */
-  @SuppressFBWarnings(value = "EI_EXPOSE_REP")
   public IntegerArray(int[] array) {
     this.array = array;
   }
@@ -105,7 +103,6 @@ public final class IntegerArray {
    *
    * @return a reference to the wrapped array
    */
-  @SuppressFBWarnings(value = "EI_EXPOSE_REP")
   public int[] array() {
     return array;
   }
