@@ -8,7 +8,7 @@ Website: [https://core.cicirello.org/](https://core.cicirello.org/)
 
 API documentation: [https://core.cicirello.org/api](https://core.cicirello.org/api)
 
-| __Packages and Releases__ | [![Maven Central](https://img.shields.io/maven-central/v/org.cicirello/core.svg?label=Maven%20Central&logo=apachemaven)](https://central.sonatype.com/artifact/org.cicirello/core/) [![GitHub release (latest by date)](https://img.shields.io/github/v/release/cicirello/core?logo=GitHub)](https://github.com/cicirello/core/releases) [![JitPack](https://jitpack.io/v/org.cicirello/core.svg)](https://jitpack.io/#org.cicirello/core) |
+| __Packages and Releases__ | [![Maven Central](https://img.shields.io/maven-central/v/org.cicirello/core.svg?label=Maven%20Central&logo=apachemaven)](https://central.sonatype.com/artifact/org.cicirello/core/) [![GitHub release (latest by date)](https://img.shields.io/github/v/release/cicirello/core?logo=GitHub)](https://github.com/cicirello/core/releases) |
 | :--- | :--- |
 | __Build Status__ | [![build](https://github.com/cicirello/core/workflows/build/badge.svg)](https://github.com/cicirello/core/actions/workflows/build.yml) [![docs](https://github.com/cicirello/core/workflows/docs/badge.svg)](https://core.cicirello.org/api/) [![CodeQL](https://github.com/cicirello/core/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/cicirello/core/actions/workflows/codeql-analysis.yml) |
 | __JaCoCo Test Coverage__ | [![coverage](https://raw.githubusercontent.com/cicirello/core/badges/jacoco.svg)](https://github.com/cicirello/core/actions/workflows/build.yml) [![branches coverage](https://raw.githubusercontent.com/cicirello/core/badges/branches.svg)](https://github.com/cicirello/core/actions/workflows/build.yml) |
@@ -67,11 +67,9 @@ module your.module.name.here {
 
 ## Importing from Package Repositories
 
-Prebuilt artifacts are regularly published to Maven Central, GitHub Packages, and JitPack. In most
-cases, you'll want to use Maven Central. JitPack may be useful if you want to build your project against
-the latest unreleased version, essentially against the default branch of the repository, or a specific commit.
-Releases are published to JitPack and GitHub Packages mainly as a fall-back in the unlikely scenario that
-Maven Central is unavailable.
+Prebuilt artifacts are regularly published to Maven Central and GitHub Packages. In 
+most cases, you'll want to use Maven Central. Releases are published to GitHub Packages 
+mainly as a fall-back in the unlikely scenario that Maven Central is unavailable.
 
 ### Importing from Maven Central
 
@@ -102,49 +100,11 @@ the following to the repositories section of your pom.xml:
 
 Note that GitHub Packages requires authenticating to GitHub.
 
-### Importing from JitPack
-
-You can also import from JitPack. As above, you need to first add JitPack to
-the repositories section of your pom.xml, such as:
-
-```XML
-<repository>
-  <id>jitpack.io</id>
-  <url>https://jitpack.io</url>
-</repository>
-```
-
-JitPack works a bit differently than Maven Central. Specifically, JitPack builds
-artifacts on-demand from the GitHub repository the first time a version is requested. We have
-configured our domain on JitPack for the groupId, so you can still specify the dependency 
-as (just replace `x.y.z` with the version that you want):
-
-```XML
-<dependency>
-  <groupId>org.cicirello</groupId>
-  <artifactId>core</artifactId>
-  <version>x.y.z</version>
-</dependency>
-```
-
-We have primarily configured JitPack as a source of SNAPSHOT builds. If you want to build
-your project against the latest commit, specify the dependency as:
-
-```XML
-<dependency>
-  <groupId>org.cicirello</groupId>
-  <artifactId>core</artifactId>
-  <version>main-SNAPSHOT</version>
-</dependency>
-```
-
-You can also build against a specific commit using the commit hash as the version.
-
 ### Downloading Jar Files
 
-If you don't use a dependency manager that supports importing from Maven Central or other
-package repositories, or if you simply prefer to download manually, prebuilt jars are also attached to 
-each [GitHub Release](https://github.com/cicirello/core/releases).
+If you don't use a dependency manager that supports importing from Maven Central 
+or other package repositories, or if you simply prefer to download manually, prebuilt 
+jars are also attached to each [GitHub Release](https://github.com/cicirello/core/releases).
 
 
 ## Building the Library (with Maven)
