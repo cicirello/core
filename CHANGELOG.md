@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 * SortingNetwork class, with the following:
   * compareExchange methods for arrays of doubles and ints
+  * 3-element sorting networks
 
 ### Changed
 

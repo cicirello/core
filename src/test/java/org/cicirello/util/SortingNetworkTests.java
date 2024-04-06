@@ -30,6 +30,120 @@ import org.junit.jupiter.api.*;
 public class SortingNetworkTests {
 
   @Test
+  public void testSort3Double() {
+    double[][] cases = {
+      {2, 4, 6},
+      {2, 6, 4},
+      {4, 2, 6},
+      {4, 6, 2},
+      {6, 4, 2},
+      {6, 2, 4},
+      {9, 2, 8, 4, 7, 6, 0},
+      {9, 2, 8, 6, 7, 4, 0},
+      {9, 4, 8, 2, 7, 6, 0},
+      {9, 4, 8, 6, 7, 2, 0},
+      {9, 6, 8, 4, 7, 2, 0},
+      {9, 6, 8, 2, 7, 4, 0}
+    };
+    double[][] forwardExpected = {
+      {2, 4, 6},
+      {2, 4, 6},
+      {2, 4, 6},
+      {2, 4, 6},
+      {2, 4, 6},
+      {2, 4, 6},
+      {9, 2, 8, 4, 7, 6, 0},
+      {9, 2, 8, 4, 7, 6, 0},
+      {9, 2, 8, 4, 7, 6, 0},
+      {9, 2, 8, 4, 7, 6, 0},
+      {9, 2, 8, 4, 7, 6, 0},
+      {9, 2, 8, 4, 7, 6, 0}
+    };
+    double[][] backwardExpected = {
+      {6, 4, 2},
+      {6, 4, 2},
+      {6, 4, 2},
+      {6, 4, 2},
+      {6, 4, 2},
+      {6, 4, 2},
+      {9, 6, 8, 4, 7, 2, 0},
+      {9, 6, 8, 4, 7, 2, 0},
+      {9, 6, 8, 4, 7, 2, 0},
+      {9, 6, 8, 4, 7, 2, 0},
+      {9, 6, 8, 4, 7, 2, 0},
+      {9, 6, 8, 4, 7, 2, 0}
+    };
+    int[] minIndex = {0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1};
+    int[] maxIndex = {2, 2, 2, 2, 2, 2, 5, 5, 5, 5, 5, 5};
+    int[] medIndex = {1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 3, 3};
+    for (int i = 0; i < cases.length; i++) {
+      double[] copy = cases[i].clone();
+      SortingNetwork.sort(copy, minIndex[i], medIndex[i], maxIndex[i]);
+      assertArrayEquals(forwardExpected[i], copy);
+      copy = cases[i].clone();
+      SortingNetwork.sort(copy, maxIndex[i], medIndex[i], minIndex[i]);
+      assertArrayEquals(backwardExpected[i], copy);
+    }
+  }
+
+  @Test
+  public void testSort3Int() {
+    int[][] cases = {
+      {2, 4, 6},
+      {2, 6, 4},
+      {4, 2, 6},
+      {4, 6, 2},
+      {6, 4, 2},
+      {6, 2, 4},
+      {9, 2, 8, 4, 7, 6, 0},
+      {9, 2, 8, 6, 7, 4, 0},
+      {9, 4, 8, 2, 7, 6, 0},
+      {9, 4, 8, 6, 7, 2, 0},
+      {9, 6, 8, 4, 7, 2, 0},
+      {9, 6, 8, 2, 7, 4, 0}
+    };
+    int[][] forwardExpected = {
+      {2, 4, 6},
+      {2, 4, 6},
+      {2, 4, 6},
+      {2, 4, 6},
+      {2, 4, 6},
+      {2, 4, 6},
+      {9, 2, 8, 4, 7, 6, 0},
+      {9, 2, 8, 4, 7, 6, 0},
+      {9, 2, 8, 4, 7, 6, 0},
+      {9, 2, 8, 4, 7, 6, 0},
+      {9, 2, 8, 4, 7, 6, 0},
+      {9, 2, 8, 4, 7, 6, 0}
+    };
+    int[][] backwardExpected = {
+      {6, 4, 2},
+      {6, 4, 2},
+      {6, 4, 2},
+      {6, 4, 2},
+      {6, 4, 2},
+      {6, 4, 2},
+      {9, 6, 8, 4, 7, 2, 0},
+      {9, 6, 8, 4, 7, 2, 0},
+      {9, 6, 8, 4, 7, 2, 0},
+      {9, 6, 8, 4, 7, 2, 0},
+      {9, 6, 8, 4, 7, 2, 0},
+      {9, 6, 8, 4, 7, 2, 0}
+    };
+    int[] minIndex = {0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1};
+    int[] maxIndex = {2, 2, 2, 2, 2, 2, 5, 5, 5, 5, 5, 5};
+    int[] medIndex = {1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 3, 3};
+    for (int i = 0; i < cases.length; i++) {
+      int[] copy = cases[i].clone();
+      SortingNetwork.sort(copy, minIndex[i], medIndex[i], maxIndex[i]);
+      assertArrayEquals(forwardExpected[i], copy);
+      copy = cases[i].clone();
+      SortingNetwork.sort(copy, maxIndex[i], medIndex[i], minIndex[i]);
+      assertArrayEquals(backwardExpected[i], copy);
+    }
+  }
+
+  @Test
   public void testCompareExchangeDouble() {
     double[][] endCases = {
       {42, 52},
