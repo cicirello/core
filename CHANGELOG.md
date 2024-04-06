@@ -7,25 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2024-04-06
 
 ### Added
-* SortingNetwork class, with the following:
-  * compareExchange methods for arrays of doubles and ints
-  * 3-element sorting networks
 
 ### Changed
 
 ### Deprecated
 
 ### Removed
-* Removed support for importing from JitPack.
 
 ### Fixed
+
+### CI/CD
+
+### Other
+
+
+## [2.6.0] - 2024-04-06
+
+### Added
+* SortingNetwork class, with the following:
+  * compareExchange methods for arrays of doubles and ints
+  * 3-element sorting networks
+
+### Removed
+* Removed support for importing from JitPack.
 
 ### CI/CD
 * Integrated SpotBugs static analysis into build process.
 * Integrated Find Security Bugs static analysis into build process.
 * Removed JitPack related configuration and steps of workflows.
-
-### Other
 
 
 ## [2.5.0] - 2023-04-21
