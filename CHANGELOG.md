@@ -7,8 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2024-05-13
 
 ### Added
-* SimpleSwapper: utility class for swapping elements within an array
-* ValidatedSwapper: utility class for swapping elements within an array, which verifies indexes are different before attempting swap
 
 ### Changed
 
@@ -21,6 +19,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### CI/CD
 
 ### Other
+
+
+## [2.7.0] - 2024-05-13
+
+### Added
+* SimpleSwapper: utility class for swapping elements within an array
+* ValidatedSwapper: utility class for swapping elements within an array, which verifies indexes are different before attempting swap
 
 
 ## [2.6.0] - 2024-04-06
