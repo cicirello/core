@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html amp lang=en itemscope itemtype="http://schema.org/WebPage" itemref="logo">
+<html lang=en itemscope itemtype="http://schema.org/WebPage" itemref="logo">
 <head>
 <meta charset=utf-8>
 <link rel="canonical" href="https://core.cicirello.org/">
 <link itemprop="url" href="https://core.cicirello.org/">
-<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="title" content="org.cicirello.core - A Java library of utilities and data structures">
 <meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Content-Security-Policy" content="object-src 'none'; script-src 'sha384-i9On6a8pULeN0XD9l3J0gZMnvbggxt4HiEpfuxzePuYS3uDQJ/7mbPyYPfqe/wSg' 'sha384-d4YOhBtxn1YZo6bjT3h8O9J9lOxNJ4OIauaaKOXGw5bBUhDe+lDgB4QJNNwZONeu' 'unsafe-inline' 'unsafe-eval' 'strict-dynamic' https: http:; base-uri 'none'; style-src https://*.doubleclick.net https://*.googlesyndication.com https://fonts.googleapis.com 'unsafe-inline'; font-src fonts.gstatic.com;">
 <meta itemprop="name" content="org.cicirello.core - A Java library of utilities and data structures">
 <meta name="description" content="org.cicirello.core - A Java library of utilities and data structures - This 
 library provides some of the core utilities and data structures used in several of our other libraries and
@@ -27,15 +28,17 @@ that use those libraries.">
 <meta property="og:description" content="This library provides some of the core utilities and data structures 
 used in several of our other libraries and projects, including but not limited to Chips-n-Salsa and 
 JavaPermutationTools, as well as various projects that use those libraries.">
-<style amp-custom>
+<style>
 header, nav, footer, article, aside, section { display: block; }
 footer { clear: both; }
-body { background-color: #f6f0bb; font-family: Arial, Helvetica, sans-serif; }
+body { background-color: #f6f0bb; font-family: Georgia, Times, "Times New Roman", serif; }
 #siteheader, aside, footer { background-color: #bfd9bf; }
-#siteheader, aside, footer, article { border: 2px solid #4CAF50; border-radius: 25px; margin: 10px; padding: 10px; }
+#siteheader, aside, footer, article { border: 2px solid #4CAF50; border-radius: 25px; margin-bottom: 5px; padding: 8px; }
+#siteheader h2 {font-size: 2em; text-align: center;}
+img.respimg { max-width: 100%; height: auto; }
 h1, h2, h3, h4, h5, h6, strong { color: #862d2d; }
-h2, h3, div.sponsor-badges { text-align:center; }
-div.sponsor-badges amp-img { margin-top: 8px; }
+h1, h2, h3, div.sponsor-badges, div.center { text-align:center; }
+div.sponsor-badges img { margin-top: 8px; }
 a { color: #005500; }
 a:visited { color:#862d2d; }
 #toggle { position: absolute; left: -100vw; display: none; }
@@ -55,102 +58,48 @@ article li { margin-bottom: 8px; margin-top: 8px; }
 section li { margin-bottom: 16px; }
 section ul { margin-bottom: 32px; }
 #copyright { text-align: center; color: #862d2d; }
-#logo, #backup-logo, h1 {max-width: 1280px;}
 h1 {margin: 10px auto; padding: 10px;}
-amp-img.contain img { object-fit: contain; }
 .badge-height { position: relative; width: 100%; height: 20px;}
+.footer-link { padding: 0 10px 0 10px; }
+ins.adsbygoogle[data-ad-status="unfilled"] {display: none !important;}
+.container-for-ad {margin: 20px 0;}
 @media screen and (min-width:601px){
 #menu-icon { display: none; }
 nav div a:not(.active) { display: block; }
 }
 </style>
-<style amp-boilerplate>
-  body {
-	-webkit-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
-	-moz-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
-	-ms-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
-	animation: -amp-start 8s steps(1, end) 0s 1 normal both;
-  }
-  @-webkit-keyframes -amp-start {
-	from {
-	  visibility: hidden;
-	}
-	to {
-	  visibility: visible;
-	}
-  }
-  @-moz-keyframes -amp-start {
-	from {
-	  visibility: hidden;
-	}
-	to {
-	  visibility: visible;
-	}
-  }
-  @-ms-keyframes -amp-start {
-	from {
-	  visibility: hidden;
-	}
-	to {
-	  visibility: visible;
-	}
-  }
-  @-o-keyframes -amp-start {
-	from {
-	  visibility: hidden;
-	}
-	to {
-	  visibility: visible;
-	}
-  }
-  @keyframes -amp-start {
-	from {
-	  visibility: hidden;
-	}
-	to {
-	  visibility: visible;
-	}
-  }
-</style>
-<noscript><style amp-boilerplate>
-	body {
-	  -webkit-animation: none;
-	  -moz-animation: none;
-	  -ms-animation: none;
-	  animation: none;
-	}
-  </style></noscript>
-<script async src="https://cdn.ampproject.org/v0.js"></script>
+
+
 </head>
 <body>
 <header itemprop="hasPart" itemscope itemtype="https://schema.org/WPHeader" id="siteheader">
 <div itemscope>
-<h1>
+<h2>
 <a href=".">
-<amp-img id="logo" itemprop="primaryImageOfPage" itemscope itemtype="http://schema.org/ImageObject" 
+<img id="logo" itemprop="primaryImageOfPage" itemscope itemtype="http://schema.org/ImageObject" 
   src="images/core.svg" 
   alt="org.cicirello.core - A Java library of utilities and data structures" 
   width="1280" 
   height="640" 
-  layout="responsive">
-</amp-img>
+  class="respimg">
 </a>
-</h1>
+</h2>
 <nav>
 <input type="checkbox" id="toggle">
 <label for="toggle" id="menu-icon">&#9776;</label>
 <div><a href="/" class="active">Home</a></div>
+<div><a href="api/org.cicirello.core/module-summary.html">Documentation</a></div>
 <div><a href="https://github.com/cicirello/core">Source Code</a></div>
-<div><a href="api/org.cicirello.core/module-summary.html">API Docs</a></div>
 <div><a href="https://central.sonatype.com/artifact/org.cicirello/core/">Maven Central</a></div>
 <div><a href="https://github.com/cicirello/core/issues">Issue Tracker</a></div>
 <div><a href="https://github.com/cicirello/core/blob/main/CHANGELOG.md">ChangeLog</a></div>
+<div><a href="https://www.cicirello.org/">Author</a></div>
 </nav>
 </div>
 <div class="sponsor-badges">
-<a href="https://github.com/sponsors/cicirello"><amp-img src="/images/github-sponsors.svg" alt="GitHub Sponsors" width="107" height="28">GitHub Sponsors</amp-img></a>
-<a href="https://liberapay.com/cicirello"><amp-img src="/images/Liberapay.svg" alt="Liberapay" width="119" height="28">Sponsor on Liberapay</amp-img></a>
-<a href="https://ko-fi.com/cicirello"><amp-img src="/images/ko-fi.svg" alt="Ko-Fi" width="82" height="28">Sponsor on Ko-Fi</amp-img></a>
+<a href="https://github.com/sponsors/cicirello"><img src="images/github-sponsors.svg" alt="GitHub Sponsors" width="107" height="28"></a>
+<a href="https://liberapay.com/cicirello"><img src="images/Liberapay.svg" alt="Liberapay" width="119" height="28"></a>
+<a href="https://ko-fi.com/cicirello"><img src="images/ko-fi.svg" alt="Ko-Fi" width="82" height="28"></a>
 </div>
 </header>
 <article itemprop="mainEntity" itemscope itemtype="http://schema.org/SoftwareSourceCode">
@@ -161,13 +110,19 @@ nav div a:not(.active) { display: block; }
 provides some of the core utilities and data structures used in several of our other 
 libraries and projects, including but not limited to <a href="https://chips-n-salsa.cicirello.org/">Chips-n-Salsa</a> 
 and <a href="https://jpt.cicirello.org/">JavaPermutationTools</a>, as well as various 
-applications that use those libraries.</p>
+applications that use those libraries. Among the data structures included in this library are various priority queue
+implementations, such as binary heaps and Fibonacci heaps. The priority queues within org.cicirello.core support
+operations that the Java API's built-in PriorityQueue class does not, such as changing priority values, merging 
+priority queues, among others. The org.cicirello.core library defines a common interface for its priority queue implementations,
+enabling easily switching between a binary heap or a Fibonacci heap. Other data structures and
+utilities contained in org.cicirello.core include: disjoint set forests,  sorting networks, partially-filled arrays
+of ints and doubles (e.g., the equivalent of Java's ArrayList class, but for primitive int and double values), among
+others.</p>
 <p>The <a href="https://github.com/cicirello/core" itemprop="codeRepository">source 
 code repository</a> is hosted on GitHub; and is licensed under 
 the <a itemprop="license" href="https://www.gnu.org/licenses/gpl-3.0.html">GNU 
 General Public License Version 3 (GPLv3)</a>. The <a href="api/org.cicirello.core/module-summary.html">API documentation</a> 
-is found on this site.
-The module is regularly published 
+is found on this site. The module is regularly published 
 to <a href="https://central.sonatype.com/artifact/org.cicirello/core/">Maven Central</a>, 
 from which it is easily imported into software projects using Maven and other 
 commonly used build tools.</p>
@@ -176,9 +131,26 @@ module originated as part of the research
 of <a itemprop="url mainEntityOfPage" href="https://www.cicirello.org/"><span itemprop="name">Vincent 
 A. Cicirello</span></a>.</p>
 </section>
+
+<section>
+<h3>Dependent Libraries</h3>
+<p>The following libraries depend upon <code>org.cicirello.core</code>.</p>
+<ul>
+<li><a href="https://chips-n-salsa.cicirello.org/">Chips-n-Salsa</a>: The Chips-n-Salsa 
+Java library is a library for evolutionary computation, stochastic search, and related 
+metaheuristics.</li>
+<li><a href="https://jpt.cicirello.org/">JavaPermutationTools</a>: The JavaPermutationTools (JPT)
+library focuses on permutations and other ordered data types, like strings and arrays, along with
+computation (e.g., calculating various distance metrics) on permutations and other sequential data types.</li>
+<li><a href="https://rho-mu.cicirello.org/">&rho;&mu;</a>: The &rho;&mu; library provides efficient
+implementations of various random sampling algorithms, as well as various enhancements over the randomization
+functionality provided in the Java API itself.</li>
+</ul>
+</section>
+
 <section>
 <h3>Importing from Maven Central</h3>
-<div class="badge-height"><a href="https://central.sonatype.com/artifact/org.cicirello/core/"><amp-img class="contain" layout="fill" alt="Latest release on Maven Central" src="https://img.shields.io/maven-central/v/org.cicirello/core.svg?label=Maven%20Central&logo=apachemaven"></amp-img></a></div>
+<div class="center badge-height"><a href="https://central.sonatype.com/artifact/org.cicirello/core/"><img alt="Latest release on Maven Central" src="https://img.shields.io/maven-central/v/org.cicirello/core.svg?label=Maven%20Central&logo=apachemaven"></a></div>
 <p>To import org.cicirello.core from the Maven Central repository (if your build tool is
 Maven), add the following to the dependencies section of 
 your &ldquo;pom.xml&rdquo; (for other build tools, see your build 
@@ -191,6 +163,7 @@ tool's documentation for the equivalent):</p>
 </code></pre>
 <p>Just replace <code>x.y.z</code> with your desired version of the library.</p>
 </section>
+
 <section>
 <h3>Java Modules</h3>
 <p>To use the org.cicirello.core module in your project, add the 
@@ -201,6 +174,7 @@ module your.module.name.here {
 }
 </code></pre>
 </section>
+
 <section>
 <h3>Semantic Versioning</h3>
 <p>We use <a href="https://semver.org/">Semantic Versioning</a> with 
@@ -209,6 +183,7 @@ correspond to incompatible API changes, differences in MINOR correspond
 to introduction of backwards compatible new functionality, and PATCH 
 corresponds to backwards compatible bug fixes.</p> 
 </section>
+
 <section>
 <h3>Development Process</h3>
 To maintain a high quality library, our development process utilizes
@@ -234,19 +209,14 @@ present time, this includes running:
 </ul></li>
 </ul>
 </section>
-<section>
-<h3>Dependent Libraries</h3>
-<p>The following libraries depend upon <code>org.cicirello.core</code>.</p>
-<ul>
-<li><a href="https://chips-n-salsa.cicirello.org/">Chips-n-Salsa</a></li>
-<li><a href="https://jpt.cicirello.org/">JavaPermutationTools</a></li>
-<li><a href="https://rho-mu.cicirello.org/">&rho;&mu;</a></li>
-</ul>
-</section>
 </article>
 <footer>
-<small><a rel="nofollow" href="https://www.cicirello.org/e/">Contact</a></small>
-<div id="copyright"><small>Copyright &copy; 2019-<span itemprop="copyrightYear">2023</span> <a href="https://www.cicirello.org/">Vincent A. Cicirello</a>.</small></div>
+<p><small>
+<a class="footer-link" href="https://www.cicirello.org/e/">Contact</a>
+<strong>&#x25C6;</strong>
+<a class="footer-link" href="https://www.cicirello.org/policy/privacy/">Privacy Policy</a>
+</small></p>
+<div id="copyright"><small>Copyright &copy; 2019-<span itemprop="copyrightYear">2025</span> <a href="https://www.cicirello.org/">Vincent A. Cicirello</a>.</small></div>
 </footer>
 </body>
 </html>
