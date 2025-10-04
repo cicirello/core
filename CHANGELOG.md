@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 * 4-element sorting network for arrays of doubles.
+* 4-element sorting network for arrays of ints.
 
 ### Changed
 

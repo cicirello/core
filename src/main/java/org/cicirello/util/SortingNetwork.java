@@ -156,4 +156,36 @@ public final class SortingNetwork {
     compareExchange(array, targetIndex2, targetIndex3);
     compareExchange(array, targetIndex1, targetIndex2);
   }
+
+  /**
+   * 4-element sorting network. Assumes the indexes are different and in bounds. No elements other
+   * than the four specified elements change.
+   *
+   * <p>This sorting network makes 5 comparisons. Assuming all initial orderings are equally likely,
+   * the average number of swaps is 2.333. The maximum swaps is 5. If you were to implement this
+   * sorting network in hardware, it would have 3 layers.
+   *
+   * <p>This sorting network uses the following sequence of compare-exchange operations, specified
+   * by indexes beginning at 0 and consecutive (the methods of this class enable specifying the
+   * indexes of the elements to sort): (0,2), (1,3), (0,1), (2,3), (1,2). Note that although other
+   * 4-element sorting networks are possible with the same number of compare-exchange operations and
+   * the same number of layers as this one, this is the only one that minimizes the average number
+   * of swaps (other than if you were to reorder the compare-exchange operations within a layer).
+   *
+   * @param array the array to apply the sorting network
+   * @param targetIndex0 the target index for the minimum of the four elements
+   * @param targetIndex1 the target index for the second smallest of the four elements
+   * @param targetIndex2 the target index for the second largest of the four elements
+   * @param targetIndex3 the target index for the maximum of the four elements
+   * @throws ArrayIndexOutOfBoundsException if any of the indexes are outside the bounds of the
+   *     array
+   */
+  public static void sort(
+      int[] array, int targetIndex0, int targetIndex1, int targetIndex2, int targetIndex3) {
+    compareExchange(array, targetIndex0, targetIndex2);
+    compareExchange(array, targetIndex1, targetIndex3);
+    compareExchange(array, targetIndex0, targetIndex1);
+    compareExchange(array, targetIndex2, targetIndex3);
+    compareExchange(array, targetIndex1, targetIndex2);
+  }
 }
