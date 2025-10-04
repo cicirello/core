@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2024 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2025 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -28,6 +28,80 @@ import org.junit.jupiter.api.*;
 
 /** JUnit tests for the SortingNetwork class. */
 public class SortingNetworkTests {
+
+  @Test
+  public void testSort4Double() {
+    double[][] cases4 = {
+      {8, 2, 4, 6},
+      {8, 2, 6, 4},
+      {8, 4, 2, 6},
+      {8, 4, 6, 2},
+      {8, 6, 4, 2},
+      {8, 6, 2, 4},
+      {2, 8, 4, 6},
+      {2, 8, 6, 4},
+      {4, 8, 2, 6},
+      {4, 8, 6, 2},
+      {6, 8, 4, 2},
+      {6, 8, 2, 4},
+      {2, 4, 8, 6},
+      {2, 6, 8, 4},
+      {4, 2, 8, 6},
+      {4, 6, 8, 2},
+      {6, 4, 8, 2},
+      {6, 2, 8, 4},
+      {2, 4, 6, 8},
+      {2, 6, 4, 8},
+      {4, 2, 6, 8},
+      {4, 6, 2, 8},
+      {6, 4, 2, 8},
+      {6, 2, 4, 8}
+    };
+    double[][] cases9 = {
+      {9, 8, 7, 2, 5, 4, 3, 6, 1},
+      {9, 8, 7, 2, 5, 6, 3, 4, 1},
+      {9, 8, 7, 4, 5, 2, 3, 6, 1},
+      {9, 8, 7, 4, 5, 6, 3, 2, 1},
+      {9, 8, 7, 6, 5, 4, 3, 2, 1},
+      {9, 8, 7, 6, 5, 2, 3, 4, 1},
+      {9, 2, 7, 8, 5, 4, 3, 6, 1},
+      {9, 2, 7, 8, 5, 6, 3, 4, 1},
+      {9, 4, 7, 8, 5, 2, 3, 6, 1},
+      {9, 4, 7, 8, 5, 6, 3, 2, 1},
+      {9, 6, 7, 8, 5, 4, 3, 2, 1},
+      {9, 6, 7, 8, 5, 2, 3, 4, 1},
+      {9, 2, 7, 4, 5, 8, 3, 6, 1},
+      {9, 2, 7, 6, 5, 8, 3, 4, 1},
+      {9, 4, 7, 2, 5, 8, 3, 6, 1},
+      {9, 4, 7, 6, 5, 8, 3, 2, 1},
+      {9, 6, 7, 4, 5, 8, 3, 2, 1},
+      {9, 6, 7, 2, 5, 8, 3, 4, 1},
+      {9, 2, 7, 4, 5, 6, 3, 8, 1},
+      {9, 2, 7, 6, 5, 4, 3, 8, 1},
+      {9, 4, 7, 2, 5, 6, 3, 8, 1},
+      {9, 4, 7, 6, 5, 2, 3, 8, 1},
+      {9, 6, 7, 4, 5, 2, 3, 8, 1},
+      {9, 6, 7, 2, 5, 4, 3, 8, 1}
+    };
+    double[] forwardExpected4 = {2, 4, 6, 8};
+    double[] forwardExpected9 = {9, 2, 7, 4, 5, 6, 3, 8, 1};
+    double[] backwardExpected4 = {8, 6, 4, 2};
+    double[] backwardExpected9 = {9, 8, 7, 6, 5, 4, 3, 2, 1};
+    for (int i = 0; i < cases4.length; i++) {
+      double[] copy = cases4[i].clone();
+      SortingNetwork.sort(copy, 0, 1, 2, 3);
+      assertArrayEquals(forwardExpected4, copy);
+      copy = cases9[i].clone();
+      SortingNetwork.sort(copy, 1, 3, 5, 7);
+      assertArrayEquals(forwardExpected9, copy);
+      copy = cases4[i].clone();
+      SortingNetwork.sort(copy, 3, 2, 1, 0);
+      assertArrayEquals(backwardExpected4, copy);
+      copy = cases9[i].clone();
+      SortingNetwork.sort(copy, 7, 5, 3, 1);
+      assertArrayEquals(backwardExpected9, copy);
+    }
+  }
 
   @Test
   public void testSort3Double() {
