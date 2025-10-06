@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2023 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2025 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -190,9 +190,9 @@ final class FibonacciHeapDoubleNode<E> {
 
     private static final double INV_LOG_GOLDEN_RATIO = 2.0780869212350273;
 
-    private final Prioritizer compare;
+    private final DoublePrioritizer compare;
 
-    Consolidator(Prioritizer compare) {
+    Consolidator(DoublePrioritizer compare) {
       this.compare = compare;
       // length of array used by consolidate is initialized to 45 as follows:
       // 1) since size is an int, the implicit limit on capacity is Integer.MAX_VALUE.
