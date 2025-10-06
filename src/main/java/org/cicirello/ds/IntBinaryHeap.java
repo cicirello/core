@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2023 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2025 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -76,6 +76,7 @@ public class IntBinaryHeap implements IntPriorityQueue, Copyable<IntBinaryHeap> 
   private final int[] value;
   private final boolean[] in;
   private int size;
+  private final IntegerPrioritizer prioritizer;
 
   /**
    * Initializes an empty min-heap of (int, priority) pairs, such that the domain of the elements
@@ -83,11 +84,12 @@ public class IntBinaryHeap implements IntPriorityQueue, Copyable<IntBinaryHeap> 
    *
    * @param n The size of the domain of the elements of the min-heap.
    */
-  private IntBinaryHeap(int n) {
+  private IntBinaryHeap(int n, IntegerPrioritizer prioritizer) {
     heap = new int[n];
     index = new int[n];
     value = new int[n];
     in = new boolean[n];
+    this.prioritizer = prioritizer;
   }
 
   /*
@@ -99,6 +101,7 @@ public class IntBinaryHeap implements IntPriorityQueue, Copyable<IntBinaryHeap> 
     value = other.value.clone();
     in = other.in.clone();
     size = other.size;
+    prioritizer = other.prioritizer;
   }
 
   @Override
@@ -156,7 +159,7 @@ public class IntBinaryHeap implements IntPriorityQueue, Copyable<IntBinaryHeap> 
     if (n < 1) {
       throw new IllegalArgumentException("domain must be positive");
     }
-    return new IntBinaryHeap.Max(n);
+    return new IntBinaryHeap(n, new IntegerMaxOrder());
   }
 
   /**
@@ -171,7 +174,7 @@ public class IntBinaryHeap implements IntPriorityQueue, Copyable<IntBinaryHeap> 
     if (n < 1) {
       throw new IllegalArgumentException("domain must be positive");
     }
-    return new IntBinaryHeap(n);
+    return new IntBinaryHeap(n, new IntegerMinOrder());
   }
 
   /**
@@ -268,7 +271,7 @@ public class IntBinaryHeap implements IntPriorityQueue, Copyable<IntBinaryHeap> 
   }
 
   private boolean internalPromote(int element, int priority) {
-    if (priority < value[element]) {
+    if (prioritizer.comesBefore(priority, value[element])) {
       value[element] = priority;
       percolateUp(index[element]);
       return true;
@@ -277,7 +280,7 @@ public class IntBinaryHeap implements IntPriorityQueue, Copyable<IntBinaryHeap> 
   }
 
   private boolean internalDemote(int element, int priority) {
-    if (priority > value[element]) {
+    if (prioritizer.comesBefore(value[element], priority)) {
       value[element] = priority;
       percolateDown(index[element]);
       return true;
@@ -289,11 +292,11 @@ public class IntBinaryHeap implements IntPriorityQueue, Copyable<IntBinaryHeap> 
     int left;
     while ((left = (i << 1) + 1) < size) {
       int smallest = i;
-      if (value[heap[left]] < value[heap[i]]) {
+      if (prioritizer.comesBefore(value[heap[left]], value[heap[i]])) {
         smallest = left;
       }
       int right = left + 1;
-      if (right < size && value[heap[right]] < value[heap[smallest]]) {
+      if (right < size && prioritizer.comesBefore(value[heap[right]], value[heap[smallest]])) {
         smallest = right;
       }
       if (smallest != i) {
@@ -309,57 +312,11 @@ public class IntBinaryHeap implements IntPriorityQueue, Copyable<IntBinaryHeap> 
 
   private void percolateUp(int i) {
     int parent;
-    while (i > 0 && value[heap[parent = (i - 1) >> 1]] > value[heap[i]]) {
+    while (i > 0 && prioritizer.comesBefore(value[heap[i]], value[heap[parent = (i - 1) >> 1]])) {
       int temp = heap[i];
       index[heap[i] = heap[parent]] = i;
       index[heap[parent] = temp] = parent;
       i = parent;
-    }
-  }
-
-  private static final class Max extends IntBinaryHeap {
-
-    private Max(int n) {
-      super(n);
-    }
-
-    private Max(Max other) {
-      super(other);
-    }
-
-    @Override
-    public Max copy() {
-      return new Max(this);
-    }
-
-    @Override
-    public boolean change(int element, int priority) {
-      return super.change(element, -priority);
-    }
-
-    @Override
-    public boolean demote(int element, int priority) {
-      return super.demote(element, -priority);
-    }
-
-    @Override
-    public boolean offer(int element, int priority) {
-      return super.offer(element, -priority);
-    }
-
-    @Override
-    public int peekPriority() {
-      return -super.peekPriority();
-    }
-
-    @Override
-    public int peekPriority(int element) {
-      return -super.peekPriority(element);
-    }
-
-    @Override
-    public boolean promote(int element, int priority) {
-      return super.promote(element, -priority);
     }
   }
 }
