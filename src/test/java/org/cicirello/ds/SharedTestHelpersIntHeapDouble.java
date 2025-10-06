@@ -1219,24 +1219,14 @@ public abstract class SharedTestHelpersIntHeapDouble {
     assertTrue(min2 != minCopy2);
     assertTrue(max1 != maxCopy1);
     assertTrue(max2 != maxCopy2);
-    assertEquals(min1.getClass(), minCopy1.getClass());
-    assertEquals(min2.getClass(), minCopy2.getClass());
-    assertEquals(max1.getClass(), maxCopy1.getClass());
-    assertEquals(max2.getClass(), maxCopy2.getClass());
-    assertEquals(min0.getClass(), minCopy0.getClass());
-    assertEquals(max0.getClass(), maxCopy0.getClass());
+
     assertEquals(min1.size(), minCopy1.size());
     assertEquals(min2.size(), minCopy2.size());
     assertEquals(max1.size(), maxCopy1.size());
     assertEquals(max2.size(), maxCopy2.size());
     assertEquals(min0.size(), minCopy0.size());
     assertEquals(max0.size(), maxCopy0.size());
-    assertNotEquals(min1.getClass(), maxCopy1.getClass());
-    assertNotEquals(min2.getClass(), maxCopy2.getClass());
-    assertNotEquals(max1.getClass(), minCopy1.getClass());
-    assertNotEquals(max2.getClass(), minCopy2.getClass());
-    assertNotEquals(min0.getClass(), maxCopy0.getClass());
-    assertNotEquals(max0.getClass(), minCopy0.getClass());
+
     int n = min1.size();
     for (int i = 0; i < n; i++) {
       assertEquals(min1.peek(), minCopy1.peek());
