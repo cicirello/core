@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2023 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2025 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -28,7 +28,8 @@ package org.cicirello.ds;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-interface Prioritizer {
+@FunctionalInterface
+interface IntegerPrioritizer {
 
   /**
    * Determines which of two elements comes first in priority order.
@@ -38,13 +39,4 @@ interface Prioritizer {
    * @return true if first element should come before the second element, and false otherwise.
    */
   boolean comesBefore(int p1, int p2);
-
-  /**
-   * Determines which of two elements comes first in priority order.
-   *
-   * @param p1 Priority of first element.
-   * @param p2 Priority of second element.
-   * @return true if first element should come before the second element, and false otherwise.
-   */
-  boolean comesBefore(double p1, double p2);
 }

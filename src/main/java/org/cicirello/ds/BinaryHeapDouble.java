@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2023 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2025 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -84,7 +84,7 @@ public final class BinaryHeapDouble<E>
   private PriorityQueueNode.Double<E>[] buffer;
   private int size;
   private final HashMap<E, java.lang.Integer> index;
-  private final Prioritizer compare;
+  private final DoublePrioritizer compare;
   private final double extreme;
 
   /** The default initial capacity. */
@@ -97,7 +97,7 @@ public final class BinaryHeapDouble<E>
    * @param initialCapacity The initial capacity, which must be positive.
    */
   private BinaryHeapDouble(int initialCapacity) {
-    this(initialCapacity, new MinOrder());
+    this(initialCapacity, new DoubleMinOrder());
   }
 
   /* PRIVATE: Use factory methods for creation.
@@ -106,7 +106,7 @@ public final class BinaryHeapDouble<E>
    *
    * @param initialCapacity The initial capacity, which must be positive.
    */
-  private BinaryHeapDouble(int initialCapacity, Prioritizer compare) {
+  private BinaryHeapDouble(int initialCapacity, DoublePrioritizer compare) {
     this.compare = compare;
     buffer = allocate(initialCapacity);
     index = new HashMap<E, java.lang.Integer>();
@@ -127,7 +127,7 @@ public final class BinaryHeapDouble<E>
    * one pair in initialElements contains the same element.
    */
   private BinaryHeapDouble(Collection<PriorityQueueNode.Double<E>> initialElements) {
-    this(initialElements, new MinOrder());
+    this(initialElements, new DoubleMinOrder());
   }
 
   /* PRIVATE: Use factory methods for creation.
@@ -141,7 +141,7 @@ public final class BinaryHeapDouble<E>
    * one pair in initialElements contains the same element.
    */
   private BinaryHeapDouble(
-      Collection<PriorityQueueNode.Double<E>> initialElements, Prioritizer compare) {
+      Collection<PriorityQueueNode.Double<E>> initialElements, DoublePrioritizer compare) {
     this(initialElements.size(), compare);
     for (PriorityQueueNode.Double<E> element : initialElements) {
       if (index.containsKey(element.element)) {
@@ -224,7 +224,7 @@ public final class BinaryHeapDouble<E>
    * @return an empty BinaryHeapDouble with a maximum-priority-first-out priority order
    */
   public static <E> BinaryHeapDouble<E> createMaxHeap() {
-    return new BinaryHeapDouble<E>(DEFAULT_INITIAL_CAPACITY, new MaxOrder());
+    return new BinaryHeapDouble<E>(DEFAULT_INITIAL_CAPACITY, new DoubleMaxOrder());
   }
 
   /**
@@ -239,7 +239,7 @@ public final class BinaryHeapDouble<E>
   public static <E> BinaryHeapDouble<E> createMaxHeap(int initialCapacity) {
     if (initialCapacity <= 0)
       throw new IllegalArgumentException("Initial capacity must be positive.");
-    return new BinaryHeapDouble<E>(initialCapacity, new MaxOrder());
+    return new BinaryHeapDouble<E>(initialCapacity, new DoubleMaxOrder());
   }
 
   /**
@@ -258,7 +258,7 @@ public final class BinaryHeapDouble<E>
     if (initialElements.size() < 1) {
       throw new IllegalArgumentException("initialElements is empty");
     }
-    return new BinaryHeapDouble<E>(initialElements, new MaxOrder());
+    return new BinaryHeapDouble<E>(initialElements, new DoubleMaxOrder());
   }
 
   /**

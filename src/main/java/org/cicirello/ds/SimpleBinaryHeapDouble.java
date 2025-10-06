@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2023 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2025 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -84,7 +84,7 @@ public final class SimpleBinaryHeapDouble<E>
 
   private PriorityQueueNode.Double<E>[] buffer;
   private int size;
-  private final Prioritizer compare;
+  private final DoublePrioritizer compare;
   private final double extreme;
 
   /** The default initial capacity. */
@@ -97,7 +97,7 @@ public final class SimpleBinaryHeapDouble<E>
    * @param initialCapacity The initial capacity, which must be positive.
    */
   private SimpleBinaryHeapDouble(int initialCapacity) {
-    this(initialCapacity, new MinOrder());
+    this(initialCapacity, new DoubleMinOrder());
   }
 
   /* PRIVATE: Use factory methods for creation.
@@ -106,7 +106,7 @@ public final class SimpleBinaryHeapDouble<E>
    *
    * @param initialCapacity The initial capacity, which must be positive.
    */
-  private SimpleBinaryHeapDouble(int initialCapacity, Prioritizer compare) {
+  private SimpleBinaryHeapDouble(int initialCapacity, DoublePrioritizer compare) {
     this.compare = compare;
     buffer = allocate(initialCapacity);
     extreme =
@@ -125,7 +125,7 @@ public final class SimpleBinaryHeapDouble<E>
    * @throws IllegalArgumentException if initialElements is empty.
    */
   private SimpleBinaryHeapDouble(Collection<PriorityQueueNode.Double<E>> initialElements) {
-    this(initialElements, new MinOrder());
+    this(initialElements, new DoubleMinOrder());
   }
 
   /* PRIVATE: Use factory methods for creation.
@@ -138,7 +138,7 @@ public final class SimpleBinaryHeapDouble<E>
    * @throws IllegalArgumentException if initialElements is empty.
    */
   private SimpleBinaryHeapDouble(
-      Collection<PriorityQueueNode.Double<E>> initialElements, Prioritizer compare) {
+      Collection<PriorityQueueNode.Double<E>> initialElements, DoublePrioritizer compare) {
     this(initialElements.size(), compare);
     for (PriorityQueueNode.Double<E> element : initialElements) {
       buffer[size] = element.copy();
@@ -215,7 +215,7 @@ public final class SimpleBinaryHeapDouble<E>
    * @return an empty SimpleBinaryHeapDouble with a maximum-priority-first-out priority order
    */
   public static <E> SimpleBinaryHeapDouble<E> createMaxHeap() {
-    return new SimpleBinaryHeapDouble<E>(DEFAULT_INITIAL_CAPACITY, new MaxOrder());
+    return new SimpleBinaryHeapDouble<E>(DEFAULT_INITIAL_CAPACITY, new DoubleMaxOrder());
   }
 
   /**
@@ -230,7 +230,7 @@ public final class SimpleBinaryHeapDouble<E>
   public static <E> SimpleBinaryHeapDouble<E> createMaxHeap(int initialCapacity) {
     if (initialCapacity <= 0)
       throw new IllegalArgumentException("Initial capacity must be positive.");
-    return new SimpleBinaryHeapDouble<E>(initialCapacity, new MaxOrder());
+    return new SimpleBinaryHeapDouble<E>(initialCapacity, new DoubleMaxOrder());
   }
 
   /**
@@ -248,7 +248,7 @@ public final class SimpleBinaryHeapDouble<E>
     if (initialElements.size() < 1) {
       throw new IllegalArgumentException("initialElements is empty");
     }
-    return new SimpleBinaryHeapDouble<E>(initialElements, new MaxOrder());
+    return new SimpleBinaryHeapDouble<E>(initialElements, new DoubleMaxOrder());
   }
 
   @Override

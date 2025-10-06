@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2023 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2025 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -84,7 +84,7 @@ public final class BinaryHeap<E>
   private PriorityQueueNode.Integer<E>[] buffer;
   private int size;
   private final HashMap<E, java.lang.Integer> index;
-  private final Prioritizer compare;
+  private final IntegerPrioritizer compare;
   private final int extreme;
 
   /** The default initial capacity. */
@@ -97,7 +97,7 @@ public final class BinaryHeap<E>
    * @param initialCapacity The initial capacity, which must be positive.
    */
   private BinaryHeap(int initialCapacity) {
-    this(initialCapacity, new MinOrder());
+    this(initialCapacity, new IntegerMinOrder());
   }
 
   /* PRIVATE: Use factory methods for creation.
@@ -106,7 +106,7 @@ public final class BinaryHeap<E>
    *
    * @param initialCapacity The initial capacity, which must be positive.
    */
-  private BinaryHeap(int initialCapacity, Prioritizer compare) {
+  private BinaryHeap(int initialCapacity, IntegerPrioritizer compare) {
     this.compare = compare;
     buffer = allocate(initialCapacity);
     index = new HashMap<E, java.lang.Integer>();
@@ -124,7 +124,7 @@ public final class BinaryHeap<E>
    * one pair in initialElements contains the same element.
    */
   private BinaryHeap(Collection<PriorityQueueNode.Integer<E>> initialElements) {
-    this(initialElements, new MinOrder());
+    this(initialElements, new IntegerMinOrder());
   }
 
   /* PRIVATE: Use factory methods for creation.
@@ -138,7 +138,7 @@ public final class BinaryHeap<E>
    * one pair in initialElements contains the same element.
    */
   private BinaryHeap(
-      Collection<PriorityQueueNode.Integer<E>> initialElements, Prioritizer compare) {
+      Collection<PriorityQueueNode.Integer<E>> initialElements, IntegerPrioritizer compare) {
     this(initialElements.size(), compare);
     for (PriorityQueueNode.Integer<E> element : initialElements) {
       if (index.containsKey(element.element)) {
@@ -221,7 +221,7 @@ public final class BinaryHeap<E>
    * @return an empty BinaryHeap with a maximum-priority-first-out priority order
    */
   public static <E> BinaryHeap<E> createMaxHeap() {
-    return new BinaryHeap<E>(DEFAULT_INITIAL_CAPACITY, new MaxOrder());
+    return new BinaryHeap<E>(DEFAULT_INITIAL_CAPACITY, new IntegerMaxOrder());
   }
 
   /**
@@ -236,7 +236,7 @@ public final class BinaryHeap<E>
   public static <E> BinaryHeap<E> createMaxHeap(int initialCapacity) {
     if (initialCapacity <= 0)
       throw new IllegalArgumentException("Initial capacity must be positive.");
-    return new BinaryHeap<E>(initialCapacity, new MaxOrder());
+    return new BinaryHeap<E>(initialCapacity, new IntegerMaxOrder());
   }
 
   /**
@@ -255,7 +255,7 @@ public final class BinaryHeap<E>
     if (initialElements.size() < 1) {
       throw new IllegalArgumentException("initialElements is empty");
     }
-    return new BinaryHeap<E>(initialElements, new MaxOrder());
+    return new BinaryHeap<E>(initialElements, new IntegerMaxOrder());
   }
 
   /**

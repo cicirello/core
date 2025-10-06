@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2023 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2025 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -28,15 +28,10 @@ package org.cicirello.ds;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-final class MaxOrder implements Prioritizer {
+final class IntegerMaxOrder implements IntegerPrioritizer {
 
   @Override
   public final boolean comesBefore(int p1, int p2) {
-    return p1 > p2;
-  }
-
-  @Override
-  public final boolean comesBefore(double p1, double p2) {
     return p1 > p2;
   }
 }

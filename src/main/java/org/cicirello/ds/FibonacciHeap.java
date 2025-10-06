@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2023 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2025 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -88,7 +88,7 @@ import org.cicirello.util.Copyable;
 public final class FibonacciHeap<E>
     implements MergeablePriorityQueue<E, FibonacciHeap<E>>, Copyable<FibonacciHeap<E>> {
 
-  private final Prioritizer compare;
+  private final IntegerPrioritizer compare;
   private final int extreme;
 
   private int size;
@@ -103,7 +103,7 @@ public final class FibonacciHeap<E>
    *
    * Initializes an empty FibonacciHeap.
    */
-  private FibonacciHeap(Prioritizer compare) {
+  private FibonacciHeap(IntegerPrioritizer compare) {
     this.compare = compare;
     extreme = compare.comesBefore(0, 1) ? Integer.MAX_VALUE : Integer.MIN_VALUE;
 
@@ -120,7 +120,7 @@ public final class FibonacciHeap<E>
    * @throws IllegalArgumentException if more than one pair in initialElements contains the same element.
    */
   private FibonacciHeap(
-      Collection<PriorityQueueNode.Integer<E>> initialElements, Prioritizer compare) {
+      Collection<PriorityQueueNode.Integer<E>> initialElements, IntegerPrioritizer compare) {
     this(compare);
     for (PriorityQueueNode.Integer<E> element : initialElements) {
       if (!offer(element)) {
@@ -156,7 +156,7 @@ public final class FibonacciHeap<E>
    * @return an empty FibonacciHeap with a minimum-priority-first-out priority order
    */
   public static <E> FibonacciHeap<E> createMinHeap() {
-    return new FibonacciHeap<E>(new MinOrder());
+    return new FibonacciHeap<E>(new IntegerMinOrder());
   }
 
   /**
@@ -171,7 +171,7 @@ public final class FibonacciHeap<E>
    */
   public static <E> FibonacciHeap<E> createMinHeap(
       Collection<PriorityQueueNode.Integer<E>> initialElements) {
-    return new FibonacciHeap<E>(initialElements, new MinOrder());
+    return new FibonacciHeap<E>(initialElements, new IntegerMinOrder());
   }
 
   /**
@@ -181,7 +181,7 @@ public final class FibonacciHeap<E>
    * @return an empty FibonacciHeap with a maximum-priority-first-out priority order
    */
   public static <E> FibonacciHeap<E> createMaxHeap() {
-    return new FibonacciHeap<E>(new MaxOrder());
+    return new FibonacciHeap<E>(new IntegerMaxOrder());
   }
 
   /**
@@ -196,7 +196,7 @@ public final class FibonacciHeap<E>
    */
   public static <E> FibonacciHeap<E> createMaxHeap(
       Collection<PriorityQueueNode.Integer<E>> initialElements) {
-    return new FibonacciHeap<E>(initialElements, new MaxOrder());
+    return new FibonacciHeap<E>(initialElements, new IntegerMaxOrder());
   }
 
   @Override

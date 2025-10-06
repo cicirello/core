@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2023 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2025 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -85,7 +85,7 @@ public final class SimpleFibonacciHeapDouble<E>
     implements MergeablePriorityQueueDouble<E, SimpleFibonacciHeapDouble<E>>,
         Copyable<SimpleFibonacciHeapDouble<E>> {
 
-  private final Prioritizer compare;
+  private final DoublePrioritizer compare;
   private final double extreme;
 
   private int size;
@@ -98,7 +98,7 @@ public final class SimpleFibonacciHeapDouble<E>
    *
    * Initializes an empty SimpleFibonacciHeapDouble.
    */
-  SimpleFibonacciHeapDouble(Prioritizer compare) {
+  SimpleFibonacciHeapDouble(DoublePrioritizer compare) {
     this.compare = compare;
     extreme = compare.comesBefore(0, 1) ? Double.POSITIVE_INFINITY : Double.NEGATIVE_INFINITY;
 
@@ -113,7 +113,7 @@ public final class SimpleFibonacciHeapDouble<E>
    *
    */
   private SimpleFibonacciHeapDouble(
-      Collection<PriorityQueueNode.Double<E>> initialElements, Prioritizer compare) {
+      Collection<PriorityQueueNode.Double<E>> initialElements, DoublePrioritizer compare) {
     this(compare);
     for (PriorityQueueNode.Double<E> element : initialElements) {
       internalOffer(element.copy());
@@ -141,7 +141,7 @@ public final class SimpleFibonacciHeapDouble<E>
    * @return an empty SimpleFibonacciHeapDouble with a minimum-priority-first-out priority order
    */
   public static <E> SimpleFibonacciHeapDouble<E> createMinHeap() {
-    return new SimpleFibonacciHeapDouble<E>(new MinOrder());
+    return new SimpleFibonacciHeapDouble<E>(new DoubleMinOrder());
   }
 
   /**
@@ -154,7 +154,7 @@ public final class SimpleFibonacciHeapDouble<E>
    */
   public static <E> SimpleFibonacciHeapDouble<E> createMinHeap(
       Collection<PriorityQueueNode.Double<E>> initialElements) {
-    return new SimpleFibonacciHeapDouble<E>(initialElements, new MinOrder());
+    return new SimpleFibonacciHeapDouble<E>(initialElements, new DoubleMinOrder());
   }
 
   /**
@@ -164,7 +164,7 @@ public final class SimpleFibonacciHeapDouble<E>
    * @return an empty SimpleFibonacciHeapDouble with a maximum-priority-first-out priority order
    */
   public static <E> SimpleFibonacciHeapDouble<E> createMaxHeap() {
-    return new SimpleFibonacciHeapDouble<E>(new MaxOrder());
+    return new SimpleFibonacciHeapDouble<E>(new DoubleMaxOrder());
   }
 
   /**
@@ -177,7 +177,7 @@ public final class SimpleFibonacciHeapDouble<E>
    */
   public static <E> SimpleFibonacciHeapDouble<E> createMaxHeap(
       Collection<PriorityQueueNode.Double<E>> initialElements) {
-    return new SimpleFibonacciHeapDouble<E>(initialElements, new MaxOrder());
+    return new SimpleFibonacciHeapDouble<E>(initialElements, new DoubleMaxOrder());
   }
 
   @Override

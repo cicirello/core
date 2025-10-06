@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2023 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2025 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -82,7 +82,7 @@ public final class SimpleBinaryHeap<E>
 
   private PriorityQueueNode.Integer<E>[] buffer;
   private int size;
-  private final Prioritizer compare;
+  private final IntegerPrioritizer compare;
   private final int extreme;
 
   /** The default initial capacity. */
@@ -95,7 +95,7 @@ public final class SimpleBinaryHeap<E>
    * @param initialCapacity The initial capacity, which must be positive.
    */
   private SimpleBinaryHeap(int initialCapacity) {
-    this(initialCapacity, new MinOrder());
+    this(initialCapacity, new IntegerMinOrder());
   }
 
   /* PRIVATE: Use factory methods for creation.
@@ -104,7 +104,7 @@ public final class SimpleBinaryHeap<E>
    *
    * @param initialCapacity The initial capacity, which must be positive.
    */
-  private SimpleBinaryHeap(int initialCapacity, Prioritizer compare) {
+  private SimpleBinaryHeap(int initialCapacity, IntegerPrioritizer compare) {
     this.compare = compare;
     buffer = allocate(initialCapacity);
     extreme = compare.comesBefore(0, 1) ? java.lang.Integer.MAX_VALUE : java.lang.Integer.MIN_VALUE;
@@ -120,7 +120,7 @@ public final class SimpleBinaryHeap<E>
    * @throws IllegalArgumentException if initialElements is empty.
    */
   private SimpleBinaryHeap(Collection<PriorityQueueNode.Integer<E>> initialElements) {
-    this(initialElements, new MinOrder());
+    this(initialElements, new IntegerMinOrder());
   }
 
   /* PRIVATE: Use factory methods for creation.
@@ -133,7 +133,7 @@ public final class SimpleBinaryHeap<E>
    * @throws IllegalArgumentException if initialElements is empty.
    */
   private SimpleBinaryHeap(
-      Collection<PriorityQueueNode.Integer<E>> initialElements, Prioritizer compare) {
+      Collection<PriorityQueueNode.Integer<E>> initialElements, IntegerPrioritizer compare) {
     this(initialElements.size(), compare);
     for (PriorityQueueNode.Integer<E> element : initialElements) {
       buffer[size] = element.copy();
@@ -210,7 +210,7 @@ public final class SimpleBinaryHeap<E>
    * @return an empty SimpleBinaryHeap with a maximum-priority-first-out priority order
    */
   public static <E> SimpleBinaryHeap<E> createMaxHeap() {
-    return new SimpleBinaryHeap<E>(DEFAULT_INITIAL_CAPACITY, new MaxOrder());
+    return new SimpleBinaryHeap<E>(DEFAULT_INITIAL_CAPACITY, new IntegerMaxOrder());
   }
 
   /**
@@ -225,7 +225,7 @@ public final class SimpleBinaryHeap<E>
   public static <E> SimpleBinaryHeap<E> createMaxHeap(int initialCapacity) {
     if (initialCapacity <= 0)
       throw new IllegalArgumentException("Initial capacity must be positive.");
-    return new SimpleBinaryHeap<E>(initialCapacity, new MaxOrder());
+    return new SimpleBinaryHeap<E>(initialCapacity, new IntegerMaxOrder());
   }
 
   /**
@@ -243,7 +243,7 @@ public final class SimpleBinaryHeap<E>
     if (initialElements.size() < 1) {
       throw new IllegalArgumentException("initialElements is empty");
     }
-    return new SimpleBinaryHeap<E>(initialElements, new MaxOrder());
+    return new SimpleBinaryHeap<E>(initialElements, new IntegerMaxOrder());
   }
 
   @Override

@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2022 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2025 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -31,7 +31,7 @@ public class PrioritizerTests {
 
   @Test
   public void testMinOrderInt() {
-    MinOrder order = new MinOrder();
+    IntegerMinOrder order = new IntegerMinOrder();
     int p1 = 1;
     int p2 = 2;
     assertTrue(order.comesBefore(p1, p2));
@@ -41,7 +41,7 @@ public class PrioritizerTests {
 
   @Test
   public void testMinOrderDouble() {
-    MinOrder order = new MinOrder();
+    DoubleMinOrder order = new DoubleMinOrder();
     double p1 = 1;
     double p2 = 2;
     assertTrue(order.comesBefore(p1, p2));
@@ -51,7 +51,7 @@ public class PrioritizerTests {
 
   @Test
   public void testMaxOrderInt() {
-    MaxOrder order = new MaxOrder();
+    IntegerMaxOrder order = new IntegerMaxOrder();
     int p1 = 2;
     int p2 = 1;
     assertTrue(order.comesBefore(p1, p2));
@@ -61,7 +61,7 @@ public class PrioritizerTests {
 
   @Test
   public void testMaxOrderDouble() {
-    MaxOrder order = new MaxOrder();
+    DoubleMaxOrder order = new DoubleMaxOrder();
     double p1 = 2;
     double p2 = 1;
     assertTrue(order.comesBefore(p1, p2));
