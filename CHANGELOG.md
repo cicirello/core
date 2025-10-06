@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 * Refactored Prioritizer and implementations, an internal interface and classes related to priority queue implementations.
 * Refactored IntBinaryHeap based on RefactorFirst report.
+* Refactored IntBinaryHeapDouble based on RefactorFirst report.
 
 ### CI/CD
 
