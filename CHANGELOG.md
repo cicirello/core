@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2025-10-06
+## [Unreleased] - 2025-11-05
 
 ### Added
 * 4-element sorting network for arrays of doubles.
@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Refactored Prioritizer and implementations, an internal interface and classes related to priority queue implementations.
 * Refactored IntBinaryHeap based on RefactorFirst report.
 * Refactored IntBinaryHeapDouble based on RefactorFirst report.
+* Refactored IntFibonacciHeap based on RefactorFirst report.
 
 ### CI/CD
 
