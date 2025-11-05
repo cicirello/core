@@ -117,10 +117,6 @@ public final class IntBinaryHeap implements IntPriorityQueue, Copyable<IntBinary
    */
   @Override
   public boolean change(int element, int priority) {
-    // note for anyone who may be editing this...
-    // DON'T call offer(element, priority)
-    // doing so will cause problems for the nested private class Max that
-    // overrides both change and offer to negate priority.
     if (!in[element]) {
       internalOffer(element, priority);
       return true;
