@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Refactored IntBinaryHeap based on RefactorFirst report.
 * Refactored IntBinaryHeapDouble based on RefactorFirst report.
 * Refactored IntFibonacciHeap based on RefactorFirst report.
+* Refactored IntFibonacciHeapDouble based on RefactorFirst report.
 
 ### CI/CD
 
