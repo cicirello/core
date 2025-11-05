@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2022 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2025 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
