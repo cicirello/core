@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2023 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2025 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -80,11 +80,12 @@ import org.cicirello.util.Copyable;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class IntFibonacciHeap implements IntPriorityQueue, Copyable<IntFibonacciHeap> {
+public final class IntFibonacciHeap implements IntPriorityQueue, Copyable<IntFibonacciHeap> {
 
   private final Node[] index;
   private Node min;
   private int size;
+  private final IntegerPrioritizer prioritizer;
 
   // This array is what is referred to in CLRS description
   // of algorithm as A in the method consolidate. As an optimization
@@ -99,7 +100,7 @@ public class IntFibonacciHeap implements IntPriorityQueue, Copyable<IntFibonacci
    *
    * @param n The size of the domain of the elements of the min-heap.
    */
-  private IntFibonacciHeap(int n) {
+  private IntFibonacciHeap(int n, IntegerPrioritizer prioritizer) {
     index = new Node[n];
 
     // length of array used by consolidate is initialized to 45 as follows:
@@ -114,6 +115,8 @@ public class IntFibonacciHeap implements IntPriorityQueue, Copyable<IntFibonacci
     // Uses the usual defaults for the following:
     //    min = null;
     //    size = 0;
+
+    this.prioritizer = prioritizer;
   }
 
   /*
@@ -132,6 +135,8 @@ public class IntFibonacciHeap implements IntPriorityQueue, Copyable<IntFibonacci
     // 4) consolidate computes the actual D(n) for a specific call, and uses only
     //    part of this array.
     rootsByDegrees = new Node[45];
+
+    prioritizer = other.prioritizer;
   }
 
   @Override
@@ -190,7 +195,7 @@ public class IntFibonacciHeap implements IntPriorityQueue, Copyable<IntFibonacci
     if (n < 1) {
       throw new IllegalArgumentException("domain must be positive");
     }
-    return new IntFibonacciHeap.Max(n);
+    return new IntFibonacciHeap(n, new IntegerMaxOrder());
   }
 
   /**
@@ -205,7 +210,7 @@ public class IntFibonacciHeap implements IntPriorityQueue, Copyable<IntFibonacci
     if (n < 1) {
       throw new IllegalArgumentException("domain must be positive");
     }
-    return new IntFibonacciHeap(n);
+    return new IntFibonacciHeap(n, new IntegerMinOrder());
   }
 
   /**
@@ -333,7 +338,7 @@ public class IntFibonacciHeap implements IntPriorityQueue, Copyable<IntFibonacci
       int d = x.degree;
       while (rootsByDegrees[d] != null) {
         Node y = rootsByDegrees[d];
-        if (y.priority < x.priority) {
+        if (prioritizer.comesBefore(y.priority, x.priority)) {
           Node temp = x;
           x = y;
           y = temp;
@@ -353,7 +358,7 @@ public class IntFibonacciHeap implements IntPriorityQueue, Copyable<IntFibonacci
           min = rootsByDegrees[i];
         } else {
           rootsByDegrees[i].insertInto(min);
-          if (rootsByDegrees[i].priority < min.priority) {
+          if (prioritizer.comesBefore(rootsByDegrees[i].priority, min.priority)) {
             min = rootsByDegrees[i];
           }
         }
@@ -388,7 +393,7 @@ public class IntFibonacciHeap implements IntPriorityQueue, Copyable<IntFibonacci
       size = 1;
     } else {
       index[element] = new Node(element, priority, min);
-      if (priority < min.priority) {
+      if (prioritizer.comesBefore(priority, min.priority)) {
         min = index[element];
       }
       size++;
@@ -397,14 +402,14 @@ public class IntFibonacciHeap implements IntPriorityQueue, Copyable<IntFibonacci
 
   private boolean internalPromote(int element, int priority) {
     Node x = index[element];
-    if (priority < x.priority) {
+    if (prioritizer.comesBefore(priority, x.priority)) {
       x.priority = priority;
       Node y = x.parent;
-      if (y != null && priority < y.priority) {
+      if (y != null && prioritizer.comesBefore(priority, y.priority)) {
         cut(x, y);
         cascadingCut(y);
       }
-      if (priority < min.priority) {
+      if (prioritizer.comesBefore(priority, min.priority)) {
         min = x;
       }
       return true;
@@ -444,9 +449,11 @@ public class IntFibonacciHeap implements IntPriorityQueue, Copyable<IntFibonacci
   }
 
   private boolean internalDemote(int element, int priority) {
-    if (priority > index[element].priority) {
+    if (prioritizer.comesBefore(index[element].priority, priority)) {
       // 1. promote (opposite) to front
-      internalPromote(element, min.priority - 1);
+      int forcedToFrontPriority =
+          prioritizer.comesBefore(0, 1) ? min.priority - 1 : min.priority + 1;
+      internalPromote(element, forcedToFrontPriority);
       // 2. poll() to remove
       poll();
       // 3. reinsert with new priority
@@ -544,52 +551,6 @@ public class IntFibonacciHeap implements IntPriorityQueue, Copyable<IntFibonacci
       for (Node next = this; next.parent != null; next = next.right) {
         next.parent = null;
       }
-    }
-  }
-
-  private static final class Max extends IntFibonacciHeap {
-
-    private Max(int n) {
-      super(n);
-    }
-
-    private Max(Max other) {
-      super(other);
-    }
-
-    @Override
-    public Max copy() {
-      return new Max(this);
-    }
-
-    @Override
-    public boolean change(int element, int priority) {
-      return super.change(element, -priority);
-    }
-
-    @Override
-    public boolean demote(int element, int priority) {
-      return super.demote(element, -priority);
-    }
-
-    @Override
-    public boolean offer(int element, int priority) {
-      return super.offer(element, -priority);
-    }
-
-    @Override
-    public int peekPriority() {
-      return -super.peekPriority();
-    }
-
-    @Override
-    public int peekPriority(int element) {
-      return -super.peekPriority(element);
-    }
-
-    @Override
-    public boolean promote(int element, int priority) {
-      return super.promote(element, -priority);
     }
   }
 }

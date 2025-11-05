@@ -71,7 +71,8 @@ import org.cicirello.util.Copyable;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class IntBinaryHeapDouble implements IntPriorityQueueDouble, Copyable<IntBinaryHeapDouble> {
+public final class IntBinaryHeapDouble
+    implements IntPriorityQueueDouble, Copyable<IntBinaryHeapDouble> {
 
   private final int[] heap;
   private final int[] index;
@@ -119,10 +120,6 @@ public class IntBinaryHeapDouble implements IntPriorityQueueDouble, Copyable<Int
    */
   @Override
   public boolean change(int element, double priority) {
-    // note for anyone who may be editing this...
-    // DON'T call offer(element, priority)
-    // doing so will cause problems for the nested private class Max that
-    // overrides both change and offer to negate priority.
     if (!in[element]) {
       internalOffer(element, priority);
       return true;

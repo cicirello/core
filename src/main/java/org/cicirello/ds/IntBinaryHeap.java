@@ -69,7 +69,7 @@ import org.cicirello.util.Copyable;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class IntBinaryHeap implements IntPriorityQueue, Copyable<IntBinaryHeap> {
+public final class IntBinaryHeap implements IntPriorityQueue, Copyable<IntBinaryHeap> {
 
   private final int[] heap;
   private final int[] index;
@@ -117,10 +117,6 @@ public class IntBinaryHeap implements IntPriorityQueue, Copyable<IntBinaryHeap> 
    */
   @Override
   public boolean change(int element, int priority) {
-    // note for anyone who may be editing this...
-    // DON'T call offer(element, priority)
-    // doing so will cause problems for the nested private class Max that
-    // overrides both change and offer to negate priority.
     if (!in[element]) {
       internalOffer(element, priority);
       return true;
