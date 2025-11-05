@@ -152,21 +152,6 @@ final class FibonacciHeapNode<E> {
     mark = false;
   }
 
-  final FibonacciHeapNode<E> find(Object element) {
-    NodeIterator<E> iter = new NodeIterator<E>(this);
-    while (iter.hasNext()) {
-      FibonacciHeapNode<E> n = iter.next();
-      if (n.e.element.equals(element)) {
-        return n;
-      }
-    }
-    return null;
-  }
-
-  static <T> FibonacciHeapNode<T> find(FibonacciHeapNode<T> start, Object element) {
-    return start == null ? null : start.find(element);
-  }
-
   final FibonacciHeapNode<E> removeSelf() {
     // this assumes there is more than one node. don't call for single node
     if (child != null) {
