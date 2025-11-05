@@ -71,7 +71,8 @@ import org.cicirello.util.Copyable;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class IntBinaryHeapDouble implements IntPriorityQueueDouble, Copyable<IntBinaryHeapDouble> {
+public final class IntBinaryHeapDouble
+    implements IntPriorityQueueDouble, Copyable<IntBinaryHeapDouble> {
 
   private final int[] heap;
   private final int[] index;
