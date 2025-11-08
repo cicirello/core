@@ -28,58 +28,12 @@ import org.cicirello.util.Copyable;
  * An instances of the nested subclasses of this class encapsulate an (element, priority) pair for
  * use by the various priority queue classes of the library.
  *
- * @param <E> The type of element contained in the PriorityQueueNode.
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public abstract class PriorityQueueNode<E> {
+public final class PriorityQueueNode {
 
-  // package-private access on purpose
-  final E element;
-
-  /*
-   * private
-   */
-  private PriorityQueueNode(E element) {
-    this.element = element;
-  }
-
-  /**
-   * Checks if another PriorityQueueNode is equal to this one.
-   *
-   * @param other The other PriorityQueueNode.
-   * @return true if and only if they contain an identical object, determined by the equals method
-   *     of the encapsulated object.
-   */
-  @Override
-  public boolean equals(Object other) {
-    if (other == null) return false;
-    if (other instanceof PriorityQueueNode) {
-      @SuppressWarnings("unchecked")
-      PriorityQueueNode<E> casted = (PriorityQueueNode<E>) other;
-      return element.equals(casted.element);
-    }
-    return false;
-  }
-
-  /**
-   * Gets the encapsulated object.
-   *
-   * @return The object within the pair.
-   */
-  public final E getElement() {
-    return element;
-  }
-
-  /**
-   * Computes the hashCode of the PriorityQueueNode.
-   *
-   * @return a hashCode
-   */
-  @Override
-  public int hashCode() {
-    return element.hashCode();
-  }
+  private PriorityQueueNode() {}
 
   /**
    * An instance of this class encapsulates an (element, priority) pair for an integer valued
@@ -90,12 +44,12 @@ public abstract class PriorityQueueNode<E> {
    *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
    */
   @SuppressWarnings("JavaLangClash")
-  public static final class Integer<E> extends PriorityQueueNode<E>
-      implements Copyable<Integer<E>> {
+  public static final class Integer<E> implements Copyable<Integer<E>> {
 
     // package-private on purpose for use by
     // priority queue classes in the package.
     int value;
+    final E element;
 
     /**
      * Initializes the PriorityQueueNode.Integer.
@@ -104,7 +58,7 @@ public abstract class PriorityQueueNode<E> {
      * @param value The value of the object.
      */
     public Integer(E element, int value) {
-      super(element);
+      this.element = element;
       this.value = value;
     }
 
@@ -136,7 +90,22 @@ public abstract class PriorityQueueNode<E> {
      */
     @Override
     public boolean equals(Object other) {
-      return super.equals(other) && ((Integer) other).value == value;
+      if (other == null) return false;
+      if (other instanceof PriorityQueueNode.Integer) {
+        @SuppressWarnings("unchecked")
+        PriorityQueueNode.Integer<E> casted = (PriorityQueueNode.Integer<E>) other;
+        return value == casted.value && element.equals(casted.element);
+      }
+      return false;
+    }
+
+    /**
+     * Gets the encapsulated object.
+     *
+     * @return The object within the pair.
+     */
+    public final E getElement() {
+      return element;
     }
 
     /**
@@ -146,7 +115,7 @@ public abstract class PriorityQueueNode<E> {
      */
     @Override
     public int hashCode() {
-      return super.hashCode() * 31 + value;
+      return element.hashCode() * 31 + value;
     }
 
     /**
@@ -168,11 +137,12 @@ public abstract class PriorityQueueNode<E> {
    *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
    */
   @SuppressWarnings("JavaLangClash")
-  public static final class Double<E> extends PriorityQueueNode<E> implements Copyable<Double<E>> {
+  public static final class Double<E> implements Copyable<Double<E>> {
 
     // package-private on purpose for use by
     // priority queue classes in the package.
     double value;
+    final E element;
 
     /**
      * Initializes the PriorityQueueNode.Double.
@@ -181,7 +151,7 @@ public abstract class PriorityQueueNode<E> {
      * @param value The value of the object.
      */
     public Double(E element, double value) {
-      super(element);
+      this.element = element;
       this.value = value;
     }
 
@@ -213,7 +183,22 @@ public abstract class PriorityQueueNode<E> {
      */
     @Override
     public boolean equals(Object other) {
-      return super.equals(other) && ((Double) other).value == value;
+      if (other == null) return false;
+      if (other instanceof PriorityQueueNode.Double) {
+        @SuppressWarnings("unchecked")
+        PriorityQueueNode.Double<E> casted = (PriorityQueueNode.Double<E>) other;
+        return value == casted.value && element.equals(casted.element);
+      }
+      return false;
+    }
+
+    /**
+     * Gets the encapsulated object.
+     *
+     * @return The object within the pair.
+     */
+    public final E getElement() {
+      return element;
     }
 
     /**
@@ -223,7 +208,7 @@ public abstract class PriorityQueueNode<E> {
      */
     @Override
     public int hashCode() {
-      return super.hashCode() * 31 + java.lang.Double.hashCode(value);
+      return element.hashCode() * 31 + java.lang.Double.hashCode(value);
     }
 
     /**
