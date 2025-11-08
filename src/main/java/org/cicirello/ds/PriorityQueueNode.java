@@ -157,14 +157,6 @@ public abstract class PriorityQueueNode<E> {
     public int getPriority() {
       return value;
     }
-
-    /*
-     * package-private: It would be dangerous to allow
-     * priority changes external to the priority queue classes
-     */
-    final void setPriority(int value) {
-      this.value = value;
-    }
   }
 
   /**
@@ -241,14 +233,6 @@ public abstract class PriorityQueueNode<E> {
      */
     public double getPriority() {
       return value;
-    }
-
-    /*
-     * package-private: It would be dangerous to allow
-     * priority changes external to the priority queue classes
-     */
-    final void setPriority(double value) {
-      this.value = value;
     }
   }
 }

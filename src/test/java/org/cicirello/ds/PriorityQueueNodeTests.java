@@ -52,10 +52,7 @@ public class PriorityQueueNodeTests {
     assertNotEquals(node1.hashCode(), node4.hashCode());
     assertFalse(node1.equals(null));
     assertFalse(node1.equals("hello"));
-    node1.setPriority(55);
     assertEquals("hello", node1.getElement());
-    assertEquals(55, node1.getPriority());
-    assertNotEquals(node1, node2);
   }
 
   @Test
@@ -80,10 +77,7 @@ public class PriorityQueueNodeTests {
     assertNotEquals(node1.hashCode(), node4.hashCode());
     assertFalse(node1.equals(null));
     assertFalse(node1.equals("hello"));
-    node1.setPriority(55.0);
     assertEquals("hello", node1.getElement());
-    assertEquals(55.0, node1.getPriority(), 0.0);
-    assertNotEquals(node1, node2);
   }
 
   @Test
