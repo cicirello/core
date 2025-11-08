@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2022 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2025 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -38,12 +38,12 @@ import org.junit.jupiter.api.*;
 public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
 
   private final Supplier<PriorityQueue<String>> factory;
-  private final Function<Collection<PriorityQueueNode.Integer<String>>, PriorityQueue<String>>
+  private final Function<Collection<IntegerPriorityQueueNode<String>>, PriorityQueue<String>>
       fromListFactory;
 
   SharedTestHelpersMinHeaps(
       Supplier<PriorityQueue<String>> factory,
-      Function<Collection<PriorityQueueNode.Integer<String>>, PriorityQueue<String>>
+      Function<Collection<IntegerPriorityQueueNode<String>>, PriorityQueue<String>>
           fromListFactory) {
     super(true);
     this.factory = factory;
@@ -98,13 +98,13 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     PriorityQueue<String> pq = factory.get();
     populate(pq, elements, priorities, n);
     // At front
-    String s = pq.pollThenAdd(new PriorityQueueNode.Integer<String>("ZZZ", 1)).getElement();
+    String s = pq.pollThenAdd(new IntegerPriorityQueueNode<String>("ZZZ", 1)).element();
     assertEquals(n, pq.size());
     assertTrue(pq.contains("ZZZ"));
     assertEquals(1, pq.peekPriority("ZZZ"));
     assertEquals(elements[0], s);
     assertEquals("ZZZ", pq.pollElement());
-    s = pq.pollThenAdd(new PriorityQueueNode.Integer<String>("YYY", 7)).getElement();
+    s = pq.pollThenAdd(new IntegerPriorityQueueNode<String>("YYY", 7)).element();
     assertEquals(n - 1, pq.size());
     assertTrue(pq.contains("YYY"));
     assertEquals(7, pq.peekPriority("YYY"));
@@ -115,13 +115,13 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
       assertEquals(elements[i], pq.pollElement());
     }
     assertEquals(0, pq.size());
-    assertNull(pq.pollThenAdd(new PriorityQueueNode.Integer<String>("XXX", 9)));
+    assertNull(pq.pollThenAdd(new IntegerPriorityQueueNode<String>("XXX", 9)));
     assertEquals(1, pq.size());
     assertTrue(pq.contains("XXX"));
     assertEquals(9, pq.peekPriority("XXX"));
     assertEquals(9, pq.peekPriority());
     assertEquals("XXX", pq.peekElement());
-    s = pq.pollThenAdd(new PriorityQueueNode.Integer<String>("XXX", 3)).getElement();
+    s = pq.pollThenAdd(new IntegerPriorityQueueNode<String>("XXX", 3)).element();
     assertEquals("XXX", s);
     assertEquals(1, pq.size());
     assertTrue(pq.contains("XXX"));
@@ -162,8 +162,8 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     for (int i = 0; i < n; i++) {
       PriorityQueue<String> pq = factory.get();
       populate(pq, elements, priorities, n);
-      PriorityQueueNode.Integer<String> pair =
-          new PriorityQueueNode.Integer<String>(elements[i], priorities[i]);
+      IntegerPriorityQueueNode<String> pair =
+          new IntegerPriorityQueueNode<String>(elements[i], priorities[i]);
       assertTrue(pq.remove(pair));
       assertFalse(pq.contains(pair));
       assertEquals(n - 1, pq.size());
@@ -198,8 +198,8 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     int[] priorities = createPriorities(n);
     PriorityQueue<String> pq = factory.get();
     pq.offer(elements[0], priorities[0]);
-    PriorityQueueNode.Integer<String> pair =
-        new PriorityQueueNode.Integer<String>(elements[0], priorities[0]);
+    IntegerPriorityQueueNode<String> pair =
+        new IntegerPriorityQueueNode<String>(elements[0], priorities[0]);
     assertTrue(pq.remove(pair));
     assertFalse(pq.contains(pair));
     assertEquals(0, pq.size());
@@ -238,8 +238,7 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
       for (int j = 0; j < n; j++) {
         pq.offer(elements[j], 42);
       }
-      PriorityQueueNode.Integer<String> pair =
-          new PriorityQueueNode.Integer<String>(elements[i], 42);
+      IntegerPriorityQueueNode<String> pair = new IntegerPriorityQueueNode<String>(elements[i], 42);
       assertTrue(pq.remove(pair));
       assertFalse(pq.contains(pair));
       assertEquals(n - 1, pq.size());
@@ -276,8 +275,7 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     String[] elements = createStrings(n);
     PriorityQueue<String> pq = factory.get();
     populate(pq, elements, p, n);
-    PriorityQueueNode.Integer<String> pair =
-        new PriorityQueueNode.Integer<String>(elements[3], p[3]);
+    IntegerPriorityQueueNode<String> pair = new IntegerPriorityQueueNode<String>(elements[3], p[3]);
     assertTrue(pq.remove(pair));
     int[] expectedIndexOrder = {0, 2, 6, 1, 4, 5};
     for (int i = 0; i < expectedIndexOrder.length; i++) {
@@ -485,18 +483,27 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
           int lastP = -1000;
           int count = 0;
           while (!pq.isEmpty()) {
-            PriorityQueueNode.Integer<String> e = pq.poll();
+            IntegerPriorityQueueNode<String> e = pq.poll();
             String msg =
-                "count,e,p,i,k=" + count + "," + e.element + "," + e.value + "," + i + "," + k;
-            assertTrue(e.value >= lastP, msg);
-            lastP = e.value;
-            int j = Arrays.binarySearch(elements, e.element);
+                "count,e,p,i,k="
+                    + count
+                    + ","
+                    + e.element()
+                    + ","
+                    + e.priority()
+                    + ","
+                    + i
+                    + ","
+                    + k;
+            assertTrue(e.priority() >= lastP, msg);
+            lastP = e.priority();
+            int j = Arrays.binarySearch(elements, e.element());
             if (j != i && j != k) {
-              assertEquals(priorities[j], e.value);
+              assertEquals(priorities[j], e.priority());
             } else if (j == i) {
-              assertEquals(-1, e.value);
+              assertEquals(-1, e.priority());
             } else if (j == k) {
-              assertEquals(-2, e.value);
+              assertEquals(-2, e.priority());
             }
             count++;
             assertEquals(n - 3 - count, pq.size());
@@ -564,18 +571,27 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
           int lastP = -1000;
           int count = 0;
           while (!pq.isEmpty()) {
-            PriorityQueueNode.Integer<String> e = pq.poll();
+            IntegerPriorityQueueNode<String> e = pq.poll();
             String msg =
-                "count,e,p,i,k=" + count + "," + e.element + "," + e.value + "," + i + "," + k;
-            assertTrue(e.value >= lastP, msg);
-            lastP = e.value;
-            int j = Arrays.binarySearch(elements, e.element);
+                "count,e,p,i,k="
+                    + count
+                    + ","
+                    + e.element()
+                    + ","
+                    + e.priority()
+                    + ","
+                    + i
+                    + ","
+                    + k;
+            assertTrue(e.priority() >= lastP, msg);
+            lastP = e.priority();
+            int j = Arrays.binarySearch(elements, e.element());
             if (j != i && j != k) {
-              assertEquals(priorities[j], e.value);
+              assertEquals(priorities[j], e.priority());
             } else if (j == i) {
-              assertEquals(95, e.value);
+              assertEquals(95, e.priority());
             } else if (j == k) {
-              assertEquals(102, e.value);
+              assertEquals(102, e.priority());
             }
             count++;
             assertEquals(n - 3 - count, pq.size());
@@ -706,7 +722,7 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     int n = 31;
     String[] elements = createStrings(n);
     int[] priorities = createPriorities(elements);
-    PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
+    IntegerPriorityQueueNode<String>[] pairs = createPairs(elements, priorities);
     PriorityQueue<String> pq = factory.get();
     assertEquals(0, pq.size());
     assertTrue(pq.isEmpty());
@@ -725,7 +741,7 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
       assertTrue(pq.contains(elements[i]));
       assertTrue(pq.contains(pairs[i]));
       assertFalse(pq.offer(pairs[i]));
-      assertFalse(pq.offer(pairs[i].element, pairs[i].value));
+      assertFalse(pq.offer(pairs[i].element(), pairs[i].priority()));
       assertEquals(n, pq.size());
       assertEquals("A", pq.peekElement());
       assertEquals(pairs[0], pq.peek());
@@ -737,7 +753,7 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
     for (int i = 0; i < n; i++) {
       assertEquals(pairs[i], pq.poll());
-      assertFalse(pq.contains(pairs[i].element));
+      assertFalse(pq.contains(pairs[i].element()));
       assertEquals(n - 1 - i, pq.size());
     }
     assertNull(pq.poll());
@@ -747,7 +763,7 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     int n = 31;
     String[] elements = createStrings(n);
     int[] priorities = createPriorities(elements);
-    PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
+    IntegerPriorityQueueNode<String>[] pairs = createPairs(elements, priorities);
     PriorityQueue<String> pq = factory.get();
     assertEquals(0, pq.size());
     assertTrue(pq.isEmpty());
@@ -777,10 +793,10 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
     for (int i = 0; i < n; i++) {
       assertEquals(pairs[i], pq.poll());
-      assertTrue(pq.contains(pairs[i].element));
+      assertTrue(pq.contains(pairs[i].element()));
       assertEquals(2 * n - 1 - 2 * i, pq.size());
       assertEquals(pairs[i], pq.poll());
-      assertFalse(pq.contains(pairs[i].element));
+      assertFalse(pq.contains(pairs[i].element()));
       assertEquals(2 * (n - 1 - i), pq.size());
     }
     assertNull(pq.poll());
@@ -790,7 +806,7 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     int n = 31;
     String[] elements = createStringsRev(n);
     int[] priorities = createPriorities(elements);
-    PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
+    IntegerPriorityQueueNode<String>[] pairs = createPairs(elements, priorities);
     PriorityQueue<String> pq = factory.get();
     assertEquals(0, pq.size());
     assertTrue(pq.isEmpty());
@@ -830,7 +846,7 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     int n = 31;
     String[] elements = createStringsRev(n);
     int[] priorities = createPriorities(elements);
-    PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
+    IntegerPriorityQueueNode<String>[] pairs = createPairs(elements, priorities);
     PriorityQueue<String> pq = factory.get();
     assertEquals(0, pq.size());
     assertTrue(pq.isEmpty());
@@ -873,7 +889,7 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     int n = 31;
     String[] elements = createStringsArbitrary(n);
     int[] priorities = createPriorities(elements);
-    PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
+    IntegerPriorityQueueNode<String>[] pairs = createPairs(elements, priorities);
     PriorityQueue<String> pq = factory.get();
     assertEquals(0, pq.size());
     assertTrue(pq.isEmpty());
@@ -891,7 +907,7 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
       assertFalse(pq.offer(pairs[i]));
       assertEquals(n, pq.size());
       assertEquals("A", pq.peekElement());
-      assertEquals(new PriorityQueueNode.Integer<String>("A", (int) 'A'), pq.peek());
+      assertEquals(new IntegerPriorityQueueNode<String>("A", (int) 'A'), pq.peek());
       assertEquals((int) 'A', pq.peekPriority());
     }
     for (int i = 0; i < n; i++) {
@@ -900,7 +916,7 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
     for (int i = 0; i < n; i++) {
       String expected = "" + ((char) ('A' + i));
-      assertEquals(new PriorityQueueNode.Integer<String>(expected, (int) ('A' + i)), pq.poll());
+      assertEquals(new IntegerPriorityQueueNode<String>(expected, (int) ('A' + i)), pq.poll());
       assertFalse(pq.contains(expected));
       assertEquals(n - 1 - i, pq.size());
     }
@@ -911,7 +927,7 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     int n = 31;
     String[] elements = createStringsArbitrary(n);
     int[] priorities = createPriorities(elements);
-    PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
+    IntegerPriorityQueueNode<String>[] pairs = createPairs(elements, priorities);
     PriorityQueue<String> pq = factory.get();
     assertEquals(0, pq.size());
     assertTrue(pq.isEmpty());
@@ -929,7 +945,7 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
       assertTrue(pq.offer(pairs[i]));
       assertEquals(n + i + 1, pq.size());
       assertEquals("A", pq.peekElement());
-      assertEquals(new PriorityQueueNode.Integer<String>("A", (int) 'A'), pq.peek());
+      assertEquals(new IntegerPriorityQueueNode<String>("A", (int) 'A'), pq.peek());
       assertEquals((int) 'A', pq.peekPriority());
     }
     for (int i = 0; i < n; i++) {
@@ -938,10 +954,10 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
     for (int i = 0; i < n; i++) {
       String expected = "" + ((char) ('A' + i));
-      assertEquals(new PriorityQueueNode.Integer<String>(expected, (int) ('A' + i)), pq.poll());
+      assertEquals(new IntegerPriorityQueueNode<String>(expected, (int) ('A' + i)), pq.poll());
       assertTrue(pq.contains(expected));
       assertEquals(2 * n - 1 - 2 * i, pq.size());
-      assertEquals(new PriorityQueueNode.Integer<String>(expected, (int) ('A' + i)), pq.poll());
+      assertEquals(new IntegerPriorityQueueNode<String>(expected, (int) ('A' + i)), pq.poll());
       assertFalse(pq.contains(expected));
       assertEquals(2 * (n - 1 - i), pq.size());
     }
@@ -952,7 +968,7 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     int n = 31;
     String[] elements = createStrings(n);
     int[] priorities = createPriorities(elements);
-    PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
+    IntegerPriorityQueueNode<String>[] pairs = createPairs(elements, priorities);
     PriorityQueue<String> pq = factory.get();
     assertEquals(0, pq.size());
     assertTrue(pq.isEmpty());
@@ -982,10 +998,10 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
     for (int i = 0; i < n; i++) {
       assertEquals(pairs[i], pq.poll());
-      assertTrue(pq.contains(pairs[i].element));
+      assertTrue(pq.contains(pairs[i].element()));
       assertEquals(2 * n - 1 - 2 * i, pq.size());
       assertEquals(pairs[i], pq.poll());
-      assertFalse(pq.contains(pairs[i].element));
+      assertFalse(pq.contains(pairs[i].element()));
       assertEquals(2 * (n - 1 - i), pq.size());
     }
     assertNull(pq.poll());
@@ -995,10 +1011,10 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     int n = 31;
     String[] elements = createStrings(n);
     int[] priorities = createPriorities(elements);
-    PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
-    ArrayList<PriorityQueueNode.Integer<String>> list =
-        new ArrayList<PriorityQueueNode.Integer<String>>();
-    for (PriorityQueueNode.Integer<String> next : pairs) {
+    IntegerPriorityQueueNode<String>[] pairs = createPairs(elements, priorities);
+    ArrayList<IntegerPriorityQueueNode<String>> list =
+        new ArrayList<IntegerPriorityQueueNode<String>>();
+    for (IntegerPriorityQueueNode<String> next : pairs) {
       list.add(next);
     }
     PriorityQueue<String> pq = fromListFactory.apply(list);
@@ -1019,13 +1035,13 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
     for (int i = 0; i < n; i++) {
       assertEquals(pairs[i], pq.poll());
-      assertFalse(pq.contains(pairs[i].element));
+      assertFalse(pq.contains(pairs[i].element()));
       assertEquals(n - 1 - i, pq.size());
     }
     assertNull(pq.poll());
 
-    final ArrayList<PriorityQueueNode.Integer<String>> list2 =
-        new ArrayList<PriorityQueueNode.Integer<String>>();
+    final ArrayList<IntegerPriorityQueueNode<String>> list2 =
+        new ArrayList<IntegerPriorityQueueNode<String>>();
     list2.add(pairs[0]);
     list2.add(pairs[0]);
     IllegalArgumentException thrown =
@@ -1034,7 +1050,7 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
 
   final void listEmptyMinHeap() {
     PriorityQueue<String> pq =
-        fromListFactory.apply(new ArrayList<PriorityQueueNode.Integer<String>>());
+        fromListFactory.apply(new ArrayList<IntegerPriorityQueueNode<String>>());
     assertEquals(0, pq.size());
     assertTrue(pq.isEmpty());
   }
@@ -1043,17 +1059,17 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     IllegalArgumentException thrown =
         assertThrows(
             IllegalArgumentException.class,
-            () -> fromListFactory.apply(new ArrayList<PriorityQueueNode.Integer<String>>()));
+            () -> fromListFactory.apply(new ArrayList<IntegerPriorityQueueNode<String>>()));
   }
 
   final void listDuplicatesAllowedMinHeap() {
     int n = 31;
     String[] elements = createStrings(n);
     int[] priorities = createPriorities(elements);
-    PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
-    ArrayList<PriorityQueueNode.Integer<String>> list =
-        new ArrayList<PriorityQueueNode.Integer<String>>();
-    for (PriorityQueueNode.Integer<String> next : pairs) {
+    IntegerPriorityQueueNode<String>[] pairs = createPairs(elements, priorities);
+    ArrayList<IntegerPriorityQueueNode<String>> list =
+        new ArrayList<IntegerPriorityQueueNode<String>>();
+    for (IntegerPriorityQueueNode<String> next : pairs) {
       list.add(next);
     }
     PriorityQueue<String> pq = fromListFactory.apply(list);
@@ -1074,10 +1090,10 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
     for (int i = 0; i < n; i++) {
       assertEquals(pairs[i], pq.poll());
-      assertTrue(pq.contains(pairs[i].element));
+      assertTrue(pq.contains(pairs[i].element()));
       assertEquals(2 * n - 1 - 2 * i, pq.size());
       assertEquals(pairs[i], pq.poll());
-      assertFalse(pq.contains(pairs[i].element));
+      assertFalse(pq.contains(pairs[i].element()));
       assertEquals(2 * (n - 1 - i), pq.size());
     }
     assertNull(pq.poll());
@@ -1087,10 +1103,10 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     int n = 31;
     String[] elements = createStringsRev(n);
     int[] priorities = createPriorities(elements);
-    PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
-    ArrayList<PriorityQueueNode.Integer<String>> list =
-        new ArrayList<PriorityQueueNode.Integer<String>>();
-    for (PriorityQueueNode.Integer<String> next : pairs) {
+    IntegerPriorityQueueNode<String>[] pairs = createPairs(elements, priorities);
+    ArrayList<IntegerPriorityQueueNode<String>> list =
+        new ArrayList<IntegerPriorityQueueNode<String>>();
+    for (IntegerPriorityQueueNode<String> next : pairs) {
       list.add(next);
     }
     PriorityQueue<String> pq = fromListFactory.apply(list);
@@ -1121,10 +1137,10 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     int n = 31;
     String[] elements = createStringsRev(n);
     int[] priorities = createPriorities(elements);
-    PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
-    ArrayList<PriorityQueueNode.Integer<String>> list =
-        new ArrayList<PriorityQueueNode.Integer<String>>();
-    for (PriorityQueueNode.Integer<String> next : pairs) {
+    IntegerPriorityQueueNode<String>[] pairs = createPairs(elements, priorities);
+    ArrayList<IntegerPriorityQueueNode<String>> list =
+        new ArrayList<IntegerPriorityQueueNode<String>>();
+    for (IntegerPriorityQueueNode<String> next : pairs) {
       list.add(next);
     }
     PriorityQueue<String> pq = fromListFactory.apply(list);
@@ -1158,10 +1174,10 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     int n = 31;
     String[] elements = createStringsArbitrary(n);
     int[] priorities = createPriorities(elements);
-    PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
-    ArrayList<PriorityQueueNode.Integer<String>> list =
-        new ArrayList<PriorityQueueNode.Integer<String>>();
-    for (PriorityQueueNode.Integer<String> next : pairs) {
+    IntegerPriorityQueueNode<String>[] pairs = createPairs(elements, priorities);
+    ArrayList<IntegerPriorityQueueNode<String>> list =
+        new ArrayList<IntegerPriorityQueueNode<String>>();
+    for (IntegerPriorityQueueNode<String> next : pairs) {
       list.add(next);
     }
     PriorityQueue<String> pq = fromListFactory.apply(list);
@@ -1173,7 +1189,7 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
       assertFalse(pq.offer(pairs[i]));
       assertEquals(n, pq.size());
       assertEquals("A", pq.peekElement());
-      assertEquals(new PriorityQueueNode.Integer<String>("A", (int) 'A'), pq.peek());
+      assertEquals(new IntegerPriorityQueueNode<String>("A", (int) 'A'), pq.peek());
       assertEquals((int) 'A', pq.peekPriority());
     }
     for (int i = 0; i < n; i++) {
@@ -1182,7 +1198,7 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
     for (int i = 0; i < n; i++) {
       String expected = "" + ((char) ('A' + i));
-      assertEquals(new PriorityQueueNode.Integer<String>(expected, (int) ('A' + i)), pq.poll());
+      assertEquals(new IntegerPriorityQueueNode<String>(expected, (int) ('A' + i)), pq.poll());
       assertFalse(pq.contains(expected));
       assertEquals(n - 1 - i, pq.size());
     }
@@ -1193,10 +1209,10 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     int n = 31;
     String[] elements = createStringsArbitrary(n);
     int[] priorities = createPriorities(elements);
-    PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
-    ArrayList<PriorityQueueNode.Integer<String>> list =
-        new ArrayList<PriorityQueueNode.Integer<String>>();
-    for (PriorityQueueNode.Integer<String> next : pairs) {
+    IntegerPriorityQueueNode<String>[] pairs = createPairs(elements, priorities);
+    ArrayList<IntegerPriorityQueueNode<String>> list =
+        new ArrayList<IntegerPriorityQueueNode<String>>();
+    for (IntegerPriorityQueueNode<String> next : pairs) {
       list.add(next);
     }
     PriorityQueue<String> pq = fromListFactory.apply(list);
@@ -1208,7 +1224,7 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
       assertTrue(pq.offer(pairs[i]));
       assertEquals(n + i + 1, pq.size());
       assertEquals("A", pq.peekElement());
-      assertEquals(new PriorityQueueNode.Integer<String>("A", (int) 'A'), pq.peek());
+      assertEquals(new IntegerPriorityQueueNode<String>("A", (int) 'A'), pq.peek());
       assertEquals((int) 'A', pq.peekPriority());
     }
     for (int i = 0; i < n; i++) {
@@ -1217,10 +1233,10 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
     for (int i = 0; i < n; i++) {
       String expected = "" + ((char) ('A' + i));
-      assertEquals(new PriorityQueueNode.Integer<String>(expected, (int) ('A' + i)), pq.poll());
+      assertEquals(new IntegerPriorityQueueNode<String>(expected, (int) ('A' + i)), pq.poll());
       assertTrue(pq.contains(expected));
       assertEquals(2 * n - 1 - 2 * i, pq.size());
-      assertEquals(new PriorityQueueNode.Integer<String>(expected, (int) ('A' + i)), pq.poll());
+      assertEquals(new IntegerPriorityQueueNode<String>(expected, (int) ('A' + i)), pq.poll());
       assertFalse(pq.contains(expected));
       assertEquals(2 * (n - 1 - i), pq.size());
     }
@@ -1231,7 +1247,7 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     int n = 31;
     String[] elements = createStrings(n);
     int[] priorities = createPriorities(elements);
-    PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
+    IntegerPriorityQueueNode<String>[] pairs = createPairs(elements, priorities);
     PriorityQueue<String> pq = factory.get();
     assertEquals(0, pq.size());
     assertTrue(pq.isEmpty());
@@ -1261,7 +1277,7 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
     for (int i = 0; i < n; i++) {
       assertEquals(elements[i], pq.pollElement());
-      assertFalse(pq.contains(pairs[i].element));
+      assertFalse(pq.contains(pairs[i].element()));
       assertEquals(n - 1 - i, pq.size());
     }
     assertNull(pq.pollElement());
@@ -1271,7 +1287,7 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     int n = 31;
     String[] elements = createStringsRev(n);
     int[] priorities = createPriorities(elements);
-    PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
+    IntegerPriorityQueueNode<String>[] pairs = createPairs(elements, priorities);
     PriorityQueue<String> pq = factory.get();
     assertEquals(0, pq.size());
     assertTrue(pq.isEmpty());
@@ -1311,7 +1327,7 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     int n = 31;
     String[] elements = createStringsArbitrary(n);
     int[] priorities = createPriorities(elements);
-    PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
+    IntegerPriorityQueueNode<String>[] pairs = createPairs(elements, priorities);
     PriorityQueue<String> pq = factory.get();
     assertEquals(0, pq.size());
     assertTrue(pq.isEmpty());
@@ -1329,7 +1345,7 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
       assertFalse(pq.offer(elements[i], priorities[i]));
       assertEquals(n, pq.size());
       assertEquals("A", pq.peekElement());
-      assertEquals(new PriorityQueueNode.Integer<String>("A", (int) 'A'), pq.peek());
+      assertEquals(new IntegerPriorityQueueNode<String>("A", (int) 'A'), pq.peek());
       assertEquals((int) 'A', pq.peekPriority());
     }
     for (int i = 0; i < n; i++) {
@@ -1349,7 +1365,7 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     int n = 31;
     String[] elements = createStrings(n);
     int[] priorities = createPriorities(elements);
-    PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
+    IntegerPriorityQueueNode<String>[] pairs = createPairs(elements, priorities);
     PriorityQueue<String> pq = factory.get();
     assertEquals(0, pq.size());
     assertTrue(pq.isEmpty());
@@ -1379,10 +1395,10 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
     for (int i = 0; i < n; i++) {
       assertEquals(elements[i], pq.pollElement());
-      assertTrue(pq.contains(pairs[i].element));
+      assertTrue(pq.contains(pairs[i].element()));
       assertEquals(2 * n - 1 - 2 * i, pq.size());
       assertEquals(elements[i], pq.pollElement());
-      assertFalse(pq.contains(pairs[i].element));
+      assertFalse(pq.contains(pairs[i].element()));
       assertEquals(2 * (n - 1 - i), pq.size());
     }
     assertNull(pq.pollElement());
@@ -1392,7 +1408,7 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     int n = 31;
     String[] elements = createStringsRev(n);
     int[] priorities = createPriorities(elements);
-    PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
+    IntegerPriorityQueueNode<String>[] pairs = createPairs(elements, priorities);
     PriorityQueue<String> pq = factory.get();
     assertEquals(0, pq.size());
     assertTrue(pq.isEmpty());
@@ -1435,7 +1451,7 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     int n = 31;
     String[] elements = createStringsArbitrary(n);
     int[] priorities = createPriorities(elements);
-    PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
+    IntegerPriorityQueueNode<String>[] pairs = createPairs(elements, priorities);
     PriorityQueue<String> pq = factory.get();
     assertEquals(0, pq.size());
     assertTrue(pq.isEmpty());
@@ -1453,7 +1469,7 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
       assertTrue(pq.offer(elements[i], priorities[i]));
       assertEquals(n + i + 1, pq.size());
       assertEquals("A", pq.peekElement());
-      assertEquals(new PriorityQueueNode.Integer<String>("A", (int) 'A'), pq.peek());
+      assertEquals(new IntegerPriorityQueueNode<String>("A", (int) 'A'), pq.peek());
       assertEquals((int) 'A', pq.peekPriority());
     }
     for (int i = 0; i < n; i++) {
@@ -1476,7 +1492,7 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     int n = 31;
     String[] elements = createStrings(n);
     int[] priorities = createPriorities(elements);
-    PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
+    IntegerPriorityQueueNode<String>[] pairs = createPairs(elements, priorities);
     PriorityQueue<String> pq = factory.get();
     assertEquals(0, pq.size());
     assertTrue(pq.isEmpty());
@@ -1501,7 +1517,7 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
     for (int i = 0; i < n; i++) {
       assertEquals(elements[i], pq.pollElement());
-      assertFalse(pq.contains(pairs[i].element));
+      assertFalse(pq.contains(pairs[i].element()));
       assertEquals(n - 1 - i, pq.size());
     }
     assertNull(pq.pollElement());
@@ -1511,7 +1527,7 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     int n = 31;
     String[] elements = createStrings(n);
     int[] priorities = createPriorities(elements);
-    PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
+    IntegerPriorityQueueNode<String>[] pairs = createPairs(elements, priorities);
     PriorityQueue<String> pq = factory.get();
     assertEquals(0, pq.size());
     assertTrue(pq.isEmpty());
@@ -1541,10 +1557,10 @@ public abstract class SharedTestHelpersMinHeaps extends SharedTestHelpersHeaps {
     assertEquals(Integer.MAX_VALUE, pq.peekPriority("hello"));
     for (int i = 0; i < n; i++) {
       assertEquals(elements[i], pq.pollElement());
-      assertTrue(pq.contains(pairs[i].element));
+      assertTrue(pq.contains(pairs[i].element()));
       assertEquals(2 * n - 1 - 2 * i, pq.size());
       assertEquals(elements[i], pq.pollElement());
-      assertFalse(pq.contains(pairs[i].element));
+      assertFalse(pq.contains(pairs[i].element()));
       assertEquals(2 * (n - 1 - i), pq.size());
     }
     assertNull(pq.pollElement());

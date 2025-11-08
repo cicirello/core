@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2023 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2025 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -112,17 +112,17 @@ public class SimpleFibonacciHeapTests extends SharedTestCommonHelpersHeaps {
     int[] priorities1 = new int[n];
     String[] elements2 = new String[n];
     int[] priorities2 = new int[n];
-    ArrayList<PriorityQueueNode.Integer<String>> list1 =
-        new ArrayList<PriorityQueueNode.Integer<String>>();
-    ArrayList<PriorityQueueNode.Integer<String>> list2 =
-        new ArrayList<PriorityQueueNode.Integer<String>>();
+    ArrayList<IntegerPriorityQueueNode<String>> list1 =
+        new ArrayList<IntegerPriorityQueueNode<String>>();
+    ArrayList<IntegerPriorityQueueNode<String>> list2 =
+        new ArrayList<IntegerPriorityQueueNode<String>>();
     for (int i = 0; i < 2 * n; i += 2) {
       elements1[i / 2] = "A" + i;
       elements2[i / 2] = "A" + (i + 1);
       priorities1[i / 2] = i;
       priorities2[i / 2] = i + 1;
-      list1.add(new PriorityQueueNode.Integer<String>(elements1[i / 2], priorities1[i / 2]));
-      list2.add(new PriorityQueueNode.Integer<String>(elements2[i / 2], priorities2[i / 2]));
+      list1.add(new IntegerPriorityQueueNode<String>(elements1[i / 2], priorities1[i / 2]));
+      list2.add(new IntegerPriorityQueueNode<String>(elements2[i / 2], priorities2[i / 2]));
     }
     final SimpleFibonacciHeap<String> pq1 = SimpleFibonacciHeap.createMinHeap(list1);
     final SimpleFibonacciHeap<String> pq2 = SimpleFibonacciHeap.createMinHeap(list2);
@@ -156,17 +156,17 @@ public class SimpleFibonacciHeapTests extends SharedTestCommonHelpersHeaps {
     int[] priorities1 = new int[n];
     String[] elements2 = new String[n];
     int[] priorities2 = new int[n];
-    ArrayList<PriorityQueueNode.Integer<String>> list1 =
-        new ArrayList<PriorityQueueNode.Integer<String>>();
-    ArrayList<PriorityQueueNode.Integer<String>> list2 =
-        new ArrayList<PriorityQueueNode.Integer<String>>();
+    ArrayList<IntegerPriorityQueueNode<String>> list1 =
+        new ArrayList<IntegerPriorityQueueNode<String>>();
+    ArrayList<IntegerPriorityQueueNode<String>> list2 =
+        new ArrayList<IntegerPriorityQueueNode<String>>();
     for (int i = 0; i < 2 * n; i += 2) {
       elements1[i / 2] = "A" + i;
       elements2[i / 2] = "A" + (i + 1);
       priorities1[i / 2] = i;
       priorities2[i / 2] = i + 1;
-      list1.add(new PriorityQueueNode.Integer<String>(elements1[i / 2], priorities1[i / 2]));
-      list2.add(new PriorityQueueNode.Integer<String>(elements2[i / 2], priorities2[i / 2]));
+      list1.add(new IntegerPriorityQueueNode<String>(elements1[i / 2], priorities1[i / 2]));
+      list2.add(new IntegerPriorityQueueNode<String>(elements2[i / 2], priorities2[i / 2]));
     }
     final SimpleFibonacciHeap<String> pq1 = SimpleFibonacciHeap.createMinHeap(list2);
     final SimpleFibonacciHeap<String> pq2 = SimpleFibonacciHeap.createMinHeap(list1);

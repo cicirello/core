@@ -4,13 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2025-11-05
+## [Unreleased] - 2025-11-08
+
+__BREAKING CHANGES: Next version will be 3.0.0__
 
 ### Added
 * 4-element sorting network for arrays of doubles.
 * 4-element sorting network for arrays of ints.
 
 ### Changed
+* Replaced PriorityQueueNode.Integer with a Java record class IntegerPriorityQueueNode for immutability and to eliminate the name clash with the Java API class Integer (BREAKING CHANGE).
 
 ### Deprecated
 

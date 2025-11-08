@@ -112,17 +112,17 @@ public class SimpleBinaryHeapTests extends SharedTestCommonHelpersHeaps {
     int[] priorities1 = new int[n];
     String[] elements2 = new String[n];
     int[] priorities2 = new int[n];
-    ArrayList<PriorityQueueNode.Integer<String>> list1 =
-        new ArrayList<PriorityQueueNode.Integer<String>>();
-    ArrayList<PriorityQueueNode.Integer<String>> list2 =
-        new ArrayList<PriorityQueueNode.Integer<String>>();
+    ArrayList<IntegerPriorityQueueNode<String>> list1 =
+        new ArrayList<IntegerPriorityQueueNode<String>>();
+    ArrayList<IntegerPriorityQueueNode<String>> list2 =
+        new ArrayList<IntegerPriorityQueueNode<String>>();
     for (int i = 0; i < 2 * n; i += 2) {
       elements1[i / 2] = "A" + i;
       elements2[i / 2] = "A" + (i + 1);
       priorities1[i / 2] = i;
       priorities2[i / 2] = i + 1;
-      list1.add(new PriorityQueueNode.Integer<String>(elements1[i / 2], priorities1[i / 2]));
-      list2.add(new PriorityQueueNode.Integer<String>(elements2[i / 2], priorities2[i / 2]));
+      list1.add(new IntegerPriorityQueueNode<String>(elements1[i / 2], priorities1[i / 2]));
+      list2.add(new IntegerPriorityQueueNode<String>(elements2[i / 2], priorities2[i / 2]));
     }
     final SimpleBinaryHeap<String> pq1 = SimpleBinaryHeap.createMinHeap(list1);
     final SimpleBinaryHeap<String> pq2 = SimpleBinaryHeap.createMinHeap(list2);
@@ -157,10 +157,10 @@ public class SimpleBinaryHeapTests extends SharedTestCommonHelpersHeaps {
     final int INITIAL_CAPACITY = 6;
     final SimpleBinaryHeap<String> pq = SimpleBinaryHeap.createMinHeap(INITIAL_CAPACITY);
     assertEquals(INITIAL_CAPACITY, pq.capacity());
-    ArrayList<PriorityQueueNode.Integer<String>> list =
-        new ArrayList<PriorityQueueNode.Integer<String>>();
+    ArrayList<IntegerPriorityQueueNode<String>> list =
+        new ArrayList<IntegerPriorityQueueNode<String>>();
     for (int i = 0; i < elements.length; i++) {
-      list.add(new PriorityQueueNode.Integer<String>(elements[i], priorities[i]));
+      list.add(new IntegerPriorityQueueNode<String>(elements[i], priorities[i]));
     }
     assertTrue(pq.addAll(list));
     assertEquals(elements.length, pq.size());
@@ -172,10 +172,10 @@ public class SimpleBinaryHeapTests extends SharedTestCommonHelpersHeaps {
 
     String[] elements2 = {"E", "F", "G", "H", "I"};
     int[] priorities2 = {7, 3, 1, 5, 9};
-    ArrayList<PriorityQueueNode.Integer<String>> list2 =
-        new ArrayList<PriorityQueueNode.Integer<String>>();
+    ArrayList<IntegerPriorityQueueNode<String>> list2 =
+        new ArrayList<IntegerPriorityQueueNode<String>>();
     for (int i = 0; i < elements2.length; i++) {
-      list2.add(new PriorityQueueNode.Integer<String>(elements2[i], priorities2[i]));
+      list2.add(new IntegerPriorityQueueNode<String>(elements2[i], priorities2[i]));
     }
     assertTrue(pq.addAll(list2));
     assertEquals(elements.length + elements2.length, pq.size());
@@ -189,7 +189,7 @@ public class SimpleBinaryHeapTests extends SharedTestCommonHelpersHeaps {
       assertEquals(priorities2[i], pq.peekPriority(elements2[i]));
     }
 
-    assertFalse(pq.addAll(new ArrayList<PriorityQueueNode.Integer<String>>()));
+    assertFalse(pq.addAll(new ArrayList<IntegerPriorityQueueNode<String>>()));
     assertEquals(elements.length + elements2.length, pq.size());
     assertEquals((elements.length + elements2.length) * 2, pq.capacity());
     for (int i = 0; i < elements.length; i++) {
@@ -224,10 +224,10 @@ public class SimpleBinaryHeapTests extends SharedTestCommonHelpersHeaps {
     int n = 11;
     String[] elements = createStrings(n);
     int[] priorities = createPriorities(elements);
-    PriorityQueueNode.Integer<String>[] pairs = createPairs(elements, priorities);
-    ArrayList<PriorityQueueNode.Integer<String>> list =
-        new ArrayList<PriorityQueueNode.Integer<String>>();
-    for (PriorityQueueNode.Integer<String> next : pairs) {
+    IntegerPriorityQueueNode<String>[] pairs = createPairs(elements, priorities);
+    ArrayList<IntegerPriorityQueueNode<String>> list =
+        new ArrayList<IntegerPriorityQueueNode<String>>();
+    for (IntegerPriorityQueueNode<String> next : pairs) {
       list.add(next);
     }
     pq = SimpleBinaryHeap.createMinHeap(list);
@@ -244,7 +244,7 @@ public class SimpleBinaryHeapTests extends SharedTestCommonHelpersHeaps {
     assertEquals(n, pq.size());
     for (int i = 0; i < n; i++) {
       assertEquals(pairs[i], pq.poll());
-      assertFalse(pq.contains(pairs[i].element));
+      assertFalse(pq.contains(pairs[i].element()));
       assertEquals(n - 1 - i, pq.size());
     }
     assertNull(pq.poll());

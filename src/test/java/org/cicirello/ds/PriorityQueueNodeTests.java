@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2022 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2025 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -31,31 +31,6 @@ import org.junit.jupiter.api.*;
 public class PriorityQueueNodeTests {
 
   @Test
-  public void testIntegerNode() {
-    PriorityQueueNode.Integer<String> node1 = new PriorityQueueNode.Integer<String>("hello", 42);
-    assertEquals("hello", node1.getElement());
-    assertEquals(42, node1.getPriority());
-    PriorityQueueNode.Integer<String> node2 = new PriorityQueueNode.Integer<String>("hello", 42);
-    assertEquals("hello", node2.getElement());
-    assertEquals(42, node2.getPriority());
-    PriorityQueueNode.Integer<String> node3 = new PriorityQueueNode.Integer<String>("hello", 43);
-    assertEquals("hello", node3.getElement());
-    assertEquals(43, node3.getPriority());
-    PriorityQueueNode.Integer<String> node4 = new PriorityQueueNode.Integer<String>("world", 42);
-    assertEquals("world", node4.getElement());
-    assertEquals(42, node4.getPriority());
-    assertEquals(node1, node2);
-    assertEquals(node1.hashCode(), node2.hashCode());
-    assertNotEquals(node1, node3);
-    assertNotEquals(node1, node4);
-    assertNotEquals(node1.hashCode(), node3.hashCode());
-    assertNotEquals(node1.hashCode(), node4.hashCode());
-    assertFalse(node1.equals(null));
-    assertFalse(node1.equals("hello"));
-    assertEquals("hello", node1.getElement());
-  }
-
-  @Test
   public void testDoubleNode() {
     PriorityQueueNode.Double<String> node1 = new PriorityQueueNode.Double<String>("hello", 42.0);
     assertEquals("hello", node1.getElement());
@@ -78,33 +53,6 @@ public class PriorityQueueNodeTests {
     assertFalse(node1.equals(null));
     assertFalse(node1.equals("hello"));
     assertEquals("hello", node1.getElement());
-  }
-
-  @Test
-  public void testIntegerNodeCopy() {
-    PriorityQueueNode.Integer<String> node1 = new PriorityQueueNode.Integer<String>("hello", 42);
-    PriorityQueueNode.Integer<String> node2 = new PriorityQueueNode.Integer<String>("world", 43);
-    PriorityQueueNode.Integer<String> copy1 = node1.copy();
-    PriorityQueueNode.Integer<String> copy2 = node2.copy();
-    assertEquals(node1, copy1);
-    assertEquals(node2, copy2);
-    assertNotEquals(node1, copy2);
-    assertNotEquals(node2, copy1);
-    assertTrue(node1 != copy1);
-    assertTrue(node2 != copy2);
-
-    PriorityQueueNode.Integer<TestType> node3 =
-        new PriorityQueueNode.Integer<TestType>(new TestType("hello"), 42);
-    PriorityQueueNode.Integer<TestType> node4 =
-        new PriorityQueueNode.Integer<TestType>(new TestType("world"), 43);
-    PriorityQueueNode.Integer<TestType> copy3 = node3.copy();
-    PriorityQueueNode.Integer<TestType> copy4 = node4.copy();
-    assertEquals(node3, copy3);
-    assertEquals(node4, copy4);
-    assertNotEquals(node3, copy4);
-    assertNotEquals(node4, copy3);
-    assertTrue(node3 != copy3);
-    assertTrue(node4 != copy4);
   }
 
   @Test

@@ -34,7 +34,7 @@ import java.util.Iterator;
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
 final class FibonacciHeapNode<E> {
-  PriorityQueueNode.Integer<E> e;
+  IntegerPriorityQueueNode<E> e;
   private FibonacciHeapNode<E> parent;
   private FibonacciHeapNode<E> child;
   private FibonacciHeapNode<E> left;
@@ -45,7 +45,7 @@ final class FibonacciHeapNode<E> {
   /*
    * new root list (i.e., called to create new top-level list when empty
    */
-  public FibonacciHeapNode(PriorityQueueNode.Integer<E> e) {
+  public FibonacciHeapNode(IntegerPriorityQueueNode<E> e) {
     this.e = e;
     singletonList();
   }
@@ -53,13 +53,13 @@ final class FibonacciHeapNode<E> {
   /*
    * adds newly constructed node to root list
    */
-  public FibonacciHeapNode(PriorityQueueNode.Integer<E> e, FibonacciHeapNode<E> list) {
+  public FibonacciHeapNode(IntegerPriorityQueueNode<E> e, FibonacciHeapNode<E> list) {
     this.e = e;
     insertInto(list);
   }
 
   private FibonacciHeapNode(FibonacciHeapNode<E> other) {
-    e = other.e.copy();
+    e = other.e;
     degree = other.degree;
     mark = other.mark;
   }
@@ -210,7 +210,7 @@ final class FibonacciHeapNode<E> {
         int d = x.degree;
         while (rootsByDegrees[d] != null) {
           FibonacciHeapNode<E2> y = rootsByDegrees[d];
-          if (compare.comesBefore(y.e.value, x.e.value)) {
+          if (compare.comesBefore(y.e.priority(), x.e.priority())) {
             FibonacciHeapNode<E2> temp = x;
             x = y;
             y = temp;
@@ -230,7 +230,7 @@ final class FibonacciHeapNode<E> {
             min = rootsByDegrees[i];
           } else {
             rootsByDegrees[i].insertInto(min);
-            if (compare.comesBefore(rootsByDegrees[i].e.value, min.e.value)) {
+            if (compare.comesBefore(rootsByDegrees[i].e.priority(), min.e.priority())) {
               min = rootsByDegrees[i];
             }
           }
@@ -261,7 +261,7 @@ final class FibonacciHeapNode<E> {
     }
   }
 
-  static final class FibonacciHeapIterator<E2> implements Iterator<PriorityQueueNode.Integer<E2>> {
+  static final class FibonacciHeapIterator<E2> implements Iterator<IntegerPriorityQueueNode<E2>> {
 
     private final NodeIterator<E2> iter;
 
@@ -275,7 +275,7 @@ final class FibonacciHeapNode<E> {
     }
 
     @Override
-    public PriorityQueueNode.Integer<E2> next() {
+    public IntegerPriorityQueueNode<E2> next() {
       return iter.next().e;
     }
   }

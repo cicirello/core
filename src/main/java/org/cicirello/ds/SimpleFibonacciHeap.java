@@ -61,14 +61,13 @@ import org.cicirello.util.Copyable;
  * time (see a reference on Fibonacci heaps for details).
  *
  * <ul>
- *   <li><b>O(1):</b> {@link #add(Object, int)}, {@link #add(PriorityQueueNode.Integer)}, {@link
+ *   <li><b>O(1):</b> {@link #add(Object, int)}, {@link #add(IntegerPriorityQueueNode)}, {@link
  *       #createMaxHeap()}, {@link #createMinHeap()}, {@link #element}, {@link #isEmpty}, {@link
  *       #iterator}, {@link #merge(SimpleFibonacciHeap)}, {@link #offer(E, int)}, {@link
- *       #offer(PriorityQueueNode.Integer)}, {@link #peek}, {@link #peekElement}, {@link
+ *       #offer(IntegerPriorityQueueNode)}, {@link #peek}, {@link #peekElement}, {@link
  *       #peekPriority()}, {@link #size()}
  *   <li><b>O(lg n):</b> {@link #poll}, {@link #pollElement}, {@link #pollThenAdd(Object, int)},
- *       {@link #pollThenAdd(PriorityQueueNode.Integer)}, {@link #remove()}, {@link
- *       #removeElement()}
+ *       {@link #pollThenAdd(IntegerPriorityQueueNode)}, {@link #remove()}, {@link #removeElement()}
  *   <li><b>O(m):</b> {@link #addAll(Collection)}, {@link #createMaxHeap(Collection)}, {@link
  *       #createMinHeap(Collection)}
  *   <li><b>O(n):</b> {@link #change}, {@link #clear}, {@link #contains}, {@link #copy()}, {@link
@@ -113,10 +112,10 @@ public final class SimpleFibonacciHeap<E>
    *
    */
   private SimpleFibonacciHeap(
-      Collection<PriorityQueueNode.Integer<E>> initialElements, IntegerPrioritizer compare) {
+      Collection<IntegerPriorityQueueNode<E>> initialElements, IntegerPrioritizer compare) {
     this(compare);
-    for (PriorityQueueNode.Integer<E> element : initialElements) {
-      internalOffer(element.copy());
+    for (IntegerPriorityQueueNode<E> element : initialElements) {
+      internalOffer(element);
     }
   }
 
@@ -153,7 +152,7 @@ public final class SimpleFibonacciHeap<E>
    * @return a SimpleFibonacciHeap with a minimum-priority-first-out priority order
    */
   public static <E> SimpleFibonacciHeap<E> createMinHeap(
-      Collection<PriorityQueueNode.Integer<E>> initialElements) {
+      Collection<IntegerPriorityQueueNode<E>> initialElements) {
     return new SimpleFibonacciHeap<E>(initialElements, new IntegerMinOrder());
   }
 
@@ -176,7 +175,7 @@ public final class SimpleFibonacciHeap<E>
    * @return a SimpleFibonacciHeap with a maximum-priority-first-out priority order
    */
   public static <E> SimpleFibonacciHeap<E> createMaxHeap(
-      Collection<PriorityQueueNode.Integer<E>> initialElements) {
+      Collection<IntegerPriorityQueueNode<E>> initialElements) {
     return new SimpleFibonacciHeap<E>(initialElements, new IntegerMaxOrder());
   }
 
@@ -184,10 +183,10 @@ public final class SimpleFibonacciHeap<E>
   public boolean change(E element, int priority) {
     FibonacciHeapNode<E> node = find(min, element);
     if (node != null) {
-      if (compare.comesBefore(priority, node.e.value)) {
+      if (compare.comesBefore(priority, node.e.priority())) {
         internalPromote(node, priority);
         return true;
-      } else if (compare.comesBefore(node.e.value, priority)) {
+      } else if (compare.comesBefore(node.e.priority(), priority)) {
         internalDemote(node, priority);
         return true;
       }
@@ -207,9 +206,9 @@ public final class SimpleFibonacciHeap<E>
 
   @Override
   public boolean contains(Object o) {
-    if (o instanceof PriorityQueueNode.Integer) {
-      PriorityQueueNode.Integer pair = (PriorityQueueNode.Integer) o;
-      return find(min, pair.element) != null;
+    if (o instanceof IntegerPriorityQueueNode) {
+      IntegerPriorityQueueNode pair = (IntegerPriorityQueueNode) o;
+      return find(min, pair.element()) != null;
     }
     return find(min, o) != null;
   }
@@ -224,13 +223,13 @@ public final class SimpleFibonacciHeap<E>
   @Override
   public boolean containsAll(Collection<?> c) {
     HashSet<E> containsThese = new HashSet<E>();
-    for (PriorityQueueNode.Integer<E> e : this) {
-      containsThese.add(e.element);
+    for (IntegerPriorityQueueNode<E> e : this) {
+      containsThese.add(e.element());
     }
     for (Object o : c) {
-      if (o instanceof PriorityQueueNode.Integer) {
-        PriorityQueueNode.Integer pair = (PriorityQueueNode.Integer) o;
-        if (!containsThese.contains(pair.element)) {
+      if (o instanceof IntegerPriorityQueueNode) {
+        IntegerPriorityQueueNode pair = (IntegerPriorityQueueNode) o;
+        if (!containsThese.contains(pair.element())) {
           return false;
         }
       } else if (!containsThese.contains(o)) {
@@ -243,7 +242,7 @@ public final class SimpleFibonacciHeap<E>
   @Override
   public boolean demote(E element, int priority) {
     FibonacciHeapNode<E> node = find(min, element);
-    if (node != null && compare.comesBefore(node.e.value, priority)) {
+    if (node != null && compare.comesBefore(node.e.priority(), priority)) {
       internalDemote(node, priority);
       return true;
     }
@@ -266,8 +265,8 @@ public final class SimpleFibonacciHeap<E>
       SimpleFibonacciHeap<E> casted = (SimpleFibonacciHeap<E>) other;
       if (size != casted.size) return false;
       if (compare.comesBefore(0, 1) != casted.compare.comesBefore(0, 1)) return false;
-      Iterator<PriorityQueueNode.Integer<E>> iter = iterator();
-      Iterator<PriorityQueueNode.Integer<E>> otherIter = casted.iterator();
+      Iterator<IntegerPriorityQueueNode<E>> iter = iterator();
+      Iterator<IntegerPriorityQueueNode<E>> otherIter = casted.iterator();
       while (iter.hasNext()) {
         if (!iter.next().equals(otherIter.next())) {
           return false;
@@ -286,9 +285,8 @@ public final class SimpleFibonacciHeap<E>
   @Override
   public int hashCode() {
     int h = 0;
-    for (PriorityQueueNode.Integer<E> e : this) {
-      h = 31 * h + e.value;
-      h = 31 * h + e.element.hashCode();
+    for (IntegerPriorityQueueNode<E> e : this) {
+      h = 31 * h + e.hashCode();
     }
     return h;
   }
@@ -299,7 +297,7 @@ public final class SimpleFibonacciHeap<E>
   }
 
   @Override
-  public Iterator<PriorityQueueNode.Integer<E>> iterator() {
+  public Iterator<IntegerPriorityQueueNode<E>> iterator() {
     return new FibonacciHeapNode.FibonacciHeapIterator<E>(min);
   }
 
@@ -316,7 +314,7 @@ public final class SimpleFibonacciHeap<E>
     }
     if (other.size > 0) {
       other.min.insertListInto(min);
-      if (compare.comesBefore(other.min.e.value, min.e.value)) {
+      if (compare.comesBefore(other.min.e.priority(), min.e.priority())) {
         min = other.min;
       }
       size += other.size;
@@ -328,47 +326,47 @@ public final class SimpleFibonacciHeap<E>
 
   @Override
   public boolean offer(E element, int priority) {
-    internalOffer(new PriorityQueueNode.Integer<E>(element, priority));
+    internalOffer(new IntegerPriorityQueueNode<E>(element, priority));
     return true;
   }
 
   @Override
-  public boolean offer(PriorityQueueNode.Integer<E> pair) {
-    internalOffer(pair.copy());
+  public boolean offer(IntegerPriorityQueueNode<E> pair) {
+    internalOffer(pair);
     return true;
   }
 
   @Override
   public E peekElement() {
-    return min != null ? min.e.element : null;
+    return min != null ? min.e.element() : null;
   }
 
   @Override
-  public PriorityQueueNode.Integer<E> peek() {
+  public IntegerPriorityQueueNode<E> peek() {
     return min != null ? min.e : null;
   }
 
   @Override
   public int peekPriority() {
-    return min != null ? min.e.value : extreme;
+    return min != null ? min.e.priority() : extreme;
   }
 
   @Override
   public int peekPriority(E element) {
     FibonacciHeapNode<E> node = find(min, element);
-    return node != null ? node.e.value : extreme;
+    return node != null ? node.e.priority() : extreme;
   }
 
   @Override
   public E pollElement() {
-    PriorityQueueNode.Integer<E> min = poll();
-    return min != null ? min.element : null;
+    IntegerPriorityQueueNode<E> min = poll();
+    return min != null ? min.element() : null;
   }
 
   @Override
-  public PriorityQueueNode.Integer<E> poll() {
+  public IntegerPriorityQueueNode<E> poll() {
     if (size == 1) {
-      PriorityQueueNode.Integer<E> pair = min.e;
+      IntegerPriorityQueueNode<E> pair = min.e;
       min = null;
       size = 0;
       return pair;
@@ -385,7 +383,7 @@ public final class SimpleFibonacciHeap<E>
   @Override
   public boolean promote(E element, int priority) {
     FibonacciHeapNode<E> node = find(min, element);
-    if (node != null && compare.comesBefore(priority, node.e.value)) {
+    if (node != null && compare.comesBefore(priority, node.e.priority())) {
       internalPromote(node, priority);
       return true;
     }
@@ -395,9 +393,9 @@ public final class SimpleFibonacciHeap<E>
   @Override
   public boolean remove(Object o) {
     FibonacciHeapNode<E> node = null;
-    if (o instanceof PriorityQueueNode.Integer) {
-      PriorityQueueNode.Integer pair = (PriorityQueueNode.Integer) o;
-      node = find(min, pair.element);
+    if (o instanceof IntegerPriorityQueueNode) {
+      IntegerPriorityQueueNode pair = (IntegerPriorityQueueNode) o;
+      node = find(min, pair.element());
     } else {
       node = find(min, o);
     }
@@ -406,7 +404,9 @@ public final class SimpleFibonacciHeap<E>
     }
     internalPromote(
         node,
-        compare.comesBefore(min.e.value - 1, min.e.value) ? min.e.value - 1 : min.e.value + 1);
+        compare.comesBefore(min.e.priority() - 1, min.e.priority())
+            ? min.e.priority() - 1
+            : min.e.priority() + 1);
     poll();
     return true;
   }
@@ -420,16 +420,15 @@ public final class SimpleFibonacciHeap<E>
   @Override
   public boolean removeAll(Collection<?> c) {
     HashSet<Object> discardThese = toSet(c);
-    ArrayList<PriorityQueueNode.Integer<E>> keepList =
-        new ArrayList<PriorityQueueNode.Integer<E>>();
-    for (PriorityQueueNode.Integer<E> e : this) {
-      if (!discardThese.contains(e.element)) {
+    ArrayList<IntegerPriorityQueueNode<E>> keepList = new ArrayList<IntegerPriorityQueueNode<E>>();
+    for (IntegerPriorityQueueNode<E> e : this) {
+      if (!discardThese.contains(e.element())) {
         keepList.add(e);
       }
     }
     if (keepList.size() < size) {
       clear();
-      for (PriorityQueueNode.Integer<E> e : keepList) {
+      for (IntegerPriorityQueueNode<E> e : keepList) {
         internalOffer(e);
       }
       return true;
@@ -446,16 +445,16 @@ public final class SimpleFibonacciHeap<E>
   @Override
   public boolean retainAll(Collection<?> c) {
     HashSet<Object> keepThese = toSet(c);
-    ArrayList<PriorityQueueNode.Integer<E>> keepList =
-        new ArrayList<PriorityQueueNode.Integer<E>>(keepThese.size());
-    for (PriorityQueueNode.Integer<E> e : this) {
-      if (keepThese.contains(e.element)) {
+    ArrayList<IntegerPriorityQueueNode<E>> keepList =
+        new ArrayList<IntegerPriorityQueueNode<E>>(keepThese.size());
+    for (IntegerPriorityQueueNode<E> e : this) {
+      if (keepThese.contains(e.element())) {
         keepList.add(e);
       }
     }
     if (keepList.size() < size) {
       clear();
-      for (PriorityQueueNode.Integer<E> e : keepList) {
+      for (IntegerPriorityQueueNode<E> e : keepList) {
         internalOffer(e);
       }
       return true;
@@ -472,7 +471,7 @@ public final class SimpleFibonacciHeap<E>
   public Object[] toArray() {
     Object[] array = new Object[size];
     int i = 0;
-    for (PriorityQueueNode.Integer<E> e : this) {
+    for (IntegerPriorityQueueNode<E> e : this) {
       array[i] = e;
       i++;
     }
@@ -494,7 +493,7 @@ public final class SimpleFibonacciHeap<E>
             ? array
             : (T[]) Array.newInstance(array.getClass().getComponentType(), size);
     int i = 0;
-    for (PriorityQueueNode.Integer<E> e : this) {
+    for (IntegerPriorityQueueNode<E> e : this) {
       @SuppressWarnings("unchecked")
       T nextElement = (T) e;
       result[i] = nextElement;
@@ -506,13 +505,13 @@ public final class SimpleFibonacciHeap<E>
     return result;
   }
 
-  private void internalOffer(PriorityQueueNode.Integer<E> pair) {
+  private void internalOffer(IntegerPriorityQueueNode<E> pair) {
     if (min == null) {
       min = new FibonacciHeapNode<E>(pair);
       size = 1;
     } else {
       FibonacciHeapNode<E> added = new FibonacciHeapNode<E>(pair, min);
-      if (compare.comesBefore(pair.value, min.e.value)) {
+      if (compare.comesBefore(pair.priority(), min.e.priority())) {
         min = added;
       }
       size++;
@@ -522,13 +521,13 @@ public final class SimpleFibonacciHeap<E>
   private void internalPromote(FibonacciHeapNode<E> x, int priority) {
     // only called if priority decreased for a minheap (increased for a maxheap)
     // so no checks needed here.
-    x.e.value = priority;
+    x.e = new IntegerPriorityQueueNode<E>(x.e.element(), priority);
     FibonacciHeapNode<E> y = x.parent();
-    if (y != null && compare.comesBefore(priority, y.e.value)) {
+    if (y != null && compare.comesBefore(priority, y.e.priority())) {
       x.cut(y, min);
       y.cascadingCut(min);
     }
-    if (compare.comesBefore(priority, min.e.value)) {
+    if (compare.comesBefore(priority, min.e.priority())) {
       min = x;
     }
   }
@@ -539,11 +538,14 @@ public final class SimpleFibonacciHeap<E>
 
     // 1. promote (opposite) to front
     internalPromote(
-        x, compare.comesBefore(min.e.value - 1, min.e.value) ? min.e.value - 1 : min.e.value + 1);
+        x,
+        compare.comesBefore(min.e.priority() - 1, min.e.priority())
+            ? min.e.priority() - 1
+            : min.e.priority() + 1);
     // 2. poll() to remove
     poll();
     // 3. reinsert with new priority
-    x.e.value = priority;
+    x.e = new IntegerPriorityQueueNode<E>(x.e.element(), priority);
     internalOffer(x.e);
   }
 
@@ -551,7 +553,7 @@ public final class SimpleFibonacciHeap<E>
     FibonacciHeapNode.NodeIterator<E> iter = new FibonacciHeapNode.NodeIterator<E>(start);
     while (iter.hasNext()) {
       FibonacciHeapNode<E> n = iter.next();
-      if (n.e.element.equals(element)) {
+      if (n.e.element().equals(element)) {
         return n;
       }
     }
@@ -561,9 +563,9 @@ public final class SimpleFibonacciHeap<E>
   private HashSet<Object> toSet(Collection<?> c) {
     HashSet<Object> set = new HashSet<Object>();
     for (Object o : c) {
-      if (o instanceof PriorityQueueNode.Integer) {
-        PriorityQueueNode.Integer pair = (PriorityQueueNode.Integer) o;
-        set.add(pair.element);
+      if (o instanceof IntegerPriorityQueueNode) {
+        IntegerPriorityQueueNode pair = (IntegerPriorityQueueNode) o;
+        set.add(pair.element());
       } else {
         set.add(o);
       }
