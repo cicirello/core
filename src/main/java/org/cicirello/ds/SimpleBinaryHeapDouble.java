@@ -109,10 +109,7 @@ public final class SimpleBinaryHeapDouble<E>
   private SimpleBinaryHeapDouble(int initialCapacity, DoublePrioritizer compare) {
     this.compare = compare;
     buffer = allocate(initialCapacity);
-    extreme =
-        compare.comesBefore(0, 1)
-            ? java.lang.Double.POSITIVE_INFINITY
-            : java.lang.Double.NEGATIVE_INFINITY;
+    extreme = compare.comesBefore(0, 1) ? Double.POSITIVE_INFINITY : Double.NEGATIVE_INFINITY;
   }
 
   /* PRIVATE: Use factory methods for creation.
@@ -390,8 +387,7 @@ public final class SimpleBinaryHeapDouble<E>
       if (size != casted.size) return false;
       if (compare.comesBefore(0, 1) != casted.compare.comesBefore(0, 1)) return false;
       for (int i = 0; i < size; i++) {
-        if (!buffer[i].element().equals(casted.buffer[i].element())) return false;
-        if (casted.buffer[i].priority() != buffer[i].priority()) return false;
+        if (!buffer[i].equals(casted.buffer[i])) return false;
       }
       return true;
     } else {
@@ -408,8 +404,7 @@ public final class SimpleBinaryHeapDouble<E>
   public int hashCode() {
     int h = 0;
     for (int i = 0; i < size; i++) {
-      h = 31 * h + java.lang.Double.hashCode(buffer[i].priority());
-      h = 31 * h + buffer[i].element().hashCode();
+      h = 31 * h + buffer[i].hashCode();
     }
     return h;
   }
