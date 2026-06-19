@@ -25,7 +25,7 @@
 		<distribution>repo</distribution>
 		<comments>
 		Core utilities and data structures.
-		Copyright (C) 2017-2025 Vincent A. Cicirello.
+		Copyright (C) 2017-2026 Vincent A. Cicirello.
  
 		This program is free software: you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -215,6 +215,9 @@
 				<version>3.15.0</version>
 				<configuration>
 					<release>17</release>
+					<compilerArgs>
+                        <arg>-Xlint:unchecked</arg>
+                    </compilerArgs>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -251,7 +254,7 @@
 					<version>false</version>
 					<nosince>true</nosince>
 					<notimestamp>true</notimestamp>
-					<bottom><![CDATA[Copyright &copy; 2017-2024 <a href=\"https://www.cicirello.org/\" target=_top>Vincent A. Cicirello</a>.  All rights reserved.]]></bottom>
+					<bottom><![CDATA[Copyright &copy; 2017-2026 <a href=\"https://www.cicirello.org/\" target=_top>Vincent A. Cicirello</a>.  All rights reserved.]]></bottom>
 				</configuration>
 			</plugin>
 			<plugin>

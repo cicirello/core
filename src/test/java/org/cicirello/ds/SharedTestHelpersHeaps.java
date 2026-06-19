@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2022 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2025 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -81,12 +81,12 @@ public abstract class SharedTestHelpersHeaps {
     return p;
   }
 
-  final PriorityQueueNode.Integer<String>[] createPairs(String[] elements, int[] priorities) {
+  final IntegerPriorityQueueNode<String>[] createPairs(String[] elements, int[] priorities) {
     @SuppressWarnings("unchecked")
-    PriorityQueueNode.Integer<String>[] pairs =
-        (PriorityQueueNode.Integer<String>[]) new PriorityQueueNode.Integer[elements.length];
+    IntegerPriorityQueueNode<String>[] pairs =
+        (IntegerPriorityQueueNode<String>[]) new IntegerPriorityQueueNode[elements.length];
     for (int i = 0; i < pairs.length; i++) {
-      pairs[i] = new PriorityQueueNode.Integer<String>(elements[i], priorities[i]);
+      pairs[i] = new IntegerPriorityQueueNode<String>(elements[i], priorities[i]);
     }
     return pairs;
   }

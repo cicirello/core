@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2025 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2026 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -34,7 +34,7 @@ import java.util.Iterator;
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
 final class FibonacciHeapDoubleNode<E> {
-  PriorityQueueNode.Double<E> e;
+  DoublePriorityQueueNode<E> e;
   private FibonacciHeapDoubleNode<E> parent;
   private FibonacciHeapDoubleNode<E> child;
   private FibonacciHeapDoubleNode<E> left;
@@ -45,7 +45,7 @@ final class FibonacciHeapDoubleNode<E> {
   /*
    * new root list (i.e., called to create new top-level list when empty
    */
-  public FibonacciHeapDoubleNode(PriorityQueueNode.Double<E> e) {
+  public FibonacciHeapDoubleNode(DoublePriorityQueueNode<E> e) {
     this.e = e;
     singletonList();
   }
@@ -53,13 +53,13 @@ final class FibonacciHeapDoubleNode<E> {
   /*
    * adds newly constructed node to root list
    */
-  public FibonacciHeapDoubleNode(PriorityQueueNode.Double<E> e, FibonacciHeapDoubleNode<E> list) {
+  public FibonacciHeapDoubleNode(DoublePriorityQueueNode<E> e, FibonacciHeapDoubleNode<E> list) {
     this.e = e;
     insertInto(list);
   }
 
   private FibonacciHeapDoubleNode(FibonacciHeapDoubleNode<E> other) {
-    e = other.e.copy();
+    e = other.e;
     degree = other.degree;
     mark = other.mark;
   }
@@ -212,7 +212,7 @@ final class FibonacciHeapDoubleNode<E> {
         int d = x.degree;
         while (rootsByDegrees[d] != null) {
           FibonacciHeapDoubleNode<E2> y = rootsByDegrees[d];
-          if (compare.comesBefore(y.e.value, x.e.value)) {
+          if (compare.comesBefore(y.e.priority(), x.e.priority())) {
             FibonacciHeapDoubleNode<E2> temp = x;
             x = y;
             y = temp;
@@ -232,7 +232,7 @@ final class FibonacciHeapDoubleNode<E> {
             min = rootsByDegrees[i];
           } else {
             rootsByDegrees[i].insertInto(min);
-            if (compare.comesBefore(rootsByDegrees[i].e.value, min.e.value)) {
+            if (compare.comesBefore(rootsByDegrees[i].e.priority(), min.e.priority())) {
               min = rootsByDegrees[i];
             }
           }
@@ -264,7 +264,7 @@ final class FibonacciHeapDoubleNode<E> {
   }
 
   static final class FibonacciHeapDoubleIterator<E2>
-      implements Iterator<PriorityQueueNode.Double<E2>> {
+      implements Iterator<DoublePriorityQueueNode<E2>> {
 
     private final NodeIterator<E2> iter;
 
@@ -278,7 +278,7 @@ final class FibonacciHeapDoubleNode<E> {
     }
 
     @Override
-    public PriorityQueueNode.Double<E2> next() {
+    public DoublePriorityQueueNode<E2> next() {
       return iter.next().e;
     }
   }

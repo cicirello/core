@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2022 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2026 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -52,7 +52,7 @@ public class PriorityQueueDoubleDefaultMethodTests {
     double[] priorities = {8, 6, 4, 2};
     final BinaryHeapDouble<String> pq = BinaryHeapDouble.createMinHeap();
     for (int i = 0; i < elements.length; i++) {
-      assertTrue(pq.add(new PriorityQueueNode.Double<String>(elements[i], priorities[i])));
+      assertTrue(pq.add(new DoublePriorityQueueNode<String>(elements[i], priorities[i])));
       assertEquals(i + 1, pq.size());
       assertTrue(pq.contains(elements[i]));
       assertEquals(priorities[i], pq.peekPriority(elements[i]), 0.0);
@@ -60,7 +60,7 @@ public class PriorityQueueDoubleDefaultMethodTests {
     IllegalArgumentException thrown =
         assertThrows(
             IllegalArgumentException.class,
-            () -> pq.add(new PriorityQueueNode.Double<String>(elements[0], 5)));
+            () -> pq.add(new DoublePriorityQueueNode<String>(elements[0], 5)));
   }
 
   @Test
@@ -68,10 +68,10 @@ public class PriorityQueueDoubleDefaultMethodTests {
     String[] elements = {"A", "B", "C", "D"};
     double[] priorities = {8, 6, 4, 2};
     FibonacciHeapDouble<String> pq = FibonacciHeapDouble.createMinHeap();
-    ArrayList<PriorityQueueNode.Double<String>> list =
-        new ArrayList<PriorityQueueNode.Double<String>>();
+    ArrayList<DoublePriorityQueueNode<String>> list =
+        new ArrayList<DoublePriorityQueueNode<String>>();
     for (int i = 0; i < elements.length; i++) {
-      list.add(new PriorityQueueNode.Double<String>(elements[i], priorities[i]));
+      list.add(new DoublePriorityQueueNode<String>(elements[i], priorities[i]));
     }
     assertTrue(pq.addAll(list));
     assertEquals(elements.length, pq.size());
@@ -86,10 +86,10 @@ public class PriorityQueueDoubleDefaultMethodTests {
     String[] elements = {"A", "B", "C", "D"};
     double[] priorities = {8, 6, 4, 2};
     BinaryHeapDouble<String> pq = BinaryHeapDouble.createMinHeap();
-    ArrayList<PriorityQueueNode.Double<String>> list =
-        new ArrayList<PriorityQueueNode.Double<String>>();
+    ArrayList<DoublePriorityQueueNode<String>> list =
+        new ArrayList<DoublePriorityQueueNode<String>>();
     for (int i = 0; i < elements.length; i++) {
-      list.add(new PriorityQueueNode.Double<String>(elements[i], priorities[i]));
+      list.add(new DoublePriorityQueueNode<String>(elements[i], priorities[i]));
     }
     for (int i = 0; i < elements.length; i++) {
       assertFalse(pq.containsAll(list));
@@ -102,8 +102,8 @@ public class PriorityQueueDoubleDefaultMethodTests {
   public void testElement() {
     String[] elements = {"A", "B", "C", "D"};
     double[] priorities = {2, 4, 6, 8};
-    PriorityQueueNode.Double<String> first =
-        new PriorityQueueNode.Double<String>(elements[0], priorities[0]);
+    DoublePriorityQueueNode<String> first =
+        new DoublePriorityQueueNode<String>(elements[0], priorities[0]);
     final BinaryHeapDouble<String> pq = BinaryHeapDouble.createMinHeap();
     NoSuchElementException thrown = assertThrows(NoSuchElementException.class, () -> pq.element());
     for (int i = 0; i < elements.length; i++) {
@@ -114,7 +114,7 @@ public class PriorityQueueDoubleDefaultMethodTests {
     for (int i = 0; i < elements.length; i++) {
       assertTrue(pq.add(elements[elements.length - 1 - i], priorities[elements.length - 1 - i]));
       assertEquals(
-          new PriorityQueueNode.Double<String>(
+          new DoublePriorityQueueNode<String>(
               elements[elements.length - 1 - i], priorities[elements.length - 1 - i]),
           pq.element());
     }
@@ -125,16 +125,16 @@ public class PriorityQueueDoubleDefaultMethodTests {
     String[] elements = {"A", "B", "C", "D"};
     double[] priorities = {8, 6, 4, 2};
     final BinaryHeapDouble<String> pq = BinaryHeapDouble.createMinHeap();
-    ArrayList<PriorityQueueNode.Double<String>> list =
-        new ArrayList<PriorityQueueNode.Double<String>>();
+    ArrayList<DoublePriorityQueueNode<String>> list =
+        new ArrayList<DoublePriorityQueueNode<String>>();
     for (int i = 0; i < elements.length; i++) {
-      list.add(new PriorityQueueNode.Double<String>(elements[i], priorities[i]));
+      list.add(new DoublePriorityQueueNode<String>(elements[i], priorities[i]));
     }
     assertTrue(pq.addAll(list));
     assertEquals(elements.length, pq.size());
     for (int i = 0; i < elements.length; i++) {
       assertEquals(
-          new PriorityQueueNode.Double<String>(
+          new DoublePriorityQueueNode<String>(
               elements[elements.length - 1 - i], priorities[elements.length - 1 - i]),
           pq.remove());
       assertEquals(elements.length - i - 1, pq.size());
@@ -147,10 +147,10 @@ public class PriorityQueueDoubleDefaultMethodTests {
     String[] elements = {"A", "B", "C", "D"};
     double[] priorities = {8, 6, 4, 2};
     final BinaryHeapDouble<String> pq = BinaryHeapDouble.createMinHeap();
-    ArrayList<PriorityQueueNode.Double<String>> list =
-        new ArrayList<PriorityQueueNode.Double<String>>();
+    ArrayList<DoublePriorityQueueNode<String>> list =
+        new ArrayList<DoublePriorityQueueNode<String>>();
     for (int i = 0; i < elements.length; i++) {
-      list.add(new PriorityQueueNode.Double<String>(elements[i], priorities[i]));
+      list.add(new DoublePriorityQueueNode<String>(elements[i], priorities[i]));
     }
     assertTrue(pq.addAll(list));
     assertEquals(elements.length, pq.size());

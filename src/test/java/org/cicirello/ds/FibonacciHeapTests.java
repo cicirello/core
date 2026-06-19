@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2023 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2025 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -122,10 +122,10 @@ public class FibonacciHeapTests extends SharedTestCommonHelpersHeaps {
     int[] priorities1 = new int[n];
     String[] elements2 = new String[n];
     int[] priorities2 = new int[n];
-    ArrayList<PriorityQueueNode.Integer<String>> list1 =
-        new ArrayList<PriorityQueueNode.Integer<String>>();
-    ArrayList<PriorityQueueNode.Integer<String>> list2 =
-        new ArrayList<PriorityQueueNode.Integer<String>>();
+    ArrayList<IntegerPriorityQueueNode<String>> list1 =
+        new ArrayList<IntegerPriorityQueueNode<String>>();
+    ArrayList<IntegerPriorityQueueNode<String>> list2 =
+        new ArrayList<IntegerPriorityQueueNode<String>>();
     final FibonacciHeap<String> pq1 = FibonacciHeap.createMinHeap();
     final FibonacciHeap<String> pq2 = FibonacciHeap.createMinHeap();
     int count = 0;
@@ -135,10 +135,10 @@ public class FibonacciHeapTests extends SharedTestCommonHelpersHeaps {
       elements2[i / 2] = "A" + (i + 1);
       priorities1[i / 2] = i;
       priorities2[i / 2] = i + 1;
-      PriorityQueueNode.Integer<String> node1 =
-          new PriorityQueueNode.Integer<String>(elements1[i / 2], priorities1[i / 2]);
-      PriorityQueueNode.Integer<String> node2 =
-          new PriorityQueueNode.Integer<String>(elements2[i / 2], priorities2[i / 2]);
+      IntegerPriorityQueueNode<String> node1 =
+          new IntegerPriorityQueueNode<String>(elements1[i / 2], priorities1[i / 2]);
+      IntegerPriorityQueueNode<String> node2 =
+          new IntegerPriorityQueueNode<String>(elements2[i / 2], priorities2[i / 2]);
       list1.add(node1);
       list2.add(node2);
       pq1.offer(node1);
@@ -181,10 +181,10 @@ public class FibonacciHeapTests extends SharedTestCommonHelpersHeaps {
     int[] priorities1 = new int[n];
     String[] elements2 = new String[n];
     int[] priorities2 = new int[n];
-    ArrayList<PriorityQueueNode.Integer<String>> list1 =
-        new ArrayList<PriorityQueueNode.Integer<String>>();
-    ArrayList<PriorityQueueNode.Integer<String>> list2 =
-        new ArrayList<PriorityQueueNode.Integer<String>>();
+    ArrayList<IntegerPriorityQueueNode<String>> list1 =
+        new ArrayList<IntegerPriorityQueueNode<String>>();
+    ArrayList<IntegerPriorityQueueNode<String>> list2 =
+        new ArrayList<IntegerPriorityQueueNode<String>>();
     final FibonacciHeap<String> pq1 = FibonacciHeap.createMinHeap();
     final SimpleFibonacciHeap<String> pq2 = SimpleFibonacciHeap.createMinHeap();
     int count = 0;
@@ -194,10 +194,10 @@ public class FibonacciHeapTests extends SharedTestCommonHelpersHeaps {
       elements2[i / 2] = "A" + (i + 1);
       priorities1[i / 2] = i;
       priorities2[i / 2] = i + 1;
-      PriorityQueueNode.Integer<String> node1 =
-          new PriorityQueueNode.Integer<String>(elements1[i / 2], priorities1[i / 2]);
-      PriorityQueueNode.Integer<String> node2 =
-          new PriorityQueueNode.Integer<String>(elements2[i / 2], priorities2[i / 2]);
+      IntegerPriorityQueueNode<String> node1 =
+          new IntegerPriorityQueueNode<String>(elements1[i / 2], priorities1[i / 2]);
+      IntegerPriorityQueueNode<String> node2 =
+          new IntegerPriorityQueueNode<String>(elements2[i / 2], priorities2[i / 2]);
       list1.add(node1);
       list2.add(node2);
       pq1.offer(node1);
@@ -219,10 +219,10 @@ public class FibonacciHeapTests extends SharedTestCommonHelpersHeaps {
     int[] priorities1 = new int[n];
     String[] elements2 = new String[n];
     int[] priorities2 = new int[n];
-    ArrayList<PriorityQueueNode.Integer<String>> list1 =
-        new ArrayList<PriorityQueueNode.Integer<String>>();
-    ArrayList<PriorityQueueNode.Integer<String>> list2 =
-        new ArrayList<PriorityQueueNode.Integer<String>>();
+    ArrayList<IntegerPriorityQueueNode<String>> list1 =
+        new ArrayList<IntegerPriorityQueueNode<String>>();
+    ArrayList<IntegerPriorityQueueNode<String>> list2 =
+        new ArrayList<IntegerPriorityQueueNode<String>>();
     final FibonacciHeap<String> pq1 = FibonacciHeap.createMinHeap();
     final FibonacciHeap<String> pq2 = FibonacciHeap.createMinHeap();
     int count = 0;
@@ -232,10 +232,10 @@ public class FibonacciHeapTests extends SharedTestCommonHelpersHeaps {
       elements2[i / 2] = "A" + (i + 1);
       priorities1[i / 2] = i;
       priorities2[i / 2] = i + 1;
-      PriorityQueueNode.Integer<String> node1 =
-          new PriorityQueueNode.Integer<String>(elements1[i / 2], priorities1[i / 2]);
-      PriorityQueueNode.Integer<String> node2 =
-          new PriorityQueueNode.Integer<String>(elements2[i / 2], priorities2[i / 2]);
+      IntegerPriorityQueueNode<String> node1 =
+          new IntegerPriorityQueueNode<String>(elements1[i / 2], priorities1[i / 2]);
+      IntegerPriorityQueueNode<String> node2 =
+          new IntegerPriorityQueueNode<String>(elements2[i / 2], priorities2[i / 2]);
       list1.add(node1);
       list2.add(node2);
       pq2.offer(node1);
@@ -278,10 +278,10 @@ public class FibonacciHeapTests extends SharedTestCommonHelpersHeaps {
     int[] priorities1 = new int[n];
     String[] elements2 = new String[n];
     int[] priorities2 = new int[n];
-    ArrayList<PriorityQueueNode.Integer<String>> list1 =
-        new ArrayList<PriorityQueueNode.Integer<String>>();
-    ArrayList<PriorityQueueNode.Integer<String>> list2 =
-        new ArrayList<PriorityQueueNode.Integer<String>>();
+    ArrayList<IntegerPriorityQueueNode<String>> list1 =
+        new ArrayList<IntegerPriorityQueueNode<String>>();
+    ArrayList<IntegerPriorityQueueNode<String>> list2 =
+        new ArrayList<IntegerPriorityQueueNode<String>>();
     final FibonacciHeap<String> pq1 = FibonacciHeap.createMinHeap();
     final SimpleFibonacciHeap<String> pq2 = SimpleFibonacciHeap.createMinHeap();
     int count = 0;
@@ -291,10 +291,10 @@ public class FibonacciHeapTests extends SharedTestCommonHelpersHeaps {
       elements2[i / 2] = "A" + (i + 1);
       priorities1[i / 2] = i;
       priorities2[i / 2] = i + 1;
-      PriorityQueueNode.Integer<String> node1 =
-          new PriorityQueueNode.Integer<String>(elements1[i / 2], priorities1[i / 2]);
-      PriorityQueueNode.Integer<String> node2 =
-          new PriorityQueueNode.Integer<String>(elements2[i / 2], priorities2[i / 2]);
+      IntegerPriorityQueueNode<String> node1 =
+          new IntegerPriorityQueueNode<String>(elements1[i / 2], priorities1[i / 2]);
+      IntegerPriorityQueueNode<String> node2 =
+          new IntegerPriorityQueueNode<String>(elements2[i / 2], priorities2[i / 2]);
       list1.add(node1);
       list2.add(node2);
       pq2.offer(node1);

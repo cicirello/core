@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2022 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2026 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -84,12 +84,12 @@ public abstract class SharedTestHelpersHeapsDouble {
     return p;
   }
 
-  final PriorityQueueNode.Double<String>[] createPairs(String[] elements, double[] priorities) {
+  final DoublePriorityQueueNode<String>[] createPairs(String[] elements, double[] priorities) {
     @SuppressWarnings("unchecked")
-    PriorityQueueNode.Double<String>[] pairs =
-        (PriorityQueueNode.Double<String>[]) new PriorityQueueNode.Double[elements.length];
+    DoublePriorityQueueNode<String>[] pairs =
+        (DoublePriorityQueueNode<String>[]) new DoublePriorityQueueNode[elements.length];
     for (int i = 0; i < pairs.length; i++) {
-      pairs[i] = new PriorityQueueNode.Double<String>(elements[i], priorities[i]);
+      pairs[i] = new DoublePriorityQueueNode<String>(elements[i], priorities[i]);
     }
     return pairs;
   }

@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2023 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2026 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -112,17 +112,17 @@ public class SimpleFibonacciHeapDoubleTests extends SharedTestCommonHelpersHeaps
     double[] priorities1 = new double[n];
     String[] elements2 = new String[n];
     double[] priorities2 = new double[n];
-    ArrayList<PriorityQueueNode.Double<String>> list1 =
-        new ArrayList<PriorityQueueNode.Double<String>>();
-    ArrayList<PriorityQueueNode.Double<String>> list2 =
-        new ArrayList<PriorityQueueNode.Double<String>>();
+    ArrayList<DoublePriorityQueueNode<String>> list1 =
+        new ArrayList<DoublePriorityQueueNode<String>>();
+    ArrayList<DoublePriorityQueueNode<String>> list2 =
+        new ArrayList<DoublePriorityQueueNode<String>>();
     for (int i = 0; i < 2 * n; i += 2) {
       elements1[i / 2] = "A" + i;
       elements2[i / 2] = "A" + (i + 1);
       priorities1[i / 2] = i;
       priorities2[i / 2] = i + 1;
-      list1.add(new PriorityQueueNode.Double<String>(elements1[i / 2], priorities1[i / 2]));
-      list2.add(new PriorityQueueNode.Double<String>(elements2[i / 2], priorities2[i / 2]));
+      list1.add(new DoublePriorityQueueNode<String>(elements1[i / 2], priorities1[i / 2]));
+      list2.add(new DoublePriorityQueueNode<String>(elements2[i / 2], priorities2[i / 2]));
     }
     final SimpleFibonacciHeapDouble<String> pq1 = SimpleFibonacciHeapDouble.createMinHeap(list1);
     final SimpleFibonacciHeapDouble<String> pq2 = SimpleFibonacciHeapDouble.createMinHeap(list2);
@@ -157,17 +157,17 @@ public class SimpleFibonacciHeapDoubleTests extends SharedTestCommonHelpersHeaps
     double[] priorities1 = new double[n];
     String[] elements2 = new String[n];
     double[] priorities2 = new double[n];
-    ArrayList<PriorityQueueNode.Double<String>> list1 =
-        new ArrayList<PriorityQueueNode.Double<String>>();
-    ArrayList<PriorityQueueNode.Double<String>> list2 =
-        new ArrayList<PriorityQueueNode.Double<String>>();
+    ArrayList<DoublePriorityQueueNode<String>> list1 =
+        new ArrayList<DoublePriorityQueueNode<String>>();
+    ArrayList<DoublePriorityQueueNode<String>> list2 =
+        new ArrayList<DoublePriorityQueueNode<String>>();
     for (int i = 0; i < 2 * n; i += 2) {
       elements1[i / 2] = "A" + i;
       elements2[i / 2] = "A" + (i + 1);
       priorities1[i / 2] = i;
       priorities2[i / 2] = i + 1;
-      list1.add(new PriorityQueueNode.Double<String>(elements1[i / 2], priorities1[i / 2]));
-      list2.add(new PriorityQueueNode.Double<String>(elements2[i / 2], priorities2[i / 2]));
+      list1.add(new DoublePriorityQueueNode<String>(elements1[i / 2], priorities1[i / 2]));
+      list2.add(new DoublePriorityQueueNode<String>(elements2[i / 2], priorities2[i / 2]));
     }
     final SimpleFibonacciHeapDouble<String> pq1 = SimpleFibonacciHeapDouble.createMinHeap(list2);
     final SimpleFibonacciHeapDouble<String> pq2 = SimpleFibonacciHeapDouble.createMinHeap(list1);

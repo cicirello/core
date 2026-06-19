@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2022 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2025 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -52,7 +52,7 @@ public class PriorityQueueDefaultMethodTests {
     int[] priorities = {8, 6, 4, 2};
     final BinaryHeap<String> pq = BinaryHeap.createMinHeap();
     for (int i = 0; i < elements.length; i++) {
-      assertTrue(pq.add(new PriorityQueueNode.Integer<String>(elements[i], priorities[i])));
+      assertTrue(pq.add(new IntegerPriorityQueueNode<String>(elements[i], priorities[i])));
       assertEquals(i + 1, pq.size());
       assertTrue(pq.contains(elements[i]));
       assertEquals(priorities[i], pq.peekPriority(elements[i]));
@@ -60,7 +60,7 @@ public class PriorityQueueDefaultMethodTests {
     IllegalArgumentException thrown =
         assertThrows(
             IllegalArgumentException.class,
-            () -> pq.add(new PriorityQueueNode.Integer<String>(elements[0], 5)));
+            () -> pq.add(new IntegerPriorityQueueNode<String>(elements[0], 5)));
   }
 
   @Test
@@ -68,10 +68,10 @@ public class PriorityQueueDefaultMethodTests {
     String[] elements = {"A", "B", "C", "D"};
     int[] priorities = {8, 6, 4, 2};
     FibonacciHeap<String> pq = FibonacciHeap.createMinHeap();
-    ArrayList<PriorityQueueNode.Integer<String>> list =
-        new ArrayList<PriorityQueueNode.Integer<String>>();
+    ArrayList<IntegerPriorityQueueNode<String>> list =
+        new ArrayList<IntegerPriorityQueueNode<String>>();
     for (int i = 0; i < elements.length; i++) {
-      list.add(new PriorityQueueNode.Integer<String>(elements[i], priorities[i]));
+      list.add(new IntegerPriorityQueueNode<String>(elements[i], priorities[i]));
     }
     assertTrue(pq.addAll(list));
     assertEquals(elements.length, pq.size());
@@ -86,10 +86,10 @@ public class PriorityQueueDefaultMethodTests {
     String[] elements = {"A", "B", "C", "D"};
     int[] priorities = {8, 6, 4, 2};
     BinaryHeap<String> pq = BinaryHeap.createMinHeap();
-    ArrayList<PriorityQueueNode.Integer<String>> list =
-        new ArrayList<PriorityQueueNode.Integer<String>>();
+    ArrayList<IntegerPriorityQueueNode<String>> list =
+        new ArrayList<IntegerPriorityQueueNode<String>>();
     for (int i = 0; i < elements.length; i++) {
-      list.add(new PriorityQueueNode.Integer<String>(elements[i], priorities[i]));
+      list.add(new IntegerPriorityQueueNode<String>(elements[i], priorities[i]));
     }
     for (int i = 0; i < elements.length; i++) {
       assertFalse(pq.containsAll(list));
@@ -102,8 +102,8 @@ public class PriorityQueueDefaultMethodTests {
   public void testElement() {
     String[] elements = {"A", "B", "C", "D"};
     int[] priorities = {2, 4, 6, 8};
-    PriorityQueueNode.Integer<String> first =
-        new PriorityQueueNode.Integer<String>(elements[0], priorities[0]);
+    IntegerPriorityQueueNode<String> first =
+        new IntegerPriorityQueueNode<String>(elements[0], priorities[0]);
     final BinaryHeap<String> pq = BinaryHeap.createMinHeap();
     NoSuchElementException thrown = assertThrows(NoSuchElementException.class, () -> pq.element());
     for (int i = 0; i < elements.length; i++) {
@@ -114,7 +114,7 @@ public class PriorityQueueDefaultMethodTests {
     for (int i = 0; i < elements.length; i++) {
       assertTrue(pq.add(elements[elements.length - 1 - i], priorities[elements.length - 1 - i]));
       assertEquals(
-          new PriorityQueueNode.Integer<String>(
+          new IntegerPriorityQueueNode<String>(
               elements[elements.length - 1 - i], priorities[elements.length - 1 - i]),
           pq.element());
     }
@@ -125,16 +125,16 @@ public class PriorityQueueDefaultMethodTests {
     String[] elements = {"A", "B", "C", "D"};
     int[] priorities = {8, 6, 4, 2};
     final BinaryHeap<String> pq = BinaryHeap.createMinHeap();
-    ArrayList<PriorityQueueNode.Integer<String>> list =
-        new ArrayList<PriorityQueueNode.Integer<String>>();
+    ArrayList<IntegerPriorityQueueNode<String>> list =
+        new ArrayList<IntegerPriorityQueueNode<String>>();
     for (int i = 0; i < elements.length; i++) {
-      list.add(new PriorityQueueNode.Integer<String>(elements[i], priorities[i]));
+      list.add(new IntegerPriorityQueueNode<String>(elements[i], priorities[i]));
     }
     assertTrue(pq.addAll(list));
     assertEquals(elements.length, pq.size());
     for (int i = 0; i < elements.length; i++) {
       assertEquals(
-          new PriorityQueueNode.Integer<String>(
+          new IntegerPriorityQueueNode<String>(
               elements[elements.length - 1 - i], priorities[elements.length - 1 - i]),
           pq.remove());
       assertEquals(elements.length - i - 1, pq.size());
@@ -147,10 +147,10 @@ public class PriorityQueueDefaultMethodTests {
     String[] elements = {"A", "B", "C", "D"};
     int[] priorities = {8, 6, 4, 2};
     final BinaryHeap<String> pq = BinaryHeap.createMinHeap();
-    ArrayList<PriorityQueueNode.Integer<String>> list =
-        new ArrayList<PriorityQueueNode.Integer<String>>();
+    ArrayList<IntegerPriorityQueueNode<String>> list =
+        new ArrayList<IntegerPriorityQueueNode<String>>();
     for (int i = 0; i < elements.length; i++) {
-      list.add(new PriorityQueueNode.Integer<String>(elements[i], priorities[i]));
+      list.add(new IntegerPriorityQueueNode<String>(elements[i], priorities[i]));
     }
     assertTrue(pq.addAll(list));
     assertEquals(elements.length, pq.size());
