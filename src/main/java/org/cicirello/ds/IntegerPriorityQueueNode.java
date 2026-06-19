@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2025 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2026 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -26,6 +26,9 @@ package org.cicirello.ds;
  * Encapsulate an (element, priority) pair for use by the various priority queue classes of the
  * library.
  *
+ * @param <E> The type of element contained by the node.
+ * @param element the element contained in the node.
+ * @param priority the priority of the element of the priority queue.
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
