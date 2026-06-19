@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2025 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2026 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -83,7 +83,7 @@ public final class BinaryHeap<E>
 
   private IntegerPriorityQueueNode<E>[] buffer;
   private int size;
-  private final HashMap<E, java.lang.Integer> index;
+  private final HashMap<E, Integer> index;
   private final IntegerPrioritizer compare;
   private final int extreme;
 
@@ -109,8 +109,8 @@ public final class BinaryHeap<E>
   private BinaryHeap(int initialCapacity, IntegerPrioritizer compare) {
     this.compare = compare;
     buffer = allocate(initialCapacity);
-    index = new HashMap<E, java.lang.Integer>();
-    extreme = compare.comesBefore(0, 1) ? java.lang.Integer.MAX_VALUE : java.lang.Integer.MIN_VALUE;
+    index = new HashMap<E, Integer>();
+    extreme = compare.comesBefore(0, 1) ? Integer.MAX_VALUE : Integer.MIN_VALUE;
   }
 
   /* PRIVATE: Use factory methods for creation.
@@ -463,7 +463,7 @@ public final class BinaryHeap<E>
 
   @Override
   public final int peekPriority(E element) {
-    java.lang.Integer i = index.get(element);
+    Integer i = index.get(element);
     return i != null ? buffer[i].priority() : extreme;
   }
 
@@ -561,7 +561,7 @@ public final class BinaryHeap<E>
 
   @Override
   public final boolean remove(Object o) {
-    java.lang.Integer i = null;
+    Integer i = null;
     if (o instanceof IntegerPriorityQueueNode) {
       IntegerPriorityQueueNode pair = (IntegerPriorityQueueNode) o;
       i = index.get(pair.element());

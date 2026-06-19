@@ -107,7 +107,7 @@ public final class SimpleBinaryHeap<E>
   private SimpleBinaryHeap(int initialCapacity, IntegerPrioritizer compare) {
     this.compare = compare;
     buffer = allocate(initialCapacity);
-    extreme = compare.comesBefore(0, 1) ? java.lang.Integer.MAX_VALUE : java.lang.Integer.MIN_VALUE;
+    extreme = compare.comesBefore(0, 1) ? Integer.MAX_VALUE : Integer.MIN_VALUE;
   }
 
   /* PRIVATE: Use factory methods for creation.

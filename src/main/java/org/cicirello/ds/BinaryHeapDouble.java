@@ -83,7 +83,7 @@ public final class BinaryHeapDouble<E>
 
   private DoublePriorityQueueNode<E>[] buffer;
   private int size;
-  private final HashMap<E, java.lang.Integer> index;
+  private final HashMap<E, Integer> index;
   private final DoublePrioritizer compare;
   private final double extreme;
 
@@ -109,11 +109,8 @@ public final class BinaryHeapDouble<E>
   private BinaryHeapDouble(int initialCapacity, DoublePrioritizer compare) {
     this.compare = compare;
     buffer = allocate(initialCapacity);
-    index = new HashMap<E, java.lang.Integer>();
-    extreme =
-        compare.comesBefore(0, 1)
-            ? java.lang.Double.POSITIVE_INFINITY
-            : java.lang.Double.NEGATIVE_INFINITY;
+    index = new HashMap<E, Integer>();
+    extreme = compare.comesBefore(0, 1) ? Double.POSITIVE_INFINITY : Double.NEGATIVE_INFINITY;
   }
 
   /* PRIVATE: Use factory methods for creation.
@@ -466,7 +463,7 @@ public final class BinaryHeapDouble<E>
 
   @Override
   public final double peekPriority(E element) {
-    java.lang.Integer i = index.get(element);
+    Integer i = index.get(element);
     return i != null ? buffer[i].priority() : extreme;
   }
 
@@ -564,7 +561,7 @@ public final class BinaryHeapDouble<E>
 
   @Override
   public final boolean remove(Object o) {
-    java.lang.Integer i = null;
+    Integer i = null;
     if (o instanceof DoublePriorityQueueNode) {
       DoublePriorityQueueNode pair = (DoublePriorityQueueNode) o;
       i = index.get(pair.element());

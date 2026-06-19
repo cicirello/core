@@ -109,10 +109,7 @@ public final class SimpleBinaryHeapDouble<E>
   private SimpleBinaryHeapDouble(int initialCapacity, DoublePrioritizer compare) {
     this.compare = compare;
     buffer = allocate(initialCapacity);
-    extreme =
-        compare.comesBefore(0, 1)
-            ? java.lang.Double.POSITIVE_INFINITY
-            : java.lang.Double.NEGATIVE_INFINITY;
+    extreme = compare.comesBefore(0, 1) ? Double.POSITIVE_INFINITY : Double.NEGATIVE_INFINITY;
   }
 
   /* PRIVATE: Use factory methods for creation.
