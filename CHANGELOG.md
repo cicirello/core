@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2025-11-08
+## [Unreleased] - 2026-06-19
 
 __BREAKING CHANGES: Next version will be 3.0.0__
 
@@ -14,10 +14,12 @@ __BREAKING CHANGES: Next version will be 3.0.0__
 
 ### Changed
 * Replaced PriorityQueueNode.Integer with a Java record class IntegerPriorityQueueNode for immutability and to eliminate the name clash with the Java API class Integer (BREAKING CHANGE).
+* Replaced PriorityQueueNode.Double with a Java record class DoublePriorityQueueNode for immutability and to eliminate the name clash with the Java API class Double (BREAKING CHANGE).
 
 ### Deprecated
 
 ### Removed
+* Removed PriorityQueueNode class and its nested classes (BREAKING CHANGE).
 
 ### Fixed
 * Refactored Prioritizer and implementations, an internal interface and classes related to priority queue implementations.

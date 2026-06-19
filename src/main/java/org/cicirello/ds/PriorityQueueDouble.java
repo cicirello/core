@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2023 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2026 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -35,7 +35,7 @@ import java.util.Queue;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E>> {
+public interface PriorityQueueDouble<E> extends Queue<DoublePriorityQueueNode<E>> {
 
   /**
    * Adds an (element, priority) pair to the priority queue with a specified priority.
@@ -62,7 +62,7 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
   /**
    * Adds an (element, priority) pair to the priority queue.
    *
-   * <p>This method differs from {@link #offer(PriorityQueueNode.Double)} in that it throws an
+   * <p>This method differs from {@link #offer(DoublePriorityQueueNode)} in that it throws an
    * exception if the add fails, while the offer method instead returns false, which will occur for
    * the class implementations that require distinct elements. For classes implementing this
    * interface that do not require distinctness, this method should never fail.
@@ -73,7 +73,7 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
    *     distinctness.
    */
   @Override
-  default boolean add(PriorityQueueNode.Double<E> pair) {
+  default boolean add(DoublePriorityQueueNode<E> pair) {
     if (offer(pair)) {
       return true;
     }
@@ -90,9 +90,9 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
    *     priority) pairs, which will occur only for the implementations that require distinctness.
    */
   @Override
-  default boolean addAll(Collection<? extends PriorityQueueNode.Double<E>> c) {
+  default boolean addAll(Collection<? extends DoublePriorityQueueNode<E>> c) {
     boolean changed = false;
-    for (PriorityQueueNode.Double<E> e : c) {
+    for (DoublePriorityQueueNode<E> e : c) {
       add(e);
       changed = true;
     }
@@ -173,8 +173,8 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
    * @throws NoSuchElementException if the priority queue is empty
    */
   @Override
-  default PriorityQueueNode.Double<E> element() {
-    PriorityQueueNode.Double<E> result = peek();
+  default DoublePriorityQueueNode<E> element() {
+    DoublePriorityQueueNode<E> result = peek();
     if (result == null) {
       throw new NoSuchElementException("PriorityQueueDouble is empty");
     }
@@ -196,7 +196,7 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
    * @return an iterator over the (element, priority) pairs
    */
   @Override
-  Iterator<PriorityQueueNode.Double<E>> iterator();
+  Iterator<DoublePriorityQueueNode<E>> iterator();
 
   /**
    * Adds an (element, priority) pair to the priority queue with a specified priority.
@@ -218,7 +218,7 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
    *     duplicate elements, this method should always return true.
    */
   @Override
-  boolean offer(PriorityQueueNode.Double<E> pair);
+  boolean offer(DoublePriorityQueueNode<E> pair);
 
   /**
    * Gets the next (element, priority) pair in priority order from this priority queue, without
@@ -227,7 +227,7 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
    * @return the next (element, priority) pair in priority order, or null if empty.
    */
   @Override
-  PriorityQueueNode.Double<E> peek();
+  DoublePriorityQueueNode<E> peek();
 
   /**
    * Gets the priority of the next element in priority order in the priority queue.
@@ -263,7 +263,7 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
    * @return the next (element, priority) pair in priority order, or null if empty.
    */
   @Override
-  PriorityQueueNode.Double<E> poll();
+  DoublePriorityQueueNode<E> poll();
 
   /**
    * Removes and returns the next element in priority order from this priority queue.
@@ -277,15 +277,15 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
    * queue, adding a new (element, priority) pair prior to returning.
    *
    * <p>The behavior of this method is equivalent to calling {@link #poll()}, followed by calling
-   * {@link #add(PriorityQueueNode.Double)}, although some implementing classes may implement this
+   * {@link #add(DoublePriorityQueueNode)}, although some implementing classes may implement this
    * differently where it is possible to do so more efficiently.
    *
    * @param pair The (element, priority) pair to add.
    * @return the next (element, priority) pair in priority order, or null if empty prior to the
    *     call.
    */
-  default PriorityQueueNode.Double<E> pollThenAdd(PriorityQueueNode.Double<E> pair) {
-    PriorityQueueNode.Double<E> next = poll();
+  default DoublePriorityQueueNode<E> pollThenAdd(DoublePriorityQueueNode<E> pair) {
+    DoublePriorityQueueNode<E> next = poll();
     add(pair);
     return next;
   }
@@ -332,8 +332,8 @@ public interface PriorityQueueDouble<E> extends Queue<PriorityQueueNode.Double<E
    * @throws NoSuchElementException if the priority queue is empty
    */
   @Override
-  default PriorityQueueNode.Double<E> remove() {
-    PriorityQueueNode.Double<E> result = poll();
+  default DoublePriorityQueueNode<E> remove() {
+    DoublePriorityQueueNode<E> result = poll();
     if (result == null) {
       throw new NoSuchElementException("PriorityQueueDouble is empty");
     }

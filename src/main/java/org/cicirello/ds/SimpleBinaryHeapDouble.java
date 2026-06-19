@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2025 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2026 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -60,10 +60,10 @@ import org.cicirello.util.Copyable;
  *   <li><b>O(1):</b> {@link #createMaxHeap()}, {@link #createMaxHeap(int)}, {@link
  *       #createMinHeap()}, {@link #createMinHeap(int)}, {@link #element}, {@link #isEmpty}, {@link
  *       #iterator}, {@link #peek}, {@link #peekElement}, {@link #peekPriority()}, {@link #size()}
- *   <li><b>O(lg n):</b> {@link #add(Object, double)}, {@link #add(PriorityQueueNode.Double)},
- *       {@link #offer(Object, double)}, {@link #offer(PriorityQueueNode.Double)}, {@link #poll},
- *       {@link #pollElement}, {@link #pollThenAdd(Object, double)}, {@link
- *       #pollThenAdd(PriorityQueueNode.Double)}, {@link #remove()}, {@link #removeElement()}
+ *   <li><b>O(lg n):</b> {@link #add(Object, double)}, {@link #add(DoublePriorityQueueNode)}, {@link
+ *       #offer(Object, double)}, {@link #offer(DoublePriorityQueueNode)}, {@link #poll}, {@link
+ *       #pollElement}, {@link #pollThenAdd(Object, double)}, {@link
+ *       #pollThenAdd(DoublePriorityQueueNode)}, {@link #remove()}, {@link #removeElement()}
  *   <li><b>O(m):</b> {@link #createMaxHeap(Collection)}, {@link #createMinHeap(Collection)}
  *   <li><b>O(n):</b> {@link #change}, {@link #clear}, {@link #contains}, {@link #copy()}, {@link
  *       #demote}, {@link #ensureCapacity}, {@link #equals}, {@link #hashCode}, {@link
@@ -82,7 +82,7 @@ public final class SimpleBinaryHeapDouble<E>
     implements MergeablePriorityQueueDouble<E, SimpleBinaryHeapDouble<E>>,
         Copyable<SimpleBinaryHeapDouble<E>> {
 
-  private PriorityQueueNode.Double<E>[] buffer;
+  private DoublePriorityQueueNode<E>[] buffer;
   private int size;
   private final DoublePrioritizer compare;
   private final double extreme;
@@ -124,7 +124,7 @@ public final class SimpleBinaryHeapDouble<E>
    *
    * @throws IllegalArgumentException if initialElements is empty.
    */
-  private SimpleBinaryHeapDouble(Collection<PriorityQueueNode.Double<E>> initialElements) {
+  private SimpleBinaryHeapDouble(Collection<DoublePriorityQueueNode<E>> initialElements) {
     this(initialElements, new DoubleMinOrder());
   }
 
@@ -138,10 +138,10 @@ public final class SimpleBinaryHeapDouble<E>
    * @throws IllegalArgumentException if initialElements is empty.
    */
   private SimpleBinaryHeapDouble(
-      Collection<PriorityQueueNode.Double<E>> initialElements, DoublePrioritizer compare) {
+      Collection<DoublePriorityQueueNode<E>> initialElements, DoublePrioritizer compare) {
     this(initialElements.size(), compare);
-    for (PriorityQueueNode.Double<E> element : initialElements) {
-      buffer[size] = element.copy();
+    for (DoublePriorityQueueNode<E> element : initialElements) {
+      buffer[size] = element;
       size++;
     }
     buildHeap();
@@ -154,7 +154,7 @@ public final class SimpleBinaryHeapDouble<E>
     this(other.capacity(), other.compare);
     size = other.size;
     for (int i = 0; i < size; i++) {
-      buffer[i] = other.buffer[i].copy();
+      buffer[i] = other.buffer[i];
     }
   }
 
@@ -200,7 +200,7 @@ public final class SimpleBinaryHeapDouble<E>
    * @throws IllegalArgumentException if initialElements is empty.
    */
   public static <E> SimpleBinaryHeapDouble<E> createMinHeap(
-      Collection<PriorityQueueNode.Double<E>> initialElements) {
+      Collection<DoublePriorityQueueNode<E>> initialElements) {
     if (initialElements.size() < 1) {
       throw new IllegalArgumentException("initialElements is empty");
     }
@@ -244,7 +244,7 @@ public final class SimpleBinaryHeapDouble<E>
    * @throws IllegalArgumentException if initialElements is empty.
    */
   public static <E> SimpleBinaryHeapDouble<E> createMaxHeap(
-      Collection<PriorityQueueNode.Double<E>> initialElements) {
+      Collection<DoublePriorityQueueNode<E>> initialElements) {
     if (initialElements.size() < 1) {
       throw new IllegalArgumentException("initialElements is empty");
     }
@@ -257,7 +257,7 @@ public final class SimpleBinaryHeapDouble<E>
   }
 
   @Override
-  public final boolean add(PriorityQueueNode.Double<E> pair) {
+  public final boolean add(DoublePriorityQueueNode<E> pair) {
     return offer(pair);
   }
 
@@ -267,17 +267,17 @@ public final class SimpleBinaryHeapDouble<E>
    * <p>The runtime of this method is O(n + m) where n is current size of the heap and m is the size
    * of the Collection c. In general this is more efficient than calling add repeatedly, unless you
    * are adding a relatively small number of elements, in which case you should instead call either
-   * {@link #offer(PriorityQueueNode.Double)} or {@link #add(PriorityQueueNode.Double)} for each
+   * {@link #offer(DoublePriorityQueueNode)} or {@link #add(DoublePriorityQueueNode)} for each
    * (element, priority) pair you want to add.
    */
   @Override
-  public final boolean addAll(Collection<? extends PriorityQueueNode.Double<E>> c) {
+  public final boolean addAll(Collection<? extends DoublePriorityQueueNode<E>> c) {
     if (size + c.size() > buffer.length) {
       internalAdjustCapacity((size + c.size()) << 1);
     }
     boolean changed = false;
-    for (PriorityQueueNode.Double<E> e : c) {
-      buffer[size] = e.copy();
+    for (DoublePriorityQueueNode<E> e : c) {
+      buffer[size] = e;
       size++;
       changed = true;
     }
@@ -291,12 +291,12 @@ public final class SimpleBinaryHeapDouble<E>
   public final boolean change(E element, double priority) {
     int i = find(element);
     if (i >= 0) {
-      if (compare.comesBefore(priority, buffer[i].value)) {
-        buffer[i].value = priority;
+      if (compare.comesBefore(priority, buffer[i].priority())) {
+        buffer[i] = new DoublePriorityQueueNode<E>(buffer[i].element(), priority);
         percolateUp(i);
         return true;
-      } else if (compare.comesBefore(buffer[i].value, priority)) {
-        buffer[i].value = priority;
+      } else if (compare.comesBefore(buffer[i].priority(), priority)) {
+        buffer[i] = new DoublePriorityQueueNode<E>(buffer[i].element(), priority);
         percolateDown(i);
         return true;
       }
@@ -315,9 +315,9 @@ public final class SimpleBinaryHeapDouble<E>
 
   @Override
   public final boolean contains(Object o) {
-    if (o instanceof PriorityQueueNode.Double) {
-      PriorityQueueNode.Double pair = (PriorityQueueNode.Double) o;
-      return find(pair.element) >= 0;
+    if (o instanceof DoublePriorityQueueNode) {
+      DoublePriorityQueueNode pair = (DoublePriorityQueueNode) o;
+      return find(pair.element()) >= 0;
     }
     return find(o) >= 0;
   }
@@ -333,12 +333,12 @@ public final class SimpleBinaryHeapDouble<E>
   public final boolean containsAll(Collection<?> c) {
     HashSet<E> containsThese = new HashSet<E>();
     for (int i = 0; i < size; i++) {
-      containsThese.add(buffer[i].element);
+      containsThese.add(buffer[i].element());
     }
     for (Object o : c) {
-      if (o instanceof PriorityQueueNode.Double) {
-        PriorityQueueNode.Double pair = (PriorityQueueNode.Double) o;
-        if (!containsThese.contains(pair.element)) {
+      if (o instanceof DoublePriorityQueueNode) {
+        DoublePriorityQueueNode pair = (DoublePriorityQueueNode) o;
+        if (!containsThese.contains(pair.element())) {
           return false;
         }
       } else if (!containsThese.contains(o)) {
@@ -352,8 +352,8 @@ public final class SimpleBinaryHeapDouble<E>
   public final boolean demote(E element, double priority) {
     int i = find(element);
     if (i >= 0) {
-      if (compare.comesBefore(buffer[i].value, priority)) {
-        buffer[i].value = priority;
+      if (compare.comesBefore(buffer[i].priority(), priority)) {
+        buffer[i] = new DoublePriorityQueueNode<E>(buffer[i].element(), priority);
         percolateDown(i);
         return true;
       }
@@ -390,8 +390,8 @@ public final class SimpleBinaryHeapDouble<E>
       if (size != casted.size) return false;
       if (compare.comesBefore(0, 1) != casted.compare.comesBefore(0, 1)) return false;
       for (int i = 0; i < size; i++) {
-        if (!buffer[i].element.equals(casted.buffer[i].element)) return false;
-        if (casted.buffer[i].value != buffer[i].value) return false;
+        if (!buffer[i].element().equals(casted.buffer[i].element())) return false;
+        if (casted.buffer[i].priority() != buffer[i].priority()) return false;
       }
       return true;
     } else {
@@ -408,8 +408,8 @@ public final class SimpleBinaryHeapDouble<E>
   public int hashCode() {
     int h = 0;
     for (int i = 0; i < size; i++) {
-      h = 31 * h + java.lang.Double.hashCode(buffer[i].value);
-      h = 31 * h + buffer[i].element.hashCode();
+      h = 31 * h + java.lang.Double.hashCode(buffer[i].priority());
+      h = 31 * h + buffer[i].element().hashCode();
     }
     return h;
   }
@@ -420,7 +420,7 @@ public final class SimpleBinaryHeapDouble<E>
   }
 
   @Override
-  public final Iterator<PriorityQueueNode.Double<E>> iterator() {
+  public final Iterator<DoublePriorityQueueNode<E>> iterator() {
     return new SimpleBinaryHeapDoubleIterator();
   }
 
@@ -453,45 +453,45 @@ public final class SimpleBinaryHeapDouble<E>
 
   @Override
   public final boolean offer(E element, double priority) {
-    return internalOffer(new PriorityQueueNode.Double<E>(element, priority));
+    return internalOffer(new DoublePriorityQueueNode<E>(element, priority));
   }
 
   @Override
-  public final boolean offer(PriorityQueueNode.Double<E> pair) {
-    return internalOffer(pair.copy());
+  public final boolean offer(DoublePriorityQueueNode<E> pair) {
+    return internalOffer(pair);
   }
 
   @Override
   public final E peekElement() {
-    return size > 0 ? buffer[0].element : null;
+    return size > 0 ? buffer[0].element() : null;
   }
 
   @Override
-  public final PriorityQueueNode.Double<E> peek() {
+  public final DoublePriorityQueueNode<E> peek() {
     return size > 0 ? buffer[0] : null;
   }
 
   @Override
   public final double peekPriority() {
-    return size > 0 ? buffer[0].value : extreme;
+    return size > 0 ? buffer[0].priority() : extreme;
   }
 
   @Override
   public final double peekPriority(E element) {
     int i = find(element);
-    return i >= 0 ? buffer[i].value : extreme;
+    return i >= 0 ? buffer[i].priority() : extreme;
   }
 
   @Override
   public final E pollElement() {
-    PriorityQueueNode.Double<E> min = poll();
-    return min != null ? min.element : null;
+    DoublePriorityQueueNode<E> min = poll();
+    return min != null ? min.element() : null;
   }
 
   @Override
-  public final PriorityQueueNode.Double<E> poll() {
+  public final DoublePriorityQueueNode<E> poll() {
     if (size > 0) {
-      PriorityQueueNode.Double<E> min = buffer[0];
+      DoublePriorityQueueNode<E> min = buffer[0];
       size--;
       if (size > 0) {
         buffer[0] = buffer[size];
@@ -507,9 +507,9 @@ public final class SimpleBinaryHeapDouble<E>
   }
 
   @Override
-  public final PriorityQueueNode.Double<E> pollThenAdd(PriorityQueueNode.Double<E> pair) {
-    PriorityQueueNode.Double<E> min = size > 0 ? buffer[0] : null;
-    buffer[0] = pair.copy();
+  public final DoublePriorityQueueNode<E> pollThenAdd(DoublePriorityQueueNode<E> pair) {
+    DoublePriorityQueueNode<E> min = size > 0 ? buffer[0] : null;
+    buffer[0] = pair;
     if (size <= 0) {
       size = 1;
     } else {
@@ -520,8 +520,8 @@ public final class SimpleBinaryHeapDouble<E>
 
   @Override
   public final E pollThenAdd(E element, double priority) {
-    E min = size > 0 ? buffer[0].element : null;
-    buffer[0] = new PriorityQueueNode.Double<E>(element, priority);
+    E min = size > 0 ? buffer[0].element() : null;
+    buffer[0] = new DoublePriorityQueueNode<E>(element, priority);
     if (size <= 0) {
       size = 1;
     } else {
@@ -534,8 +534,8 @@ public final class SimpleBinaryHeapDouble<E>
   public final boolean promote(E element, double priority) {
     int i = find(element);
     if (i >= 0) {
-      if (compare.comesBefore(priority, buffer[i].value)) {
-        buffer[i].value = priority;
+      if (compare.comesBefore(priority, buffer[i].priority())) {
+        buffer[i] = new DoublePriorityQueueNode<E>(buffer[i].element(), priority);
         percolateUp(i);
         return true;
       }
@@ -546,9 +546,9 @@ public final class SimpleBinaryHeapDouble<E>
   @Override
   public final boolean remove(Object o) {
     int i = -1;
-    if (o instanceof PriorityQueueNode.Double) {
-      PriorityQueueNode.Double pair = (PriorityQueueNode.Double) o;
-      i = find(pair.element);
+    if (o instanceof DoublePriorityQueueNode) {
+      DoublePriorityQueueNode pair = (DoublePriorityQueueNode) o;
+      i = find(pair.element());
     } else {
       i = find(o);
     }
@@ -557,13 +557,13 @@ public final class SimpleBinaryHeapDouble<E>
     }
     size--;
     if (size > 0 && i != size) {
-      double removedElementPriority = buffer[i].value;
+      double removedElementPriority = buffer[i].priority();
       buffer[i] = buffer[size];
       buffer[size] = null;
       // percolate in relevant direction
-      if (compare.comesBefore(buffer[i].value, removedElementPriority)) {
+      if (compare.comesBefore(buffer[i].priority(), removedElementPriority)) {
         percolateUp(i);
-      } else if (compare.comesBefore(removedElementPriority, buffer[i].value)) {
+      } else if (compare.comesBefore(removedElementPriority, buffer[i].priority())) {
         percolateDown(i);
       }
     } else {
@@ -586,16 +586,16 @@ public final class SimpleBinaryHeapDouble<E>
   public final boolean removeAll(Collection<?> c) {
     HashSet<Object> discardThese = new HashSet<Object>();
     for (Object o : c) {
-      if (o instanceof PriorityQueueNode.Double) {
-        PriorityQueueNode.Double pair = (PriorityQueueNode.Double) o;
-        discardThese.add(pair.element);
+      if (o instanceof DoublePriorityQueueNode) {
+        DoublePriorityQueueNode pair = (DoublePriorityQueueNode) o;
+        discardThese.add(pair.element());
       } else {
         discardThese.add(o);
       }
     }
     boolean changed = false;
     for (int i = size - 1; i >= 0; i--) {
-      if (discardThese.contains(buffer[i].element)) {
+      if (discardThese.contains(buffer[i].element())) {
         changed = true;
         size--;
         if (i != size) {
@@ -620,16 +620,16 @@ public final class SimpleBinaryHeapDouble<E>
   public final boolean retainAll(Collection<?> c) {
     HashSet<Object> keepThese = new HashSet<Object>();
     for (Object o : c) {
-      if (o instanceof PriorityQueueNode.Double) {
-        PriorityQueueNode.Double pair = (PriorityQueueNode.Double) o;
-        keepThese.add(pair.element);
+      if (o instanceof DoublePriorityQueueNode) {
+        DoublePriorityQueueNode pair = (DoublePriorityQueueNode) o;
+        keepThese.add(pair.element());
       } else {
         keepThese.add(o);
       }
     }
     boolean changed = false;
     for (int i = size - 1; i >= 0; i--) {
-      if (!keepThese.contains(buffer[i].element)) {
+      if (!keepThese.contains(buffer[i].element())) {
         changed = true;
         size--;
         if (i != size) {
@@ -704,7 +704,7 @@ public final class SimpleBinaryHeapDouble<E>
 
   private final int find(Object element) {
     for (int i = 0; i < size; i++) {
-      if (buffer[i].element.equals(element)) {
+      if (buffer[i].element().equals(element)) {
         return i;
       }
     }
@@ -715,15 +715,16 @@ public final class SimpleBinaryHeapDouble<E>
     int left;
     while ((left = (i << 1) + 1) < size) {
       int smallest = i;
-      if (compare.comesBefore(buffer[left].value, buffer[i].value)) {
+      if (compare.comesBefore(buffer[left].priority(), buffer[i].priority())) {
         smallest = left;
       }
       int right = left + 1;
-      if (right < size && compare.comesBefore(buffer[right].value, buffer[smallest].value)) {
+      if (right < size
+          && compare.comesBefore(buffer[right].priority(), buffer[smallest].priority())) {
         smallest = right;
       }
       if (smallest != i) {
-        PriorityQueueNode.Double<E> temp = buffer[i];
+        DoublePriorityQueueNode<E> temp = buffer[i];
         buffer[i] = buffer[smallest];
         buffer[smallest] = temp;
         i = smallest;
@@ -735,17 +736,18 @@ public final class SimpleBinaryHeapDouble<E>
 
   private void percolateUp(int i) {
     int parent;
-    while (i > 0 && compare.comesBefore(buffer[i].value, buffer[parent = (i - 1) >> 1].value)) {
-      PriorityQueueNode.Double<E> temp = buffer[i];
+    while (i > 0
+        && compare.comesBefore(buffer[i].priority(), buffer[parent = (i - 1) >> 1].priority())) {
+      DoublePriorityQueueNode<E> temp = buffer[i];
       buffer[i] = buffer[parent];
       buffer[parent] = temp;
       i = parent;
     }
   }
 
-  private PriorityQueueNode.Double<E>[] allocate(int capacity) {
+  private DoublePriorityQueueNode<E>[] allocate(int capacity) {
     @SuppressWarnings("unchecked")
-    PriorityQueueNode.Double<E>[] temp = new PriorityQueueNode.Double[capacity];
+    DoublePriorityQueueNode<E>[] temp = new DoublePriorityQueueNode[capacity];
     return temp;
   }
 
@@ -759,7 +761,7 @@ public final class SimpleBinaryHeapDouble<E>
   /*
    * used internally: doesn't check if already contains element
    */
-  private boolean internalOffer(PriorityQueueNode.Double<E> pair) {
+  private boolean internalOffer(DoublePriorityQueueNode<E> pair) {
     if (size == buffer.length) {
       internalAdjustCapacity(size << 1);
     }
@@ -775,7 +777,7 @@ public final class SimpleBinaryHeapDouble<E>
     }
   }
 
-  private class SimpleBinaryHeapDoubleIterator implements Iterator<PriorityQueueNode.Double<E>> {
+  private class SimpleBinaryHeapDoubleIterator implements Iterator<DoublePriorityQueueNode<E>> {
 
     private int index;
 
@@ -789,7 +791,7 @@ public final class SimpleBinaryHeapDouble<E>
     }
 
     @Override
-    public PriorityQueueNode.Double<E> next() {
+    public DoublePriorityQueueNode<E> next() {
       if (index >= size) {
         throw new NoSuchElementException("No more elements remain.");
       }

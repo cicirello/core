@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2022 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2026 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -122,17 +122,17 @@ public class BinaryHeapDoubleTests extends SharedTestCommonHelpersHeapsDouble {
     double[] priorities1 = new double[n];
     String[] elements2 = new String[n];
     double[] priorities2 = new double[n];
-    ArrayList<PriorityQueueNode.Double<String>> list1 =
-        new ArrayList<PriorityQueueNode.Double<String>>();
-    ArrayList<PriorityQueueNode.Double<String>> list2 =
-        new ArrayList<PriorityQueueNode.Double<String>>();
+    ArrayList<DoublePriorityQueueNode<String>> list1 =
+        new ArrayList<DoublePriorityQueueNode<String>>();
+    ArrayList<DoublePriorityQueueNode<String>> list2 =
+        new ArrayList<DoublePriorityQueueNode<String>>();
     for (int i = 0; i < 2 * n; i += 2) {
       elements1[i / 2] = "A" + i;
       elements2[i / 2] = "A" + (i + 1);
       priorities1[i / 2] = i;
       priorities2[i / 2] = i + 1;
-      list1.add(new PriorityQueueNode.Double<String>(elements1[i / 2], priorities1[i / 2]));
-      list2.add(new PriorityQueueNode.Double<String>(elements2[i / 2], priorities2[i / 2]));
+      list1.add(new DoublePriorityQueueNode<String>(elements1[i / 2], priorities1[i / 2]));
+      list2.add(new DoublePriorityQueueNode<String>(elements2[i / 2], priorities2[i / 2]));
     }
     final BinaryHeapDouble<String> pq1 = BinaryHeapDouble.createMinHeap(list1);
     final BinaryHeapDouble<String> pq2 = BinaryHeapDouble.createMinHeap(list2);
@@ -167,10 +167,10 @@ public class BinaryHeapDoubleTests extends SharedTestCommonHelpersHeapsDouble {
     final int INITIAL_CAPACITY = 6;
     final BinaryHeapDouble<String> pq = BinaryHeapDouble.createMinHeap(INITIAL_CAPACITY);
     assertEquals(INITIAL_CAPACITY, pq.capacity());
-    ArrayList<PriorityQueueNode.Double<String>> list =
-        new ArrayList<PriorityQueueNode.Double<String>>();
+    ArrayList<DoublePriorityQueueNode<String>> list =
+        new ArrayList<DoublePriorityQueueNode<String>>();
     for (int i = 0; i < elements.length; i++) {
-      list.add(new PriorityQueueNode.Double<String>(elements[i], priorities[i]));
+      list.add(new DoublePriorityQueueNode<String>(elements[i], priorities[i]));
     }
     assertTrue(pq.addAll(list));
     assertEquals(elements.length, pq.size());
@@ -182,10 +182,10 @@ public class BinaryHeapDoubleTests extends SharedTestCommonHelpersHeapsDouble {
 
     String[] elements2 = {"E", "F", "G", "H", "I"};
     double[] priorities2 = {7, 3, 1, 5, 9};
-    ArrayList<PriorityQueueNode.Double<String>> list2 =
-        new ArrayList<PriorityQueueNode.Double<String>>();
+    ArrayList<DoublePriorityQueueNode<String>> list2 =
+        new ArrayList<DoublePriorityQueueNode<String>>();
     for (int i = 0; i < elements2.length; i++) {
-      list2.add(new PriorityQueueNode.Double<String>(elements2[i], priorities2[i]));
+      list2.add(new DoublePriorityQueueNode<String>(elements2[i], priorities2[i]));
     }
     assertTrue(pq.addAll(list2));
     assertEquals(elements.length + elements2.length, pq.size());
@@ -199,7 +199,7 @@ public class BinaryHeapDoubleTests extends SharedTestCommonHelpersHeapsDouble {
       assertEquals(priorities2[i], pq.peekPriority(elements2[i]));
     }
 
-    assertFalse(pq.addAll(new ArrayList<PriorityQueueNode.Double<String>>()));
+    assertFalse(pq.addAll(new ArrayList<DoublePriorityQueueNode<String>>()));
     assertEquals(elements.length + elements2.length, pq.size());
     assertEquals((elements.length + elements2.length) * 2, pq.capacity());
     for (int i = 0; i < elements.length; i++) {
@@ -237,10 +237,10 @@ public class BinaryHeapDoubleTests extends SharedTestCommonHelpersHeapsDouble {
     int n = 11;
     String[] elements = createStrings(n);
     double[] priorities = createPriorities(elements);
-    PriorityQueueNode.Double<String>[] pairs = createPairs(elements, priorities);
-    ArrayList<PriorityQueueNode.Double<String>> list =
-        new ArrayList<PriorityQueueNode.Double<String>>();
-    for (PriorityQueueNode.Double<String> next : pairs) {
+    DoublePriorityQueueNode<String>[] pairs = createPairs(elements, priorities);
+    ArrayList<DoublePriorityQueueNode<String>> list =
+        new ArrayList<DoublePriorityQueueNode<String>>();
+    for (DoublePriorityQueueNode<String> next : pairs) {
       list.add(next);
     }
     pq = BinaryHeapDouble.createMinHeap(list);
@@ -257,7 +257,7 @@ public class BinaryHeapDoubleTests extends SharedTestCommonHelpersHeapsDouble {
     assertEquals(n, pq.size());
     for (int i = 0; i < n; i++) {
       assertEquals(pairs[i], pq.poll());
-      assertFalse(pq.contains(pairs[i].element));
+      assertFalse(pq.contains(pairs[i].element()));
       assertEquals(n - 1 - i, pq.size());
     }
     assertNull(pq.poll());
