@@ -28,7 +28,6 @@ jobs:
         server-username: MAVEN_USERNAME
         server-password: MAVEN_CENTRAL_TOKEN
         gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
-        gpg-passphrase: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
 
     - name: Build with Maven
       run: mvn -B package --file pom.xml
@@ -37,10 +36,11 @@ jobs:
       run: mvn versions:set -DnewVersion=${{ steps.get_version.outputs.VERSION }}
 
     - name: Publish to Apache Maven Central
-      run: mvn deploy -PcentralDeploy	
+      run: mvn deploy -PcentralDeploy -Dgpg.arguments="--pinentry-mode=loopback"
       env:
         MAVEN_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
         MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
+        MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
 
     - name: Set up JDK 25 for deploy to github packages
       uses: actions/setup-java@v5
