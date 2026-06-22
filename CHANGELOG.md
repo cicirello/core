@@ -33,7 +33,7 @@ __BREAKING CHANGES: Next version will be 3.0.0__
 ### CI/CD
 
 ### Other
-* Minimum supported Java 25.
+* Minimum supported Java 25 (BREAKING CHANGE).
 
 
 ## [2.7.1] - 2025-05-15
