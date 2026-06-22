@@ -204,7 +204,7 @@
   
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.release>17</maven.compiler.release>
+		<maven.compiler.release>25</maven.compiler.release>
 	</properties>
   
 	<build>
@@ -214,7 +214,7 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.15.0</version>
 				<configuration>
-					<release>17</release>
+					<release>25</release>
 					<compilerArgs>
                         <arg>-Xlint:unchecked</arg>
                     </compilerArgs>
