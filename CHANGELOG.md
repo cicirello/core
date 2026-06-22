@@ -6,7 +6,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - 2026-06-22
 
-__BREAKING CHANGES: Next version will be 3.0.0__
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### CI/CD
+
+### Other
+
+
+## [3.0.0] - 2026-06-22
+
+__BREAKING CHANGES__
 
 ### Added
 * 4-element sorting network for arrays of doubles.
@@ -15,8 +32,6 @@ __BREAKING CHANGES: Next version will be 3.0.0__
 ### Changed
 * Replaced PriorityQueueNode.Integer with a Java record class IntegerPriorityQueueNode for immutability and to eliminate the name clash with the Java API class Integer (BREAKING CHANGE).
 * Replaced PriorityQueueNode.Double with a Java record class DoublePriorityQueueNode for immutability and to eliminate the name clash with the Java API class Double (BREAKING CHANGE).
-
-### Deprecated
 
 ### Removed
 * Removed PriorityQueueNode class and its nested classes (BREAKING CHANGE).
@@ -29,8 +44,6 @@ __BREAKING CHANGES: Next version will be 3.0.0__
 * Refactored IntFibonacciHeapDouble based on RefactorFirst report.
 * Refactored SimpleFibonacciHeap based on RefactorFirst report.
 * Refactored SimpleFibonacciHeapDouble based on RefactorFirst report.
-
-### CI/CD
 
 ### Other
 * Minimum supported Java 25 (BREAKING CHANGE).
