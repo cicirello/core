@@ -13,7 +13,7 @@ API documentation: [https://core.cicirello.org/api](https://core.cicirello.org/a
 | __Build Status__ | [![build](https://github.com/cicirello/core/workflows/build/badge.svg)](https://github.com/cicirello/core/actions/workflows/build.yml) [![docs](https://github.com/cicirello/core/workflows/docs/badge.svg)](https://core.cicirello.org/api/) [![CodeQL](https://github.com/cicirello/core/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/cicirello/core/actions/workflows/codeql-analysis.yml) |
 | __JaCoCo Test Coverage__ | [![coverage](https://raw.githubusercontent.com/cicirello/core/badges/jacoco.svg)](https://github.com/cicirello/core/actions/workflows/build.yml) [![branches coverage](https://raw.githubusercontent.com/cicirello/core/badges/branches.svg)](https://github.com/cicirello/core/actions/workflows/build.yml) |
 | __Security__ | [![Snyk security score](https://snyk-widget.herokuapp.com/badge/mvn/org.cicirello/core/badge.svg)](https://snyk.io/vuln/maven%3Aorg.cicirello%3Acore) [![Snyk Known Vulnerabilities](https://snyk.io/test/github/cicirello/core/badge.svg)](https://snyk.io/test/github/cicirello/core) |
-| __Other Information__ | [![GitHub](https://img.shields.io/github/license/cicirello/core)](https://github.com/cicirello/core/blob/main/LICENSE) [![style](https://img.shields.io/badge/style-Google%20Java%20Style-informational)](https://google.github.io/styleguide/javaguide.html) |
+| __Other Information__ | [![GitHub](https://img.shields.io/github/license/cicirello/core)](https://github.com/cicirello/core/blob/main/LICENSE) [![style](https://img.shields.io/badge/style-Google%20Java%20Style-informational)](https://google.github.io/styleguide/javaguide.html) ![Minimum supported Java version](https://img.shields.io/badge/dynamic/xml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fcicirello%2Fcore%2Frefs%2Fheads%2Fmain%2Fpom.xml&query=%2F*%5Blocal-name()%3D'project'%5D%2F*%5Blocal-name()%3D'properties'%5D%2F*%5Blocal-name()%3D'maven.compiler.release'%5D&prefix=%3E%3D&label=Java) |
 | __Support__ | [![GitHub Sponsors](https://img.shields.io/badge/sponsor-30363D?logo=GitHub-Sponsors&logoColor=#EA4AAA)](https://github.com/sponsors/cicirello) [![Liberapay](https://img.shields.io/badge/Liberapay-F6C915?logo=liberapay&logoColor=black)](https://liberapay.com/cicirello) [![Ko-Fi](https://img.shields.io/badge/Ko--fi-F16061?logo=ko-fi&logoColor=white)](https://ko-fi.com/cicirello) |
 
 ## Overview
@@ -25,13 +25,14 @@ and [JavaPermutationTools](https://github.com/cicirello/JavaPermutationTools),
 as well as various applications that use those libraries.
 
 
-## Java 17+
+## Java 25+
 
-The org.cicirello.core currently supports Java 17+. See the following table for mapping between library
+The org.cicirello.core currently supports Java 25+. See the following table for mapping between library
 version and minimum supported Java version.
 
 | version | Java requirements |
 | --- | --- |
+| 3.x.y | Java 25+ |
 | 2.x.y | Java 17+ |
 | 1.x.y | Java 11+ |
 
