@@ -461,7 +461,7 @@ public final class IntFibonacciHeapDouble
     return false;
   }
 
-  private class Node {
+  private final class Node {
 
     private final int element;
     private double priority;

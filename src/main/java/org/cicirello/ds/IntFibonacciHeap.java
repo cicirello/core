@@ -459,7 +459,7 @@ public final class IntFibonacciHeap implements IntPriorityQueue, Copyable<IntFib
     return false;
   }
 
-  private class Node {
+  private final class Node {
 
     private final int element;
     private int priority;
