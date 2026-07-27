@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2025 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2026 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -206,8 +206,7 @@ public final class SimpleFibonacciHeap<E>
 
   @Override
   public boolean contains(Object o) {
-    if (o instanceof IntegerPriorityQueueNode) {
-      IntegerPriorityQueueNode pair = (IntegerPriorityQueueNode) o;
+    if (o instanceof IntegerPriorityQueueNode pair) {
       return find(min, pair.element()) != null;
     }
     return find(min, o) != null;
@@ -227,8 +226,7 @@ public final class SimpleFibonacciHeap<E>
       containsThese.add(e.element());
     }
     for (Object o : c) {
-      if (o instanceof IntegerPriorityQueueNode) {
-        IntegerPriorityQueueNode pair = (IntegerPriorityQueueNode) o;
+      if (o instanceof IntegerPriorityQueueNode pair) {
         if (!containsThese.contains(pair.element())) {
           return false;
         }
@@ -260,13 +258,14 @@ public final class SimpleFibonacciHeap<E>
    */
   @Override
   public boolean equals(Object other) {
-    if (other instanceof SimpleFibonacciHeap) {
-      @SuppressWarnings("unchecked")
-      SimpleFibonacciHeap<E> casted = (SimpleFibonacciHeap<E>) other;
-      if (size != casted.size) return false;
-      if (compare.comesBefore(0, 1) != casted.compare.comesBefore(0, 1)) return false;
+    if (other instanceof SimpleFibonacciHeap casted) {
+      if (size != casted.size || compare.comesBefore(0, 1) != casted.compare.comesBefore(0, 1)) {
+        return false;
+      }
       Iterator<IntegerPriorityQueueNode<E>> iter = iterator();
-      Iterator<IntegerPriorityQueueNode<E>> otherIter = casted.iterator();
+      @SuppressWarnings("unchecked")
+      Iterator<IntegerPriorityQueueNode<E>> otherIter =
+          (Iterator<IntegerPriorityQueueNode<E>>) casted.iterator();
       while (iter.hasNext()) {
         if (!iter.next().equals(otherIter.next())) {
           return false;
@@ -393,8 +392,7 @@ public final class SimpleFibonacciHeap<E>
   @Override
   public boolean remove(Object o) {
     FibonacciHeapNode<E> node = null;
-    if (o instanceof IntegerPriorityQueueNode) {
-      IntegerPriorityQueueNode pair = (IntegerPriorityQueueNode) o;
+    if (o instanceof IntegerPriorityQueueNode pair) {
       node = find(min, pair.element());
     } else {
       node = find(min, o);
@@ -563,8 +561,7 @@ public final class SimpleFibonacciHeap<E>
   private HashSet<Object> toSet(Collection<?> c) {
     HashSet<Object> set = new HashSet<Object>();
     for (Object o : c) {
-      if (o instanceof IntegerPriorityQueueNode) {
-        IntegerPriorityQueueNode pair = (IntegerPriorityQueueNode) o;
+      if (o instanceof IntegerPriorityQueueNode pair) {
         set.add(pair.element());
       } else {
         set.add(o);

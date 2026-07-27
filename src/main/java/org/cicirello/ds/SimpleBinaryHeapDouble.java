@@ -312,8 +312,7 @@ public final class SimpleBinaryHeapDouble<E>
 
   @Override
   public final boolean contains(Object o) {
-    if (o instanceof DoublePriorityQueueNode) {
-      DoublePriorityQueueNode pair = (DoublePriorityQueueNode) o;
+    if (o instanceof DoublePriorityQueueNode pair) {
       return find(pair.element()) >= 0;
     }
     return find(o) >= 0;
@@ -333,8 +332,7 @@ public final class SimpleBinaryHeapDouble<E>
       containsThese.add(buffer[i].element());
     }
     for (Object o : c) {
-      if (o instanceof DoublePriorityQueueNode) {
-        DoublePriorityQueueNode pair = (DoublePriorityQueueNode) o;
+      if (o instanceof DoublePriorityQueueNode pair) {
         if (!containsThese.contains(pair.element())) {
           return false;
         }
@@ -381,11 +379,10 @@ public final class SimpleBinaryHeapDouble<E>
    */
   @Override
   public boolean equals(Object other) {
-    if (other instanceof SimpleBinaryHeapDouble) {
-      @SuppressWarnings("unchecked")
-      SimpleBinaryHeapDouble<E> casted = (SimpleBinaryHeapDouble<E>) other;
-      if (size != casted.size) return false;
-      if (compare.comesBefore(0, 1) != casted.compare.comesBefore(0, 1)) return false;
+    if (other instanceof SimpleBinaryHeapDouble casted) {
+      if (size != casted.size || compare.comesBefore(0, 1) != casted.compare.comesBefore(0, 1)) {
+        return false;
+      }
       for (int i = 0; i < size; i++) {
         if (!buffer[i].equals(casted.buffer[i])) return false;
       }
@@ -541,8 +538,7 @@ public final class SimpleBinaryHeapDouble<E>
   @Override
   public final boolean remove(Object o) {
     int i = -1;
-    if (o instanceof DoublePriorityQueueNode) {
-      DoublePriorityQueueNode pair = (DoublePriorityQueueNode) o;
+    if (o instanceof DoublePriorityQueueNode pair) {
       i = find(pair.element());
     } else {
       i = find(o);
@@ -581,8 +577,7 @@ public final class SimpleBinaryHeapDouble<E>
   public final boolean removeAll(Collection<?> c) {
     HashSet<Object> discardThese = new HashSet<Object>();
     for (Object o : c) {
-      if (o instanceof DoublePriorityQueueNode) {
-        DoublePriorityQueueNode pair = (DoublePriorityQueueNode) o;
+      if (o instanceof DoublePriorityQueueNode pair) {
         discardThese.add(pair.element());
       } else {
         discardThese.add(o);
@@ -615,8 +610,7 @@ public final class SimpleBinaryHeapDouble<E>
   public final boolean retainAll(Collection<?> c) {
     HashSet<Object> keepThese = new HashSet<Object>();
     for (Object o : c) {
-      if (o instanceof DoublePriorityQueueNode) {
-        DoublePriorityQueueNode pair = (DoublePriorityQueueNode) o;
+      if (o instanceof DoublePriorityQueueNode pair) {
         keepThese.add(pair.element());
       } else {
         keepThese.add(o);
