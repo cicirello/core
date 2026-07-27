@@ -43,7 +43,7 @@ import org.cicirello.util.Copyable;
  * example an IntFibonacciHeapDouble with an element domain of [0,100) is created:
  *
  * <pre><code>
- * IntFibonacciHeapDouble&lt;String&gt; pq = IntFibonacciHeapDouble.createMinHeap(100);
+ * IntFibonacciHeapDouble pq = IntFibonacciHeapDouble.createMinHeap(100);
  * </code></pre>
  *
  * <p>In the above example, the element domain is [0,100) and the IntFibonacciHeapDouble is

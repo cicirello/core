@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2023 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2026 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -38,18 +38,18 @@ import java.util.HashMap;
  *
  * <p>For disjoint sets of integers, see the {@link DisjointIntegerSetForest} class.
  *
- * @param <T> The type of object contained in the DisjointSetForest.
+ * @param <E> The type of element contained in the DisjointSetForest.
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public final class DisjointSetForest<T> {
+public final class DisjointSetForest<E> {
 
-  private final HashMap<T, Node> nodes;
+  private final HashMap<E, Node> nodes;
   private int size;
 
   /** Initializes an empty DisjointSetForest. */
   public DisjointSetForest() {
-    nodes = new HashMap<T, Node>();
+    nodes = new HashMap<E, Node>();
   }
 
   /**
@@ -58,7 +58,7 @@ public final class DisjointSetForest<T> {
    * @param element The element to check
    * @return true if and only if element is in the disjoint set forest.
    */
-  public boolean contains(T element) {
+  public boolean contains(E element) {
     return nodes.containsKey(element);
   }
 
@@ -70,7 +70,7 @@ public final class DisjointSetForest<T> {
    * @return the id of the set that currently contains the element.
    * @throws IllegalArgumentException if element is not in the DisjointSetForest.
    */
-  public int findSet(T element) {
+  public int findSet(E element) {
     Node node = nodes.get(element);
     if (node == null) {
       throw new IllegalArgumentException(
@@ -86,7 +86,7 @@ public final class DisjointSetForest<T> {
    *     within the DisjointSetForest.
    * @throws IllegalArgumentException if element already exists in the DisjointSetForest.
    */
-  public void makeSet(T element) {
+  public void makeSet(E element) {
     if (nodes.containsKey(element)) {
       throw new IllegalArgumentException("Already contains this element: " + element.toString());
     } else {
@@ -102,7 +102,7 @@ public final class DisjointSetForest<T> {
    * @return true if and only if element1 and element2 are elements in the same set of the disjoint
    *     set forest.
    */
-  public boolean sameSet(T element1, T element2) {
+  public boolean sameSet(E element1, E element2) {
     Node node1 = nodes.get(element1);
     if (node1 == null) {
       return false;
@@ -135,7 +135,7 @@ public final class DisjointSetForest<T> {
    * @throws IllegalArgumentException if either of the elements doesn't exist in the
    *     DisjointSetForest.
    */
-  public void union(T element1, T element2) {
+  public void union(E element1, E element2) {
     Node x = nodes.get(element1);
     Node y = nodes.get(element2);
     if (x != null && y != null) {
