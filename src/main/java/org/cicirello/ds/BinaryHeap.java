@@ -320,8 +320,7 @@ public final class BinaryHeap<E>
 
   @Override
   public final boolean contains(Object o) {
-    if (o instanceof IntegerPriorityQueueNode) {
-      IntegerPriorityQueueNode pair = (IntegerPriorityQueueNode) o;
+    if (o instanceof IntegerPriorityQueueNode pair) {
       return index.containsKey(pair.element());
     }
     return index.containsKey(o);
@@ -364,11 +363,10 @@ public final class BinaryHeap<E>
    */
   @Override
   public boolean equals(Object other) {
-    if (other instanceof BinaryHeap) {
-      @SuppressWarnings("unchecked")
-      BinaryHeap<E> casted = (BinaryHeap<E>) other;
-      if (size != casted.size) return false;
-      if (compare.comesBefore(0, 1) != casted.compare.comesBefore(0, 1)) return false;
+    if (other instanceof BinaryHeap casted) {
+      if (size != casted.size || compare.comesBefore(0, 1) != casted.compare.comesBefore(0, 1)) {
+        return false;
+      }
       for (int i = 0; i < size; i++) {
         if (!buffer[i].equals(casted.buffer[i])) return false;
       }
@@ -562,8 +560,7 @@ public final class BinaryHeap<E>
   @Override
   public final boolean remove(Object o) {
     Integer i = null;
-    if (o instanceof IntegerPriorityQueueNode) {
-      IntegerPriorityQueueNode pair = (IntegerPriorityQueueNode) o;
+    if (o instanceof IntegerPriorityQueueNode pair) {
       i = index.get(pair.element());
     } else {
       i = index.get(o);
@@ -602,8 +599,7 @@ public final class BinaryHeap<E>
   public final boolean removeAll(Collection<?> c) {
     HashSet<Object> discardThese = new HashSet<Object>();
     for (Object o : c) {
-      if (o instanceof IntegerPriorityQueueNode) {
-        IntegerPriorityQueueNode pair = (IntegerPriorityQueueNode) o;
+      if (o instanceof IntegerPriorityQueueNode pair) {
         discardThese.add(pair.element());
       } else {
         discardThese.add(o);
@@ -642,8 +638,7 @@ public final class BinaryHeap<E>
   public final boolean retainAll(Collection<?> c) {
     HashSet<Object> keepThese = new HashSet<Object>();
     for (Object o : c) {
-      if (o instanceof IntegerPriorityQueueNode) {
-        IntegerPriorityQueueNode pair = (IntegerPriorityQueueNode) o;
+      if (o instanceof IntegerPriorityQueueNode pair) {
         keepThese.add(pair.element());
       } else {
         keepThese.add(o);

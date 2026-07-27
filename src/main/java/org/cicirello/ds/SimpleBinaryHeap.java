@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2025 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2026 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -310,8 +310,7 @@ public final class SimpleBinaryHeap<E>
 
   @Override
   public final boolean contains(Object o) {
-    if (o instanceof IntegerPriorityQueueNode) {
-      IntegerPriorityQueueNode pair = (IntegerPriorityQueueNode) o;
+    if (o instanceof IntegerPriorityQueueNode pair) {
       return find(pair.element()) >= 0;
     }
     return find(o) >= 0;
@@ -331,8 +330,7 @@ public final class SimpleBinaryHeap<E>
       containsThese.add(buffer[i].element());
     }
     for (Object o : c) {
-      if (o instanceof IntegerPriorityQueueNode) {
-        IntegerPriorityQueueNode pair = (IntegerPriorityQueueNode) o;
+      if (o instanceof IntegerPriorityQueueNode pair) {
         if (!containsThese.contains(pair.element())) {
           return false;
         }
@@ -379,11 +377,10 @@ public final class SimpleBinaryHeap<E>
    */
   @Override
   public boolean equals(Object other) {
-    if (other instanceof SimpleBinaryHeap) {
-      @SuppressWarnings("unchecked")
-      SimpleBinaryHeap<E> casted = (SimpleBinaryHeap<E>) other;
-      if (size != casted.size) return false;
-      if (compare.comesBefore(0, 1) != casted.compare.comesBefore(0, 1)) return false;
+    if (other instanceof SimpleBinaryHeap casted) {
+      if (size != casted.size || compare.comesBefore(0, 1) != casted.compare.comesBefore(0, 1)) {
+        return false;
+      }
       for (int i = 0; i < size; i++) {
         if (!buffer[i].equals(casted.buffer[i])) return false;
       }
@@ -539,8 +536,7 @@ public final class SimpleBinaryHeap<E>
   @Override
   public final boolean remove(Object o) {
     int i = -1;
-    if (o instanceof IntegerPriorityQueueNode) {
-      IntegerPriorityQueueNode pair = (IntegerPriorityQueueNode) o;
+    if (o instanceof IntegerPriorityQueueNode pair) {
       i = find(pair.element());
     } else {
       i = find(o);
@@ -579,8 +575,7 @@ public final class SimpleBinaryHeap<E>
   public final boolean removeAll(Collection<?> c) {
     HashSet<Object> discardThese = new HashSet<Object>();
     for (Object o : c) {
-      if (o instanceof IntegerPriorityQueueNode) {
-        IntegerPriorityQueueNode pair = (IntegerPriorityQueueNode) o;
+      if (o instanceof IntegerPriorityQueueNode pair) {
         discardThese.add(pair.element());
       } else {
         discardThese.add(o);
@@ -613,8 +608,7 @@ public final class SimpleBinaryHeap<E>
   public final boolean retainAll(Collection<?> c) {
     HashSet<Object> keepThese = new HashSet<Object>();
     for (Object o : c) {
-      if (o instanceof IntegerPriorityQueueNode) {
-        IntegerPriorityQueueNode pair = (IntegerPriorityQueueNode) o;
+      if (o instanceof IntegerPriorityQueueNode pair) {
         keepThese.add(pair.element());
       } else {
         keepThese.add(o);

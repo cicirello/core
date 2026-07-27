@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2023 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2026 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -80,9 +80,7 @@ public final class DisjointIntegerSetForest implements Copyable<DisjointIntegerS
    */
   @Override
   public boolean equals(Object other) {
-    if (other == null) return false;
-    if (other instanceof DisjointIntegerSetForest) {
-      DisjointIntegerSetForest casted = (DisjointIntegerSetForest) other;
+    if (other instanceof DisjointIntegerSetForest casted) {
       return Arrays.equals(rank, casted.rank) && Arrays.equals(parent, casted.parent);
     }
     return false;

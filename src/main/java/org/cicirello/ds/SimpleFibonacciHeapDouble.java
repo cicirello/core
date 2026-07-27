@@ -207,8 +207,7 @@ public final class SimpleFibonacciHeapDouble<E>
 
   @Override
   public boolean contains(Object o) {
-    if (o instanceof DoublePriorityQueueNode) {
-      DoublePriorityQueueNode pair = (DoublePriorityQueueNode) o;
+    if (o instanceof DoublePriorityQueueNode pair) {
       return find(min, pair.element()) != null;
     }
     return find(min, o) != null;
@@ -228,8 +227,7 @@ public final class SimpleFibonacciHeapDouble<E>
       containsThese.add(e.element());
     }
     for (Object o : c) {
-      if (o instanceof DoublePriorityQueueNode) {
-        DoublePriorityQueueNode pair = (DoublePriorityQueueNode) o;
+      if (o instanceof DoublePriorityQueueNode pair) {
         if (!containsThese.contains(pair.element())) {
           return false;
         }
@@ -261,13 +259,14 @@ public final class SimpleFibonacciHeapDouble<E>
    */
   @Override
   public boolean equals(Object other) {
-    if (other instanceof SimpleFibonacciHeapDouble) {
-      @SuppressWarnings("unchecked")
-      SimpleFibonacciHeapDouble<E> casted = (SimpleFibonacciHeapDouble<E>) other;
-      if (size != casted.size) return false;
-      if (compare.comesBefore(0, 1) != casted.compare.comesBefore(0, 1)) return false;
+    if (other instanceof SimpleFibonacciHeapDouble casted) {
+      if (size != casted.size || compare.comesBefore(0, 1) != casted.compare.comesBefore(0, 1)) {
+        return false;
+      }
       Iterator<DoublePriorityQueueNode<E>> iter = iterator();
-      Iterator<DoublePriorityQueueNode<E>> otherIter = casted.iterator();
+      @SuppressWarnings("unchecked")
+      Iterator<DoublePriorityQueueNode<E>> otherIter =
+          (Iterator<DoublePriorityQueueNode<E>>) casted.iterator();
       while (iter.hasNext()) {
         if (!iter.next().equals(otherIter.next())) {
           return false;
@@ -394,8 +393,7 @@ public final class SimpleFibonacciHeapDouble<E>
   @Override
   public boolean remove(Object o) {
     FibonacciHeapDoubleNode<E> node = null;
-    if (o instanceof DoublePriorityQueueNode) {
-      DoublePriorityQueueNode pair = (DoublePriorityQueueNode) o;
+    if (o instanceof DoublePriorityQueueNode pair) {
       node = find(min, pair.element());
     } else {
       node = find(min, o);
@@ -565,8 +563,7 @@ public final class SimpleFibonacciHeapDouble<E>
   private HashSet<Object> toSet(Collection<?> c) {
     HashSet<Object> set = new HashSet<Object>();
     for (Object o : c) {
-      if (o instanceof DoublePriorityQueueNode) {
-        DoublePriorityQueueNode pair = (DoublePriorityQueueNode) o;
+      if (o instanceof DoublePriorityQueueNode pair) {
         set.add(pair.element());
       } else {
         set.add(o);

@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2023 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2026 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -255,9 +255,7 @@ public final class IntegerArray {
    */
   @Override
   public boolean equals(Object other) {
-    if (other == null) return false;
-    if (other instanceof IntegerArray) {
-      IntegerArray o = (IntegerArray) other;
+    if (other instanceof IntegerArray o) {
       return size == o.size && array == o.array;
     }
     return false;
