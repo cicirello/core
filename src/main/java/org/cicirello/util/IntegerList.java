@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2023 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2026 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -283,10 +283,10 @@ public final class IntegerList implements Copyable<IntegerList> {
    */
   @Override
   public boolean equals(Object other) {
-    if (other == null) return false;
-    if (other instanceof IntegerList) {
-      IntegerList o = (IntegerList) other;
-      if (size != o.size) return false;
+    if (other instanceof IntegerList o) {
+      if (size != o.size) {
+        return false;
+      }
       for (int i = 0; i < size; i++) {
         if (list[i] != o.list[i]) {
           return false;
@@ -304,14 +304,14 @@ public final class IntegerList implements Copyable<IntegerList> {
    */
   @Override
   public int hashCode() {
-    if (size > 0) {
-      int h = list[0];
-      for (int i = 1; i < size; i++) {
-        h = (31 * h) + list[i];
-      }
-      return h;
+    if (size <= 0) {
+      return 0;
     }
-    return 0;
+    int h = list[0];
+    for (int i = 1; i < size; i++) {
+      h = (31 * h) + list[i];
+    }
+    return h;
   }
 
   /**
