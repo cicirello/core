@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2025 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2026 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -39,7 +39,7 @@ import org.cicirello.util.Copyable;
  * example an IntBinaryHeapDouble with an element domain of [0,100) is created:
  *
  * <pre><code>
- * IntBinaryHeapDouble&lt;String&gt; pq = IntBinaryHeapDouble.createMinHeap(100);
+ * IntBinaryHeapDouble pq = IntBinaryHeapDouble.createMinHeap(100);
  * </code></pre>
  *
  * <p>In the above example, the element domain is [0,100) and the IntBinaryHeapDouble is initially
