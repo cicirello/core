@@ -17,6 +17,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 * Fixed examples in javadocs of IntBinaryHeap, IntBinaryHeapDouble, IntFibonacciHeap, and IntFibonacciHeapDouble.
 * Fixed name of type parameter in DisjointSetForest class for naming conventions.
+* Refactored equals methods of: IntegerArray, IntegerList, DoubleArray, DoubleList, DisjointIntegerSetForest, SimpleFibonacciHeap, SimpleFibonacciHeapDouble, SimpleBinaryHeap, SimpleBinaryHeapDouble, FibonacciHeap, FibonacciHeapDouble, BinaryHeap, BinaryHeapDouble
+* Refactored hashCode methods of: IntegerList, DoubleList
+* Refactored contains and remove methods of: SimpleFibonacciHeap, SimpleFibonacciHeapDouble, SimpleBinaryHeap, SimpleBinaryHeapDouble, FibonacciHeap, FibonacciHeapDouble, BinaryHeap, BinaryHeapDouble
+* Refactored removeAll and retainAll methods of: SimpleBinaryHeap, SimpleBinaryHeapDouble, BinaryHeap, BinaryHeapDouble
+* Refactored containsAll methods of: SimpleFibonacciHeap, SimpleFibonacciHeapDouble, SimpleBinaryHeap, SimpleBinaryHeapDouble, FibonacciHeap, FibonacciHeapDouble
 
 ### CI/CD
 
