@@ -22,6 +22,7 @@
 
 package org.cicirello.ds;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
 import org.cicirello.util.Copyable;
 
@@ -315,6 +316,42 @@ public final class IntFibonacciHeap implements IntPriorityQueue, Copyable<IntFib
   @Override
   public final int size() {
     return size;
+  }
+
+  @Override
+  public final int[] toArray() {
+    if (size == 0) {
+      return new int[0];
+    }
+    int[] array = new int[size];
+    ArrayDeque<Node> checkChildren = new ArrayDeque<Node>(size);
+    int i = 0;
+    checkChildren.add(min);
+    array[i] = min.element;
+    i++;
+    Node temp = min.right;
+    while (temp != min) {
+      checkChildren.add(temp);
+      array[i] = temp.element;
+      i++;
+      temp = temp.right;
+    }
+    while (!checkChildren.isEmpty()) {
+      Node first = checkChildren.poll().child;
+      if (first != null) {
+        checkChildren.add(first);
+        array[i] = first.element;
+        i++;
+        temp = first.right;
+        while (temp != first) {
+          checkChildren.add(temp);
+          array[i] = temp.element;
+          i++;
+          temp = temp.right;
+        }
+      }
+    }
+    return array;
   }
 
   private void consolidate() {

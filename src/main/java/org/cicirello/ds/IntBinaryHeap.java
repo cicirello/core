@@ -305,6 +305,11 @@ public final class IntBinaryHeap implements IntPriorityQueue, Copyable<IntBinary
     return size;
   }
 
+  @Override
+  public final int[] toArray() {
+    return Arrays.copyOf(heap, size);
+  }
+
   private void internalOffer(int element, int priority) {
     index[heap[size] = element] = size;
     value[element] = priority;

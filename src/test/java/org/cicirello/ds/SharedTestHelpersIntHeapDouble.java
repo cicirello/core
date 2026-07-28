@@ -113,6 +113,7 @@ public abstract class SharedTestHelpersIntHeapDouble {
     assertEquals(0, pq.size());
     assertTrue(pq.isEmpty());
     assertEquals(n, pq.domain());
+    validateArray(new int[0], pq.toArray(), n);
     for (int i = 0; i < n; i++) {
       assertTrue(pq.offer(e[i], p[i]));
       assertEquals(i + 1, pq.size());
@@ -122,12 +123,14 @@ public abstract class SharedTestHelpersIntHeapDouble {
       assertEquals(p[i], pq.peekPriority(e[i]), 0.0);
       assertTrue(pq.contains(e[i]));
       assertFalse(pq.offer(e[i], p[i]));
+      validateArray(Arrays.copyOf(e, i + 1), pq.toArray(), n);
     }
     for (int i = 0; i < n; i++) {
       assertFalse(pq.isEmpty());
       assertEquals(e[i], pq.poll(), "p[i],e[i]=" + p[i] + "," + e[i]);
       assertEquals(n - 1 - i, pq.size());
       assertFalse(pq.contains(e[i]));
+      validateArray(Arrays.copyOfRange(e, i + 1, n), pq.toArray(), n);
     }
     assertTrue(pq.isEmpty());
   }
@@ -140,6 +143,7 @@ public abstract class SharedTestHelpersIntHeapDouble {
     assertEquals(0, pq.size());
     assertTrue(pq.isEmpty());
     assertEquals(n, pq.domain());
+    validateArray(new int[0], pq.toArray(), n);
     for (int i = 0; i < n; i++) {
       assertTrue(pq.offer(e[i], p[i]));
       assertEquals(i + 1, pq.size());
@@ -149,12 +153,14 @@ public abstract class SharedTestHelpersIntHeapDouble {
       assertEquals(p[i], pq.peekPriority(e[i]), 0.0);
       assertTrue(pq.contains(e[i]));
       assertFalse(pq.offer(e[i], p[i]));
+      validateArray(Arrays.copyOf(e, i + 1), pq.toArray(), n);
     }
     for (int i = 0; i < n; i++) {
       assertFalse(pq.isEmpty());
       assertEquals(e[n - 1 - i], pq.poll(), "p[i],e[i]=" + p[i] + "," + e[i]);
       assertEquals(n - 1 - i, pq.size());
       assertFalse(pq.contains(e[n - 1 - i]));
+      validateArray(Arrays.copyOf(e, n - i - 1), pq.toArray(), n);
     }
     assertTrue(pq.isEmpty());
   }
@@ -1426,6 +1432,17 @@ public abstract class SharedTestHelpersIntHeapDouble {
       assertEquals(-1, min0.poll());
       assertEquals(-1, max0.poll());
     }
+  }
+
+  private void validateArray(int[] expected, int[] actual, int domain) {
+    boolean[] expectedB = new boolean[domain];
+    boolean[] actualB = new boolean[domain];
+    assertEquals(expected.length, actual.length);
+    for (int i = 0; i < expected.length; i++) {
+      expectedB[expected[i]] = true;
+      actualB[actual[i]] = true;
+    }
+    assertArrayEquals(expectedB, actualB);
   }
 
   private static class CaseDataCreator {
