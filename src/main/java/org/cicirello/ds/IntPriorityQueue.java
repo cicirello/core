@@ -195,4 +195,13 @@ public interface IntPriorityQueue {
    * @return the current size of the IntPriorityQueue.
    */
   int size();
+
+  /**
+   * Creates and returns an array of the elements (only the elements without the priority values).
+   * The order of the elements is undefined, so may be in whatever order is most convenient to the
+   * implementation.
+   *
+   * @return an array of the elements
+   */
+  int[] toArray();
 }
