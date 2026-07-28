@@ -7,8 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2026-07-28
 
 ### Added
-* Add a method pollThenOffer to the IntPriorityQueue and IntPriorityQueueDouble interfaces, which does a composite of a poll followed by an offer, along with default implementations in the interfaces with the obvious implementation.
-* Implementations of the new pollThenOffer method in both the IntBinaryHeap and IntBinaryHeapDouble classes more efficient than the default implementation provided in the interfaces.
+* Method pollThenOffer added to the IntPriorityQueue and IntPriorityQueueDouble interfaces: 
+  * A composite of a poll followed by an offer, 
+  * Default implementations in the interfaces with the obvious implementation,
+  * Implementations in both the IntBinaryHeap and IntBinaryHeapDouble classes more efficient than the default implementation provided in the interfaces.
+* Method toArray() added to the IntPriorityQueue and IntPriorityQueueDouble interfaces:
+  * Implementations provided in all of the relevant classes.
+  * Note: We're not considering this a breaking change despite adding a method to an interface without providing a default implementation, because there is no obvious use-case where someone would be using this interface from the library without using one of the implementations from the library as well.
 
 ### Changed
 
