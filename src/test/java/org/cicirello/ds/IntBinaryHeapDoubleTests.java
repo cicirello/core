@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2022 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2026 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -132,6 +132,16 @@ public class IntBinaryHeapDoubleTests extends SharedTestHelpersIntHeapDouble {
     promoteDemoteNewElementMinHeap();
   }
 
+  @Test
+  public void testPollThenAddIncreasingPriorityMinHeap() {
+    pollThenAddIncreasingPriorityMinHeap();
+  }
+
+  @Test
+  public void testPollThenAddDecreasingPriorityMinHeap() {
+    pollThenAddDecreasingPriorityMinHeap();
+  }
+
   // MAX HEAP TESTS
 
   @Test
@@ -222,5 +232,15 @@ public class IntBinaryHeapDoubleTests extends SharedTestHelpersIntHeapDouble {
   @Test
   public void testPromoteDemoteNewElementMaxHeap() {
     promoteDemoteNewElementMaxHeap();
+  }
+
+  @Test
+  public void testPollThenAddIncreasingPriorityMaxHeap() {
+    pollThenAddIncreasingPriorityMaxHeap();
+  }
+
+  @Test
+  public void testPollThenAddDecreasingPriorityMaxHeap() {
+    pollThenAddDecreasingPriorityMaxHeap();
   }
 }

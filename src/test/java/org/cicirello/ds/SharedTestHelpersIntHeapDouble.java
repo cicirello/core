@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2022 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2026 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -291,6 +291,170 @@ public abstract class SharedTestHelpersIntHeapDouble {
       assertEquals(n - 1 - i, pq.size());
     }
     assertTrue(pq.isEmpty());
+  }
+
+  final void pollThenAddIncreasingPriorityMinHeap() {
+    int n = 31;
+    int[] e = cdc.createElements(n);
+    double[] p = cdc.orderedArray(n);
+    IntPriorityQueueDouble pq = minHeapFactory.apply(n);
+    assertEquals(0, pq.size());
+    assertTrue(pq.isEmpty());
+    assertEquals(n, pq.domain());
+    assertTrue(pq.offer(e[0], p[0] + 2));
+    assertEquals(1, pq.size());
+    assertFalse(pq.isEmpty());
+    assertEquals(p[0] + 2, pq.peekPriority(), 0.0);
+    int element = pq.pollThenOffer(e[0], p[0]);
+    assertEquals(e[0], element);
+    assertEquals(1, pq.size());
+    assertFalse(pq.isEmpty());
+    assertEquals(e[0], pq.peek());
+    assertEquals(p[0], pq.peekPriority(), 0.0);
+    for (int i = 1; i < 16; i++) {
+      assertTrue(pq.offer(e[i], p[i]));
+      assertEquals(i + 1, pq.size());
+      assertFalse(pq.isEmpty());
+      assertEquals(e[0], pq.peek());
+      assertEquals(p[0], pq.peekPriority(), 0.0);
+      assertEquals(p[i], pq.peekPriority(e[i]), 0.0);
+      assertTrue(pq.contains(e[i]));
+    }
+    for (int i = 16; i < n; i++) {
+      assertEquals(e[i - 16], pq.pollThenOffer(e[i], p[i]));
+      assertEquals(16, pq.size());
+      assertFalse(pq.isEmpty());
+      assertEquals(e[i - 15], pq.peek());
+      assertEquals(p[i - 15], pq.peekPriority(), 0.0);
+      assertEquals(p[i], pq.peekPriority(e[i]), 0.0);
+      assertTrue(pq.contains(e[i]));
+    }
+    assertEquals(e[n - 16], pq.pollThenOffer(e[n - 1], p[n - 1]));
+    assertEquals(15, pq.size());
+    assertFalse(pq.isEmpty());
+  }
+
+  final void pollThenAddDecreasingPriorityMinHeap() {
+    int n = 31;
+    int[] e = cdc.createElements(n);
+    double[] p = cdc.reversedArray(n);
+    IntPriorityQueueDouble pq = minHeapFactory.apply(n);
+    assertEquals(0, pq.size());
+    assertTrue(pq.isEmpty());
+    assertEquals(n, pq.domain());
+    assertTrue(pq.offer(e[0], p[0] + 2));
+    assertEquals(1, pq.size());
+    assertFalse(pq.isEmpty());
+    assertEquals(p[0] + 2, pq.peekPriority(), 0.0);
+    int element = pq.pollThenOffer(e[0], p[0]);
+    assertEquals(e[0], element);
+    assertEquals(1, pq.size());
+    assertFalse(pq.isEmpty());
+    assertEquals(e[0], pq.peek());
+    assertEquals(p[0], pq.peekPriority(), 0.0);
+    for (int i = 1; i < 16; i++) {
+      assertTrue(pq.offer(e[i], p[i]));
+      assertEquals(i + 1, pq.size());
+      assertFalse(pq.isEmpty());
+      assertEquals(e[i], pq.peek());
+      assertEquals(p[i], pq.peekPriority(), 0.0);
+      assertEquals(p[i], pq.peekPriority(e[i]), 0.0);
+      assertTrue(pq.contains(e[i]));
+    }
+    for (int i = 16; i < n; i++) {
+      assertEquals(e[i - 1], pq.pollThenOffer(e[i], p[i]));
+      assertEquals(16, pq.size());
+      assertFalse(pq.isEmpty());
+      assertEquals(e[i], pq.peek());
+      assertEquals(p[i], pq.peekPriority(), 0.0);
+      assertEquals(p[i], pq.peekPriority(e[i]), 0.0);
+      assertTrue(pq.contains(e[i]));
+    }
+    assertEquals(e[n - 1], pq.pollThenOffer(e[n - 1], p[n - 1]));
+    assertEquals(16, pq.size());
+    assertFalse(pq.isEmpty());
+  }
+
+  final void pollThenAddIncreasingPriorityMaxHeap() {
+    int n = 31;
+    int[] e = cdc.createElements(n);
+    double[] p = cdc.orderedArray(n);
+    IntPriorityQueueDouble pq = maxHeapFactory.apply(n);
+    assertEquals(0, pq.size());
+    assertTrue(pq.isEmpty());
+    assertEquals(n, pq.domain());
+    assertTrue(pq.offer(e[0], p[0] + 2));
+    assertEquals(1, pq.size());
+    assertFalse(pq.isEmpty());
+    assertEquals(p[0] + 2, pq.peekPriority(), 0.0);
+    int element = pq.pollThenOffer(e[0], p[0]);
+    assertEquals(e[0], element);
+    assertEquals(1, pq.size());
+    assertFalse(pq.isEmpty());
+    assertEquals(e[0], pq.peek());
+    assertEquals(p[0], pq.peekPriority(), 0.0);
+    for (int i = 1; i < 16; i++) {
+      assertTrue(pq.offer(e[i], p[i]));
+      assertEquals(i + 1, pq.size());
+      assertFalse(pq.isEmpty());
+      assertEquals(e[i], pq.peek());
+      assertEquals(p[i], pq.peekPriority(), 0.0);
+      assertEquals(p[i], pq.peekPriority(e[i]), 0.0);
+      assertTrue(pq.contains(e[i]));
+    }
+    for (int i = 16; i < n; i++) {
+      assertEquals(e[i - 1], pq.pollThenOffer(e[i], p[i]));
+      assertEquals(16, pq.size());
+      assertFalse(pq.isEmpty());
+      assertEquals(e[i], pq.peek());
+      assertEquals(p[i], pq.peekPriority(), 0.0);
+      assertEquals(p[i], pq.peekPriority(e[i]), 0.0);
+      assertTrue(pq.contains(e[i]));
+    }
+    assertEquals(e[n - 1], pq.pollThenOffer(e[n - 1], p[n - 1]));
+    assertEquals(16, pq.size());
+    assertFalse(pq.isEmpty());
+  }
+
+  final void pollThenAddDecreasingPriorityMaxHeap() {
+    int n = 31;
+    int[] e = cdc.createElements(n);
+    double[] p = cdc.reversedArray(n);
+    IntPriorityQueueDouble pq = maxHeapFactory.apply(n);
+    assertEquals(0, pq.size());
+    assertTrue(pq.isEmpty());
+    assertEquals(n, pq.domain());
+    assertTrue(pq.offer(e[0], p[0] + 2));
+    assertEquals(1, pq.size());
+    assertFalse(pq.isEmpty());
+    assertEquals(p[0] + 2, pq.peekPriority(), 0.0);
+    int element = pq.pollThenOffer(e[0], p[0]);
+    assertEquals(e[0], element);
+    assertEquals(1, pq.size());
+    assertFalse(pq.isEmpty());
+    assertEquals(e[0], pq.peek());
+    assertEquals(p[0], pq.peekPriority(), 0.0);
+    for (int i = 1; i < 16; i++) {
+      assertTrue(pq.offer(e[i], p[i]));
+      assertEquals(i + 1, pq.size());
+      assertFalse(pq.isEmpty());
+      assertEquals(e[0], pq.peek());
+      assertEquals(p[0], pq.peekPriority(), 0.0);
+      assertEquals(p[i], pq.peekPriority(e[i]), 0.0);
+      assertTrue(pq.contains(e[i]));
+    }
+    for (int i = 16; i < n; i++) {
+      assertEquals(e[i - 16], pq.pollThenOffer(e[i], p[i]));
+      assertEquals(16, pq.size());
+      assertFalse(pq.isEmpty());
+      assertEquals(e[i - 15], pq.peek());
+      assertEquals(p[i - 15], pq.peekPriority(), 0.0);
+      assertEquals(p[i], pq.peekPriority(e[i]), 0.0);
+      assertTrue(pq.contains(e[i]));
+    }
+    assertEquals(e[n - 16], pq.pollThenOffer(e[n - 1], p[n - 1]));
+    assertEquals(15, pq.size());
+    assertFalse(pq.isEmpty());
   }
 
   final void changePriorityMinHeapToFront() {
