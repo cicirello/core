@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2023 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2026 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -149,6 +149,34 @@ public interface IntPriorityQueueDouble {
    * @return the next element in priority order.
    */
   int poll();
+
+  /**
+   * Performs a combination of a {@link #poll} and {@link #offer}. The return value is undefined if
+   * the priority queue is empty at the time that this method is called. Thus, you should not call
+   * this method on empty priority queues. This method adds an (element, priority) pair to the
+   * IntPriorityQueueDouble with a specified priority, provided the element is not already in the
+   * IntPriorityQueueDouble. Unlike the {@link #offer} method, this method does not provide an
+   * explicit confirmation of success. If such confirmation is required, then you should instead
+   * directly use a combination of {@link #poll} and {@link #offer}.
+   *
+   * <p>The default implementation is equivalent to the following sequence of steps: <code>
+   * int e = poll(); offer(element, priority);
+   * return e;</code> Some priority queue classes may override this default behavior if they can do
+   * the combination of operations more efficiently than this sequence, such as the case for binary
+   * heap implementations.
+   *
+   * @param element The element to add.
+   * @param priority The priority of the element.
+   * @return the next element in priority order. The return value is undefined if the priority queue
+   *     is empty at the time that this method is called.
+   * @throws IndexOutOfBoundsException if element is negative, or if element is greater than or
+   *     equal to the domain n.
+   */
+  default int pollThenOffer(int element, double priority) {
+    int e = poll();
+    offer(element, priority);
+    return e;
+  }
 
   /**
    * Promotes an element relative to priority order if the element is present in the

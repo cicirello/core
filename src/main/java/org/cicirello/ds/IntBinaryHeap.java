@@ -62,7 +62,7 @@ import org.cicirello.util.Copyable;
  *       #createMinHeap(int)}, {@link #domain()}, {@link #isEmpty()}, {@link #peek()}, {@link
  *       #peekPriority()}, {@link #peekPriority(int)}, {@link #size()}
  *   <li><b>O(lg n):</b> {@link #change(int,int)}, {@link #demote(int,int)}, {@link #offer(int,
- *       int)}, {@link #poll()}, {@link #promote(int,int)}
+ *       int)}, {@link #poll()}, {@link #pollThenOffer(int,int)}, {@link #promote(int,int)}
  *   <li><b>O(n):</b> {@link #clear()}, {@link #copy()}
  * </ul>
  *
@@ -239,6 +239,53 @@ public final class IntBinaryHeap implements IntPriorityQueue, Copyable<IntBinary
       index[heap[0] = heap[size]] = 0;
       percolateDown(0);
     }
+    return min;
+  }
+
+  /**
+   * Performs the equivalent of a combination of a {@link #poll} and {@link #offer}. Like {@link
+   * #poll}, the return value is undefined if the priority queue is empty at the time that this
+   * method is called. Thus, you should not call this method on empty priority queues. This method
+   * adds an (element, priority) pair to the priority queue with a specified priority provided that
+   * the element is not already present. If the element is already present in the priority queue and
+   * is at the root of binary heap, then this method will update its priority and return the element
+   * (the equivalent behavior if you had instead explicitly called poll followed by offer). If the
+   * element is already present in the priority queue but somewhere other than the root, then this
+   * method just performs the poll. Unlike the {@link #offer} method, this method does not provide
+   * an explicit confirmation of success. If such confirmation is required, then you should instead
+   * directly use a combination of {@link #poll} and {@link #offer}.
+   *
+   * <p>This implementation is more efficient than separately calling {@link #poll} and {@link
+   * #offer} as it exploits the structure of a binary heap. However, its asymptotic runtime is no
+   * better than a combination of {@link #poll} and {@link #offer}.
+   *
+   * @param element The element to add.
+   * @param priority The priority of the element.
+   * @return the next element in priority order. The return value is undefined if the priority queue
+   *     is empty at the time that this method is called.
+   * @throws IndexOutOfBoundsException if element is negative, or if element is greater than or
+   *     equal to the domain n.
+   */
+  @Override
+  public final int pollThenOffer(int element, int priority) {
+    if (in[element]) {
+      if (index[element] == 0) {
+        // case: element is at root of heap
+        // action: update priority, percolate, and return element
+        value[element] = priority;
+        percolateDown(0);
+        return element;
+      }
+      // case: element is somewhere in PQ other than root
+      // action: just do the poll
+      return poll();
+    }
+    int min = heap[0];
+    in[min] = false;
+    index[heap[0] = element] = 0;
+    value[element] = priority;
+    in[element] = true;
+    percolateDown(0);
     return min;
   }
 

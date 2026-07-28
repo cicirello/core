@@ -68,7 +68,7 @@ import org.cicirello.util.Copyable;
  *       #createMinHeap(int)}, {@link #domain()}, {@link #isEmpty()}, {@link #offer(int, int)},
  *       {@link #peek()}, {@link #peekPriority()}, {@link #peekPriority(int)}, {@link
  *       #promote(int,int)}, {@link #size()}
- *   <li><b>O(lg n):</b> {@link #demote(int,int)}, {@link #poll()}
+ *   <li><b>O(lg n):</b> {@link #demote(int,int)}, {@link #poll()}, {@link #pollThenOffer(int,int)}
  *   <li><b>O(n):</b> {@link #clear()}, {@link #copy()}
  * </ul>
  *

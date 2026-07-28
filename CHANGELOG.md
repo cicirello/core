@@ -4,9 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2026-07-27
+## [Unreleased] - 2026-07-28
 
 ### Added
+* Add a method pollThenOffer to the IntPriorityQueue and IntPriorityQueueDouble interfaces, which does a composite of a poll followed by an offer, along with default implementations in the interfaces with the obvious implementation.
+* Implementations of the new pollThenOffer method in both the IntBinaryHeap and IntBinaryHeapDouble classes more efficient than the default implementation provided in the interfaces.
 
 ### Changed
 
