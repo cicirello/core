@@ -22,8 +22,8 @@
 
 package org.cicirello.ds;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -278,14 +278,12 @@ public final class FibonacciHeap<E>
    */
   @Override
   public boolean equals(Object other) {
-    if (other instanceof FibonacciHeap casted) {
+    if (other instanceof FibonacciHeap<?> casted) {
       if (size != casted.size || compare.comesBefore(0, 1) != casted.compare.comesBefore(0, 1)) {
         return false;
       }
       Iterator<IntegerPriorityQueueNode<E>> iter = iterator();
-      @SuppressWarnings("unchecked")
-      Iterator<IntegerPriorityQueueNode<E>> otherIter =
-          (Iterator<IntegerPriorityQueueNode<E>>) casted.iterator();
+      Iterator<?> otherIter = casted.iterator();
       while (iter.hasNext()) {
         if (!iter.next().equals(otherIter.next())) {
           return false;
@@ -515,11 +513,7 @@ public final class FibonacciHeap<E>
    */
   @Override
   public <T> T[] toArray(T[] array) {
-    @SuppressWarnings("unchecked")
-    T[] result =
-        array.length >= size
-            ? array
-            : (T[]) Array.newInstance(array.getClass().getComponentType(), size);
+    T[] result = array.length >= size ? array : Arrays.copyOf(array, size);
     int i = 0;
     for (IntegerPriorityQueueNode<E> e : this) {
       @SuppressWarnings("unchecked")
