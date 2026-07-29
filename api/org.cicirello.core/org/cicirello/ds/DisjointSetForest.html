@@ -69,12 +69,12 @@ loadScripts(document, 'script');</script>
 </li>
 <li><a href="#method-detail" tabindex="0">Method Details</a>
 <ol class="toc-list">
-<li><a href="#contains(T)" tabindex="0">contains(T)</a></li>
-<li><a href="#findSet(T)" tabindex="0">findSet(T)</a></li>
-<li><a href="#makeSet(T)" tabindex="0">makeSet(T)</a></li>
-<li><a href="#sameSet(T,T)" tabindex="0">sameSet(T, T)</a></li>
+<li><a href="#contains(E)" tabindex="0">contains(E)</a></li>
+<li><a href="#findSet(E)" tabindex="0">findSet(E)</a></li>
+<li><a href="#makeSet(E)" tabindex="0">makeSet(E)</a></li>
+<li><a href="#sameSet(E,E)" tabindex="0">sameSet(E, E)</a></li>
 <li><a href="#size()" tabindex="0">size()</a></li>
-<li><a href="#union(T,T)" tabindex="0">union(T, T)</a></li>
+<li><a href="#union(E,E)" tabindex="0">union(E, E)</a></li>
 </ol>
 </li>
 </ol>
@@ -82,19 +82,19 @@ loadScripts(document, 'script');</script>
 <main role="main">
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<h1 title="Class DisjointSetForest" class="title">Class DisjointSetForest&lt;T&gt;</h1>
+<h1 title="Class DisjointSetForest" class="title">Class DisjointSetForest&lt;E&gt;</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
-<div class="inheritance">org.cicirello.ds.DisjointSetForest&lt;T&gt;</div>
+<div class="inheritance">org.cicirello.ds.DisjointSetForest&lt;E&gt;</div>
 </div>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>Type Parameters:</dt>
-<dd><span id="type-param-T"><code>T</code> - The type of object contained in the DisjointSetForest.</span></dd>
+<dd><span id="type-param-E"><code>E</code> - The type of element contained in the DisjointSetForest.</span></dd>
 </dl>
 <hr>
 <div class="horizontal-scroll">
-<div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">DisjointSetForest&lt;T&gt;</span>
+<div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">DisjointSetForest&lt;E&gt;</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
 <div class="block">Represents disjoint sets of objects with a disjoint set forest. This class assumes that the
 objects in the sets are of a class that has appropriately implemented the <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link"><code>Object.equals(Object)</code></a>
@@ -139,23 +139,23 @@ Algorithms</i>, including the use of the union by rank heuristic and path compre
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#contains(T)" class="member-name-link">contains</a><wbr>(<a href="#type-param-T" title="type parameter in DisjointSetForest">T</a>&nbsp;element)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#contains(E)" class="member-name-link">contains</a><wbr>(<a href="#type-param-E" title="type parameter in DisjointSetForest">E</a>&nbsp;element)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Checks if an element is in the disjoint set forest.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#findSet(T)" class="member-name-link">findSet</a><wbr>(<a href="#type-param-T" title="type parameter in DisjointSetForest">T</a>&nbsp;element)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#findSet(E)" class="member-name-link">findSet</a><wbr>(<a href="#type-param-E" title="type parameter in DisjointSetForest">E</a>&nbsp;element)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Finds the id of the set currently containing the element.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#makeSet(T)" class="member-name-link">makeSet</a><wbr>(<a href="#type-param-T" title="type parameter in DisjointSetForest">T</a>&nbsp;element)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#makeSet(E)" class="member-name-link">makeSet</a><wbr>(<a href="#type-param-E" title="type parameter in DisjointSetForest">E</a>&nbsp;element)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Adds a new set to the disjoint set forest containing only the new element.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#sameSet(T,T)" class="member-name-link">sameSet</a><wbr>(<a href="#type-param-T" title="type parameter in DisjointSetForest">T</a>&nbsp;element1,
- <a href="#type-param-T" title="type parameter in DisjointSetForest">T</a>&nbsp;element2)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#sameSet(E,E)" class="member-name-link">sameSet</a><wbr>(<a href="#type-param-E" title="type parameter in DisjointSetForest">E</a>&nbsp;element1,
+ <a href="#type-param-E" title="type parameter in DisjointSetForest">E</a>&nbsp;element2)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Checks whether or not two elements are in the same set.</div>
 </div>
@@ -165,8 +165,8 @@ Algorithms</i>, including the use of the union by rank heuristic and path compre
 <div class="block">Gets the size of the DisjointSetForest.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#union(T,T)" class="member-name-link">union</a><wbr>(<a href="#type-param-T" title="type parameter in DisjointSetForest">T</a>&nbsp;element1,
- <a href="#type-param-T" title="type parameter in DisjointSetForest">T</a>&nbsp;element2)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#union(E,E)" class="member-name-link">union</a><wbr>(<a href="#type-param-E" title="type parameter in DisjointSetForest">E</a>&nbsp;element1,
+ <a href="#type-param-E" title="type parameter in DisjointSetForest">E</a>&nbsp;element2)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Merges two sets into one, where the sets are chosen by specifying a representative member of
 each.</div>
@@ -206,10 +206,10 @@ each.</div>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="contains(T)">
+<section class="detail" id="contains(E)">
 <h3 id="contains(java.lang.Object)">contains</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">contains</span><wbr><span class="parameters">(<a href="#type-param-T" title="type parameter in DisjointSetForest">T</a>&nbsp;element)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">contains</span><wbr><span class="parameters">(<a href="#type-param-E" title="type parameter in DisjointSetForest">E</a>&nbsp;element)</span></div>
 <div class="block">Checks if an element is in the disjoint set forest.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -221,10 +221,10 @@ each.</div>
 </section>
 </li>
 <li>
-<section class="detail" id="findSet(T)">
+<section class="detail" id="findSet(E)">
 <h3 id="findSet(java.lang.Object)">findSet</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">findSet</span><wbr><span class="parameters">(<a href="#type-param-T" title="type parameter in DisjointSetForest">T</a>&nbsp;element)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">findSet</span><wbr><span class="parameters">(<a href="#type-param-E" title="type parameter in DisjointSetForest">E</a>&nbsp;element)</span></div>
 <div class="block">Finds the id of the set currently containing the element. Calls to this method also apply path
 compression to make subsequent calls faster.</div>
 <dl class="notes">
@@ -239,10 +239,10 @@ compression to make subsequent calls faster.</div>
 </section>
 </li>
 <li>
-<section class="detail" id="makeSet(T)">
+<section class="detail" id="makeSet(E)">
 <h3 id="makeSet(java.lang.Object)">makeSet</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">makeSet</span><wbr><span class="parameters">(<a href="#type-param-T" title="type parameter in DisjointSetForest">T</a>&nbsp;element)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">makeSet</span><wbr><span class="parameters">(<a href="#type-param-E" title="type parameter in DisjointSetForest">E</a>&nbsp;element)</span></div>
 <div class="block">Adds a new set to the disjoint set forest containing only the new element.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -255,11 +255,11 @@ compression to make subsequent calls faster.</div>
 </section>
 </li>
 <li>
-<section class="detail" id="sameSet(T,T)">
+<section class="detail" id="sameSet(E,E)">
 <h3 id="sameSet(java.lang.Object,java.lang.Object)">sameSet</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">sameSet</span><wbr><span class="parameters">(<a href="#type-param-T" title="type parameter in DisjointSetForest">T</a>&nbsp;element1,
- <a href="#type-param-T" title="type parameter in DisjointSetForest">T</a>&nbsp;element2)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">sameSet</span><wbr><span class="parameters">(<a href="#type-param-E" title="type parameter in DisjointSetForest">E</a>&nbsp;element1,
+ <a href="#type-param-E" title="type parameter in DisjointSetForest">E</a>&nbsp;element2)</span></div>
 <div class="block">Checks whether or not two elements are in the same set.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -286,11 +286,11 @@ compression to make subsequent calls faster.</div>
 </section>
 </li>
 <li>
-<section class="detail" id="union(T,T)">
+<section class="detail" id="union(E,E)">
 <h3 id="union(java.lang.Object,java.lang.Object)">union</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">union</span><wbr><span class="parameters">(<a href="#type-param-T" title="type parameter in DisjointSetForest">T</a>&nbsp;element1,
- <a href="#type-param-T" title="type parameter in DisjointSetForest">T</a>&nbsp;element2)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">union</span><wbr><span class="parameters">(<a href="#type-param-E" title="type parameter in DisjointSetForest">E</a>&nbsp;element1,
+ <a href="#type-param-E" title="type parameter in DisjointSetForest">E</a>&nbsp;element2)</span></div>
 <div class="block">Merges two sets into one, where the sets are chosen by specifying a representative member of
 each. If the two elements are already in the same set, then no merger takes place. Calls to
 this method also apply path compression while finding the sets containing each of the elements,

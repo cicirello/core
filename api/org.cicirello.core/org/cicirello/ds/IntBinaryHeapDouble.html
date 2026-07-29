@@ -77,8 +77,10 @@ loadScripts(document, 'script');</script>
 <li><a href="#peekPriority()" tabindex="0">peekPriority()</a></li>
 <li><a href="#peekPriority(int)" tabindex="0">peekPriority(int)</a></li>
 <li><a href="#poll()" tabindex="0">poll()</a></li>
+<li><a href="#pollThenOffer(int,double)" tabindex="0">pollThenOffer(int, double)</a></li>
 <li><a href="#promote(int,double)" tabindex="0">promote(int, double)</a></li>
 <li><a href="#size()" tabindex="0">size()</a></li>
+<li><a href="#toArray()" tabindex="0">toArray()</a></li>
 </ol>
 </li>
 </ol>
@@ -113,7 +115,7 @@ a max heap with priority order maximum-priority-first-out.
 <p><b>Creating instances:</b> To create an instance, use one of the factory methods. In this
 example an IntBinaryHeapDouble with an element domain of [0,100) is created:
 
-<pre><code>IntBinaryHeapDouble&lt;String&gt; pq = IntBinaryHeapDouble.createMinHeap(100);
+<pre><code>IntBinaryHeapDouble pq = IntBinaryHeapDouble.createMinHeap(100);
 </code></pre>
 
 <p>In the above example, the element domain is [0,100) and the IntBinaryHeapDouble is initially
@@ -134,8 +136,8 @@ for this special case.
 
 <ul>
   <li><b>O(1):</b> <a href="#contains(int)"><code>contains(int)</code></a>, <a href="#createMaxHeap(int)"><code>createMaxHeap(int)</code></a>, <a href="#createMinHeap(int)"><code>createMinHeap(int)</code></a>, <a href="#domain()"><code>domain()</code></a>, <a href="#isEmpty()"><code>isEmpty()</code></a>, <a href="#peek()"><code>peek()</code></a>, <a href="#peekPriority()"><code>peekPriority()</code></a>, <a href="#peekPriority(int)"><code>peekPriority(int)</code></a>, <a href="#size()"><code>size()</code></a>
-  <li><b>O(lg n):</b> <a href="#change(int,double)"><code>change(int,double)</code></a>, <a href="#demote(int,double)"><code>demote(int,double)</code></a>, <a href="#offer(int,double)"><code>offer(int, double)</code></a>, <a href="#poll()"><code>poll()</code></a>, <a href="#promote(int,double)"><code>promote(int,double)</code></a>
-  <li><b>O(n):</b> <a href="#clear()"><code>clear()</code></a>, <a href="#copy()"><code>copy()</code></a>
+  <li><b>O(lg n):</b> <a href="#change(int,double)"><code>change(int,double)</code></a>, <a href="#demote(int,double)"><code>demote(int,double)</code></a>, <a href="#offer(int,double)"><code>offer(int, double)</code></a>, <a href="#poll()"><code>poll()</code></a>, <a href="#pollThenOffer(int,double)"><code>pollThenOffer(int,double)</code></a>, <a href="#promote(int,double)"><code>promote(int,double)</code></a>
+  <li><b>O(n):</b> <a href="#clear()"><code>clear()</code></a>, <a href="#copy()"><code>copy()</code></a>, <a href="#toArray()"><code>toArray()</code></a>
 </ul></div>
 </div>
 </section>
@@ -230,18 +232,29 @@ provided the element is not already in the IntPriorityQueueDouble.</div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets and removes the next element in priority order from this IntPriorityQueueDouble.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#promote(int,double)" class="member-name-link">promote</a><wbr>(int&nbsp;element,
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#pollThenOffer(int,double)" class="member-name-link">pollThenOffer</a><wbr>(int&nbsp;element,
  double&nbsp;priority)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Performs the equivalent of a combination of a <a href="#poll()"><code>poll()</code></a> and <a href="#offer(int,double)"><code>offer(int, double)</code></a>.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#promote(int,double)" class="member-name-link">promote</a><wbr>(int&nbsp;element,
+ double&nbsp;priority)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Promotes an element relative to priority order if the element is present in the
 IntPriorityQueueDouble.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#size()" class="member-name-link">size</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#size()" class="member-name-link">size</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the current size of the IntPriorityQueueDouble, which is the number of (element, priority)
 pairs that it contains.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int[]</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toArray()" class="member-name-link">toArray</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Creates and returns an array of the elements (only the elements without the priority values).</div>
 </div>
 </div>
 </div>
@@ -524,6 +537,41 @@ is undefined if it is empty.</div>
 </section>
 </li>
 <li>
+<section class="detail" id="pollThenOffer(int,double)">
+<h3>pollThenOffer</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">pollThenOffer</span><wbr><span class="parameters">(int&nbsp;element,
+ double&nbsp;priority)</span></div>
+<div class="block">Performs the equivalent of a combination of a <a href="#poll()"><code>poll()</code></a> and <a href="#offer(int,double)"><code>offer(int, double)</code></a>. Like <a href="#poll()"><code>poll()</code></a>, the return value is undefined if the priority queue is empty at the time that this
+method is called. Thus, you should not call this method on empty priority queues. This method
+adds an (element, priority) pair to the priority queue with a specified priority provided that
+the element is not already present. If the element is already present in the priority queue and
+is at the root of binary heap, then this method will update its priority and return the element
+(the equivalent behavior if you had instead explicitly called poll followed by offer). If the
+element is already present in the priority queue but somewhere other than the root, then this
+method just performs the poll. Unlike the <a href="#offer(int,double)"><code>offer(int, double)</code></a> method, this method does not provide
+an explicit confirmation of success. If such confirmation is required, then you should instead
+directly use a combination of <a href="#poll()"><code>poll()</code></a> and <a href="#offer(int,double)"><code>offer(int, double)</code></a>.
+
+<p>This implementation is more efficient than separately calling <a href="#poll()"><code>poll()</code></a> and <a href="#offer(int,double)"><code>offer(int, double)</code></a> as it exploits the structure of a binary heap. However, its asymptotic runtime is no
+better than a combination of <a href="#poll()"><code>poll()</code></a> and <a href="#offer(int,double)"><code>offer(int, double)</code></a>.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="IntPriorityQueueDouble.html#pollThenOffer(int,double)">pollThenOffer</a></code>&nbsp;in interface&nbsp;<code><a href="IntPriorityQueueDouble.html" title="interface in org.cicirello.ds">IntPriorityQueueDouble</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>element</code> - The element to add.</dd>
+<dd><code>priority</code> - The priority of the element.</dd>
+<dt>Returns:</dt>
+<dd>the next element in priority order. The return value is undefined if the priority queue
+    is empty at the time that this method is called.</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if element is negative, or if element is greater than or
+    equal to the domain n.</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
 <section class="detail" id="promote(int,double)">
 <h3>promote</h3>
 <div class="horizontal-scroll">
@@ -563,6 +611,24 @@ pairs that it contains.</div>
 <dd><code><a href="IntPriorityQueueDouble.html#size()">size</a></code>&nbsp;in interface&nbsp;<code><a href="IntPriorityQueueDouble.html" title="interface in org.cicirello.ds">IntPriorityQueueDouble</a></code></dd>
 <dt>Returns:</dt>
 <dd>the current size of the IntPriorityQueueDouble.</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="toArray()">
+<h3>toArray</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">int[]</span>&nbsp;<span class="element-name">toArray</span>()</div>
+<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="IntPriorityQueueDouble.html#toArray()">IntPriorityQueueDouble</a></code></span></div>
+<div class="block">Creates and returns an array of the elements (only the elements without the priority values).
+The order of the elements is undefined, so may be in whatever order is most convenient to the
+implementation.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="IntPriorityQueueDouble.html#toArray()">toArray</a></code>&nbsp;in interface&nbsp;<code><a href="IntPriorityQueueDouble.html" title="interface in org.cicirello.ds">IntPriorityQueueDouble</a></code></dd>
+<dt>Returns:</dt>
+<dd>an array of the elements</dd>
 </dl>
 </div>
 </section>

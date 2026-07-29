@@ -79,6 +79,7 @@ loadScripts(document, 'script');</script>
 <li><a href="#poll()" tabindex="0">poll()</a></li>
 <li><a href="#promote(int,int)" tabindex="0">promote(int, int)</a></li>
 <li><a href="#size()" tabindex="0">size()</a></li>
+<li><a href="#toArray()" tabindex="0">toArray()</a></li>
 </ol>
 </li>
 </ol>
@@ -117,7 +118,7 @@ heap with priority order maximum-priority-first-out.
 <p><b>Creating instances:</b> To create an instance, use one of the factory methods. In this
 example an IntFibonacciHeap with an element domain of [0,100) is created:
 
-<pre><code>IntFibonacciHeap&lt;String&gt; pq = IntFibonacciHeap.createMinHeap(100);
+<pre><code>IntFibonacciHeap pq = IntFibonacciHeap.createMinHeap(100);
 </code></pre>
 
 <p>In the above example, the element domain is [0,100) and the IntFibonacciHeap is initially
@@ -139,8 +140,8 @@ amortized time and not actual time (see a reference on Fibonacci heaps for detai
 <ul>
   <li><b>O(1):</b> <a href="#contains(int)"><code>contains(int)</code></a>, <a href="#createMaxHeap(int)"><code>createMaxHeap(int)</code></a>, <a href="#createMinHeap(int)"><code>createMinHeap(int)</code></a>, <a href="#domain()"><code>domain()</code></a>, <a href="#isEmpty()"><code>isEmpty()</code></a>, <a href="#offer(int,int)"><code>offer(int, int)</code></a>,
       <a href="#peek()"><code>peek()</code></a>, <a href="#peekPriority()"><code>peekPriority()</code></a>, <a href="#peekPriority(int)"><code>peekPriority(int)</code></a>, <a href="#promote(int,int)"><code>promote(int,int)</code></a>, <a href="#size()"><code>size()</code></a>
-  <li><b>O(lg n):</b> <a href="#demote(int,int)"><code>demote(int,int)</code></a>, <a href="#poll()"><code>poll()</code></a>
-  <li><b>O(n):</b> <a href="#clear()"><code>clear()</code></a>, <a href="#copy()"><code>copy()</code></a>
+  <li><b>O(lg n):</b> <a href="#demote(int,int)"><code>demote(int,int)</code></a>, <a href="#poll()"><code>poll()</code></a>, <a href="IntPriorityQueue.html#pollThenOffer(int,int)"><code>IntPriorityQueue.pollThenOffer(int,int)</code></a>
+  <li><b>O(n):</b> <a href="#clear()"><code>clear()</code></a>, <a href="#copy()"><code>copy()</code></a>, <a href="#toArray()"><code>toArray()</code></a>
 </ul>
 
 <p>The amortized runtime of <a href="#change(int,int)"><code>change(int,int)</code></a> depends on the direction of change. If the
@@ -252,12 +253,20 @@ IntPriorityQueue.</div>
 <div class="block">Gets the current size of the IntPriorityQueue, which is the number of (element, priority) pairs
 that it contains.</div>
 </div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int[]</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toArray()" class="member-name-link">toArray</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Creates and returns an array of the elements (only the elements without the priority values).</div>
+</div>
 </div>
 </div>
 </div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#method-summary" title="class or interface in java.lang" class="external-link">Object</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
+<div class="inherited-list">
+<h3 id="methods-inherited-from-class-org.cicirello.ds.IntPriorityQueue">Methods inherited from interface&nbsp;<a href="IntPriorityQueue.html#method-summary" title="interface in org.cicirello.ds">IntPriorityQueue</a></h3>
+<code><a href="IntPriorityQueue.html#pollThenOffer(int,int)" title="pollThenOffer(int, int)">pollThenOffer</a></code></div>
 </section>
 </li>
 </ul>
@@ -573,6 +582,24 @@ that it contains.</div>
 <dd><code><a href="IntPriorityQueue.html#size()">size</a></code>&nbsp;in interface&nbsp;<code><a href="IntPriorityQueue.html" title="interface in org.cicirello.ds">IntPriorityQueue</a></code></dd>
 <dt>Returns:</dt>
 <dd>the current size of the IntPriorityQueue.</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="toArray()">
+<h3>toArray</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">int[]</span>&nbsp;<span class="element-name">toArray</span>()</div>
+<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="IntPriorityQueue.html#toArray()">IntPriorityQueue</a></code></span></div>
+<div class="block">Creates and returns an array of the elements (only the elements without the priority values).
+The order of the elements is undefined, so may be in whatever order is most convenient to the
+implementation.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="IntPriorityQueue.html#toArray()">toArray</a></code>&nbsp;in interface&nbsp;<code><a href="IntPriorityQueue.html" title="interface in org.cicirello.ds">IntPriorityQueue</a></code></dd>
+<dt>Returns:</dt>
+<dd>an array of the elements</dd>
 </dl>
 </div>
 </section>

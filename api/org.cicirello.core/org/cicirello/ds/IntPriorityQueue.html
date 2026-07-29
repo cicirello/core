@@ -74,8 +74,10 @@ loadScripts(document, 'script');</script>
 <li><a href="#peekPriority()" tabindex="0">peekPriority()</a></li>
 <li><a href="#peekPriority(int)" tabindex="0">peekPriority(int)</a></li>
 <li><a href="#poll()" tabindex="0">poll()</a></li>
+<li><a href="#pollThenOffer(int,int)" tabindex="0">pollThenOffer(int, int)</a></li>
 <li><a href="#promote(int,int)" tabindex="0">promote(int, int)</a></li>
 <li><a href="#size()" tabindex="0">size()</a></li>
+<li><a href="#toArray()" tabindex="0">toArray()</a></li>
 </ol>
 </li>
 </ol>
@@ -115,7 +117,7 @@ classes that implement it.</div>
 <section class="method-summary" id="method-summary">
 <h2>Method Summary</h2>
 <div id="method-summary-table">
-<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab3" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab3', 3)" class="table-tab">Abstract Methods</button></div>
+<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab3" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab3', 3)" class="table-tab">Abstract Methods</button><button id="method-summary-table-tab5" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab5', 3)" class="table-tab">Default Methods</button></div>
 <div id="method-summary-table.tabpanel" role="tabpanel" aria-labelledby="method-summary-table-tab0">
 <div class="summary-table three-column-summary">
 <div class="table-header col-first">Modifier and Type</div>
@@ -182,18 +184,29 @@ the element is not already in the IntPriorityQueue.</div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Gets and removes the next element in priority order from this IntPriorityQueue.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#promote(int,int)" class="member-name-link">promote</a><wbr>(int&nbsp;element,
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default int</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#pollThenOffer(int,int)" class="member-name-link">pollThenOffer</a><wbr>(int&nbsp;element,
  int&nbsp;priority)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="block">Performs a combination of a <a href="#poll()"><code>poll()</code></a> and <a href="#offer(int,int)"><code>offer(int, int)</code></a>.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#promote(int,int)" class="member-name-link">promote</a><wbr>(int&nbsp;element,
+ int&nbsp;priority)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Promotes an element relative to priority order if the element is present in the
 IntPriorityQueue.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#size()" class="member-name-link">size</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#size()" class="member-name-link">size</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Gets the current size of the IntPriorityQueue, which is the number of (element, priority) pairs
 that it contains.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int[]</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toArray()" class="member-name-link">toArray</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Creates and returns an array of the elements (only the elements without the priority values).</div>
 </div>
 </div>
 </div>
@@ -392,6 +405,39 @@ undefined if it is empty.</div>
 </section>
 </li>
 <li>
+<section class="detail" id="pollThenOffer(int,int)">
+<h3>pollThenOffer</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">pollThenOffer</span><wbr><span class="parameters">(int&nbsp;element,
+ int&nbsp;priority)</span></div>
+<div class="block">Performs a combination of a <a href="#poll()"><code>poll()</code></a> and <a href="#offer(int,int)"><code>offer(int, int)</code></a>. The return value is undefined if
+the priority queue is empty at the time that this method is called. Thus, you should not call
+this method on empty priority queues. This method adds an (element, priority) pair to the
+IntPriorityQueue with a specified priority, provided the element is not already in the
+IntPriorityQueue. Unlike the <a href="#offer(int,int)"><code>offer(int, int)</code></a> method, this method does not provide an explicit
+confirmation of success. If such confirmation is required, then you should instead directly use
+a combination of <a href="#poll()"><code>poll()</code></a> and <a href="#offer(int,int)"><code>offer(int, int)</code></a>.
+
+<p>The default implementation is equivalent to the following sequence of steps: <code>
+int e = poll(); offer(element, priority);
+return e;</code> Some priority queue classes may override this default behavior if they can do
+the combination of operations more efficiently than this sequence, such as the case for binary
+heap implementations.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>element</code> - The element to add.</dd>
+<dd><code>priority</code> - The priority of the element.</dd>
+<dt>Returns:</dt>
+<dd>the next element in priority order. The return value is undefined if the priority queue
+    is empty at the time that this method is called.</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if element is negative, or if element is greater than or
+    equal to the domain n.</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
 <section class="detail" id="promote(int,int)">
 <h3>promote</h3>
 <div class="horizontal-scroll">
@@ -424,6 +470,21 @@ that it contains.</div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>the current size of the IntPriorityQueue.</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="toArray()">
+<h3>toArray</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="return-type">int[]</span>&nbsp;<span class="element-name">toArray</span>()</div>
+<div class="block">Creates and returns an array of the elements (only the elements without the priority values).
+The order of the elements is undefined, so may be in whatever order is most convenient to the
+implementation.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>an array of the elements</dd>
 </dl>
 </div>
 </section>

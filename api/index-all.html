@@ -336,6 +336,10 @@ otherwise adds the (element, priority) pair to the priority queue.</div>
 <dd>
 <div class="block">Checks if the list contains a value.</div>
 </dd>
+<dt><a href="org.cicirello.core/org/cicirello/ds/DisjointSetForest.html#contains(E)" class="member-name-link">contains(E)</a> - Method in class org.cicirello.ds.<a href="org.cicirello.core/org/cicirello/ds/DisjointSetForest.html" title="class in org.cicirello.ds">DisjointSetForest</a></dt>
+<dd>
+<div class="block">Checks if an element is in the disjoint set forest.</div>
+</dd>
 <dt><a href="org.cicirello.core/org/cicirello/ds/BinaryHeap.html#contains(java.lang.Object)" class="member-name-link">contains(Object)</a> - Method in class org.cicirello.ds.<a href="org.cicirello.core/org/cicirello/ds/BinaryHeap.html" title="class in org.cicirello.ds">BinaryHeap</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="org.cicirello.core/org/cicirello/ds/BinaryHeapDouble.html#contains(java.lang.Object)" class="member-name-link">contains(Object)</a> - Method in class org.cicirello.ds.<a href="org.cicirello.core/org/cicirello/ds/BinaryHeapDouble.html" title="class in org.cicirello.ds">BinaryHeapDouble</a></dt>
@@ -362,10 +366,6 @@ given element.</div>
 <dd>&nbsp;</dd>
 <dt><a href="org.cicirello.core/org/cicirello/ds/SimpleFibonacciHeapDouble.html#contains(java.lang.Object)" class="member-name-link">contains(Object)</a> - Method in class org.cicirello.ds.<a href="org.cicirello.core/org/cicirello/ds/SimpleFibonacciHeapDouble.html" title="class in org.cicirello.ds">SimpleFibonacciHeapDouble</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="org.cicirello.core/org/cicirello/ds/DisjointSetForest.html#contains(T)" class="member-name-link">contains(T)</a> - Method in class org.cicirello.ds.<a href="org.cicirello.core/org/cicirello/ds/DisjointSetForest.html" title="class in org.cicirello.ds">DisjointSetForest</a></dt>
-<dd>
-<div class="block">Checks if an element is in the disjoint set forest.</div>
-</dd>
 <dt><a href="org.cicirello.core/org/cicirello/ds/FibonacciHeap.html#containsAll(java.util.Collection)" class="member-name-link">containsAll(Collection)</a> - Method in class org.cicirello.ds.<a href="org.cicirello.core/org/cicirello/ds/FibonacciHeap.html" title="class in org.cicirello.ds">FibonacciHeap</a></dt>
 <dd>
 <div class="block">Checks if this PriorityQueue contains all elements or (element, priority) pairs from a given
@@ -784,7 +784,7 @@ IntPriorityQueue.</div>
 <div class="block">Initializes a disjoint set forest containing the integers from 0 through n-1, each initially in
 a set by itself.</div>
 </dd>
-<dt><a href="org.cicirello.core/org/cicirello/ds/DisjointSetForest.html" class="type-name-link" title="class in org.cicirello.ds">DisjointSetForest&lt;T&gt;</a> - Class in <a href="org.cicirello.core/org/cicirello/ds/package-summary.html">org.cicirello.ds</a></dt>
+<dt><a href="org.cicirello.core/org/cicirello/ds/DisjointSetForest.html" class="type-name-link" title="class in org.cicirello.ds">DisjointSetForest&lt;E&gt;</a> - Class in <a href="org.cicirello.core/org/cicirello/ds/package-summary.html">org.cicirello.ds</a></dt>
 <dd>
 <div class="block">Represents disjoint sets of objects with a disjoint set forest.</div>
 </dd>
@@ -1074,7 +1074,7 @@ of the same elements in the same order.</div>
 <dd>
 <div class="block">Finds the id of the set currently containing the element.</div>
 </dd>
-<dt><a href="org.cicirello.core/org/cicirello/ds/DisjointSetForest.html#findSet(T)" class="member-name-link">findSet(T)</a> - Method in class org.cicirello.ds.<a href="org.cicirello.core/org/cicirello/ds/DisjointSetForest.html" title="class in org.cicirello.ds">DisjointSetForest</a></dt>
+<dt><a href="org.cicirello.core/org/cicirello/ds/DisjointSetForest.html#findSet(E)" class="member-name-link">findSet(E)</a> - Method in class org.cicirello.ds.<a href="org.cicirello.core/org/cicirello/ds/DisjointSetForest.html" title="class in org.cicirello.ds">DisjointSetForest</a></dt>
 <dd>
 <div class="block">Finds the id of the set currently containing the element.</div>
 </dd>
@@ -1365,7 +1365,7 @@ size() elements.</div>
 </dl>
 <h2 class="title" id="I:M">M</h2>
 <dl class="index">
-<dt><a href="org.cicirello.core/org/cicirello/ds/DisjointSetForest.html#makeSet(T)" class="member-name-link">makeSet(T)</a> - Method in class org.cicirello.ds.<a href="org.cicirello.core/org/cicirello/ds/DisjointSetForest.html" title="class in org.cicirello.ds">DisjointSetForest</a></dt>
+<dt><a href="org.cicirello.core/org/cicirello/ds/DisjointSetForest.html#makeSet(E)" class="member-name-link">makeSet(E)</a> - Method in class org.cicirello.ds.<a href="org.cicirello.core/org/cicirello/ds/DisjointSetForest.html" title="class in org.cicirello.ds">DisjointSetForest</a></dt>
 <dd>
 <div class="block">Adds a new set to the disjoint set forest containing only the new element.</div>
 </dd>
@@ -1791,6 +1791,22 @@ queue, adding a new (element, priority) pair prior to returning.</div>
 </dd>
 <dt><a href="org.cicirello.core/org/cicirello/ds/SimpleBinaryHeap.html#pollThenAdd(org.cicirello.ds.IntegerPriorityQueueNode)" class="member-name-link">pollThenAdd(IntegerPriorityQueueNode)</a> - Method in class org.cicirello.ds.<a href="org.cicirello.core/org/cicirello/ds/SimpleBinaryHeap.html" title="class in org.cicirello.ds">SimpleBinaryHeap</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="org.cicirello.core/org/cicirello/ds/IntBinaryHeapDouble.html#pollThenOffer(int,double)" class="member-name-link">pollThenOffer(int, double)</a> - Method in class org.cicirello.ds.<a href="org.cicirello.core/org/cicirello/ds/IntBinaryHeapDouble.html" title="class in org.cicirello.ds">IntBinaryHeapDouble</a></dt>
+<dd>
+<div class="block">Performs the equivalent of a combination of a <a href="org.cicirello.core/org/cicirello/ds/IntBinaryHeapDouble.html#poll()"><code>IntBinaryHeapDouble.poll()</code></a> and <a href="org.cicirello.core/org/cicirello/ds/IntBinaryHeapDouble.html#offer(int,double)"><code>IntBinaryHeapDouble.offer(int, double)</code></a>.</div>
+</dd>
+<dt><a href="org.cicirello.core/org/cicirello/ds/IntPriorityQueueDouble.html#pollThenOffer(int,double)" class="member-name-link">pollThenOffer(int, double)</a> - Method in interface org.cicirello.ds.<a href="org.cicirello.core/org/cicirello/ds/IntPriorityQueueDouble.html" title="interface in org.cicirello.ds">IntPriorityQueueDouble</a></dt>
+<dd>
+<div class="block">Performs a combination of a <a href="org.cicirello.core/org/cicirello/ds/IntPriorityQueueDouble.html#poll()"><code>IntPriorityQueueDouble.poll()</code></a> and <a href="org.cicirello.core/org/cicirello/ds/IntPriorityQueueDouble.html#offer(int,double)"><code>IntPriorityQueueDouble.offer(int, double)</code></a>.</div>
+</dd>
+<dt><a href="org.cicirello.core/org/cicirello/ds/IntBinaryHeap.html#pollThenOffer(int,int)" class="member-name-link">pollThenOffer(int, int)</a> - Method in class org.cicirello.ds.<a href="org.cicirello.core/org/cicirello/ds/IntBinaryHeap.html" title="class in org.cicirello.ds">IntBinaryHeap</a></dt>
+<dd>
+<div class="block">Performs the equivalent of a combination of a <a href="org.cicirello.core/org/cicirello/ds/IntBinaryHeap.html#poll()"><code>IntBinaryHeap.poll()</code></a> and <a href="org.cicirello.core/org/cicirello/ds/IntBinaryHeap.html#offer(int,int)"><code>IntBinaryHeap.offer(int, int)</code></a>.</div>
+</dd>
+<dt><a href="org.cicirello.core/org/cicirello/ds/IntPriorityQueue.html#pollThenOffer(int,int)" class="member-name-link">pollThenOffer(int, int)</a> - Method in interface org.cicirello.ds.<a href="org.cicirello.core/org/cicirello/ds/IntPriorityQueue.html" title="interface in org.cicirello.ds">IntPriorityQueue</a></dt>
+<dd>
+<div class="block">Performs a combination of a <a href="org.cicirello.core/org/cicirello/ds/IntPriorityQueue.html#poll()"><code>IntPriorityQueue.poll()</code></a> and <a href="org.cicirello.core/org/cicirello/ds/IntPriorityQueue.html#offer(int,int)"><code>IntPriorityQueue.offer(int, int)</code></a>.</div>
+</dd>
 <dt><a href="org.cicirello.core/org/cicirello/ds/DoublePriorityQueueNode.html#priority()" class="member-name-link">priority()</a> - Method in record class org.cicirello.ds.<a href="org.cicirello.core/org/cicirello/ds/DoublePriorityQueueNode.html" title="class in org.cicirello.ds">DoublePriorityQueueNode</a></dt>
 <dd>
 <div class="block">Returns the value of the <a href="./org.cicirello.core/org/cicirello/ds/DoublePriorityQueueNode.html#param-priority"><code>priority</code></a> record component.</div>
@@ -2042,7 +2058,7 @@ array</div>
 <dd>
 <div class="block">Checks whether or not two elements are in the same set.</div>
 </dd>
-<dt><a href="org.cicirello.core/org/cicirello/ds/DisjointSetForest.html#sameSet(T,T)" class="member-name-link">sameSet(T, T)</a> - Method in class org.cicirello.ds.<a href="org.cicirello.core/org/cicirello/ds/DisjointSetForest.html" title="class in org.cicirello.ds">DisjointSetForest</a></dt>
+<dt><a href="org.cicirello.core/org/cicirello/ds/DisjointSetForest.html#sameSet(E,E)" class="member-name-link">sameSet(E, E)</a> - Method in class org.cicirello.ds.<a href="org.cicirello.core/org/cicirello/ds/DisjointSetForest.html" title="class in org.cicirello.ds">DisjointSetForest</a></dt>
 <dd>
 <div class="block">Checks whether or not two elements are in the same set.</div>
 </dd>
@@ -2271,6 +2287,22 @@ it contains.</div>
 <dd>&nbsp;</dd>
 <dt><a href="org.cicirello.core/org/cicirello/ds/FibonacciHeapDouble.html#toArray()" class="member-name-link">toArray()</a> - Method in class org.cicirello.ds.<a href="org.cicirello.core/org/cicirello/ds/FibonacciHeapDouble.html" title="class in org.cicirello.ds">FibonacciHeapDouble</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="org.cicirello.core/org/cicirello/ds/IntBinaryHeap.html#toArray()" class="member-name-link">toArray()</a> - Method in class org.cicirello.ds.<a href="org.cicirello.core/org/cicirello/ds/IntBinaryHeap.html" title="class in org.cicirello.ds">IntBinaryHeap</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="org.cicirello.core/org/cicirello/ds/IntBinaryHeapDouble.html#toArray()" class="member-name-link">toArray()</a> - Method in class org.cicirello.ds.<a href="org.cicirello.core/org/cicirello/ds/IntBinaryHeapDouble.html" title="class in org.cicirello.ds">IntBinaryHeapDouble</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="org.cicirello.core/org/cicirello/ds/IntFibonacciHeap.html#toArray()" class="member-name-link">toArray()</a> - Method in class org.cicirello.ds.<a href="org.cicirello.core/org/cicirello/ds/IntFibonacciHeap.html" title="class in org.cicirello.ds">IntFibonacciHeap</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="org.cicirello.core/org/cicirello/ds/IntFibonacciHeapDouble.html#toArray()" class="member-name-link">toArray()</a> - Method in class org.cicirello.ds.<a href="org.cicirello.core/org/cicirello/ds/IntFibonacciHeapDouble.html" title="class in org.cicirello.ds">IntFibonacciHeapDouble</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="org.cicirello.core/org/cicirello/ds/IntPriorityQueue.html#toArray()" class="member-name-link">toArray()</a> - Method in interface org.cicirello.ds.<a href="org.cicirello.core/org/cicirello/ds/IntPriorityQueue.html" title="interface in org.cicirello.ds">IntPriorityQueue</a></dt>
+<dd>
+<div class="block">Creates and returns an array of the elements (only the elements without the priority values).</div>
+</dd>
+<dt><a href="org.cicirello.core/org/cicirello/ds/IntPriorityQueueDouble.html#toArray()" class="member-name-link">toArray()</a> - Method in interface org.cicirello.ds.<a href="org.cicirello.core/org/cicirello/ds/IntPriorityQueueDouble.html" title="interface in org.cicirello.ds">IntPriorityQueueDouble</a></dt>
+<dd>
+<div class="block">Creates and returns an array of the elements (only the elements without the priority values).</div>
+</dd>
 <dt><a href="org.cicirello.core/org/cicirello/ds/PriorityQueue.html#toArray()" class="member-name-link">toArray()</a> - Method in interface org.cicirello.ds.<a href="org.cicirello.core/org/cicirello/ds/PriorityQueue.html" title="interface in org.cicirello.ds">PriorityQueue</a></dt>
 <dd>
 <div class="block">Returns an array containing all of the (element, priority) pairs contained in the priority
@@ -2407,7 +2439,7 @@ least 1, and otherwise decreases capacity to 1.</div>
 <div class="block">Merges two sets into one, where the sets are chosen by specifying a representative member of
 each.</div>
 </dd>
-<dt><a href="org.cicirello.core/org/cicirello/ds/DisjointSetForest.html#union(T,T)" class="member-name-link">union(T, T)</a> - Method in class org.cicirello.ds.<a href="org.cicirello.core/org/cicirello/ds/DisjointSetForest.html" title="class in org.cicirello.ds">DisjointSetForest</a></dt>
+<dt><a href="org.cicirello.core/org/cicirello/ds/DisjointSetForest.html#union(E,E)" class="member-name-link">union(E, E)</a> - Method in class org.cicirello.ds.<a href="org.cicirello.core/org/cicirello/ds/DisjointSetForest.html" title="class in org.cicirello.ds">DisjointSetForest</a></dt>
 <dd>
 <div class="block">Merges two sets into one, where the sets are chosen by specifying a representative member of
 each.</div>
