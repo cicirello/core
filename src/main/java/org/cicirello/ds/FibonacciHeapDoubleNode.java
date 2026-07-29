@@ -189,10 +189,9 @@ final class FibonacciHeapDoubleNode<E> {
       rootsByDegrees = nodeArrayAllocate(45);
     }
 
+    @SuppressWarnings("unchecked")
     private FibonacciHeapDoubleNode<E2>[] nodeArrayAllocate(int n) {
-      @SuppressWarnings("unchecked")
-      FibonacciHeapDoubleNode<E2>[] array = new FibonacciHeapDoubleNode[n];
-      return array;
+      return new FibonacciHeapDoubleNode[n];
     }
 
     final FibonacciHeapDoubleNode<E2> consolidate(FibonacciHeapDoubleNode<E2> min, int size) {

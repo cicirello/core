@@ -1,6 +1,6 @@
 /*
  * Module org.cicirello.core
- * Copyright 2019-2025 Vincent A. Cicirello, <https://www.cicirello.org/>.
+ * Copyright 2019-2026 Vincent A. Cicirello, <https://www.cicirello.org/>.
  *
  * This file is part of module org.cicirello.core.
  *
@@ -187,10 +187,9 @@ final class FibonacciHeapNode<E> {
       rootsByDegrees = nodeArrayAllocate(45);
     }
 
+    @SuppressWarnings("unchecked")
     private FibonacciHeapNode<E2>[] nodeArrayAllocate(int n) {
-      @SuppressWarnings("unchecked")
-      FibonacciHeapNode<E2>[] array = new FibonacciHeapNode[n];
-      return array;
+      return new FibonacciHeapNode[n];
     }
 
     final FibonacciHeapNode<E2> consolidate(FibonacciHeapNode<E2> min, int size) {

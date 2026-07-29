@@ -22,7 +22,6 @@
 
 package org.cicirello.ds;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -688,16 +687,8 @@ public final class BinaryHeap<E>
    */
   @Override
   public final <T> T[] toArray(T[] array) {
-    @SuppressWarnings("unchecked")
-    T[] result =
-        array.length >= size
-            ? array
-            : (T[]) Array.newInstance(array.getClass().getComponentType(), size);
-    for (int i = 0; i < size; i++) {
-      @SuppressWarnings("unchecked")
-      T nextElement = (T) buffer[i];
-      result[i] = nextElement;
-    }
+    T[] result = array.length >= size ? array : Arrays.copyOf(array, size);
+    System.arraycopy(buffer, 0, result, 0, size);
     if (result.length > size) {
       result[size] = null;
     }
@@ -761,10 +752,9 @@ public final class BinaryHeap<E>
     }
   }
 
+  @SuppressWarnings("unchecked")
   private IntegerPriorityQueueNode<E>[] allocate(int capacity) {
-    @SuppressWarnings("unchecked")
-    IntegerPriorityQueueNode<E>[] temp = new IntegerPriorityQueueNode[capacity];
-    return temp;
+    return new IntegerPriorityQueueNode[capacity];
   }
 
   /*
