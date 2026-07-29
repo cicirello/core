@@ -487,15 +487,16 @@ public final class SimpleFibonacciHeapDouble<E>
     T[] result = array.length >= size ? array : Arrays.copyOf(array, size);
     int i = 0;
     for (DoublePriorityQueueNode<E> e : this) {
-      @SuppressWarnings("unchecked")
-      T nextElement = (T) e;
-      result[i] = nextElement;
-      i++;
+      unsafeAssignment(result, i++, e);
     }
     if (result.length > size) {
       result[size] = null;
     }
     return result;
+  }
+
+  private void unsafeAssignment(Object[] targetArray, int index, Object element) {
+    targetArray[index] = element;
   }
 
   private void internalOffer(DoublePriorityQueueNode<E> pair) {
