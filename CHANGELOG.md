@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Refactored contains and remove methods of: SimpleFibonacciHeap, SimpleFibonacciHeapDouble, SimpleBinaryHeap, SimpleBinaryHeapDouble, FibonacciHeap, FibonacciHeapDouble, BinaryHeap, BinaryHeapDouble
 * Refactored removeAll and retainAll methods of: SimpleBinaryHeap, SimpleBinaryHeapDouble, BinaryHeap, BinaryHeapDouble
 * Refactored containsAll methods of: SimpleFibonacciHeap, SimpleFibonacciHeapDouble, SimpleBinaryHeap, SimpleBinaryHeapDouble, FibonacciHeap, FibonacciHeapDouble
+* Refactored various methods to eliminate unchecked casts
 
 ### CI/CD
 
