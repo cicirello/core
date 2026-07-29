@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2026-07-29
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### CI/CD
+
+### Other
+
+
+## [3.1.0] - 2026-07-29
+
+### Added
 * Method pollThenOffer added to the IntPriorityQueue and IntPriorityQueueDouble interfaces: 
   * A composite of a poll followed by an offer, 
   * Default implementations in the interfaces with the obvious implementation,
@@ -14,12 +31,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Method toArray() added to the IntPriorityQueue and IntPriorityQueueDouble interfaces:
   * Implementations provided in all of the relevant classes.
   * Note: We're not considering this a breaking change despite adding a method to an interface without providing a default implementation, because there is no obvious use-case where someone would be using this interface from the library without using one of the implementations from the library as well.
-
-### Changed
-
-### Deprecated
-
-### Removed
 
 ### Fixed
 * Fixed examples in javadocs of IntBinaryHeap, IntBinaryHeapDouble, IntFibonacciHeap, and IntFibonacciHeapDouble.
@@ -30,10 +41,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Refactored removeAll and retainAll methods of: SimpleBinaryHeap, SimpleBinaryHeapDouble, BinaryHeap, BinaryHeapDouble
 * Refactored containsAll methods of: SimpleFibonacciHeap, SimpleFibonacciHeapDouble, SimpleBinaryHeap, SimpleBinaryHeapDouble, FibonacciHeap, FibonacciHeapDouble
 * Refactored various methods to eliminate unchecked casts
-
-### CI/CD
-
-### Other
 
 
 ## [3.0.0] - 2026-06-25
