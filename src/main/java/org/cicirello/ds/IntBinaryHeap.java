@@ -63,7 +63,7 @@ import org.cicirello.util.Copyable;
  *       #peekPriority()}, {@link #peekPriority(int)}, {@link #size()}
  *   <li><b>O(lg n):</b> {@link #change(int,int)}, {@link #demote(int,int)}, {@link #offer(int,
  *       int)}, {@link #poll()}, {@link #pollThenOffer(int,int)}, {@link #promote(int,int)}
- *   <li><b>O(n):</b> {@link #clear()}, {@link #copy()}
+ *   <li><b>O(n):</b> {@link #clear()}, {@link #copy()}, {@link #toArray()}
  * </ul>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
