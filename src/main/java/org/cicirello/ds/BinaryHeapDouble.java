@@ -688,11 +688,7 @@ public final class BinaryHeapDouble<E>
   @Override
   public final <T> T[] toArray(T[] array) {
     T[] result = array.length >= size ? array : Arrays.copyOf(array, size);
-    for (int i = 0; i < size; i++) {
-      @SuppressWarnings("unchecked")
-      T nextElement = (T) buffer[i];
-      result[i] = nextElement;
-    }
+    System.arraycopy(buffer, 0, result, 0, size);
     if (result.length > size) {
       result[size] = null;
     }
