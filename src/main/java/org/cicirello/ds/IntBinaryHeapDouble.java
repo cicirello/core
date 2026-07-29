@@ -66,7 +66,7 @@ import org.cicirello.util.Copyable;
  *   <li><b>O(lg n):</b> {@link #change(int,double)}, {@link #demote(int,double)}, {@link
  *       #offer(int, double)}, {@link #poll()}, {@link #pollThenOffer(int,double)}, {@link
  *       #promote(int,double)}
- *   <li><b>O(n):</b> {@link #clear()}, {@link #copy()}
+ *   <li><b>O(n):</b> {@link #clear()}, {@link #copy()}, {@link #toArray()}
  * </ul>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a

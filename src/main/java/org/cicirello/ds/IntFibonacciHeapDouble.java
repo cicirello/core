@@ -72,7 +72,7 @@ import org.cicirello.util.Copyable;
  *       #promote(int,double)}, {@link #size()}
  *   <li><b>O(lg n):</b> {@link #demote(int,double)}, {@link #poll()}, {@link
  *       #pollThenOffer(int,double)}
- *   <li><b>O(n):</b> {@link #clear()}, {@link #copy()}
+ *   <li><b>O(n):</b> {@link #clear()}, {@link #copy()}, {@link #toArray()}
  * </ul>
  *
  * <p>The amortized runtime of {@link #change(int,double)} depends on the direction of change. If

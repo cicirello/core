@@ -70,7 +70,7 @@ import org.cicirello.util.Copyable;
  *       {@link #peek()}, {@link #peekPriority()}, {@link #peekPriority(int)}, {@link
  *       #promote(int,int)}, {@link #size()}
  *   <li><b>O(lg n):</b> {@link #demote(int,int)}, {@link #poll()}, {@link #pollThenOffer(int,int)}
- *   <li><b>O(n):</b> {@link #clear()}, {@link #copy()}
+ *   <li><b>O(n):</b> {@link #clear()}, {@link #copy()}, {@link #toArray()}
  * </ul>
  *
  * <p>The amortized runtime of {@link #change(int,int)} depends on the direction of change. If the
